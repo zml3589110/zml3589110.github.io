@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zml3589110.github.io/about/index.html</loc>
+    
+    <lastmod>2022-05-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zml3589110.github.io/posts/1689160997.html</loc>
+    
+    <lastmod>2022-05-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zml3589110.github.io/posts/289735847.html</loc>
     
     <lastmod>2022-05-18</lastmod>
@@ -291,15 +309,6 @@
   
   <url>
     <loc>https://zml3589110.github.io/link/index.html</loc>
-    
-    <lastmod>2022-05-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zml3589110.github.io/about/index.html</loc>
     
     <lastmod>2022-05-03</lastmod>
     
@@ -704,6 +713,20 @@
   
   <url>
     <loc>https://zml3589110.github.io/tags/%E8%93%9D%E7%89%99/</loc>
+    <lastmod>2022-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zml3589110.github.io/tags/BUG/</loc>
+    <lastmod>2022-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zml3589110.github.io/tags/Mixed-spaces-and-tabs/</loc>
     <lastmod>2022-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
