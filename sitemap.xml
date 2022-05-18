@@ -388,13 +388,6 @@
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/tags/github/</loc>
-    <lastmod>2022-05-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zml3589110.github.io/tags/%E6%8E%A8%E8%8D%90%E6%96%87%E7%AB%A0/</loc>
     <lastmod>2022-05-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -417,6 +410,13 @@
   
   <url>
     <loc>https://zml3589110.github.io/tags/escapeHTML/</loc>
+    <lastmod>2022-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zml3589110.github.io/tags/github/</loc>
     <lastmod>2022-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
