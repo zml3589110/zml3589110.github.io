@@ -299,7 +299,7 @@
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/categories/index.html</loc>
+    <loc>https://zml3589110.github.io/about/index.html</loc>
     
     <lastmod>2022-05-03</lastmod>
     
@@ -308,7 +308,7 @@
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/about/index.html</loc>
+    <loc>https://zml3589110.github.io/categories/index.html</loc>
     
     <lastmod>2022-05-03</lastmod>
     
@@ -388,6 +388,13 @@
   </url>
   
   <url>
+    <loc>https://zml3589110.github.io/tags/github/</loc>
+    <lastmod>2022-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zml3589110.github.io/tags/%E6%8E%A8%E8%8D%90%E6%96%87%E7%AB%A0/</loc>
     <lastmod>2022-05-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -410,13 +417,6 @@
   
   <url>
     <loc>https://zml3589110.github.io/tags/escapeHTML/</loc>
-    <lastmod>2022-05-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zml3589110.github.io/tags/github/</loc>
     <lastmod>2022-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -556,6 +556,13 @@
   </url>
   
   <url>
+    <loc>https://zml3589110.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
+    <lastmod>2022-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zml3589110.github.io/tags/HTML/</loc>
     <lastmod>2022-05-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -564,13 +571,6 @@
   
   <url>
     <loc>https://zml3589110.github.io/tags/%E6%96%87%E7%AB%A0%E6%94%B6%E9%9B%86/</loc>
-    <lastmod>2022-05-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zml3589110.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
     <lastmod>2022-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -747,14 +747,14 @@
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/HTML/</loc>
+    <loc>https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/JavaScript/</loc>
     <lastmod>2022-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/JavaScript/</loc>
+    <loc>https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/HTML/</loc>
     <lastmod>2022-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
