@@ -6,7 +6,7 @@
   <link href="https://zml3589110.github.io/atom.xml" rel="self"/>
   
   <link href="https://zml3589110.github.io/"/>
-  <updated>2022-05-24T06:51:04.459Z</updated>
+  <updated>2022-05-24T08:28:17.472Z</updated>
   <id>https://zml3589110.github.io/</id>
   
   <author>
@@ -17,11 +17,71 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Ubuntu无法访问github</title>
+    <link href="https://zml3589110.github.io/posts/969895767.html"/>
+    <id>https://zml3589110.github.io/posts/969895767.html</id>
+    <published>2022-05-24T07:56:20.000Z</published>
+    <updated>2022-05-24T08:28:17.472Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="查询github-com和github-global-ssl-fastly-net的ip地址"><a href="#查询github-com和github-global-ssl-fastly-net的ip地址" class="headerlink" title="查询github.com和github.global.ssl.fastly.net的ip地址"></a>查询github.com和github.global.ssl.fastly.net的ip地址</h1><blockquote><p>**可参考Windows github下拒绝访问的文章<br><a href="https://zml3589110.github.io/posts/774596022.html">关于访问github时出现隐私设置错误您的连接不是私密连接问题的解决方案</a><br>**</p></blockquote><blockquote><ol><li>地址查询已失效: <a href="https://ipaddress.com/website/github.com">https://ipaddress.com/website/github.com</a></li></ol></blockquote><img src="https://img-blog.csdnimg.cn/4870f2d39d134a6994170100ccb346b8.png"><blockquote><ol start="2"><li><a href="https://ipaddress.com/website/github.global.ssl.fastly.net">https://ipaddress.com/website/github.global.ssl.fastly.net</a></li></ol></blockquote><img src="https://img-blog.csdnimg.cn/f30c66da905740a6bb6123d0e82efdfd.png"><h1 id="修改hosts下的配置"><a href="#修改hosts下的配置" class="headerlink" title="修改hosts下的配置"></a>修改hosts下的配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/hosts</span><br></pre></td></tr></table></figure><p><strong>添加如下两句：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">140.82.113.3 github.com</span><br><span class="line">199.232.69.194 github.global.ssl.fastly.net</span><br></pre></td></tr></table></figure><h1 id="重启network"><a href="#重启network" class="headerlink" title="重启network"></a>重启network</h1><blockquote><p>**注意：在20版本ubuntu没有这种启动方式，需使用 network-manager restart 命令<br>参考：Ubuntu常用命令之ubuntu20.04重启网络方法 **</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/networking restart</span><br></pre></td></tr></table></figure><p><strong>结果在ubuntu20.04上运行该语句报错：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo: /etc/init.d/networking：找不到命令</span><br></pre></td></tr></table></figure><p>所以去看了下networking文件，发现并没有这个文件。<br>而是变成了这个文件，打开进去看一下</p><img src="https://img-blog.csdnimg.cn/1a0c7380153a45bda59cc375a1f0a8bb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5LiA5Y-q5bCP6I-c6bifeWE=,size_20,color_FFFFFF,t_70,g_se,x_16"><blockquote><p><strong>发现 network-manager 和 networking 功能是一样的。</strong></p></blockquote><h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><blockquote><p><strong>所以回到终端，运行此条命令</strong></p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/network-manager restart</span><br></pre></td></tr></table></figure><p>重启结果：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Restarting network-manager (via systemctl): network-manager.service.</span><br></pre></td></tr></table></figure><hr><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://blog.csdn.net/workMATLABhard/article/details/123679197">ubuntu20.04重启网络方法</a></li><li><a href="https://blog.51cto.com/u_15242250/2856080">【终极方法，绝对有用】ubuntu 无法访问github.com的解决方法 </a></li><li><a href="https://blog.csdn.net/w09103419/article/details/121562044">Windows&#x2F;Ubuntu无法访问GitHub的解决方式</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+    
+    
+    <summary type="html">Ubuntu无法访问github的解决方案</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://zml3589110.github.io/categories/Linux/"/>
+    
+    <category term="Ubuntu" scheme="https://zml3589110.github.io/categories/Ubuntu/"/>
+    
+    <category term="网络" scheme="https://zml3589110.github.io/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="github" scheme="https://zml3589110.github.io/tags/github/"/>
+    
+    <category term="Ubuntu" scheme="https://zml3589110.github.io/tags/Ubuntu/"/>
+    
+    <category term="常用命令" scheme="https://zml3589110.github.io/tags/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu常用命令之ubuntu20.04重启网络方法</title>
+    <link href="https://zml3589110.github.io/posts/471655546.html"/>
+    <id>https://zml3589110.github.io/posts/471655546.html</id>
+    <published>2022-05-24T07:48:20.000Z</published>
+    <updated>2022-05-24T07:55:32.075Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="网上常用的重启办法会报错"><a href="#网上常用的重启办法会报错" class="headerlink" title="网上常用的重启办法会报错"></a>网上常用的重启办法会报错</h1><blockquote><p>配置完网络ip需要重启一下网络，网上搜了一下，大多用的这条命令</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/networking restart</span><br></pre></td></tr></table></figure><p><strong>结果在ubuntu20.04上运行该语句报错：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo: /etc/init.d/networking：找不到命令</span><br></pre></td></tr></table></figure><p>所以去看了下networking文件，发现并没有这个文件。<br>而是变成了这个文件，打开进去看一下</p><img src="https://img-blog.csdnimg.cn/1a0c7380153a45bda59cc375a1f0a8bb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5LiA5Y-q5bCP6I-c6bifeWE=,size_20,color_FFFFFF,t_70,g_se,x_16"><blockquote><p><strong>发现 network-manager 和 networking 功能是一样的。</strong></p></blockquote><h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><blockquote><p><strong>所以回到终端，运行此条命令</strong></p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/network-manager restart</span><br></pre></td></tr></table></figure><p>重启结果：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Restarting network-manager (via systemctl): network-manager.service.</span><br></pre></td></tr></table></figure><hr><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://blog.csdn.net/workMATLABhard/article/details/123679197">ubuntu20.04重启网络方法</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+    
+    
+    <summary type="html">ubuntu20.04使用network-manager restart重启网络方法</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://zml3589110.github.io/categories/Linux/"/>
+    
+    <category term="Ubuntu" scheme="https://zml3589110.github.io/categories/Ubuntu/"/>
+    
+    <category term="网络" scheme="https://zml3589110.github.io/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="Ubuntu" scheme="https://zml3589110.github.io/tags/Ubuntu/"/>
+    
+    <category term="常用命令" scheme="https://zml3589110.github.io/tags/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    
+    <category term="network-manager restart" scheme="https://zml3589110.github.io/tags/network-manager-restart/"/>
+    
+    <category term="网络重启" scheme="https://zml3589110.github.io/tags/%E7%BD%91%E7%BB%9C%E9%87%8D%E5%90%AF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>关于访问github时出现隐私设置错误您的连接不是私密连接问题的解决方案</title>
     <link href="https://zml3589110.github.io/posts/774596022.html"/>
     <id>https://zml3589110.github.io/posts/774596022.html</id>
     <published>2022-05-24T06:37:20.000Z</published>
-    <updated>2022-05-24T06:51:04.459Z</updated>
+    <updated>2022-05-24T06:58:33.302Z</updated>
     
     <content type="html"><![CDATA[<h1 id="出现-你的连接不是私密连接-原因"><a href="#出现-你的连接不是私密连接-原因" class="headerlink" title="出现[你的连接不是私密连接]原因"></a>出现[你的连接不是私密连接]原因</h1><blockquote><p>为了更快的访问github网站，一般都会在hosts文件中加入github.com对应的ip地址。<br>但在加入值之后可能会出现下图中的情况</p></blockquote><img src="https://img-blog.csdnimg.cn/20200721225543761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjgzNTY5,size_16,color_FFFFFF,t_70"><blockquote><p>查看证书会发现这样一个问题:</p></blockquote><img scr="https://img-blog.csdnimg.cn/20200721225647922.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjgzNTY5,size_16,color_FFFFFF,t_70"><h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><ol><li>我查看百度几乎所有解决方案都没有效果，甚至一度怀疑被中间人攻击，到处查找证书的信息。将别人访问github.com的证书导出之后再导入我的证书管理，都无济于事。<br>最后发现问题出在hosts文件中追加的域名和ip地址不对应，我将github.com的ip地址写成了github.global.ssl.fastly.net对应的ip地址。<br>所以，在修改hosts文件时，需要将域名和ip地址对应正确，最好是两个都配置上，甚至github.com可以配置对个ip。这些域名对应的ip可以从<a href="https://www.ipaddress.com/%E5%A4%84%E6%9F%A5%E6%89%BE%E3%80%82">https://www.ipaddress.com/处查找。</a><blockquote><p><strong>主：自己网上方法也试了，只是增加IP地址的话还是不能访问，博主提供的这个网站也已经404，后来直接复制他的结果就解决了</strong></p></blockquote></li></ol><img src="https://img-blog.csdnimg.cn/20200721230940576.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjgzNTY5,size_16,color_FFFFFF,t_70"><ol start="2"><li>在搜索框中输入域名即可查看对应的ip<br>github.com对应ip（可能不同）</li></ol><img src="https://img-blog.csdnimg.cn/20200721231258768.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjgzNTY5,size_16,color_FFFFFF,t_70"><ol start="3"><li>github.global.ssl.fastly.net对应ip（可能不同）</li></ol><img src="https://img-blog.csdnimg.cn/20200721231501466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjgzNTY5,size_16,color_FFFFFF,t_70"><ol start="4"><li>然后将以上两段ip放入hosts文件<br>hosts文件地址为: C:\Windows\System32\drivers\etc<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">199.232.69.194github.global.ssl.fastly.net</span><br><span class="line">140.82.114.4github.com</span><br></pre></td></tr></table></figure></li><li>最后在cmd命令行窗口执行刷新操作即可<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /flushdns</span><br></pre></td></tr></table></figure><h1 id="最后PING看结果"><a href="#最后PING看结果" class="headerlink" title="最后PING看结果"></a>最后PING看结果</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;ipconfig /flushdns</span><br><span class="line"></span><br><span class="line">Windows IP 配置</span><br><span class="line"></span><br><span class="line">已成功刷新 DNS 解析缓存。</span><br><span class="line"></span><br><span class="line">C:\Users\Administrator&gt;ping github.com</span><br><span class="line"></span><br><span class="line">正在 Ping github.com [140.82.114.4] 具有 32 字节的数据:</span><br><span class="line">来自 140.82.114.4 的回复: 字节=32 时间=232ms TTL=50</span><br><span class="line">来自 140.82.114.4 的回复: 字节=32 时间=231ms TTL=50</span><br><span class="line">来自 140.82.114.4 的回复: 字节=32 时间=231ms TTL=50</span><br><span class="line">来自 140.82.114.4 的回复: 字节=32 时间=239ms TTL=50</span><br><span class="line"></span><br><span class="line">140.82.114.4 的 Ping 统计信息:</span><br><span class="line">    数据包: 已发送 = 4，已接收 = 4，丢失 = 0 (0% 丢失)，</span><br><span class="line">往返行程的估计时间(以毫秒为单位):</span><br><span class="line">    最短 = 231ms，最长 = 239ms，平均 = 233ms</span><br></pre></td></tr></table></figure></li></ol><p>查了很久，原本还会跳转到 Apache 服务上，后边停了就直接失败！最后找到博主这个方法，尝试后正常使用，记录下来以后方便能用上。</p><hr><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://blog.csdn.net/qq_29283569/article/details/107501508">关于访问github时出现隐私设置错误您的连接不是私密连接问题的解决方案</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
     
@@ -99,11 +159,11 @@
     
     <category term="网页" scheme="https://zml3589110.github.io/tags/%E7%BD%91%E9%A1%B5/"/>
     
-    <category term="php" scheme="https://zml3589110.github.io/tags/php/"/>
-    
     <category term="数据库" scheme="https://zml3589110.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     <category term="POST" scheme="https://zml3589110.github.io/tags/POST/"/>
+    
+    <category term="php" scheme="https://zml3589110.github.io/tags/php/"/>
     
     <category term="表单" scheme="https://zml3589110.github.io/tags/%E8%A1%A8%E5%8D%95/"/>
     
@@ -365,13 +425,13 @@
     
     <category term="网页" scheme="https://zml3589110.github.io/tags/%E7%BD%91%E9%A1%B5/"/>
     
-    <category term="apache" scheme="https://zml3589110.github.io/tags/apache/"/>
+    <category term="数据库" scheme="https://zml3589110.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     <category term="php" scheme="https://zml3589110.github.io/tags/php/"/>
     
-    <category term="数据库" scheme="https://zml3589110.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
     <category term="mysql" scheme="https://zml3589110.github.io/tags/mysql/"/>
+    
+    <category term="apache" scheme="https://zml3589110.github.io/tags/apache/"/>
     
   </entry>
   
@@ -398,11 +458,11 @@
     
     <category term="网页" scheme="https://zml3589110.github.io/tags/%E7%BD%91%E9%A1%B5/"/>
     
+    <category term="php" scheme="https://zml3589110.github.io/tags/php/"/>
+    
     <category term="软件安装" scheme="https://zml3589110.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
     
     <category term="apache" scheme="https://zml3589110.github.io/tags/apache/"/>
-    
-    <category term="php" scheme="https://zml3589110.github.io/tags/php/"/>
     
   </entry>
   
@@ -574,71 +634,15 @@
     
     <category term="物联网" scheme="https://zml3589110.github.io/tags/%E7%89%A9%E8%81%94%E7%BD%91/"/>
     
-    <category term="涂鸦" scheme="https://zml3589110.github.io/tags/%E6%B6%82%E9%B8%A6/"/>
-    
     <category term="C语言" scheme="https://zml3589110.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+    <category term="涂鸦" scheme="https://zml3589110.github.io/tags/%E6%B6%82%E9%B8%A6/"/>
     
     <category term="WBR3" scheme="https://zml3589110.github.io/tags/WBR3/"/>
     
     <category term="WIFI模块" scheme="https://zml3589110.github.io/tags/WIFI%E6%A8%A1%E5%9D%97/"/>
     
     <category term="蓝牙" scheme="https://zml3589110.github.io/tags/%E8%93%9D%E7%89%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>小熊派鸿蒙系统环境搭建</title>
-    <link href="https://zml3589110.github.io/posts/1932715036.html"/>
-    <id>https://zml3589110.github.io/posts/1932715036.html</id>
-    <published>2022-05-10T15:40:12.515Z</published>
-    <updated>2022-05-11T01:17:04.892Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="系统环境选择"><a href="#系统环境选择" class="headerlink" title="系统环境选择"></a>系统环境选择</h1><p>​</p><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote>]]></content>
-    
-    
-    <summary type="html">使用小熊派开发板(BEARPI-HM.Nano)搭建鸿蒙开发环境</summary>
-    
-    
-    
-    <category term="编程类" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/"/>
-    
-    
-    <category term="WIFI" scheme="https://zml3589110.github.io/tags/WIFI/"/>
-    
-    <category term="物联网" scheme="https://zml3589110.github.io/tags/%E7%89%A9%E8%81%94%E7%BD%91/"/>
-    
-    <category term="C语言" scheme="https://zml3589110.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
-    
-    <category term="鸿蒙" scheme="https://zml3589110.github.io/tags/%E9%B8%BF%E8%92%99/"/>
-    
-    <category term="小熊派" scheme="https://zml3589110.github.io/tags/%E5%B0%8F%E7%86%8A%E6%B4%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>商业洞察力目录</title>
-    <link href="https://zml3589110.github.io/posts/3924567325.html"/>
-    <id>https://zml3589110.github.io/posts/3924567325.html</id>
-    <published>2022-05-10T15:14:20.000Z</published>
-    <updated>2022-05-16T07:08:18.425Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="搭建模型，一个事物再复杂，也是几个固定要素组成的"><a href="#搭建模型，一个事物再复杂，也是几个固定要素组成的" class="headerlink" title="搭建模型，一个事物再复杂，也是几个固定要素组成的"></a>搭建模型，一个事物再复杂，也是几个固定要素组成的</h1><h2 id="第1章，系统、要素、连接关系"><a href="#第1章，系统、要素、连接关系" class="headerlink" title="第1章，系统、要素、连接关系"></a>第1章，系统、要素、连接关系</h2><h2 id="第2章，变量、因果链、增强回路、调节回路、滞后效应"><a href="#第2章，变量、因果链、增强回路、调节回路、滞后效应" class="headerlink" title="第2章，变量、因果链、增强回路、调节回路、滞后效应"></a>第2章，变量、因果链、增强回路、调节回路、滞后效应</h2><h2 id="第3章，流量、存量"><a href="#第3章，流量、存量" class="headerlink" title="第3章，流量、存量"></a>第3章，流量、存量</h2><h2 id="第4章，因果链"><a href="#第4章，因果链" class="headerlink" title="第4章，因果链"></a>第4章，因果链</h2><h2 id="第5章，增强回路"><a href="#第5章，增强回路" class="headerlink" title="第5章，增强回路"></a>第5章，增强回路</h2><h2 id="第6章，调节回路"><a href="#第6章，调节回路" class="headerlink" title="第6章，调节回路"></a>第6章，调节回路</h2><h2 id="第7章，滞后效应"><a href="#第7章，滞后效应" class="headerlink" title="第7章，滞后效应"></a>第7章，滞后效应</h2><h1 id="第一个训练场，解决难题，像商业顾问一样思考"><a href="#第一个训练场，解决难题，像商业顾问一样思考" class="headerlink" title="第一个训练场，解决难题，像商业顾问一样思考"></a>第一个训练场，解决难题，像商业顾问一样思考</h1><h2 id="第8章，搭建模型，核心存量、关键因果链、增强回路、调节回路、防止滞后效应的饱和式创业"><a href="#第8章，搭建模型，核心存量、关键因果链、增强回路、调节回路、防止滞后效应的饱和式创业" class="headerlink" title="第8章，搭建模型，核心存量、关键因果链、增强回路、调节回路、防止滞后效应的饱和式创业"></a>第8章，搭建模型，核心存量、关键因果链、增强回路、调节回路、防止滞后效应的饱和式创业</h2><h2 id="第9章，系统体检，三个指标适应力（还原）、自组织性（升级）、层次性（隔离）"><a href="#第9章，系统体检，三个指标适应力（还原）、自组织性（升级）、层次性（隔离）" class="headerlink" title="第9章，系统体检，三个指标适应力（还原）、自组织性（升级）、层次性（隔离）"></a>第9章，系统体检，三个指标适应力（还原）、自组织性（升级）、层次性（隔离）</h2><h2 id="改变原因"><a href="#改变原因" class="headerlink" title="改变原因"></a>改变原因</h2><h3 id="第10章，还原大前提（失效）"><a href="#第10章，还原大前提（失效）" class="headerlink" title="第10章，还原大前提（失效）"></a>第10章，还原大前提（失效）</h3><h3 id="第11章，突围边界墙（滞涨）"><a href="#第11章，突围边界墙（滞涨）" class="headerlink" title="第11章，突围边界墙（滞涨）"></a>第11章，突围边界墙（滞涨）</h3><h3 id="第12章，安装缓冲器（波动）"><a href="#第12章，安装缓冲器（波动）" class="headerlink" title="第12章，安装缓冲器（波动）"></a>第12章，安装缓冲器（波动）</h3><h3 id="第13章，跨越临界点（突变）"><a href="#第13章，跨越临界点（突变）" class="headerlink" title="第13章，跨越临界点（突变）"></a>第13章，跨越临界点（突变）</h3><h2 id="改变模型"><a href="#改变模型" class="headerlink" title="改变模型"></a>改变模型</h2><h3 id="第14章，改变模型的案例"><a href="#第14章，改变模型的案例" class="headerlink" title="第14章，改变模型的案例"></a>第14章，改变模型的案例</h3><h1 id="第二个训练场是看透人心，个体、群体、集体管理千差万别"><a href="#第二个训练场是看透人心，个体、群体、集体管理千差万别" class="headerlink" title="第二个训练场是看透人心，个体、群体、集体管理千差万别"></a>第二个训练场是看透人心，个体、群体、集体管理千差万别</h1><h2 id="第15章，机械系统、生物系统、生态系统、社会系统。参与约束、激励相容（集体）"><a href="#第15章，机械系统、生物系统、生态系统、社会系统。参与约束、激励相容（集体）" class="headerlink" title="第15章，机械系统、生物系统、生态系统、社会系统。参与约束、激励相容（集体）"></a>第15章，机械系统、生物系统、生态系统、社会系统。参与约束、激励相容（集体）</h2><h2 id="第16章，群体压力（群体）"><a href="#第16章，群体压力（群体）" class="headerlink" title="第16章，群体压力（群体）"></a>第16章，群体压力（群体）</h2><h2 id="第17章，结构性张力（个人）"><a href="#第17章，结构性张力（个人）" class="headerlink" title="第17章，结构性张力（个人）"></a>第17章，结构性张力（个人）</h2><h2 id="第18章，创业之心（合伙人）"><a href="#第18章，创业之心（合伙人）" class="headerlink" title="第18章，创业之心（合伙人）"></a>第18章，创业之心（合伙人）</h2><h2 id="第19章，改变人心模型的案例"><a href="#第19章，改变人心模型的案例" class="headerlink" title="第19章，改变人心模型的案例"></a>第19章，改变人心模型的案例</h2><h1 id="第三个训练场是预测未来。解释系统动力学中，用来绘制未来曲线的四大模型组。"><a href="#第三个训练场是预测未来。解释系统动力学中，用来绘制未来曲线的四大模型组。" class="headerlink" title="第三个训练场是预测未来。解释系统动力学中，用来绘制未来曲线的四大模型组。"></a>第三个训练场是预测未来。解释系统动力学中，用来绘制未来曲线的四大模型组。</h1><h2 id="第20章，9个模型，公地悲剧、成长上限、成长与投资不足、舍本逐末、饮鸩止渴、意外之敌、富者越富、恶性竞争、目标侵蚀。"><a href="#第20章，9个模型，公地悲剧、成长上限、成长与投资不足、舍本逐末、饮鸩止渴、意外之敌、富者越富、恶性竞争、目标侵蚀。" class="headerlink" title="第20章，9个模型，公地悲剧、成长上限、成长与投资不足、舍本逐末、饮鸩止渴、意外之敌、富者越富、恶性竞争、目标侵蚀。"></a>第20章，9个模型，公地悲剧、成长上限、成长与投资不足、舍本逐末、饮鸩止渴、意外之敌、富者越富、恶性竞争、目标侵蚀。</h2><h3 id="受阻模型：123-公地悲剧、成长上限、成长与投资不足"><a href="#受阻模型：123-公地悲剧、成长上限、成长与投资不足" class="headerlink" title="受阻模型：123 公地悲剧、成长上限、成长与投资不足"></a>受阻模型：123 公地悲剧、成长上限、成长与投资不足</h3><h3 id="失控模型：456-舍本逐末、饮鸩止渴、意外之敌–“预测未来”"><a href="#失控模型：456-舍本逐末、饮鸩止渴、意外之敌–“预测未来”" class="headerlink" title="失控模型：456 舍本逐末、饮鸩止渴、意外之敌–“预测未来”"></a>失控模型：456 舍本逐末、饮鸩止渴、意外之敌–“预测未来”</h3><p><strong>为什么越急于求成，越一事无成</strong></p><ol><li>舍本逐末基模(Shifting  the Burden)</li></ol><p>A和B两家“婚前培训”，都想融资100万，A拿来请最好的人打磨产品，让新婚夫妻心甘情愿付费学习；B拿来宣传课程社会价值，申请政府补贴，让新婚夫妻免费学。<br>B的商业模型符合典型的“舍本逐末”模型。</p><blockquote><p>舍本逐末的本质：一条根本解的调节回路，因为见效慢，遭遇一条症状解打压的增强回路。最终问题依旧，甚至更严重，直至崩盘。</p></blockquote><ol start="2"><li>饮鸩止渴基模(Fixes that Fail)</li></ol><p><strong>舍本逐末升级版，不同的是，“鸩”这种“症状解”，不是没有营养的“末”，而是杀人于无形的“毒”</strong></p><p>年中，某知识付费平台的销售业绩比预计差不少。销售总监很着急，打算推出“一价全包会员卡”，只需365就能收听所有内容。<br>这个调节回路可以大大提升短期收入，但也会深深伤害长期收入。就不会有人再打算用500、800甚至1000购买单独课程。相当于把未来的收入提前打折兑现。下半年的业绩问题，会因为上半年的吸血，而惨不忍睹</p><blockquote><p>饮鸩止渴的本质：一条短期见效的调节回路，激活了一条长期恶化的增强回路。回光返照之后，灯枯油尽，走向失控。</p></blockquote><p><strong>这个世界上放在我们前面的通常不是正确的选择和错误的选择。而是正确的选择和容易的选择。而容易的选择，常常有毒</strong></p><ol start="3"><li>意外之敌基模(Accidental Adversaries)</li></ol><p>上世纪70年代，宝洁为了打击竞争对手，提高市场占有率，突然大规模打折促销。没想到这一降，让盟友沃尔玛措手不及。低价带来的渠道利润骤减，让沃尔玛无以为继。然后沃尔玛大规模囤积产品，等恢复原价再卖。<br>这样的场景还发生在销售和工程师之间。</p><blockquote><p>意外之敌的本质：改善自己业绩的调节回路，意外激活了一条伤及盟友的增强回路。昔日盟友，反目成仇，最终两败俱伤</p></blockquote><p><strong>最需要学习时空模型组的，是面临艰难选择的创业者。人的天性是选最容易走的路。但是，正确的路，通常艰难；而难走的路，从不拥挤</strong></p><h3 id="通吃模型：7-富者越富"><a href="#通吃模型：7-富者越富" class="headerlink" title="通吃模型：7 富者越富"></a>通吃模型：7 富者越富</h3><h3 id="锁死模型：89-恶性竞争、目标侵蚀"><a href="#锁死模型：89-恶性竞争、目标侵蚀" class="headerlink" title="锁死模型：89 恶性竞争、目标侵蚀"></a>锁死模型：89 恶性竞争、目标侵蚀</h3><h2 id="第21章，公地悲剧、成长上限、成长与投资不足"><a href="#第21章，公地悲剧、成长上限、成长与投资不足" class="headerlink" title="第21章，公地悲剧、成长上限、成长与投资不足"></a>第21章，公地悲剧、成长上限、成长与投资不足</h2><h2 id="第22章，舍本逐末、饮鸩止渴、意外之敌"><a href="#第22章，舍本逐末、饮鸩止渴、意外之敌" class="headerlink" title="第22章，舍本逐末、饮鸩止渴、意外之敌"></a>第22章，舍本逐末、饮鸩止渴、意外之敌</h2><h2 id="第23章，赢家通吃"><a href="#第23章，赢家通吃" class="headerlink" title="第23章，赢家通吃"></a>第23章，赢家通吃</h2><h2 id="第24章，恶性竞争、目标侵蚀"><a href="#第24章，恶性竞争、目标侵蚀" class="headerlink" title="第24章，恶性竞争、目标侵蚀"></a>第24章，恶性竞争、目标侵蚀</h2><h2 id="第25章，案例练习"><a href="#第25章，案例练习" class="headerlink" title="第25章，案例练习"></a>第25章，案例练习</h2><h1 id="第四个训练场，终身练习。破除顽固的三大思想误区。"><a href="#第四个训练场，终身练习。破除顽固的三大思想误区。" class="headerlink" title="第四个训练场，终身练习。破除顽固的三大思想误区。"></a>第四个训练场，终身练习。破除顽固的三大思想误区。</h1><h2 id="第26章，散点思维和公式思维"><a href="#第26章，散点思维和公式思维" class="headerlink" title="第26章，散点思维和公式思维"></a>第26章，散点思维和公式思维</h2><h2 id="第27章，局部思维和层次思维"><a href="#第27章，局部思维和层次思维" class="headerlink" title="第27章，局部思维和层次思维"></a>第27章，局部思维和层次思维</h2><h2 id="第28章，静止思维和演化思维"><a href="#第28章，静止思维和演化思维" class="headerlink" title="第28章，静止思维和演化思维"></a>第28章，静止思维和演化思维</h2><h2 id="第29章，储备模型，建立模型，迁移模型"><a href="#第29章，储备模型，建立模型，迁移模型" class="headerlink" title="第29章，储备模型，建立模型，迁移模型"></a>第29章，储备模型，建立模型，迁移模型</h2><h2 id="第30章，人类洞察力边界，复杂度灾难，概率因果，认知极限"><a href="#第30章，人类洞察力边界，复杂度灾难，概率因果，认知极限" class="headerlink" title="第30章，人类洞察力边界，复杂度灾难，概率因果，认知极限"></a>第30章，人类洞察力边界，复杂度灾难，概率因果，认知极限</h2>]]></content>
-    
-    
-    <summary type="html">刘润商业洞察力30讲目录</summary>
-    
-    
-    
-    <category term="商业类" scheme="https://zml3589110.github.io/categories/%E5%95%86%E4%B8%9A%E7%B1%BB/"/>
-    
-    <category term="刘润" scheme="https://zml3589110.github.io/categories/%E5%95%86%E4%B8%9A%E7%B1%BB/%E5%88%98%E6%B6%A6/"/>
-    
-    
-    <category term="商业" scheme="https://zml3589110.github.io/tags/%E5%95%86%E4%B8%9A/"/>
-    
-    <category term="目录" scheme="https://zml3589110.github.io/tags/%E7%9B%AE%E5%BD%95/"/>
-    
-    <category term="洞察力" scheme="https://zml3589110.github.io/tags/%E6%B4%9E%E5%AF%9F%E5%8A%9B/"/>
     
   </entry>
   
