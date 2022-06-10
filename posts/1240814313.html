@@ -1,0 +1,418 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>批处理常用命令总结 - 批处理命令简介(转载) | 赵逸尘个人博客</title><meta name="keywords" content="计算机,bat,脚本,cmd"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="批处理常用命令总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="批处理常用命令总结 - 批处理命令简介(转载)">
+<meta property="og:url" content="https://zml3589110.github.io/posts/1240814313.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="批处理常用命令总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2022-06-10T06:20:20.000Z">
+<meta property="article:modified_time" content="2022-06-10T06:22:52.058Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="计算机">
+<meta property="article:tag" content="bat">
+<meta property="article:tag" content="脚本">
+<meta property="article:tag" content="cmd">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/1240814313"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '批处理常用命令总结 - 批处理命令简介(转载)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-10 14:22:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">批处理常用命令总结 - 批处理命令简介(转载)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-10T06:20:20.000Z" title="发表于 2022-06-10 14:20:20">2022-06-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-06-10T06:22:52.058Z" title="更新于 2022-06-10 14:22:52">2022-06-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B0%8F%E6%8F%92%E4%BB%B6%E7%B1%BB/">小插件类</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/BAT/">BAT</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="批处理常用命令总结 - 批处理命令简介(转载)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="批处理常用命令总结-批处理命令简介"><a href="#批处理常用命令总结-批处理命令简介" class="headerlink" title="批处理常用命令总结 - 批处理命令简介"></a>批处理常用命令总结 - 批处理命令简介</h1><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><p>打开回显或关闭请求回显功能，或显示消息。如果没有任何参数，echo 命令将显示当前回显设置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo [&#123;on|off&#125;] [message]</span><br><span class="line">Sample：@echo off &#x2F; echo hello world</span><br></pre></td></tr></table></figure>
+
+<p>在实际应用中我们会把这条命令和重定向符号（也称为管道符号，一般用<code>&gt;</code> <code>&gt;&gt;</code> <code>^</code>）结合来实现输入一些命令到特定的文件中。</p>
+<h3 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h3><p>注释命令，类似于在C语言中的<code>/*--------*/</code>，它并不会被执行，只是起一个注释的作用，便于别人阅读和你自己日后修改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Rem Message</span><br><span class="line">Sample：@Rem Here is the description.</span><br></pre></td></tr></table></figure>
+
+<h3 id="pause"><a href="#pause" class="headerlink" title="pause"></a>pause</h3><p>暂停命令。运行 Pause 命令时，将显示下面的消息：<code>Press any key to continue. . .(或：请按任意键继续. . .)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Sample：</span><br><span class="line">@echo off</span><br><span class="line">:begin</span><br><span class="line">copy G:*.* d：&#x2F;back</span><br><span class="line">echo 请插入另一张光盘...</span><br><span class="line">pause</span><br><span class="line">goto begin</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，驱动器 G 中磁盘上的所有文件均复制到d:&#x2F;back中。显示的注释提示您将另一张光盘盘放入驱动器 G 时，pause 命令会使程序挂起，以便您更换光盘，然后按任意键继续处理。</p>
+<h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><p>从一个批处理程序调用另一个批处理程序，并且不终止父批处理程序。call 命令接受用作调用目标的标签。如果在脚本或批处理文件外使用 Call，它将不会在命令行起作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">call [[Drive:][Path] FileName ] [:label [arguments]]</span><br><span class="line">参数</span><br><span class="line">[Drive:&#125;[Path] FileName</span><br></pre></td></tr></table></figure>
+
+<p>指定要调用的批处理程序的位置和名称。</p>
+<h3 id="start-命令"><a href="#start-命令" class="headerlink" title="start 命令"></a>start 命令</h3><p>调用外部程序，所有的DOS命令和命令行程序都可以由start命令来调用。 如：start calc.exe 即可打开Windows的计算器。</p>
+<ul>
+<li><p>常用参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MIN 开始时窗口最小化</span><br><span class="line">SEPARATE 在分开的空间内开始 16 位 Windows 程序</span><br><span class="line">HIGH 在 HIGH 优先级类别开始应用程序</span><br><span class="line">REALTIME 在 REALTIME 优先级类别开始应用程序</span><br><span class="line">WAIT 启动应用程序并等候它结束</span><br><span class="line">parameters 这些为传送到命令&#x2F;程序的参数</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>执行的应用程序是 32-位 GUI 应用程序时，CMD.EXE 不等应用程序终止就返回命令提示。如果在命令脚本内执行，该新行为则不会发生。</p>
+<h3 id="goto"><a href="#goto" class="headerlink" title="goto"></a>goto</h3><p>跳转命令。程序指针跳转到指定的标签，从标签后的第一条命令开始继续执行批处理程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">goto label （label是参数，指定所要转向的批处理程序中的行。）</span><br><span class="line">Sample：</span><br><span class="line">if &#123;%1&#125;&#x3D;&#x3D;&#123;&#125; goto noparms</span><br><span class="line">if &#123;%2&#125;&#x3D;&#x3D;&#123;&#125; goto noparms（如果这里的if、%1、%2你不明白的话，先跳过去，后面会有详细的解释</span><br><span class="line">。）</span><br><span class="line">@Rem check parameters if null show usage</span><br><span class="line">:noparms</span><br><span class="line">echo Usage: monitor.bat ServerIP PortNumber</span><br><span class="line">goto end</span><br></pre></td></tr></table></figure>
+
+<p>标签的名字可以随便起，但是最好是有意义的字母啦，字母前加个：用来表示这个字母是标签，goto命令就是根据这个：来寻找下一步跳到到那里。最好有一些说明这样你别人看起来才会理解你的意图啊。</p>
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>显示、设置或删除变量。</p>
+<p>显示变量：set 或 set s 前者显示批处理当前已定义的所有变量及其值，后者显示所有以s开头的变量及值。</p>
+<p>设置变量：set aa&#x3D;abcd 此句命令便可向变量aa赋值abcd。</p>
+<p>如果变量aa已被定义，则aa的值被修改为abcd；若aa尚未定义，则此句命令即可定义新的变量aa，同时为变量aa赋予初始值abcd。</p>
+<p>删除变量：set aa&#x3D; 此句命令即可删除变量aa。若变量aa已被定义，则删除变量aa；若aa尚未定义，则此句命令为实质意义。</p>
+<p>需要说明的是，批处理中的变量是不区分类型的，不需要像C语言中的变量那样还要区分int、float、char等。比如执行set aa&#x3D;345后，变量aa的值既可以被视为数字345，也可以被视为字符串345。</p>
+<p>set命令具有扩展功能，如用作交互输入、字符串处理、数值计算等，属于高级命令范畴。</p>
+<h3 id="批处理常用命令及用法大全"><a href="#批处理常用命令及用法大全" class="headerlink" title="批处理常用命令及用法大全"></a>批处理常用命令及用法大全</h3><p>阅读下面文字需要一定的dos基础概念，象：盘符、文件、目录(文件夹)、子目录、根目录、当前目录</p>
+<p>每个命令的完整说明请加 &#x2F;? 参数参考微软的帮助文档可以看到，在 &#x2F;? 帮助里，”命令扩展名”一词会经常出现”命令扩展名”是指相对于win98的dos版本而言，每个命令新增的功能命令测试环境win2000proSP4win98的命令功能太少，就不作研究了。</p>
+<p>注：如果对某一命令还不是很熟悉，可以在命令行窗口下输入：命令名&#x2F;?的方式来获得帮助。</p>
+<p>例如：对dir命令的应用不熟悉，可以在命令行窗口下输入：<code>dir /?</code></p>
+<ul>
+<li><p>echo 和 @回显控制命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@                    #关闭单行回显</span><br><span class="line">echo off             #从下一行开始关闭回显</span><br><span class="line">@echo off            #从本行开始关闭回显。一般批处理第一行都是这个</span><br><span class="line">echo on              #从下一行开始打开回显</span><br><span class="line">echo                 #显示当前是 echo off 状态还是 echo on 状态</span><br><span class="line">echo.                #输出一个&quot;回车换行&quot;，一般就是指空白行</span><br><span class="line">echo hello world     #输出hello world</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>“关闭回显”是指运行批处理文件时，不显示文件里的每条命令，只显示运行结果批处理开始和结束时，系统都会自动打开</p>
+<ul>
+<li>errorlevel程序返回码</li>
+</ul>
+<p>echo %errorlevel%每个命令运行结束，可以用这个命令行格式查看返回码用于判断刚才的命令是否执行成功默认值为0，</p>
+<p>一般命令执行出错会设 errorlevel 为1</p>
+<ul>
+<li><p>dir显示目录中的文件和子目录列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dir                 #显示当前目录中的文件和子目录</span><br><span class="line">dir &#x2F;a              #显示当前目录中的文件和子目录，包括隐藏文件和系统文件</span><br><span class="line">dir c: &#x2F;a:d         #显示 C 盘当前目录中的目录</span><br><span class="line">dir c:&#x2F; &#x2F;a:-d       #显示 C 盘根目录中的文件dir d:&#x2F;mp3 &#x2F;b&#x2F;p     #逐屏显示 d:&#x2F;mp3 目录里的文件，只显示文件名，不显示时间和大小</span><br><span class="line">dir *.exe &#x2F;s        #显示当前目录和子目录里所有的.exe文件其中 * 是通配符，代表所有的文件名，还一个通配符 ? 代表一个</span><br><span class="line">                    #任意字母或汉字如 c*.* 代表以 c 开头的所有文件?.exe 代表所有文件名是一个字母的.exe文件如果指定的目录或文件</span><br><span class="line">                    #不存在，将返回 errorlevel 为1;</span><br><span class="line"></span><br><span class="line"># 每个文件夹的 dir 输出都会有2个子目录 . 和 ... 代表当前目录.. 代表当前目录的上级目录</span><br><span class="line">dir .               #显示当前目录中的文件和子目录</span><br><span class="line">dir ..              #显示当前目录的上级目录中的文件和子目录</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>其它参数可参考 dir &#x2F;?</p>
+<ul>
+<li><p>cd更改当前目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd mp3              #进入当前目录中的mp3 目录</span><br><span class="line">cd ..               #进入当前目录中的上级目录</span><br><span class="line">cd&#x2F;                 #进入根目录</span><br><span class="line">cd                  #显示当前目录</span><br><span class="line">cd &#x2F;d d:&#x2F;mp3        #可以同时更改盘符和目录</span><br><span class="line">cd &quot;Documents and Settings&quot;&#x2F;All users文件名带空格，路径前需要加上引号！！如果更改到的目录不存在，则出错返</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>md创建目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">md abc              #在当前目录里建立子目录 abc</span><br><span class="line">md d:&#x2F;a&#x2F;b&#x2F;c         #如果 d:&#x2F;a 不存在，将会自动创建</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>rd删除目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rd abc              #删除当前目录里的 abc 子目录，要求为空目录</span><br><span class="line">rd &#x2F;s&#x2F;q d:&#x2F;temp     #删除 d:&#x2F;temp 文件夹及其子文件夹和文件，不需要按 Y 确认</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>del删除文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">del d:&#x2F;test.txt     #删除指定文件，不能是隐藏、系统、只读文件</span><br><span class="line">del *.*删除当前目录里的所有文件，不包括隐藏、系统、只读文件，要求按 Y 确认</span><br><span class="line">del &#x2F;q&#x2F;a&#x2F;f d:&#x2F;temp&#x2F;*.*删除 d:&#x2F;temp 文件夹里面的所有文件，包括隐藏、只读、系统文件，不包括子目录</span><br><span class="line">del &#x2F;q&#x2F;a&#x2F;f&#x2F;s d:&#x2F;temp&#x2F;*.*删除 d:&#x2F;temp 及子文件夹里面的所有文件，包括隐藏、只读、系统文件，不包括子目录</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ren文件重命名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ren 1.txt 2.bak     #把 1.txt 更名为 2.bak</span><br><span class="line">ren *.txt *.ini     #把当前目录里所有.txt文件改成.ini文件</span><br><span class="line">ren d:&#x2F;temp tmp     #支持对文件夹的重命名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>cls清屏</p>
+</li>
+<li><p>type显示文件内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type c:&#x2F;boot.ini    #显示指定文件的内容，程序文件一般会显示乱码</span><br><span class="line">type *.txt          #显示当前目录里所有.txt文件的内容</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>copy拷贝文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">copy c:&#x2F;test.txt d:&#x2F;复制 c:&#x2F;test.txt 文件到 d:&#x2F;</span><br><span class="line">copy c:&#x2F;test.txt d:&#x2F;test.bak复制 c:&#x2F;test.txt 文件到 d:&#x2F; ，并重命名为 test.bak</span><br><span class="line">copy c:&#x2F;*.*复制 c:&#x2F; 所有文件到当前目录，不包括隐藏文件和系统文件不指定目标路径，则默认目标路径为当前目录</span><br><span class="line">copy con test.txt从屏幕上等待输入，按 Ctrl+Z 结束输入，输入内容存为test.txt文件con代表屏幕，prn代表打印机，nul代表空设备</span><br><span class="line">copy 1.txt + 2.txt 3.txt合并 1.txt 和 2.txt 的内容，保存为 3.txt 文件如果不指定 3.txt ，则保存到 1.txt</span><br><span class="line">copy test.txt +复制文件到自己，实际上是修改了文件日期</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>title设置cmd窗口的标题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">title 新标题        #可以看到cmd窗口的标题栏变了</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ver显示系统版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">14 label 和 vol设置卷标</span><br><span class="line">vol                 #显示卷标</span><br><span class="line">label               #显示卷标，同时提示输入新卷标</span><br><span class="line">label c:system      #设置C盘的卷标为 system</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pause暂停命令</p>
+</li>
+</ul>
+<p>运行该命令时，将显示消息：<code>请按任意键继续 . . .</code>，一般用于看清楚屏幕上显示的内容</p>
+<ul>
+<li>rem 和 ::注释命令</li>
+</ul>
+<p>注释行不执行操作</p>
+<ul>
+<li><p>date 和 time日期和时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">date          #显示当前日期，并提示输入新日期，按&quot;回车&quot;略过输入</span><br><span class="line">date&#x2F;t        #只显示当前日期，不提示输入新日期</span><br><span class="line">time          #显示当前时间，并提示输入新时间，按&quot;回车&quot;略过输入</span><br><span class="line">time&#x2F;t        #只显示当前时间，不提示输入新时间</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>goto 和 :跳转命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:label        #行首为:表示该行是标签行，标签行不执行操作</span><br><span class="line">goto label    #跳转到指定的标签那一行</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>find (外部命令)查找命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find &quot;abc&quot; c:&#x2F;test.txt在 c:&#x2F;test.txt 文件里查找含 abc 字符串的行如果找不到，将设 errorlevel 返回码为1</span><br><span class="line">find &#x2F;i &quot;abc&quot; c:&#x2F;test.txt查找含 abc 的行，忽略大小写</span><br><span class="line">find &#x2F;c &quot;abc&quot; c:&#x2F;test.txt显示含 abc 的行的行数</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>more (外部命令)逐屏显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more c:&#x2F;test.txt    #逐屏显示 c:&#x2F;test.txt 的文件内容</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>tree显示目录结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree d:&#x2F;            #显示D盘的文件目录结构</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&amp;顺序执行多条命令，而不管命令是否执行成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c: &amp; cd&#x2F; &amp; dir &#x2F;w相当于把下面3行命令写到1行去了c:cd&#x2F;dir &#x2F;w</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&amp;&amp;顺序执行多条命令，当碰到执行出错的命令后将不执行后面的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f: &amp;&amp; cd&#x2F; &amp;&amp; dir &gt;c:&#x2F;test.txt注意如果f盘不存在，那么后面2条命令将不会执行</span><br><span class="line">find &quot;ok&quot; c:&#x2F;test.txt &amp;&amp; echo 成功如果找到了&quot;ok&quot;字样，就显示&quot;成功&quot;，找不到就不显示</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>||顺序执行多条命令，当碰到执行正确的命令后将不执行后面的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find &quot;ok&quot; c:&#x2F;test.txt || echo 不成功如果找不到&quot;ok&quot;字样，就显示&quot;不成功&quot;，找到了就不显示</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>|管道命令</p>
+</li>
+</ul>
+<p>前一个命令的执行结果输出到后一个命令</p>
+<p><code>dir *.* /s/a | find /c &quot;.exe&quot;</code>管道命令表示先执行 dir 命令，对其输出的结果执行后面的 find 命令该命令行结果：</p>
+<p>输出当前文件夹及所有子文件夹里的.exe文件的个数</p>
+<p><code>type c:/test.txt|more</code>这个和 more c:&#x2F;test.txt 的效果是一样的</p>
+<ul>
+<li>&gt; 和 &gt;&gt;输出重定向命令</li>
+</ul>
+<p>&gt; 清除文件中原有的内容后再写入</p>
+<p>&gt;&gt; 追加内容到文件末尾，而不会清除原有的内容主要将本来显示在屏幕上的内容输出到指定文件中指定文件如果不存在，则自动生成该文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo hello world&gt;c:&#x2F;test.txt   生成c:&#x2F;test.txt文件，内容为hello world这个格式在批处理文件里用得很多，可以生成.reg .bat .vbs 等临时文件</span><br><span class="line">type c:&#x2F;test.txt &gt;prn          屏幕上不显示文件内容，转向输出到打印机</span><br><span class="line">echo hello world&gt;con           在屏幕上显示hello world，实际上所有输出都是默认 &gt;con 的</span><br><span class="line">copy c:&#x2F;test.txt f: &gt;nul       拷贝文件，并且不显示&quot;文件复制成功&quot;的提示信息，但如果f盘不存在，还是会显示出错信息</span><br><span class="line">copy c:&#x2F;test.txt f: &gt;nul 2&gt;nul 不显示&quot;文件复制成功&quot;的提示信息，并且f盘不存在的话，也不显示错误提示信息</span><br><span class="line">echo ^^W ^&gt; ^W&gt;c:&#x2F;test.txt     生成的文件内容为 ^W &gt; W^ 和 &gt; 是控制命令，要把它们输出到文件，必须在前面加个 ^符号</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&lt;</code> 从文件中获得输入信息，而不是从屏幕上</li>
+</ul>
+<p>一般用于 date time label 等需要等待输入的命令，这样就可以不等待输入直接修改当前日期</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 2005-05-01&gt;temp.txt</span><br><span class="line">date &lt;temp.txt</span><br><span class="line">del temp.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>%0 %1 %2 %3 %4 %5 %6 %7 %8 %9 %*命令行传递给批处理的参数<ul>
+<li>%0 批处理文件本身</li>
+<li>%1 第一个参数</li>
+<li>%9 第九个参数</li>
+<li>%* 从第一个参数开始的所有参数</li>
+</ul>
+</li>
+</ul>
+<p>在C盘根目录新建test.bat，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo %0</span><br><span class="line">echo %1</span><br><span class="line">echo %2</span><br><span class="line">echo %*</span><br></pre></td></tr></table></figure>
+
+<p>运行cmd，输入 <code>c:/test.bat &quot;/a&quot; /b /c /d</code>,可以看出每个参数的含意 修改test.bat内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo %1</span><br><span class="line">echo %~1</span><br><span class="line">echo %0</span><br><span class="line">echo %~f0</span><br><span class="line">echo %~d0</span><br><span class="line">echo %~p0</span><br><span class="line">echo %~n0</span><br><span class="line">echo %~x0</span><br><span class="line">echo %~s0</span><br><span class="line">echo %~a0</span><br><span class="line">echo %~t0</span><br><span class="line">echo %~z0</span><br></pre></td></tr></table></figure>
+
+<p>再运行cmd，输入 <code>c:/test.bat &quot;/a&quot; /b /c /d</code>可以参照 call&#x2F;? 或 for&#x2F;? 看出每个参数的含意，注意这里可以对文件进行日期比较和大小比较：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo load &quot;%%1&quot; &quot;%%2&quot;&gt;c:&#x2F;test.txt</span><br></pre></td></tr></table></figure>
+
+<p>生成的文件内容为 load “%1” “%2”批处理文件里，用这个格式把命令行参数输出到文件</p>
+<ul>
+<li>set设置变量</li>
+</ul>
+<p>引用变量可在变量名前后加 % ，即 %变量名%</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">set                    #显示目前所有可用的变量，包括系统变量和自定义的变量</span><br><span class="line">echo %SystemDrive%     #显示系统盘盘符。系统变量可以直接引用</span><br><span class="line">set p                  #显示所有以p开头的变量，要是一个也没有就设errorlevel&#x3D;1</span><br><span class="line">set p&#x3D;aa1bb1aa2bb2     #设置变量p，并赋值为 &#x3D; 后面的字符串，即aa1bb1aa2bb2</span><br><span class="line">echo %p%               #显示变量p代表的字符串，即aa1bb1aa2bb2</span><br><span class="line">echo %p:~6%            #显示变量p中第6个字符以后的所有字符，即aa2bb2</span><br><span class="line">echo %p:~6,3%          #显示第6个字符以后的3个字符，即aa2</span><br><span class="line">echo %p:~0,3%          #显示前3个字符，即aa1</span><br><span class="line">echo %p:~-2%           #显示最后面的2个字符，即b2</span><br><span class="line">echo %p:~0,-2%         #显示除了最后2个字符以外的其它字符，即aa1bb1aa2b</span><br><span class="line">echo %p:aa&#x3D;c%          #用c替换变量p中所有的aa，即显示c1bb1c2bb2</span><br><span class="line">echo %p:aa&#x3D;%           #将变量p中的所有aa字符串置换为空，即显示1bb12bb2</span><br><span class="line">echo %p:*bb&#x3D;c%         #第一个bb及其之前的所有字符被替换为c，即显示c1aa2bb2</span><br><span class="line">set p&#x3D;%p:*bb&#x3D;c%        #设置变量p，赋值为 %p:*bb&#x3D;c% ，即c1aa2bb2</span><br><span class="line">set &#x2F;a p&#x3D;39            #设置p为数值型变量，值为39</span><br><span class="line">set &#x2F;a p&#x3D;39&#x2F;10         #支持运算符，有小数时用去尾法，39&#x2F;10&#x3D;3.9，去尾得3，p&#x3D;3set &#x2F;a p&#x3D;p&#x2F;10</span><br><span class="line">                       #用 &#x2F;a 参数时，在 &#x3D; 后面的变量可以不加%直接引用set &#x2F;a p&#x3D;&quot;1&amp;0&quot;</span><br><span class="line">                       #&quot;与&quot;运算，要加引号。其它支持的运算符参见set&#x2F;?</span><br><span class="line">set p&#x3D;                 #取消p变量</span><br><span class="line">set &#x2F;p p&#x3D;              请输入屏幕上显示&quot;请输入&quot;，并会将输入的字符串赋值给变量p注意这条可以用来取代 choice 命令</span><br></pre></td></tr></table></figure>
+
+<p>注意变量在 if 和 for 的复合语句里是一次性全部替换的，如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">set p&#x3D;aaa</span><br><span class="line">if %p%&#x3D;&#x3D;aaa (   </span><br><span class="line">echo %p%  </span><br><span class="line">set p&#x3D;bbb   </span><br><span class="line">echo %p%    )</span><br></pre></td></tr></table></figure>
+
+<p>结果将显示aaaaaa因为在读取 if 语句时已经将所有 %p% 替换为aaa这里的”替换”，在 &#x2F;? 帮助里就是指”扩充”、”环境变量扩充”可以启用”延缓环境变量扩充”，用 ! 来引用变量，即<code>!变量名!</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">SETLOCAL ENABLEDELAYEDEXPANSION</span><br><span class="line">set p&#x3D;aaaif %p%&#x3D;&#x3D;aaa ( </span><br><span class="line">echo %p%   </span><br><span class="line">set p&#x3D;bbb   </span><br><span class="line">echo !p!    )</span><br><span class="line">ENDLOCAL</span><br></pre></td></tr></table></figure>
+
+<p>结果将显示aaabbb 还有几个动态变量，运行 set 看不到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">%CD%                  #代表当前目录的字符串</span><br><span class="line">%DATE%                #当前日期</span><br><span class="line">%TIME%                #当前时间</span><br><span class="line">%RANDOM%              #随机整数，介于0~32767</span><br><span class="line">%ERRORLEVEL%          #当前ERRORLEVEL 值</span><br><span class="line">%CMDEXTVERSION%       #当前命令处理器扩展名版本号</span><br><span class="line">%CMDCMDLINE%          #调用命令处理器的原始命令行可以用echo命令查看每个变量值，如 echo %time%</span><br><span class="line"></span><br><span class="line">注意 %time%精确到毫秒，在批处理需要延时处理时可以用到</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>start批处理中调用外部程序的命令，否则等外部程序完成后才继续执行剩下的指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start explorer d:&#x2F;调用图形界面打开D盘</span><br><span class="line">@echo off</span><br><span class="line">cd &#x2F;d %~dp0</span><br><span class="line">regedit &#x2F;s 劲舞团.reg</span><br><span class="line">start patcher.exe</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>不加 start 命令的话，”劲舞团”运行时，后面会有个黑乎乎的cmd窗口</p>
+<ul>
+<li><p>call批处理中调用另外一个批处理的命令，否则剩下的批处理指令将不会被执行有时有的应用程序用start调用出错的，也可以call调用</p>
+</li>
+<li><p>choice (外部命令)选择命令让用户输入一个字符，从而选择运行不同的命令，返回码errorlevel为1234……</p>
+</li>
+</ul>
+<p>win98里是choice.com，win2000pro里没有，可以从win98里拷过来，win2003里是choice.exe</p>
+<p>choice &#x2F;N &#x2F;C y &#x2F;T 5 &#x2F;D y&gt;nul延时5秒</p>
+<p>下面是个 choice 语句的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">rem 以下在win2000pro运行通过，从win98里拷的chioce.com文件</span><br><span class="line">choice &#x2F;c:abc aaa,bbb,ccc</span><br><span class="line">if errorlevel 3 goto ccc</span><br><span class="line">if %errorlevel%&#x3D;&#x3D;2 goto bbb</span><br><span class="line">if errorlevel&#x3D;&#x3D;1 goto aaa</span><br><span class="line">rem 必须先判断数值高的返回码rem 可以看到 errorlevel 值的判断有3种写法，有时某种写法不好用，可以用另外的写法</span><br><span class="line">rem 直接运行</span><br><span class="line"></span><br><span class="line">chioce相当于运行</span><br><span class="line">choice &#x2F;c:yn:aaa</span><br><span class="line">echo aaa</span><br><span class="line">goto end</span><br><span class="line">:bbb</span><br><span class="line">echo bbb</span><br><span class="line">goto end</span><br><span class="line">:ccc</span><br><span class="line">echo ccc</span><br><span class="line">goto end</span><br><span class="line">:end</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>assoc 和 ftype文件关联assoc 设置’文件扩展名’关联，关联到’文件类型’ftype 设置’文件类型’关联，关联到’执行程序和参数’当你双击一个.txt文件时，windows并不是根据.txt直接判断用 notepad.exe 打开而是先判断.txt属于 txtfile ‘文件类型’再调用 txtfile 关联的命令行 txtfile&#x3D;%SystemRoot%&#x2F;system32&#x2F;NOTEPAD.EXE %1可以在”文件夹选项”→”文件类型”里修改这2种关联</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assoc           #显示所有&#39;文件扩展名&#39;关联</span><br><span class="line">assoc .txt      #显示.txt代表的&#39;文件类型&#39;，结果显示 .txt&#x3D;txtfile</span><br><span class="line">assoc .doc      #显示.doc代表的&#39;文件类型&#39;，结果显示 .doc&#x3D;Word.Document.8</span><br><span class="line">assoc .exe      #显示.exe代表的&#39;文件类型&#39;，结果显示 .exe&#x3D;exefile</span><br><span class="line">ftype           #显示所有&#39;文件类型&#39;关联</span><br><span class="line">ftype exefile   #显示exefile类型关联的命令行，结果显示 exefile&#x3D;&quot;%1&quot; %* assoc .txt&#x3D;Word.Document.8设置.txt为word类型的文档，可以看到.txt文件的图标都变了</span><br><span class="line">assoc .txt&#x3D;txtfile恢复.txt的正确关联 ftype exefile&#x3D;&quot;%1&quot; %*恢复 exefile 的正确关联</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>如果该关联已经被破坏，可以运行 command.com ，再输入这条命令</p>
+<ul>
+<li><p>pushd 和 popd切换当前目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">c: &amp; cd&#x2F; &amp; md mp3       #在 C:&#x2F; 建立 mp3 文件夹</span><br><span class="line">md d:&#x2F;mp4               #在 D:&#x2F; 建立 mp4 文件夹</span><br><span class="line">cd &#x2F;d d:&#x2F;mp4            #更改当前目录为 d:&#x2F;mp4</span><br><span class="line">pushd c:&#x2F;mp3            #保存当前目录，并切换当前目录为 c:&#x2F;mp3</span><br><span class="line">popd                    #恢复当前目录为刚才保存的 d:&#x2F;mp4一般用处不大，在当前目录名不确定时，会有点帮助</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>subst (外部命令)映射磁盘。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">subst z: &#x2F;&#x2F;server&#x2F;d     #这样输入z:就可以访问&#x2F;&#x2F;server&#x2F;d了</span><br><span class="line">subst z: &#x2F;d             #取消该映射</span><br><span class="line">subst                   #显示目前所有的映</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>xcopy (外部命令)文件拷贝</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcopy d:&#x2F;mp3 e:&#x2F;mp3 &#x2F;s&#x2F;e&#x2F;i&#x2F;y</span><br></pre></td></tr></table></figure>
+
+<p>复制 d:&#x2F;mp3 文件夹、所有子文件夹和文件到 e:&#x2F;，覆盖已有文件，加 &#x2F;i 表示如果 e:&#x2F; 没有 mp3 文件夹就自动新建一个，否则会有询问</p>
+<ul>
+<li><p>39 一些不常用的内部命令</p>
+<ul>
+<li><code>&gt;&amp;</code> 将一个句柄的输出写入到另一个句柄的输入中</li>
+<li><code>&lt;&amp;</code> 从一个句柄读取输入并将其写入到另一个句柄输出中</li>
+<li>shift 命令行传递给批处理的参数不止9个时，用以切换参数</li>
+<li>color 设置cmd窗口的显示颜色</li>
+<li>pormpt 更改命令提示符号，默认都是 盘符:&#x2F;路径&#x2F;&gt; ，如 c:&#x2F;&gt;</li>
+</ul>
+</li>
+<li><p>format (外部命令)格式化硬盘</p>
+</li>
+</ul>
+<p><code>format c: /q/u/autotest/</code>，q表示快速格式化，&#x2F;autotest表示自动格式化，不需要按 Y 确认，&#x2F;u表示每字节用F6覆盖硬盘数据，使其不可用软件恢复</p>
+<p>format c: &#x2F;c格式化C盘，并检测坏道</p>
+<ul>
+<li><p>fdisk (外部命令)硬盘分区win2000不带该命令win98里的fdisk不支持80G以上大硬盘，winme里的支持fdisk&#x2F;mbr重建硬盘分区表，一般用于清除引导区病毒、还原精灵注意使用该命令不能从硬盘启动，必须软驱或光驱启动后直接运行</p>
+</li>
+<li><p>ping (外部命令)</p>
+</li>
+</ul>
+<p>ping -l 65500 -t 192.168.1.200不停的向192.168.1.200计算机发送大小为65500byte的数据包</p>
+<p>ping -n 10 127.0.0.1&gt;nulping自己10次，可用于批处理延时10秒</p>
+<ul>
+<li><p>SC (外部命令)服务控制命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sc create aaa displayname&#x3D; bbb start&#x3D; auto binpath&#x3D; &quot;C:&#x2F;WINDOWS&#x2F;System32&#x2F;alg.exe&quot;创建服务，服务名称aaa，显示名称bbb，启动类型:自动可执行文件的路径&quot;C:&#x2F;WINDOWS&#x2F;System32&#x2F;alg.exe&quot;</span><br><span class="line">sc description aaa &quot;ccc&quot;更改aaa的描述为ccc</span><br><span class="line">sc config aaa start&#x3D; disabled binpath&#x3D; &quot;C:&#x2F;WINDOWS&#x2F;System32&#x2F;svchost.exe -k netsvcs&quot;更改aaa的启动类型:已禁用更改aaa的可执行文件的路径&quot;C:&#x2F;WINDOWS&#x2F;System32&#x2F;svchost.exe -k netsvcs&quot;</span><br><span class="line">sc config aaa start&#x3D; demand displayname&#x3D; ddd更改aaa的启动类型:手动更改aaa的显示名称ddd</span><br><span class="line">sc start aaa启动aaa服务</span><br><span class="line">sc stop aaa停止aaa服务</span><br><span class="line">sc delete aaa删除aaa服务</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<blockquote>
+<p><strong>说明：本文是收集参考文档，以方便查看</strong></p>
+</blockquote>
+<hr>
+<h1 id="信息链接"><a href="#信息链接" class="headerlink" title="信息链接:"></a>信息链接:</h1><ol>
+<li><a target="_blank" rel="noopener" href="http://xstarcd.github.io/wiki/windows/windows_cmd_summary_commands.html">批处理常用命令总结 - 批处理命令简介</a></li>
+</ol>
+<hr>
+<center><font color="red">=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/1240814313.html">https://zml3589110.github.io/posts/1240814313.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a><a class="post-meta__tags" href="/tags/bat/">bat</a><a class="post-meta__tags" href="/tags/%E8%84%9A%E6%9C%AC/">脚本</a><a class="post-meta__tags" href="/tags/cmd/">cmd</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/0.jpg" target="_blank"><img class="post-qr-code-img" src="/img/0.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/1.jpg" target="_blank"><img class="post-qr-code-img" src="/img/1.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/939509364.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Virtual box 6.1 0x80004005 错误</div></div></a></div><div class="next-post pull-right"><a href="/posts/264219034.html"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">马自达钥匙技巧等</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/387550601.html" title="bat脚本相关技巧"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-10</div><div class="title">bat脚本相关技巧</div></div></a></div><div><a href="/posts/2606890055.html" title="图标异常处理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-10</div><div class="title">图标异常处理</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93-%E6%89%B9%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">批处理常用命令总结 - 批处理命令简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#echo"><span class="toc-number">1.0.1.</span> <span class="toc-text">echo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rem"><span class="toc-number">1.0.2.</span> <span class="toc-text">rem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pause"><span class="toc-number">1.0.3.</span> <span class="toc-text">pause</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#call"><span class="toc-number">1.0.4.</span> <span class="toc-text">call</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#start-%E5%91%BD%E4%BB%A4"><span class="toc-number">1.0.5.</span> <span class="toc-text">start 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#goto"><span class="toc-number">1.0.6.</span> <span class="toc-text">goto</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#set"><span class="toc-number">1.0.7.</span> <span class="toc-text">set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E7%94%A8%E6%B3%95%E5%A4%A7%E5%85%A8"><span class="toc-number">1.0.8.</span> <span class="toc-text">批处理常用命令及用法大全</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%93%BE%E6%8E%A5"><span class="toc-number">2.</span> <span class="toc-text">信息链接:</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/264219034.html" title="马自达钥匙技巧等"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="马自达钥匙技巧等"/></a><div class="content"><a class="title" href="/posts/264219034.html" title="马自达钥匙技巧等">马自达钥匙技巧等</a><time datetime="2022-06-10T06:27:20.000Z" title="发表于 2022-06-10 14:27:20">2022-06-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1240814313.html" title="批处理常用命令总结 - 批处理命令简介(转载)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="批处理常用命令总结 - 批处理命令简介(转载)"/></a><div class="content"><a class="title" href="/posts/1240814313.html" title="批处理常用命令总结 - 批处理命令简介(转载)">批处理常用命令总结 - 批处理命令简介(转载)</a><time datetime="2022-06-10T06:20:20.000Z" title="发表于 2022-06-10 14:20:20">2022-06-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/939509364.html" title="Virtual box 6.1 0x80004005 错误"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Virtual box 6.1 0x80004005 错误"/></a><div class="content"><a class="title" href="/posts/939509364.html" title="Virtual box 6.1 0x80004005 错误">Virtual box 6.1 0x80004005 错误</a><time datetime="2022-05-28T08:24:20.000Z" title="发表于 2022-05-28 16:24:20">2022-05-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3836851438.html" title="GIT版本控制(二)之常用命令说明"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GIT版本控制(二)之常用命令说明"/></a><div class="content"><a class="title" href="/posts/3836851438.html" title="GIT版本控制(二)之常用命令说明">GIT版本控制(二)之常用命令说明</a><time datetime="2022-05-28T02:11:20.000Z" title="发表于 2022-05-28 10:11:20">2022-05-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1498888733.html" title="GIT版本控制(一)之常见命令汇总"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GIT版本控制(一)之常见命令汇总"/></a><div class="content"><a class="title" href="/posts/1498888733.html" title="GIT版本控制(一)之常见命令汇总">GIT版本控制(一)之常见命令汇总</a><time datetime="2022-05-28T01:51:20.000Z" title="发表于 2022-05-28 09:51:20">2022-05-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
