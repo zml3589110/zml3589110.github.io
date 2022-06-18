@@ -6,7 +6,7 @@
   <link href="https://zml3589110.github.io/atom.xml" rel="self"/>
   
   <link href="https://zml3589110.github.io/"/>
-  <updated>2022-06-10T07:03:27.262Z</updated>
+  <updated>2022-06-18T08:12:31.849Z</updated>
   <id>https://zml3589110.github.io/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>VScode配置KEIL5编译下载</title>
+    <link href="https://zml3589110.github.io/posts/3493436520.html"/>
+    <id>https://zml3589110.github.io/posts/3493436520.html</id>
+    <published>2022-06-18T07:55:20.000Z</published>
+    <updated>2022-06-18T08:12:31.849Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>经常使用keil的人都知道keil的使用特别广泛，但是keil的自动补全功能极其难用。VScode功能十分强大，许多大佬为其编写插件供他人使用，利用好这些插件可以大大提高代码编写效率。最近发现了一个VScode可以调用KEIL编程的插件，使用起来非常方便。</p><h1 id="一、安装插件"><a href="#一、安装插件" class="headerlink" title="一、安装插件"></a>一、安装插件</h1><ol><li>点击拓展选项的图标</li></ol><img src="https://i0.hdslb.com/bfs/article/ee3c30d0c52a663e79e077f3abc93b8dc1f4f2a1.png@174w_107h_progressive.webp"><blockquote><p><strong>输入Chinese，进行安装，安装完成后界面就变成中文了。</strong></p></blockquote><img src="https://i0.hdslb.com/bfs/article/8781454b3adba17079f688b931915f584e8d9f46.png@942w_699h_progressive.webp"><ol start="2"><li>VScode中搜索插件Keil Assistant并安装。</li></ol><img src="https://img-blog.csdnimg.cn/20210717213624458.png"><h1 id="二、使用方法"><a href="#二、使用方法" class="headerlink" title="二、使用方法"></a>二、使用方法</h1><blockquote><p>插件下方介绍非常详细，并且都是中文的。</p></blockquote><img src="https://img-blog.csdnimg.cn/20210717213828397.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDAxMjM1OQ==,size_16,color_FFFFFF,t_70"><ol><li>插件设置<blockquote><p>进入插件设置，添加Keil可执行文件的路径</p></blockquote></li></ol><img src="https://img-blog.csdnimg.cn/20210717214251906.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDAxMjM1OQ==,size_16,color_FFFFFF,t_70"><blockquote><p>如下图所示第一个是51单片机的路径，第二个选项是MDK的路径（也就是ARM核单片机的路径）</p></blockquote><img src="https://i0.hdslb.com/bfs/article/1372396b3c92e211ab8a538136e310a3b73688cf.png@942w_704h_progressive.webp"><blockquote><p>接下来就是填入路径，找到我们的keil软件选着文件所在位置</p></blockquote><img src="https://i0.hdslb.com/bfs/article/09bc99e665e38b29bb814e5deeb07277b93f6ac5.png@470w_938h_progressive.webp"><p>在安装位置找到 keil 的图标:</p><img src="https://i0.hdslb.com/bfs/article/2aa130c7fed5bebbbd3a922e39fd6e63474844bb.png@942w_548h_progressive.webp"><p>复制他的路径:</p><img src="https://i0.hdslb.com/bfs/article/3e288ef2cef0c3855e558e4890dca034ab682250.png@942w_45h_progressive.webp"><p>填入VScode(注意：要在刚才的路径后面添加UV4.exe的后缀):</p><img src="https://i0.hdslb.com/bfs/article/730c29528eef3c4c9aa5baf7eb9dc60146d553b7.png@939w_483h_progressive.webp"><p>至此Keil Assistant配置完成。注意我在keil 5中安装了51单片机的包，所以路径相同，实测若是安装keil 4如此添加路径是没有用的，所以要用他来写51单片机的需要安装keil 5的51的包。</p><ol start="2"><li>打开工程</li></ol><p>打开资源管理器，会出现KEIL UVISION PROJECT点击后面的打开keil工程按钮，选择你想打开的工程的**.uvprojx**文件。</p><img src="https://img-blog.csdnimg.cn/20210717214649138.png"><p><strong>下方会有编译，下载，重编译按钮。</strong></p><img src="https://img-blog.csdnimg.cn/20210717214748979.png"><h1 id="三、配置工程"><a href="#三、配置工程" class="headerlink" title="三、配置工程"></a>三、配置工程</h1><blockquote><p><strong>VScode打开keil工程会出现工程头文件、变量红色波浪线的情况，通过配置工程，可以解决问题。如果不想改的话，也可以不改。</strong></p></blockquote><ol><li>配置方法</li></ol><p>按ctrl+alt+P在搜索栏中搜索Edit configurations (UI)。</p><img src="https://img-blog.csdnimg.cn/20210717215342533.png"><p>进入配置界面，里面都是中文，仔细阅读可以理解。</p><img src="https://img-blog.csdnimg.cn/20210717215535865.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDAxMjM1OQ==,size_16,color_FFFFFF,t_70"><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote><p><strong>利用此插件便可以通过VScode调用KEIL编写代码。<br>最后推荐一个可以提高工程逼格的插件koroFileHeader<br>文件头注释模板，安装步骤同上，文件头内容可在插件配置中更改，并更新最后修改时间。<br>快捷键：ctrl+alt+i</strong></p></blockquote><img src="https://img-blog.csdnimg.cn/2021071722393639.png"><img src="https://img-blog.csdnimg.cn/2021071722394671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDAxMjM1OQ==,size_16,color_FFFFFF,t_70"><blockquote><p>打开工程后注释乱码怎么解决:<br><strong>调整vscode的编码方式 和你的keil相同 一般为GB2312</strong></p></blockquote><p>VScode作为一款功能强大的文本编辑器它可以用来写任何的语言，有多种拓展可以供你来安装使用。它来写单片机是因为他的代码高亮、跳转、代码自动补全非常好用。比keil不知好用多少倍。但是若你要是调试单片机的话还是建议用keil（术业有专攻）仅仅将VScode作为一个文本编辑器来使用。使用时同时开启VScode和keil。用VScode来写代码，用keil进行调试。不要担心你在VScode中写的代码保存后会自动同步过去的，keil 中也是如此！</p><hr><blockquote><p><strong>说明：本文是收集参考网络文档，以方便查看</strong></p></blockquote><hr><h1 id="信息链接"><a href="#信息链接" class="headerlink" title="信息链接:"></a>信息链接:</h1><ol><li><a href="https://blog.csdn.net/weixin_44012359/article/details/118862954">VScode调用KEIL-MDK</a></li><li><a href="https://www.bilibili.com/read/cv14597116">VScode 配置 keil 5 环境</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+    
+    
+    <summary type="html">通过 VScode 插件 Keil Assistant 连接 KEIL 进行编译下载</summary>
+    
+    
+    
+    <category term="编程类" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/"/>
+    
+    <category term="KEIL" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/KEIL/"/>
+    
+    <category term="VScode" scheme="https://zml3589110.github.io/categories/VScode/"/>
+    
+    
+    <category term="KEIL5" scheme="https://zml3589110.github.io/tags/KEIL5/"/>
+    
+    <category term="VScode" scheme="https://zml3589110.github.io/tags/VScode/"/>
+    
+    <category term="环境配置" scheme="https://zml3589110.github.io/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    <category term="Keil Assistant" scheme="https://zml3589110.github.io/tags/Keil-Assistant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>KEIL5安装C51依赖</title>
+    <link href="https://zml3589110.github.io/posts/2938783249.html"/>
+    <id>https://zml3589110.github.io/posts/2938783249.html</id>
+    <published>2022-06-18T07:34:20.000Z</published>
+    <updated>2022-06-18T08:05:22.172Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>**问题描述：从KEIL4升级安装了KEIL5之后找不到 C51 相关设置，想创建89C51的工程却发现找不到89C51的芯片包 **</p></blockquote><h1 id="无法创建的原因"><a href="#无法创建的原因" class="headerlink" title="无法创建的原因"></a>无法创建的原因</h1><p>keil4通常用来开发51单片机项目，而keil5通常用来开发STM32项目，keil5中默认并没有51芯片库，这就导致了keil5创建工程时找不到89C51芯片。就像下图这样只有ARM和STM系列芯片。</p><img src="https://img-blog.csdnimg.cn/20210606213725369.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzcyMTE2Mw==,size_16,color_FFFFFF,t_70"><p><strong>真正原因在与keil5没有如下包（Legacy Device Database [no RTE]），如图:</strong></p><img src="https://img-blog.csdnimg.cn/20210606213852524.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzcyMTE2Mw==,size_16,color_FFFFFF,t_70"><h1 id="解决步骤"><a href="#解决步骤" class="headerlink" title="解决步骤"></a>解决步骤</h1><blockquote><p><strong>解决思路：使keil5集成51芯片库</strong></p></blockquote><ol><li><p>首先我们找到51芯片库的下载地址，去官网下载即可。<br>下载地址： <a href="https://www.keil.com/download/product/">https://www.keil.com/download/product/</a></p></li><li><p>进入官网后点击C51</p></li></ol><img src="https://img-blog.csdnimg.cn/20210606214158601.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzcyMTE2Mw==,size_16,color_FFFFFF,t_70"><p><strong>进去后需要填写一下个人信息，我们看情况填写就行了。</strong></p><ol start="3"><li>点击这个C51V960A.EXE下载安装51芯片库</li></ol><img src="https://img-blog.csdnimg.cn/20210606214424233.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzcyMTE2Mw==,size_16,color_FFFFFF,t_70"><blockquote><p>下载完成后以管理员身份运行，点击 <strong>next</strong></p></blockquote><img src="https://img-blog.csdnimg.cn/20210606214650227.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzcyMTE2Mw==,size_16,color_FFFFFF,t_70"> <p>下一步确认自己keil5的根目录（一般默认是没问题的），Backup打勾后点击next</p><img src="https://img-blog.csdnimg.cn/20210606214813818.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzcyMTE2Mw==,size_16,color_FFFFFF,t_70"><p>下一步看情况填写:</p><p>&lt;src&#x3D;”<a href="https://img-blog.csdnimg.cn/20210606214844648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzcyMTE2Mw==,size_16,color_FFFFFF,t_70&quot;&gt;">https://img-blog.csdnimg.cn/20210606214844648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzcyMTE2Mw==,size_16,color_FFFFFF,t_70&quot;&gt;</a></p><p>然后点击next等待安装完成即可。注意安装前要关闭当前正在运行的keil5</p><ol start="4"><li>再次打开keil5创建工程</li></ol><p>点击project&gt;New xxxxxx创建工程，下拉菜单就出现了51单片机的芯片库</p><img src="https://img-blog.csdnimg.cn/20210606215219879.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzcyMTE2Mw==,size_16,color_FFFFFF,t_70"><p>选中后可以直接在搜索框搜索AT89C51，或者找到Microchip展开第一个就是</p><img src="https://img-blog.csdnimg.cn/20210606215423315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzcyMTE2Mw==,size_16,color_FFFFFF,t_70"><p>点击OK之后51工程就创建成功了。</p><hr><blockquote><p><strong>说明：本文是收集参考网络文档，以方便查看</strong></p></blockquote><hr><h1 id="信息链接"><a href="#信息链接" class="headerlink" title="信息链接:"></a>信息链接:</h1><ol><li><a href="https://blog.csdn.net/weixin_43721163/article/details/117637028">KEIL5安装C51依赖，解决KEIL5无法创建C51工程</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+    
+    
+    <summary type="html">为 KEIL5 安装 C51 依赖包</summary>
+    
+    
+    
+    <category term="编程类" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/"/>
+    
+    <category term="KEIL" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/KEIL/"/>
+    
+    
+    <category term="KEIL5" scheme="https://zml3589110.github.io/tags/KEIL5/"/>
+    
+    <category term="C51" scheme="https://zml3589110.github.io/tags/C51/"/>
+    
+  </entry>
   
   <entry>
     <title>马自达钥匙技巧等</title>
@@ -164,9 +220,9 @@
     
     <category term="物联网" scheme="https://zml3589110.github.io/tags/%E7%89%A9%E8%81%94%E7%BD%91/"/>
     
-    <category term="C语言" scheme="https://zml3589110.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
-    
     <category term="涂鸦" scheme="https://zml3589110.github.io/tags/%E6%B6%82%E9%B8%A6/"/>
+    
+    <category term="C语言" scheme="https://zml3589110.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
     
     <category term="WBR3" scheme="https://zml3589110.github.io/tags/WBR3/"/>
     
@@ -199,9 +255,9 @@
     
     <category term="物联网" scheme="https://zml3589110.github.io/tags/%E7%89%A9%E8%81%94%E7%BD%91/"/>
     
-    <category term="C语言" scheme="https://zml3589110.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
-    
     <category term="涂鸦" scheme="https://zml3589110.github.io/tags/%E6%B6%82%E9%B8%A6/"/>
+    
+    <category term="C语言" scheme="https://zml3589110.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
     
     <category term="WBR3" scheme="https://zml3589110.github.io/tags/WBR3/"/>
     
@@ -329,11 +385,11 @@
     
     <category term="php" scheme="https://zml3589110.github.io/tags/php/"/>
     
-    <category term="mysql" scheme="https://zml3589110.github.io/tags/mysql/"/>
-    
     <category term="VUE" scheme="https://zml3589110.github.io/tags/VUE/"/>
     
     <category term="JavaScript" scheme="https://zml3589110.github.io/tags/JavaScript/"/>
+    
+    <category term="mysql" scheme="https://zml3589110.github.io/tags/mysql/"/>
     
     <category term="axios" scheme="https://zml3589110.github.io/tags/axios/"/>
     
@@ -569,70 +625,6 @@
     <category term="JSON" scheme="https://zml3589110.github.io/tags/JSON/"/>
     
     <category term="键值" scheme="https://zml3589110.github.io/tags/%E9%94%AE%E5%80%BC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VUE判断对象是否为空</title>
-    <link href="https://zml3589110.github.io/posts/637024282.html"/>
-    <id>https://zml3589110.github.io/posts/637024282.html</id>
-    <published>2022-05-18T07:04:20.000Z</published>
-    <updated>2022-05-23T11:53:52.561Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>vue.js判断对象是否为空的方法是：将对象转为json，如果为空集合{}，那么该对象就是空对象，如【JSON.stringify(object)&#x3D;&#x3D;’{}’】</p></blockquote><h1 id="判断法一"><a href="#判断法一" class="headerlink" title="判断法一"></a>判断法一</h1><p><strong>将对象转JSON，如果为空集合{} ，那么就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(object)==<span class="string">&#x27;&#123;&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h1 id="判断法二"><a href="#判断法二" class="headerlink" title="判断法二"></a>判断法二</h1><p><strong>判断对象的长度，如果为零，那就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(object).length==<span class="number">0</span></span><br></pre></td></tr></table></figure><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://www.php.cn/vuejs/463861.html">vue.js判断对象是否为空的方法是什么</a></li></ol><hr><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
-    
-    
-    <summary type="html">VUE判断对象是否为空</summary>
-    
-    
-    
-    <category term="编程类" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/"/>
-    
-    <category term="VUE" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/VUE/"/>
-    
-    <category term="前端" scheme="https://zml3589110.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-    <category term="网页" scheme="https://zml3589110.github.io/tags/%E7%BD%91%E9%A1%B5/"/>
-    
-    <category term="VUE" scheme="https://zml3589110.github.io/tags/VUE/"/>
-    
-    <category term="JavaScript" scheme="https://zml3589110.github.io/tags/JavaScript/"/>
-    
-    <category term="JSON" scheme="https://zml3589110.github.io/tags/JSON/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>php连接mysql数据库</title>
-    <link href="https://zml3589110.github.io/posts/3217038819.html"/>
-    <id>https://zml3589110.github.io/posts/3217038819.html</id>
-    <published>2022-05-17T09:18:20.000Z</published>
-    <updated>2022-05-18T08:52:19.443Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="按照-apache-php安装相关-进行安装"><a href="#按照-apache-php安装相关-进行安装" class="headerlink" title="按照[apache php安装相关]进行安装"></a>按照[apache php安装相关]进行安装</h1><p>安装好 apache 和 PHP之后再对 mysql 进行连接读取，确定PHP是否弄好的标志是可以在设定文档下运行 php 文件。<br><a href="http://localhost/myBlog/axios.php">运行本地服务器测试</a><br>刚开始按照网上连接时总报错，总提示找不到 mysqli 插件</p><blockquote><p>Class “mysqli” not found in</p></blockquote><h1 id="解决问题并连接MySql数据库"><a href="#解决问题并连接MySql数据库" class="headerlink" title="解决问题并连接MySql数据库"></a>解决问题并连接MySql数据库</h1><p>根据官网提供的方法<a href="https://www.php.net/manual/zh/mysqli.installation.php">安装配置MySql</a><br>不过因为使用的版本是 PHP8 ，因此不用大改，实际上只需要在 php.ini 文件上打开 extension&#x3D;mysqli 即可！</p><blockquote><p><strong>注意:修改完之后需要重新启动 apache 服务，要不然没作用！！总以为没修改对</strong></p></blockquote><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">net</span> stop Apache2.<span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">net</span> <span class="built_in">start</span> Apache2.<span class="number">4</span></span><br></pre></td></tr></table></figure><h1 id="设置-MySql-连接数据"><a href="#设置-MySql-连接数据" class="headerlink" title="设置 MySql 连接数据"></a>设置 MySql 连接数据</h1><blockquote><p>设置对应的地址和账号密码即可连接:</p></blockquote><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$mysqli</span> = <span class="keyword">new</span> mysqli(<span class="string">&quot;localhost&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;密码&quot;</span>, <span class="string">&quot;student&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&quot;SELECT * FROM tb_user&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$result</span> = <span class="variable">$mysqli</span>-&gt;query(<span class="variable">$sql</span>);</span><br><span class="line"></span><br><span class="line">    <span class="variable">$row</span> = <span class="variable">$result</span>-&gt;fetch_assoc(); <span class="comment">// 从结果集中取得一行作为关联数组</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$row</span>[<span class="string">&quot;password&quot;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* free result set */</span></span><br><span class="line"></span><br><span class="line">    <span class="variable">$result</span>-&gt;free();</span><br><span class="line">    <span class="comment">/* close connection */</span></span><br><span class="line"></span><br><span class="line">    <span class="variable">$mysqli</span>-&gt;close();</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">php连接mysql数据库并读出相应数据</summary>
-    
-    
-    
-    <category term="编程类" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/"/>
-    
-    <category term="PHP" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/PHP/"/>
-    
-    <category term="mysql" scheme="https://zml3589110.github.io/categories/mysql/"/>
-    
-    
-    <category term="网页" scheme="https://zml3589110.github.io/tags/%E7%BD%91%E9%A1%B5/"/>
-    
-    <category term="apache" scheme="https://zml3589110.github.io/tags/apache/"/>
-    
-    <category term="php" scheme="https://zml3589110.github.io/tags/php/"/>
-    
-    <category term="数据库" scheme="https://zml3589110.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="mysql" scheme="https://zml3589110.github.io/tags/mysql/"/>
     
   </entry>
   
