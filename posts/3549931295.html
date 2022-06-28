@@ -1,0 +1,346 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>VBA控件之一(MultiPage 控件) | 赵逸尘个人博客</title><meta name="keywords" content="VBA,控件,MultiPage"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="使用 MultiPage 控件来处理大量可被分为几类排序信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VBA控件之一(MultiPage 控件)">
+<meta property="og:url" content="https://zml3589110.github.io/posts/3549931295.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="使用 MultiPage 控件来处理大量可被分为几类排序信息">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2022-06-28T02:30:20.000Z">
+<meta property="article:modified_time" content="2022-06-28T02:53:46.747Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="VBA">
+<meta property="article:tag" content="控件">
+<meta property="article:tag" content="MultiPage">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/3549931295"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VBA控件之一(MultiPage 控件)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-28 10:53:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">31</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VBA控件之一(MultiPage 控件)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-28T02:30:20.000Z" title="发表于 2022-06-28 10:30:20">2022-06-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-06-28T02:53:46.747Z" title="更新于 2022-06-28 10:53:46">2022-06-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/">编程类</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/VBA/">VBA</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VBA控件之一(MultiPage 控件)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>使用 MultiPage 控件来处理大量可被分为几类排序信息。 MultiPage 控件由组成一个或多个 Page 对象， 每个包含不同组的控件。 以编程方式通过设置 MultiPage 控件的 Value 属性设置活动页。</p>
+</blockquote>
+<h1 id="方式一、如何控制-MultiPage-控件编程"><a href="#方式一、如何控制-MultiPage-控件编程" class="headerlink" title="方式一、如何控制 MultiPage 控件编程"></a>方式一、如何控制 MultiPage 控件编程</h1><p><strong>要添加 MultiPage 控件并控制它通过使用宏, 请按照下列步骤操作：</strong></p>
+<table>
+<thead>
+<tr>
+<th>1.</th>
+<th>启动 Excel, 并打开新空白工作簿。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2.</td>
+<td>在 工具 菜单, 指向 宏 , 然后单击 VisualBasic 编辑器 。</td>
+</tr>
+<tr>
+<td>3.</td>
+<td>在 插入 菜单上, 单击要在工作簿中插入 UserForm UserForm 。</td>
+</tr>
+<tr>
+<td>4.</td>
+<td>添加到 UserForm MultiPage 控件。</td>
+</tr>
+<tr>
+<td>5.</td>
+<td>将 Label 控件添加到 Page 1 多页 控件上。</td>
+</tr>
+<tr>
+<td>6.</td>
+<td>将 TextBox 控件添加到 Page 1 多页 控件上。</td>
+</tr>
+<tr>
+<td>7.</td>
+<td>MultiPage 控件, 上单击, Page 2 ， 然后重复步骤 5 和 6 以添加一个 Label 控件和 TextBox 控件。</td>
+</tr>
+<tr>
+<td>8.</td>
+<td>双击要打开代码窗口对 MultiPage 控件 MultiPage 控件。</td>
+</tr>
+<tr>
+<td>9.</td>
+<td>在代码窗口, 为 MultiPage1 Change 事件键入下列代码：</td>
+</tr>
+<tr>
+<td>10.</td>
+<td>在代码窗口, 为 UserForm Initialize 事件键入下列代码：</td>
+</tr>
+<tr>
+<td>11.</td>
+<td>在 运行 菜单上, 单击 运行子过程 &#x2F; 用户窗体 。  Page 1, 上 TextBox 控件中键入 Test 。 当单击 Page 2 选项卡、 TextBox 2 被清除, 和标题为 Label 2 变为项， 在 Page 1 上 TextBox 所做 （” Test “) （” Test “）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>为 MultiPage1 Change 事件键入下列代码:<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> MultiPage1_Change()</span><br><span class="line">            <span class="keyword">Select</span> <span class="keyword">Case</span> MultiPage1.Value</span><br><span class="line">            <span class="comment">&#x27; If activating Page1...</span></span><br><span class="line">            <span class="keyword">Case</span> <span class="number">0</span></span><br><span class="line">            Label1.Caption = TextBox2.<span class="keyword">Text</span></span><br><span class="line">            TextBox1.<span class="keyword">Text</span> = <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="comment">&#x27; If activating Page2...</span></span><br><span class="line">            <span class="keyword">Case</span> <span class="number">1</span></span><br><span class="line">            Label2.Caption = TextBox1.<span class="keyword">Text</span></span><br><span class="line">            TextBox2.<span class="keyword">Text</span> = <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">Select</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure></li>
+<li>为 UserForm Initialize 事件键入下列代码：<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> UserForm_Initialize()</span><br><span class="line">            <span class="comment">&#x27; Force Page1 to be active when UserForm is displayed.</span></span><br><span class="line">            MultiPage1.Value = <span class="number">0</span></span><br><span class="line">            Label1.Caption = <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="如何通过使用-MultiPage-控件创建一个向导界面"><a href="#如何通过使用-MultiPage-控件创建一个向导界面" class="headerlink" title="如何通过使用 MultiPage 控件创建一个向导界面"></a>如何通过使用 MultiPage 控件创建一个向导界面</h2><p>将任务需要几个增量步骤, 向导界面可能会非常有效。 您可使用 MultiPage 控件以创建一个向导界面代替使用多用户窗体。 本示例操作具有三页 MultiPage 控件。 附加到对 UserForm Initialize 事件过程禁用 Page 2 和 Page3, 并强制 Page 1 的 多页 控件可活动。</p>
+<p><strong>注意</strong> 您通过使用 <strong>Pages</strong> 集合, 索引 <strong>MultiPage</strong> 控件的页面时集合中第一页是零页。 此过程还设置标题的 <strong>CommandButton</strong> 控件并禁用 <strong>&lt; 备份</strong> 按钮。</p>
+<p>注意的功能是分配给 CommandButton 1 控件的 Click 事件过程 “ 后退 “ 按钮 &lt; 是分配给 CommandButton 2 是 Click 事件过程控制功能的下一步 &gt; 按钮。 若要通过使用 <strong>MultiPage</strong> 控件, 创建一个向导界面请按照下列步骤：</p>
+<table>
+<thead>
+<tr>
+<th>1.</th>
+<th>启动 Excel, 并打开新空白工作簿。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2.</td>
+<td>在 工具 菜单, 指向 宏 , 然后单击 VisualBasic 编辑器 。</td>
+</tr>
+<tr>
+<td>3.</td>
+<td>在 插入 菜单上, 单击要在工作簿中插入 UserForm UserForm 。</td>
+</tr>
+<tr>
+<td>4.</td>
+<td>添加到 UserForm MultiPage 控件。</td>
+</tr>
+<tr>
+<td>5.</td>
+<td>右键单击, “ Page 1 选项卡， 然后单击要添加到 多页 控件 Page3 新页 。</td>
+</tr>
+<tr>
+<td>6.</td>
+<td>添加一个 CommandButton 控件不位于 多页 控件上 UserForm 上。  重复此步骤可添加一个 UserForm 上二 CommandButton 控件。</td>
+</tr>
+<tr>
+<td>7.</td>
+<td>双击以打开代码窗口对于 UserForm UserForm 。</td>
+</tr>
+<tr>
+<td>8.</td>
+<td>在代码窗口, 为 UserForm Initialize 事件键入下列代码：</td>
+</tr>
+<tr>
+<td>9.</td>
+<td>在 运行 菜单上, 单击 运行子过程 &#x2F; 用户窗体 。</td>
+</tr>
+</tbody></table>
+<p>当您单击下一步 &gt; 激活 Page 2 后退 “ 按钮可, 和 &lt; 当您单击 Next &gt; 第二次, Page3 激活并题注为 CommandButton 2 更改为 “ 完成 “。</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#x27;在代码窗口, 为 UserForm Initialize 事件键入下列代码：</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> UserForm_Initialize()</span><br><span class="line">            <span class="keyword">With</span> MultiPage1</span><br><span class="line">            <span class="comment">&#x27; The next 2 lines disable Page2 &amp; Page3.</span></span><br><span class="line">            .Pages(<span class="number">1</span>).Enabled = <span class="literal">False</span></span><br><span class="line">            .Pages(<span class="number">2</span>).Enabled = <span class="literal">False</span></span><br><span class="line">            <span class="comment">&#x27; Make Page1 the active page.</span></span><br><span class="line">            .Value = <span class="number">0</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">            <span class="comment">&#x27; Set the caption on the CommandButtons.</span></span><br><span class="line">            CommandButton1.Caption = <span class="string">&quot;&lt;Back&quot;</span></span><br><span class="line">            CommandButton1.Enabled = <span class="literal">False</span></span><br><span class="line">            CommandButton2.Caption = <span class="string">&quot;Next&gt;&quot;</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line">            <span class="comment">&#x27; Procedure for the &quot;&lt;Back&quot; button</span></span><br><span class="line">            <span class="keyword">Private</span> <span class="keyword">Sub</span> CommandButton1_Click()</span><br><span class="line">            <span class="keyword">Select</span> <span class="keyword">Case</span> MultiPage1.Value</span><br><span class="line">            <span class="keyword">Case</span> <span class="number">1</span>                                 <span class="comment">&#x27; If Page2 is active...</span></span><br><span class="line">            <span class="keyword">With</span> MultiPage1</span><br><span class="line">            .Pages(<span class="number">0</span>).Enabled = <span class="literal">True</span>       <span class="comment">&#x27; Enable Page1.</span></span><br><span class="line">            .Value = MultiPage1.Value - <span class="number">1</span>  <span class="comment">&#x27; Move back 1 page.</span></span><br><span class="line">            .Pages(<span class="number">1</span>).Enabled = <span class="literal">False</span>      <span class="comment">&#x27; Disable Page2.</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">            CommandButton1.Enabled = <span class="literal">False</span>     <span class="comment">&#x27; Disable Back button.</span></span><br><span class="line">            <span class="keyword">Case</span> <span class="number">2</span>                                 <span class="comment">&#x27; If Page3 is active...</span></span><br><span class="line">            <span class="keyword">With</span> MultiPage1</span><br><span class="line">            .Pages(<span class="number">1</span>).Enabled = <span class="literal">True</span>       <span class="comment">&#x27; Enable Page2.</span></span><br><span class="line">            .Value = MultiPage1.Value - <span class="number">1</span>  <span class="comment">&#x27; Move back 1 page.</span></span><br><span class="line">            .Pages(<span class="number">2</span>).Enabled = <span class="literal">False</span>      <span class="comment">&#x27; Disable Page3.</span></span><br><span class="line">            CommandButton2.Caption = <span class="string">&quot;Next&gt;&quot;</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">Select</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line">            <span class="comment">&#x27; Procedure for the &quot;Next&gt;&quot; button</span></span><br><span class="line">            <span class="keyword">Private</span> <span class="keyword">Sub</span> CommandButton2_Click()</span><br><span class="line">            <span class="keyword">Select</span> <span class="keyword">Case</span> MultiPage1.Value</span><br><span class="line">            <span class="keyword">Case</span> <span class="number">0</span>                                  <span class="comment">&#x27; If Page1 is active...</span></span><br><span class="line">            <span class="keyword">With</span> MultiPage1</span><br><span class="line">            .Value = MultiPage1.Value + <span class="number">1</span>   <span class="comment">&#x27; Move forward 1 page.</span></span><br><span class="line">            .Pages(<span class="number">1</span>).Enabled = <span class="literal">True</span>        <span class="comment">&#x27; Enable Page2.</span></span><br><span class="line">            .Pages(<span class="number">0</span>).Enabled = <span class="literal">False</span>       <span class="comment">&#x27; Disable Page1.</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">            CommandButton1.Enabled = <span class="literal">True</span>       <span class="comment">&#x27; Enable Back button.</span></span><br><span class="line">            <span class="keyword">Case</span> <span class="number">1</span>                                  <span class="comment">&#x27; If Page2 is active...</span></span><br><span class="line">            <span class="keyword">With</span> MultiPage1</span><br><span class="line">            .Value = MultiPage1.Value + <span class="number">1</span>   <span class="comment">&#x27; Move forward 1 page.</span></span><br><span class="line">            .Pages(<span class="number">2</span>).Enabled = <span class="literal">True</span>        <span class="comment">&#x27; Enable Page3.</span></span><br><span class="line">            .Pages(<span class="number">1</span>).Enabled = <span class="literal">False</span>       <span class="comment">&#x27; Disable Page2.</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">            CommandButton2.Caption = <span class="string">&quot;Finish&quot;</span>   <span class="comment">&#x27; Change Next button to Finish.</span></span><br><span class="line">            <span class="keyword">Case</span> <span class="number">2</span>                                  <span class="comment">&#x27; If Page3 is active...</span></span><br><span class="line">            MsgBox <span class="string">&quot;Finished!&quot;</span>                  <span class="comment">&#x27; User is Finished.</span></span><br><span class="line">            Unload <span class="keyword">Me</span>                           <span class="comment">&#x27; Unload the UserForm.</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">Select</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="方式二、vba-Page分页控件使用方法介绍"><a href="#方式二、vba-Page分页控件使用方法介绍" class="headerlink" title="方式二、vba Page分页控件使用方法介绍"></a>方式二、vba Page分页控件使用方法介绍</h1><blockquote>
+<p>基本说一下Page使用方法，包括添加分页、删除分页、和设置分页属性等几点比较重要的内容。</p>
+</blockquote>
+<img src="https://pics7.baidu.com/feed/cc11728b4710b912705faeb15852f4049345221d.png?token=c36a6abd99ef68a91642e2b228bb790b">
+
+<ul>
+<li>一个表单示例，标题分布以按钮形式来显示，默认为标签形式。</li>
+</ul>
+<h2 id="设置方法"><a href="#设置方法" class="headerlink" title="设置方法:"></a>设置方法:</h2><figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">With</span> </span><br><span class="line">	<span class="keyword">Me</span>.MultiPage1.Style = fmTabStyleButtons<span class="comment">&#x27;按钮形式&#x27;.Style = fmTabStyleTabs &#x27;默认为标签形式</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">With</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>背景图片设置</strong><blockquote>
+<p>背景图片用loadpicture(＂图片路径＋文件名＂)加载</p>
+</blockquote>
+</li>
+</ul>
+<img src="https://pics3.baidu.com/feed/0b55b319ebc4b7453a545da552531610888215f3.png?token=38556e3bc454b547afa9a1bc9094b262">
+
+<p><strong>使用方法如下:</strong></p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Me</span>.MultiPage1.Pages.Item(<span class="number">1</span>).Picture =_</span><br><span class="line">LoadPicture(ThisWorkbook.Path &amp; <span class="string">&quot;\pic\123.jpg&quot;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>其中注意一点Item(i),item表示Page页 字母ｉ代表下标或索引值.索引值从0开始,也就是说第一个Page页用item(0)来代表,最后一个用item(pages.count-1)来表示.</strong></p>
+</blockquote>
+<img src="https://pics5.baidu.com/feed/a1ec08fa513d26976f8965acc954bafc4216d81b.png?token=67b7980f1cab07044562d95e4c671f98">
+
+<ul>
+<li><strong>改变按钮宽度</strong><blockquote>
+<p>这个功能其实就是设置分布标题大小,用TabFixedWidth设置宽,TabFixedHeight设置高.</p>
+</blockquote>
+</li>
+</ul>
+<img src="https://pics6.baidu.com/feed/5ab5c9ea15ce36d3e51f355aa45c3280e850b1f3.png?token=bebe6e9095c7dfe11b7ec89dea1fabd6">
+
+<p><strong>使用方法如下:</strong></p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> </span><br><span class="line">	<span class="keyword">Me</span>.MultiPage1.TabFixedWidth = <span class="number">80</span>.TabFixedHeight=<span class="number">28</span></span><br><span class="line">endwith</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>新建分页</strong></li>
+</ul>
+<blockquote>
+<p>新建分页也十分简单,一行代码就可以完成. MultiPage1.Pages.Add “分布名”,”标题名”,索引值</p>
+</blockquote>
+<img src="https://pics1.baidu.com/feed/a9d3fd1f4134970aa044a46c0965d9cfa6865df0.png?token=96dba0ed08723058977dcf9210d191f5">
+
+<p><strong>使用方法如下:</strong></p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Dim</span> x <span class="keyword">As</span> Integerx = <span class="keyword">Me</span>.MultiPage1.Pages.Count</span><br><span class="line"><span class="keyword">If</span> x &gt; <span class="number">6</span> <span class="keyword">Then</span> </span><br><span class="line">	<span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="keyword">Me</span>.MultiPage1.Pages.Add <span class="string">&quot;page&quot;</span> &amp; x, <span class="string">&quot;新建 &quot;</span> &amp; x &amp; <span class="string">&quot;#&quot;</span>, x</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>删除分页</strong><blockquote>
+<p>删除分页也是一行代码完成的,Me.MultiPage1.Pages.Remove 索引</p>
+</blockquote>
+</li>
+</ul>
+<img src="https://pics5.baidu.com/feed/9825bc315c6034a821d4f4b357bc415309237600.png?token=5599e8d77a6492b808dba31ad0cc1f24">
+
+<p><strong>使用方法如下:</strong></p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Dim</span> i <span class="keyword">As</span> Integeri = <span class="keyword">Me</span>.MultiPage1.Pages.Count - <span class="number">1</span><span class="comment">&#x27;取最后一个分布索引号</span></span><br><span class="line"><span class="keyword">If</span> i &lt;= <span class="number">4</span> <span class="keyword">Then</span> </span><br><span class="line">	<span class="keyword">Exit</span> <span class="keyword">Sub</span><span class="comment">&#x27;判断是否是删除页 不能把自己删除了</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Me</span>.MultiPage1.Pages.Remove i<span class="comment">&#x27;执行删除分页</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>结尾<br>其实对分页控件用得不是很熟悉,所以也是边学边做,,有些错误的地方,就难免.<br>同时也希望指出不正确的地方,加以改正.<br>关注江觅学习更多vba编程技术</li>
+</ul>
+<hr>
+<h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/liyanwwww/article/details/2653539">VBA控件常规使用–multiPage 控件</a></li>
+<li><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1673353087367441194&wfr=spider&for=pc">vba Page分页控件使用方法介绍</a></li>
+</ol>
+<hr>
+<center><font color="red">=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/3549931295.html">https://zml3589110.github.io/posts/3549931295.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/VBA/">VBA</a><a class="post-meta__tags" href="/tags/%E6%8E%A7%E4%BB%B6/">控件</a><a class="post-meta__tags" href="/tags/MultiPage/">MultiPage</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/0.jpg" target="_blank"><img class="post-qr-code-img" src="/img/0.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/1.jpg" target="_blank"><img class="post-qr-code-img" src="/img/1.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/24674706.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">VBA窗体最大化最小化按钮实现</div></div></a></div><div class="next-post pull-right"><a href="/posts/4237796259.html"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">VBA函数之一(Format格式化字符串)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/585123975.html" title="VBA实现进度条显示"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">VBA实现进度条显示</div></div></a></div><div><a href="/posts/2126489867.html" title="在窗体中显示实时系统时钟"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">在窗体中显示实时系统时钟</div></div></a></div><div><a href="/posts/2953555089.html" title="MsgBox函数的讲解及应用"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">MsgBox函数的讲解及应用</div></div></a></div><div><a href="/posts/3177018411.html" title="VBA数据处理之一(字符串)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">VBA数据处理之一(字符串)</div></div></a></div><div><a href="/posts/3269845264.html" title="窗体上按Esc键关闭窗体（VBA）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">窗体上按Esc键关闭窗体（VBA）</div></div></a></div><div><a href="/posts/24674706.html" title="VBA窗体最大化最小化按钮实现"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">VBA窗体最大化最小化按钮实现</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">31</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%E3%80%81%E5%A6%82%E4%BD%95%E6%8E%A7%E5%88%B6-MultiPage-%E6%8E%A7%E4%BB%B6%E7%BC%96%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">方式一、如何控制 MultiPage 控件编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%BD%BF%E7%94%A8-MultiPage-%E6%8E%A7%E4%BB%B6%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%90%91%E5%AF%BC%E7%95%8C%E9%9D%A2"><span class="toc-number">1.1.</span> <span class="toc-text">如何通过使用 MultiPage 控件创建一个向导界面</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%E3%80%81vba-Page%E5%88%86%E9%A1%B5%E6%8E%A7%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">方式二、vba Page分页控件使用方法介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">设置方法:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">相关链接</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1296505440.html" title="VBA字符串"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA字符串"/></a><div class="content"><a class="title" href="/posts/1296505440.html" title="VBA字符串">VBA字符串</a><time datetime="2022-06-28T07:18:20.000Z" title="发表于 2022-06-28 15:18:20">2022-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3177018411.html" title="VBA数据处理之一(字符串)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA数据处理之一(字符串)"/></a><div class="content"><a class="title" href="/posts/3177018411.html" title="VBA数据处理之一(字符串)">VBA数据处理之一(字符串)</a><time datetime="2022-06-28T07:09:20.000Z" title="发表于 2022-06-28 15:09:20">2022-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2635706068.html" title="VBA窗体使用图片"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA窗体使用图片"/></a><div class="content"><a class="title" href="/posts/2635706068.html" title="VBA窗体使用图片">VBA窗体使用图片</a><time datetime="2022-06-28T07:06:20.000Z" title="发表于 2022-06-28 15:06:20">2022-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/462997477.html" title="VBA判断活动窗体"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA判断活动窗体"/></a><div class="content"><a class="title" href="/posts/462997477.html" title="VBA判断活动窗体">VBA判断活动窗体</a><time datetime="2022-06-28T06:54:20.000Z" title="发表于 2022-06-28 14:54:20">2022-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/585123975.html" title="VBA实现进度条显示"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA实现进度条显示"/></a><div class="content"><a class="title" href="/posts/585123975.html" title="VBA实现进度条显示">VBA实现进度条显示</a><time datetime="2022-06-28T06:32:20.000Z" title="发表于 2022-06-28 14:32:20">2022-06-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>

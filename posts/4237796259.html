@@ -1,0 +1,454 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>VBA函数之一(Format格式化字符串) | 赵逸尘个人博客</title><meta name="keywords" content="VBA,函数,Format"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Format 函数与工作表函数 TEXT 用法基本相同，但功能更加强大，许多格式只能用于VBA 的 Format 函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VBA函数之一(Format格式化字符串)">
+<meta property="og:url" content="https://zml3589110.github.io/posts/4237796259.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="Format 函数与工作表函数 TEXT 用法基本相同，但功能更加强大，许多格式只能用于VBA 的 Format 函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2022-06-28T02:59:20.000Z">
+<meta property="article:modified_time" content="2022-06-28T03:26:30.364Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="VBA">
+<meta property="article:tag" content="函数">
+<meta property="article:tag" content="Format">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/4237796259"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VBA函数之一(Format格式化字符串)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-28 11:26:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">31</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VBA函数之一(Format格式化字符串)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-28T02:59:20.000Z" title="发表于 2022-06-28 10:59:20">2022-06-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-06-28T03:26:30.364Z" title="更新于 2022-06-28 11:26:30">2022-06-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/">编程类</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/VBA/">VBA</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VBA函数之一(Format格式化字符串)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Format(值,格式(可选参数))</p>
+<h1 id="一、数字格式："><a href="#一、数字格式：" class="headerlink" title="一、数字格式："></a>一、数字格式：</h1><ol>
+<li><p>General Number：普通数字，可以用来去掉千位分隔号和无效 0 。<br>如：Format(“1,234,567.80”, “General Number”)&#x3D;”1234567.8”</p>
+</li>
+<li><p>Currency：货币类型，可添加千位分隔号和货币符号，保留两位小数点。<br>如：Format(1234567, “Currency”)&#x3D;”¥1,234,567.00”</p>
+</li>
+<li><p>Fixed：格式为带两位小数的数字。<br>如：Format(“123456”, “Fixed”)&#x3D;123456.00</p>
+</li>
+<li><p>Standard：标准，即带千位分隔号和两位小数。<br>如：Format(“123456”, “Standard”)&#x3D;123,456.00</p>
+</li>
+<li><p>Percent：带两位小数点的百分数。<br>如：Format(“123456”, “Percent”)&#x3D;12345600.00</p>
+</li>
+<li><p>Scientific：科学记数法。<br>如：Format(“1234567”, “Scientific”)&#x3D;1.23E+06</p>
+</li>
+<li><p>Yes&#x2F;No：当数值为非 0 数字时返回 Yes ，否则返回 No 。<br>“如：Format(-3.14, “Yes&#x2F;No”)&#x3D;”Yes”<br>Format(0, “Yes&#x2F;No”)&#x3D;”No”</p>
+</li>
+<li><p>True&#x2F;False：当数值为非 0 数字时返回 True ，否则返回 False 。<br>与第7点类似，这里不再举例。</p>
+</li>
+<li><p>On&#x2F;Off：当数值为非 0 数字时返回 On ，否则返回 Off 。<br>与第7点类似，这里不再举例。</p>
+</li>
+<li><p>“”或省略：返回原值，但去除了小数点前后的无效 0 。<br>如：Format(“0.1030”, “”)&#x3D;”.103”</p>
+</li>
+<li><p>0：占位格式化，不足位时补足 0 。<br>“如：Format(123, “0000”)&#x3D;”0123”<br>Format$(12.3, “0.00”)&#x3D;”12.30”</p>
+</li>
+<li><p>#：占位格式化，不足位时不补足 0 。<br>如：Format(123, “####”)&#x3D;123</p>
+</li>
+<li><p>%：转化为百分数，一个%代表乘以 100 。<br>如：Format(1.23, “0.00%”)&#x3D;123.00%<br>Format(1.23, “0.00%%”)&#x3D;12300.00%%</p>
+</li>
+<li><p>：强制显示某字符。<br>如：Format$(12.34, “RMB .00”)&#x3D;”RMB 12.34”</p>
+</li>
+<li><p>;(分号)：分段显示不同格式<br>比如要把正数显示为“正”，负数显示为“负”，0显示为“零”，参数为”正;负;零”<br>如：Format$(123, “正;负;零”)&#x3D;”正”<br>第1段为正数格式，第2段为负数格式，第3段为0格式。</p>
+</li>
+</ol>
+<h1 id="二、日期和时间格式："><a href="#二、日期和时间格式：" class="headerlink" title="二、日期和时间格式："></a>二、日期和时间格式：</h1><ol>
+<li>固定格式参数<br>General Date：基本类型<br>如：Format(“2010-5-1 9:8:5”, “General Date”)&#x3D;”2010&#x2F;5&#x2F;1 9:08:05”<br>Long Date：操作系统定义的长日期<br>如：Format(“2010-5-1 9:8:5”, “Long Date”)&#x3D;2010年5月1日<br>Medium Date：中日期<br>如：Format(“2010-5-1 9:8:5”, “Medium Date”)&#x3D;10-05-01<br>Short Date：操作系统定义的短日期<br>如：Format(“2010-5-1 9:8:5”, “Short Date”)&#x3D;2010-5-1<br>Long Time：操作系统定义的长时间<br>如：Format(“2010-5-1 9:8:5”, “Long Time”)&#x3D;9:08:05<br>Medium Time:带AM&#x2F;PM(上午&#x2F;下午)的12小时制，不带秒<br>如：Format(“2010-5-1 9:8:5”, “Medium Time”)&#x3D;09:08 上午<br>Short Time：24时制的时间，不带秒<br>如：Format(“2010-5-1 9:8:5”, “Short Time”)&#x3D;09:08</li>
+<li>自定义格式<br>C：格式化为国标的日期和时间<br>如：Format(“2010-5-1 9:8:5”, “c”)&#x3D;2010&#x2F;5&#x2F;1 9:08:05<br>y:一年中的第几天(1-366)<br>如：Format(“2010-5-1 9:8:5”, “y”)&#x3D;121<br>yy：两位数的年份(00-99)<br>如：Format(“2010-5-1 9:8:5”, “yy”)&#x3D;10<br>yyy：上面的 yy 与 y 结合在一起<br>“如：Format(“2010-5-1 9:8:5”, “yyy”)&#x3D;10121<br>Format(“2010-5-1 9:8:5”, “yy年第y天”)&#x3D;10年第121天<br>yyyy：四位数的年份(0100-9999)<br>如：Format(“2010-5-1 9:8:5”, “yyyy”)&#x3D;2010<br>d：一个月中的第几天(1-31)<br>如：Format(“2010-5-1 9:8:5”, “d”)&#x3D;1<br>dd：与 d 相同，但不足两位时补足 0<br>如：Format(“2010-5-1 9:8:5”, “dd”)&#x3D;01<br>ddd：三个英文字母表示的星期几<br>如：Format(“2010-5-1 9:8:5”, “ddd”)&#x3D;”Sat”<br>dddd：英文表示的星期几<br>如：Format(“2010-5-1 9:8:5”, “dddd”)&#x3D;”Saturday”<br>ddddd：显示标准日期<br>如：Format(“2010-5-1 9:8:5”, “ddddd”)&#x3D;2010&#x2F;5&#x2F;1<br>dddddd：长日期<br>如：Format(“2010-5-1 9:8:5”, “dddddd”)&#x3D;2010年5月1日<br>w：一个星期中的第几天(始于周日，周日为1)<br>如：Format(“2010-5-1 9:8:5”, “w”)&#x3D;7<br>ww：一年中的第几周<br>如：Format(“2010-5-1 9:8:5”, “ww”)&#x3D;18<br>m：月份数(当用于时间时，也可以表时为分钟)<br>如：Format(“2010-5-1 9:8:5”, “m”)&#x3D;5<br>mm：当小于10时带前导0的月数(当用于时间时，也可以表示为两位数的分钟数)<br>如：Format(“2010-5-1 9:8:5”, “mm”)&#x3D;05<br>mmm：三个英文字母表示的月份数<br>如：Format(“2010-1-1 9:8:5”, “mmm”)&#x3D;”Jan”<br>mmmm：英文表示的月份数<br>如：Format(“2010-1-1 9:8:5”, “mmmm”)&#x3D;”January”<br>q：一年中的第几季(1-4)<br>如：Format(“2010-5-1 9:8:5”, “q”)&#x3D;2<br>aaa：中文表示的周几<br>如：Format(“2010-5-1 9:8:5”, “aaa”)&#x3D;周六<br>aaaa：中文表示的星期几<br>如：Format(“2010-5-1 9:8:5”, “aaaa”)&#x3D;星期六<br>h：小时数(0-23)<br>如：Format(“2010-5-1 9:8:5”, “h”)&#x3D;9<br>h：两位数表示的小时数<br>如：Format(“2010-5-1 9:8:5”, “hh”)&#x3D;09<br>n：分钟数(0-59)<br>如：Format(“2010-5-1 9:8:5”, “n”)&#x3D;8<br>nn：两位数表示的分钟数(00-59)<br>如：Format(“2010-5-1 9:8:5”, “nn”)&#x3D;08<br>s：秒数(0-59)<br>如：Format(“2010-5-1 9:8:5”, “s”)&#x3D;5<br>ss：两位数表示的秒数(00-59)<br>如：Format(“2010-5-1 9:8:5”, “ss”)&#x3D;05<br>ttttt:标准时间，当小时数小于10时不带0，与 h:mm:ss 或 h:nn:ss 相同<br>如：Format(“2010-5-1 9:8:5”, “ttttt”)&#x3D;9:08:05<br>AM&#x2F;PM：显示当前为AM或PM<br>如：Format(“2010-5-1 11:59:59”, “AM&#x2F;PM”)&#x3D;AM<br>Format(“2010-5-1 12:0:0”, “AM&#x2F;PM”)&#x3D;PM<br>A&#x2F;P：显示当前为A或P<br>与 AM&#x2F;PM 一样，这里不再举例。<br>说明：<br>可以多种格式联合使用，如：<br>Format(“2010-5-1 9:8:5”, “dddddd aaaa”)&#x3D;2010年5月1日 星期六</li>
+</ol>
+<h1 id="三、文本格式"><a href="#三、文本格式" class="headerlink" title="三、文本格式"></a>三、文本格式</h1><p>@：匹配位置插入格式化文本，如：</p>
+<p>在”abcde”前插入文本”X”，代码为：Format(“abcde”, “X@”)&#x3D;Xabcde</p>
+<p>在”abcde”第1位字符后面插入文本”X”，代码为：Format(“abcde”, “@X”)&#x3D;aXbcde</p>
+<p>在”abcde”第2位字符后面插入文本”X”，代码为：Format(“abcde”, “@@X”)&#x3D;abXcde</p>
+<p>在”abcde”第3位字符后面插入文本”X”，代码为：Format(“abcde”, “@@@X”)&#x3D;abcXde</p>
+<p>当点位符@比原文本字符串多时，刚在相应位置上添加空格，如：</p>
+<p>Format(“abc”, “X@@@@”)&#x3D;”X abc”</p>
+<p>Format(“abc”, “X@@@@@”)&#x3D;”X  abc”</p>
+<p>Format(“t”, “@@a@”)&#x3D;”  at”(空格空格at)</p>
+<p>与!配合可从后面截取一段文本，如：</p>
+<p>截取”abcde”后面1个字符文本，代码为：Format(“abcde”, “!@”)&#x3D;e</p>
+<p>截取”abcde”后面2个字符文本，代码为：Format(“abcde”, “!@@”)&#x3D;de</p>
+<p>截取”abcde”后面3个字符文本，代码为：Format(“abcde”, “!@@@”)&#x3D;cde</p>
+<p>截取”abcde”后面两位，并在前面添加”XY”，代码为：Format(“abcde”, “!XY@@”)&#x3D;Xyde</p>
+<p>&amp;：字符占位符，与@基本相同，这里不再赘述。</p>
+<p>如：Format$(“I Love You”, “</p>
+<blockquote>
+<p>：强制将所有字符以大写格式显示。</p>
+</blockquote>
+<p>如：Format$(“I Love You”, “&gt;”)&#x3D;I LOVE YOU</p>
+<p>转自：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/zhengyuxin/articles/1932724.html">http://www.cnblogs.com/zhengyuxin/articles/1932724.html</a></p>
+<hr>
+<p>Format[$] ( expr [ , fmt ] )</p>
+<p>format 返回变体型</p>
+<p>format$ 强制返回为文本</p>
+<hr>
+<p>数字类型的格式化</p>
+<hr>
+<p>固定格式参数：</p>
+<p>General Number 普通数字，如可以用来去掉千位分隔号</p>
+<p>format$(“100,123.12”,”General Number”) 返回值 100123.12</p>
+<p>Currency 货币类型，可添加千位分隔号和货币符号</p>
+<p>format$(“100123.12”,”Currency”) 返回值 ￥100,123.12</p>
+<p>Fixed 格式为带两位小数的数字</p>
+<p>format$(“100123”,”Fixed”) 返回值 100123.00</p>
+<p>Standard 标准，即带千位分隔号和两位小数</p>
+<p>format$(“100123”,”Standard”) 返回值 100,123.00</p>
+<p>Percent 百分数</p>
+<p>format$(“100123”,”Percent”) 返回值 10012300.00%</p>
+<p>Scientific 科学记数法</p>
+<p>format$(“100123”,”Scientific”) 返回值 1.00E+05</p>
+<p>Yes&#x2F;No 当值为0时返回 NO,否则返回 YES</p>
+<p>format$(“100123”,”Yes&#x2F;No”) 返回值 Yes</p>
+<p>True&#x2F;False 当值为0时返回 False,否则返回 True</p>
+<p>format$(“100123”,”True&#x2F;False”) 返回值 True</p>
+<p>On&#x2F;Off 当值为0时返回 Off,否则返回 On</p>
+<p>format$(“100123”,”Yes&#x2F;No”) 返回值 On</p>
+<p>自定义格式参数</p>
+<p>“” 不进行格式化 返回值 原值</p>
+<p>0 占位格式化，不足补0</p>
+<p>format$(“100123”,”0000000”) 返回值 0100123</p>
+<h1 id="占位格式化，不足时不补0"><a href="#占位格式化，不足时不补0" class="headerlink" title="占位格式化，不足时不补0"></a>占位格式化，不足时不补0</h1><p>format$(“100123”,”#######”) 返回值 100123</p>
+<p>. 强制显示小数点</p>
+<p>format$(“100123.12”,”.000”) 返回值 100123.120</p>
+<p>% 转化为百分数，一个%代表乘以100</p>
+<p>format$(“10.23”,”0.00%”) 返回值 1023.00%</p>
+<p>format$(“10.23”,”0.00%%”) 返回值 102300.00%%</p>
+<p>, 以千为单位格化</p>
+<p>format$(“10.23”,”,”) 返回值 0</p>
+<p>format$(“10010.23”,”,”) 返回值 10</p>
+<p>format$(“10010.23”,”,0.00”) 返回值 10.01</p>
+<p>E- E+ e- e+ 显示为科学记数(要注意格式语句，否则会和E的其它含义相混)</p>
+<p>Format$(12.5,”0.00E+00”) 返回值 1.25E+01</p>
+<p>$ 强制显示货币符号</p>
+<p>format$(“10.23”,”{threadcontent}.00”) 返回值 ￥10.23</p>
+<ul>
+<li><ul>
+<li>( ) space 按位置显示本样</li>
+</ul>
+</li>
+</ul>
+<p>Format$(“1234.56”,”-(0.00)”) 返回值 -(1234.56)</p>
+<p>转义符,显示出特殊符号</p>
+<p>Format$(“1234.56”,”#.00”) 返回值 #1234.56</p>
+<p>“ABC” 显示双引号 (“ “) 之内的字符串。如在代码中想在 format 中包含一个字符串，必须用 Chr(34) 将文本括起来(34 为双引号 (“))</p>
+<p>Format$(123.45,”TTT”) 返回值 TTT</p>
+<p>注：当双引号中的文本包含特殊的参数符号如e,要使用转义符””，否则会按e的作用显示</p>
+<p>; 类似多目运算符的作用。</p>
+<p>当共有 四 部分时，</p>
+<p>当大于0时，按第一部分进行格式化，</p>
+<p>当小于0时按第二部分进行格式化，</p>
+<p>当等于0时按第三部分进行格式化，</p>
+<p>当为null值时，按第四部分进行格式化。如：</p>
+<p>Format$(0,”0.00;负数;零;空”) 返回值 零</p>
+<p>当共有 三 部分时，</p>
+<p>当大于0时，按第一部分进行格式化，</p>
+<p>当小于0时按第二部分进行格式化，</p>
+<p>当等于0时按第三部分进行格式化，如：</p>
+<p>Format$(-10,”0.00;ttt;零”) 返回值 ttt</p>
+<p>当共有 两 部分时，</p>
+<p>当大于或等于0时，按第一部分进行格式化，</p>
+<p>当小于0时按第二部分进行格式化，</p>
+<p>Format$(-123,”0.00;abc”) 返回值 abc</p>
+<p>Format$(123,”0.00;abc”) 返回值 123.00</p>
+<p>当共有 一 部分时，按分号左边进行格式化</p>
+<hr>
+<p>日期类型的格式化</p>
+<hr>
+<p>注意：在中文操作系统中，系统自动将月份输为如：五月，而非 May</p>
+<p>固定格式参数</p>
+<p>General Date 基本类型</p>
+<p>Format(Date,”YYYY年MM月DD日”)</p>
+<p>‘M 个位月只显示一位，</p>
+<p>‘MM 显示两位月，</p>
+<p>‘MMM显示英文月简称,</p>
+<p>‘MMMM显示英文全名</p>
+<p>Format$(Now,”General Date”) 返回值 2006-5-25 14:56:15</p>
+<p>Long Date 操作系统定义的长日期</p>
+<p>Format$(Now,”Long Date”) 返回值 2006年5月25日</p>
+<p>Medium Date 中日期(yy&#x2F;mmm&#x2F;dd)</p>
+<p>Format$(Now,”Medium Date”) 返回值 06-5月-25</p>
+<p>Short Date 操作系统定义的短日期</p>
+<p>Format$(Now,”Short Date”) 返回值 2006-5-25</p>
+<p>Long Time 操作系统定义的长时间</p>
+<p>Format$(Now,”Long Time”) 返回值 15:06:36</p>
+<p>Medium Time 带AM&#x2F;PM的12小时制，不带秒</p>
+<p>Format$(Now,”Medium Time”) 返回值 03:08 PM</p>
+<p>Short Time 24时制的时间，不带秒</p>
+<p>Format$(Now,”Short Time”) 返回值 15:08</p>
+<p>自定义格式参数</p>
+<p>: 用来标识时间字符的间隔</p>
+<p>Format$(Time(),”hh:nn”) 返回值 15:25</p>
+<p>&#x2F; 用来标识日期字符的间隔</p>
+<p>Format$(now,”yyyy&#x2F;mm&#x2F;dd”) 返回值 2006-05-25</p>
+<p>c 格式化为国标的日期和时间</p>
+<p>Format$(Now,”c”) 返回值 2006-5-25 14:56:15</p>
+<p>y 一年中的第几天</p>
+<p>Format$(Now,”y”) 返回值 145</p>
+<p>d 一个月中的第几天(1-366)</p>
+<p>Format$(Now,”d”) 返回值 25</p>
+<p>dd 当小于10时前面带0的天数(01-31)</p>
+<p>Format$(“2006-1-7”,”dd”) 返回值 07</p>
+<p>ddd 周几</p>
+<p>Format$(Now,”ddd”) 返回值 周四</p>
+<p>dddd 星期几</p>
+<p>Format$(Now,”dddd”) 返回值 星期四</p>
+<p>ddddd 显示标准日期</p>
+<p>Format$(Now,”ddddd”) 返回值 2006-05-25</p>
+<p>dddddd 长日期</p>
+<p>Format$(Now,”dddddd”) 返回值 2006年5月25日</p>
+<p>w 一个星期中的第几天</p>
+<p>Format$(Now,”w”) 返回值 5</p>
+<p>ww 一年中的第几周</p>
+<p>Format$(Now,”ww”) 返回值 21</p>
+<p>m 月数(注：当用于时间时，也可以表时为分钟)</p>
+<p>Format$(Now,”m”) 返回值 5</p>
+<p>Format$(Now,”h:m”) 返回值 16:11</p>
+<p>mm 当小于10时前面带0的月数(注：当用于时间时，也可以表时为带0的分钟)</p>
+<p>Format$(Now,”m”) 返回值 05</p>
+<p>Format$(Now,”hh:mm”) 返回值 16:09</p>
+<p>mmm 月份</p>
+<p>Format$(Now,”mmm”) 返回值 五月</p>
+<p>q 一年中的第几季(1-4)</p>
+<p>Format$(Now,”q”) 返回值 2</p>
+<p>yy 两位数的年份(00-99)</p>
+<p>Format$(Now,”yy”) 返回值 06</p>
+<p>yyyy 四位数的年份(0100-9999)</p>
+<p>Format$(Now,”yyyy”) 返回值 2006</p>
+<p>h 一天中的第N小时(0-23)</p>
+<p>Format$(Now,”h”) 返回值 16</p>
+<p>hh 当小于10时带0的小时数(00-23)</p>
+<p>Format$(“7:30:28”,”hh”) 返回值 07</p>
+<p>n 一小时的分钟数(0-59)</p>
+<p>Format$(“7:30:28”,”n”) 返回值 30</p>
+<p>nn 当小于10时带0的分钟数(00-59)</p>
+<p>Format$(“7:3:28”,”n”) 返回值 03</p>
+<p>s 一分钟中的秒数(0-59)</p>
+<p>Format$(“7:30:8”,”s”) 返回值 8</p>
+<p>ss 当小于10时带0的分钟数(00-59)</p>
+<p>Format$(“7:3:8”,”ss”) 返回值 08</p>
+<p>ttttt 标准时间，小时数当小于10时不带0，与h:mm:ss相同</p>
+<p>Format$(“7:3:28”,”ttttt”) 返回值 7:03:28</p>
+<p>AM&#x2F;PM 显示当前为AM或为PM</p>
+<p>Format$(Now,”AM&#x2F;PM”) 返回值 PM</p>
+<p>A&#x2F;P 显示当前为A或为P</p>
+<p>Format$(Now,”A&#x2F;P”) 返回值 P</p>
+<p>AMPM 对0至2359的数值进行判断是AM还是PM，可以看作是同等于对00:00至23:59的数字进行判断，如1000可以看作是10:00。</p>
+<p>Format$(1000,”AMPM”) 返回值 AM</p>
+<p>联合格式化</p>
+<p>m&#x2F;d&#x2F;yy Format$(Now,”m&#x2F;d&#x2F;yy”) 返回值 5-25-06</p>
+<p>d-mmm-yy Format$(Now,”d-mmm-yy”) 返回值 25-5月-06</p>
+<p>d-mmmm Format$(Now,”d-mmmm”) 返回值 25-五月</p>
+<p>mmmm-yy Format$(Now,”mmmm-yy”) 返回值 五月-06</p>
+<p>hh:mm AM&#x2F;PM Format$(Now,”hh:mm AM&#x2F;PM”) 返回值 04:50 PM</p>
+<p>h:mm:ss a&#x2F;p Format$(Now,”h:mm:ss a&#x2F;p”) 返回值 4:51:38 p</p>
+<p>h:mm Format$(Now,”h:mm”) 返回值 16:51</p>
+<p>h:mm:ss Format$(Now,”h:mm:ss”) 返回值 16:51:38</p>
+<p>m&#x2F;d&#x2F;yy h:mm Format$(Now,”m&#x2F;d&#x2F;yy h:mm”) 返回值 5-25-06 16:54</p>
+<hr>
+<p>文本类型的格式化</p>
+<hr>
+<p>; 当两部分时，则第一部分为非空格式化，第二部分为null值或空值的格式化表达式</p>
+<p>@ 匹配位置插入格式化文本，占位位置不存在时，显示空白(空字符串)</p>
+<p>只有一个@符号时，是在最后面加上格式化文本</p>
+<p>Format$(“CHIN”,”@a”) 返回值 CHINa</p>
+<p>有多个@占位符，是按从右至左匹配，并在相应的位置上显示格式化文本</p>
+<p>Format$(“CHIN”,”@a@@”) 返回值 CHaIN</p>
+<p>当与 ! 配合时，则变为从左至右匹配</p>
+<p>Format$(“CHIN”,”[email&#x3D;!@a]!@a[&#x2F;email]@@”) 返回值 CaHIN</p>
+<p>当占位符比原文本字符串多时，刚在相应位置上添加空格</p>
+<p>Format$(“C”,”@@a@”) 返回值 空白空白aC</p>
+<p>&amp; 字符占位符。除在当占位位置不存在时，不显示外，其余均与@相同</p>
+<p>当占位符比原文本字符串多时，刚在相应位置上添加空格</p>
+<p>Format$(“C”,”&amp;&amp;a&amp;”) 返回值 aC</p>
+<p>&lt; 强制小写。将所有字符以小写格式显示。</p>
+<p>Format$(“I love you”,”</p>
+<blockquote>
+<p>强制大写。将所有字符以大写格式显示。</p>
+</blockquote>
+<p>Format$(“I love you”,”&gt;”) 返回值 I LOVE YOU</p>
+<p>! 强制由左而右填充字符占位符。缺省值是由右而左填充字符占位符。</p>
+<p>Format$(“CHIN”,”[email&#x3D;!@a]!@a[&#x2F;email]@@”) 返回值 CaHIN</p>
+<hr>
+<p>强制使用中文格式的日期时间</p>
+<hr>
+<p>aaaa 星期</p>
+<p>Format$(Now,”aaaa”) 返回值 星期五</p>
+<p>O 中文月份</p>
+<p>Format$(Now,”O”) 返回值 五月</p>
+<p>o 单字节月份</p>
+<p>Format$(Now,”o”) 返回值 5月</p>
+<p>A 中文日期</p>
+<p>Format$(Now,”A”) 返回值 二十六日</p>
+<p>a 单字节日期</p>
+<p>Format$(Now,”a”) 返回值 26日</p>
+<p>E 短中文年份</p>
+<p>Format$(Now,”E”) 返回值 六年</p>
+<p>e 单单字节年份</p>
+<p>Format$(Now,”e”) 返回值 6年</p>
+<p>EE 中文年份</p>
+<p>Format$(Now,”EE”) 返回值 二○○六年</p>
+<p>ee 单字节年份</p>
+<p>Format$(Now,”ee”) 返回值 2006年</p>
+<p>想不到中文日期的问题就这么容易解决</p>
+<hr>
+<h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_36076151/article/details/112054745">vbaformat_VBA 格式化字符串 - Format大全</a></li>
+</ol>
+<hr>
+<center><font color="red">=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/4237796259.html">https://zml3589110.github.io/posts/4237796259.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/VBA/">VBA</a><a class="post-meta__tags" href="/tags/%E5%87%BD%E6%95%B0/">函数</a><a class="post-meta__tags" href="/tags/Format/">Format</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/0.jpg" target="_blank"><img class="post-qr-code-img" src="/img/0.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/1.jpg" target="_blank"><img class="post-qr-code-img" src="/img/1.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/3549931295.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">VBA控件之一(MultiPage 控件)</div></div></a></div><div class="next-post pull-right"><a href="/posts/3346834382.html"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">VBA 鼠标浮上命令按钮有文字提示(ControlTipText)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2953555089.html" title="MsgBox函数的讲解及应用"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">MsgBox函数的讲解及应用</div></div></a></div><div><a href="/posts/3346834382.html" title="VBA 鼠标浮上命令按钮有文字提示(ControlTipText)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">VBA 鼠标浮上命令按钮有文字提示(ControlTipText)</div></div></a></div><div><a href="/posts/2126489867.html" title="在窗体中显示实时系统时钟"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">在窗体中显示实时系统时钟</div></div></a></div><div><a href="/posts/3177018411.html" title="VBA数据处理之一(字符串)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">VBA数据处理之一(字符串)</div></div></a></div><div><a href="/posts/3269845264.html" title="窗体上按Esc键关闭窗体（VBA）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">窗体上按Esc键关闭窗体（VBA）</div></div></a></div><div><a href="/posts/24674706.html" title="VBA窗体最大化最小化按钮实现"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">VBA窗体最大化最小化按钮实现</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">105</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">31</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%95%B0%E5%AD%97%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">一、数字格式：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">二、日期和时间格式：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">三、文本格式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%A0%E4%BD%8D%E6%A0%BC%E5%BC%8F%E5%8C%96%EF%BC%8C%E4%B8%8D%E8%B6%B3%E6%97%B6%E4%B8%8D%E8%A1%A50"><span class="toc-number">4.</span> <span class="toc-text">占位格式化，不足时不补0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="toc-number">5.</span> <span class="toc-text">相关链接</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1296505440.html" title="VBA字符串"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA字符串"/></a><div class="content"><a class="title" href="/posts/1296505440.html" title="VBA字符串">VBA字符串</a><time datetime="2022-06-28T07:18:20.000Z" title="发表于 2022-06-28 15:18:20">2022-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3177018411.html" title="VBA数据处理之一(字符串)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA数据处理之一(字符串)"/></a><div class="content"><a class="title" href="/posts/3177018411.html" title="VBA数据处理之一(字符串)">VBA数据处理之一(字符串)</a><time datetime="2022-06-28T07:09:20.000Z" title="发表于 2022-06-28 15:09:20">2022-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2635706068.html" title="VBA窗体使用图片"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA窗体使用图片"/></a><div class="content"><a class="title" href="/posts/2635706068.html" title="VBA窗体使用图片">VBA窗体使用图片</a><time datetime="2022-06-28T07:06:20.000Z" title="发表于 2022-06-28 15:06:20">2022-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/462997477.html" title="VBA判断活动窗体"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA判断活动窗体"/></a><div class="content"><a class="title" href="/posts/462997477.html" title="VBA判断活动窗体">VBA判断活动窗体</a><time datetime="2022-06-28T06:54:20.000Z" title="发表于 2022-06-28 14:54:20">2022-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/585123975.html" title="VBA实现进度条显示"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA实现进度条显示"/></a><div class="content"><a class="title" href="/posts/585123975.html" title="VBA实现进度条显示">VBA实现进度条显示</a><time datetime="2022-06-28T06:32:20.000Z" title="发表于 2022-06-28 14:32:20">2022-06-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
