@@ -4,6 +4,74 @@
   
     
     <entry>
+      <title>VBA文件管理之一（访问带密码共享）</title>
+      <link href="/posts/2543819108.html"/>
+      <url>/posts/2543819108.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="通过Shell命令访问共享文件"><a href="#通过Shell命令访问共享文件" class="headerlink" title="通过Shell命令访问共享文件"></a>通过Shell命令访问共享文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Sub 访问共享文件()</span><br><span class="line">IPName &#x3D; &quot;192.168.0.10&quot;</span><br><span class="line">UserName &#x3D; &quot;user&quot;</span><br><span class="line">Passwd &#x3D; &quot;password&quot;</span><br><span class="line">Shell &quot;net use * &#x2F;delete &#x2F;y&quot;, vbHide</span><br><span class="line">Shell &quot;net use \\&quot; &amp; IPName &amp; &quot; &quot; &amp; Passwd &amp; &quot; &#x2F;user:&quot; &amp; UserName, vbHide</span><br><span class="line">Shell &quot;C:\WINDOWS\explorer.exe \\&quot; &amp; IPName &amp; &quot;\&quot;, vbMaximizedFocus</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure><h1 id="通过VB-NET登录带密码的电脑"><a href="#通过VB-NET登录带密码的电脑" class="headerlink" title="通过VB.NET登录带密码的电脑"></a>通过VB.NET登录带密码的电脑</h1><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ul><li>很简单只有一句,但是由于shell语句都是异步的所以最好不要放在过程中使用,我一般放在load 里</li></ul><h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><ul><li>如果想要登录ip地址为192.168.50.193下的共享文件夹</li></ul><blockquote><p>user: 后跟要登陆计算机的登录名 然后空一格写密码<br>第二句是退出登录,一般用在程序关闭的时候.以免计算机一直处于登录状态</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Shell(&quot;Net use \\192.168.50.193\共享 &#x2F;user:gh 518518&quot;)</span><br><span class="line">Shell(&quot;Net use \\192.168.50.193\共享 &#x2F;delete&quot;)</span><br></pre></td></tr></table></figure><hr><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://zhidao.baidu.com/question/601566725.html">Excel使用VBA读写有用户名及密码的网络文件夹中的文档</a></li><li><a href="https://blog.csdn.net/m0_53168509/article/details/111952385">如何用VB.NET在局域网中登录带密码的电脑</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程类 </category>
+          
+          <category> VBA </category>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> VBA </tag>
+            
+            <tag> 文件管理 </tag>
+            
+            <tag> 共享文件 </tag>
+            
+            <tag> 密码 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VBA数据处理之三(随机数据)</title>
+      <link href="/posts/81989925.html"/>
+      <url>/posts/81989925.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="1、用EXCEL生成随机数"><a href="#1、用EXCEL生成随机数" class="headerlink" title="1、用EXCEL生成随机数"></a>1、用EXCEL生成随机数</h1><ul><li>rand()  是 [0,1）,随机到的是小数</li><li>randbetween(a,b)   是  [a,b] ,但是只能是整数</li></ul><blockquote><p>如果想在EXCEL公式用randbetween()随机小数呢？</p><ul><li>随机，randbetween() 只能随机整数，如果是要小数，那就先乘100，随机完之后再除100这样处理</li><li>randbetween(a,b)   是  [a,b]</li><li>RANDBETWEEN(1000<em>G49,1000</em>H49)&#x2F;1000</li></ul></blockquote><h1 id="2、用VBA生成随机数"><a href="#2、用VBA生成随机数" class="headerlink" title="2、用VBA生成随机数"></a>2、用VBA生成随机数</h1><h2 id="方法说明"><a href="#方法说明" class="headerlink" title="方法说明"></a>方法说明</h2><blockquote><p>在VBA里</p></blockquote><ul><li>rnd是[0,1）之间随机左闭右开区间</li></ul><blockquote><p>方法</p></blockquote><ul><li>整数[a,b]随机正确写法为 int(a+(b-a+1)*rnd())</li><li>小数的随机[a,b)  随机正确写法为 (a+(b-a)*rnd()  ’但是右边还是不是闭区间有瑕疵</li><li>这样来说，小数随机，如果要求两边是闭区间，不如用整数随机方法，把小数*1000等变大为整数，最后再除，也是一样得把。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int(1+[0,1)*(6-1+1))</span><br><span class="line"></span><br><span class="line">&#x3D; int(1+[0,1)*6)</span><br><span class="line"></span><br><span class="line">&#x3D;int(1+[0,6))</span><br><span class="line"></span><br><span class="line">&#x3D;int([1,7))</span><br><span class="line"></span><br><span class="line">&#x3D;[1,6]</span><br><span class="line"></span><br><span class="line">0.1+[0,1)*(0.6-0.1)</span><br><span class="line"></span><br><span class="line">&#x3D;0.1+ [0,1)*0.5</span><br><span class="line"></span><br><span class="line">&#x3D;0.1+[0,0.5)</span><br><span class="line"></span><br><span class="line">&#x3D;[0.1,0.6)</span><br></pre></td></tr></table></figure><ul><li><strong>官方解释:</strong></li></ul><blockquote><p>为了生成某个范围内的随机整数，可使用以下公式：<br>Int((upperbound - lowerbound + 1) * Rnd + lowerbound)<br>这里，upperbound 是随机数范围的上限，而 lowerbound 则是随机数范围的下限。<br>注意 若想得到重复的随机数序列，在使用具有数值参数的 Randomize 之前直接调用具有负参数值的 Rnd。使用具有同样 number 值的 Randomize 是不会得到重复的随机数序列的。</p></blockquote><ul><li>rnd 是左闭右开区间   [0,1)</li><li>如果要生成 a~b之间的随机数，一般是int(a+ (b-a+1)*rnd)</li><li>因为一般都是要在整数之间随机 要用 int()</li></ul><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><ul><li><strong>1、生成1-10的随机数:</strong><blockquote><p>p1 &#x3D; Int(1 + 10* Rnd())            —这里正确，刚好10&#x3D;10-1+1<br>p1 &#x3D; Int(1 + (10-1+1) * Rnd())     –总是正确</p></blockquote></li></ul><img src="https://img-blog.csdnimg.cn/20210918151600317.png"><ul><li><strong>2、生成 2-9之间的随机数:</strong><blockquote><p>p2 &#x3D; Int( 2 + 9* Rnd() )              –错误的<br>p2 &#x3D; Int(2 + (9-2+1) * Rnd())     —-正确</p></blockquote></li></ul><img src="https://img-blog.csdnimg.cn/20210918152829586.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aWU6LeR55qE54qA54mb5YWI55Sf,size_7,color_FFFFFF,t_70,g_se,x_16"><h2 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h2><ul><li><strong>1、rnd(-1)</strong><blockquote><p>用永远生成相同的随机数<br>相当于固定随机数种子了？这样的应用情景是？</p></blockquote></li></ul><img src="https://img-blog.csdnimg.cn/20210918155514687.png"><ul><li><strong>2、rnd(0)</strong><blockquote><p>虽然随机序列都一样，但和rnd(-1) 不同<br>每次连续随机，也是一样的随机数种子，总是用上次的<br>但是如果先停止，再重新开始，就是用下一个随机种子，会和以前的不同</p></blockquote></li></ul><img src="https://img-blog.csdnimg.cn/20210918160010696.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aWU6LeR55qE54qA54mb5YWI55Sf,size_8,color_FFFFFF,t_70,g_se,x_16"><h1 id="测试随机数的代码"><a href="#测试随机数的代码" class="headerlink" title="测试随机数的代码"></a>测试随机数的代码</h1><p><strong>测试方法：</strong></p><blockquote><p>这个进行了多轮随机<br>p1 &#x3D; Int(1 + (10) * Rnd())   ‘Rnd()分别修改为 rnd(-1)   rnd(0)  rnd(1)  rnd(999) 看效果</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">Private p1</span><br><span class="line">Private s1, s2, s3, s4, s5, s6, s7, s8, s9, s10</span><br><span class="line">Private S</span><br><span class="line"> </span><br><span class="line">Sub tt1()</span><br><span class="line"> </span><br><span class="line">Call intial1</span><br><span class="line"> </span><br><span class="line">S &#x3D; 10000</span><br><span class="line">For i &#x3D; 1 To S</span><br><span class="line">Call RR1</span><br><span class="line">Call SS1</span><br><span class="line">&#39;    Debug.Print p1</span><br><span class="line">Next</span><br><span class="line">        </span><br><span class="line">   Call SS2</span><br><span class="line">End Sub</span><br><span class="line"> </span><br><span class="line">Function intial1() </span><br><span class="line">s1 &#x3D; 0</span><br><span class="line">s2 &#x3D; 0</span><br><span class="line">s3 &#x3D; 0</span><br><span class="line">s4 &#x3D; 0</span><br><span class="line">s5 &#x3D; 0</span><br><span class="line">s6 &#x3D; 0</span><br><span class="line">s7 &#x3D; 0</span><br><span class="line">s8 &#x3D; 0</span><br><span class="line">s9 &#x3D; 0</span><br><span class="line">s10 &#x3D; 0</span><br><span class="line">End Function</span><br><span class="line"> </span><br><span class="line">Function SS2()</span><br><span class="line">  Debug.Print &quot;随到1的平均次数是&#x3D; &quot; &amp; s1 &#x2F; S &amp; &quot; s1&#x3D;&quot; &amp; s1</span><br><span class="line">  Debug.Print &quot;随到2的平均次数是&#x3D; &quot; &amp; s2 &#x2F; S &amp; &quot; s2&#x3D;&quot; &amp; s2</span><br><span class="line">  Debug.Print &quot;随到3的平均次数是&#x3D; &quot; &amp; s3 &#x2F; S &amp; &quot; s3&#x3D;&quot; &amp; s3</span><br><span class="line">  Debug.Print &quot;随到4的平均次数是&#x3D; &quot; &amp; s4 &#x2F; S &amp; &quot; s4&#x3D;&quot; &amp; s4</span><br><span class="line">  Debug.Print &quot;随到5的平均次数是&#x3D; &quot; &amp; s5 &#x2F; S &amp; &quot; s5&#x3D;&quot; &amp; s5</span><br><span class="line">  Debug.Print &quot;随到6的平均次数是&#x3D; &quot; &amp; s6 &#x2F; S &amp; &quot; s6&#x3D;&quot; &amp; s6</span><br><span class="line">  Debug.Print &quot;随到7的平均次数是&#x3D; &quot; &amp; s7 &#x2F; S &amp; &quot; s7&#x3D;&quot; &amp; s7</span><br><span class="line">  Debug.Print &quot;随到8的平均次数是&#x3D; &quot; &amp; s8 &#x2F; S &amp; &quot; s8&#x3D;&quot; &amp; s8</span><br><span class="line">  Debug.Print &quot;随到9的平均次数是&#x3D; &quot; &amp; s9 &#x2F; S &amp; &quot; s9&#x3D;&quot; &amp; s9</span><br><span class="line">  Debug.Print &quot;随到10的平均次数是&#x3D; &quot; &amp; s10 &#x2F; S &amp; &quot; s10&#x3D;&quot; &amp; s10</span><br><span class="line"> </span><br><span class="line">End Function</span><br><span class="line"> </span><br><span class="line">Function RR1()</span><br><span class="line"> </span><br><span class="line">Randomize</span><br><span class="line">p1 &#x3D; Int(1 + (10) * Rnd())   &#39;Rnd()分别修改为 rnd(-1)   rnd(0)  rnd(1)  rnd(999) 看效果</span><br><span class="line">&#39;Debug.Print p1</span><br><span class="line">End Function</span><br><span class="line"></span><br><span class="line">Function SS1()</span><br><span class="line"> </span><br><span class="line">Select Case p1</span><br><span class="line">   Case Is &#x3D; 1</span><br><span class="line">  s1 &#x3D; s1 + 1</span><br><span class="line">   Case Is &#x3D; 2</span><br><span class="line">  s2 &#x3D; s2 + 1</span><br><span class="line">   Case Is &#x3D; 3</span><br><span class="line">  s3 &#x3D; s3 + 1</span><br><span class="line">   Case Is &#x3D; 4</span><br><span class="line">  s4 &#x3D; s4 + 1</span><br><span class="line">   Case Is &#x3D; 5</span><br><span class="line">  s5 &#x3D; s5 + 1</span><br><span class="line">   Case Is &#x3D; 6</span><br><span class="line">  s6 &#x3D; s6 + 1</span><br><span class="line">   Case Is &#x3D; 7</span><br><span class="line">  s7 &#x3D; s7 + 1</span><br><span class="line">   Case Is &#x3D; 8</span><br><span class="line">  s8 &#x3D; s8 + 1</span><br><span class="line">   Case Is &#x3D; 9</span><br><span class="line">  s9 &#x3D; s9 + 1</span><br><span class="line">   Case Is &#x3D; 10</span><br><span class="line">  s10 &#x3D; s10 + 1</span><br><span class="line">End Select</span><br><span class="line"> </span><br><span class="line">End Function</span><br></pre></td></tr></table></figure><hr><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://blog.csdn.net/xuemanqianshan/article/details/120367890">VBA的随机数生成：整数范围内随机（更好些），小数范围内随机</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程类 </category>
+          
+          <category> VBA </category>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> VBA </tag>
+            
+            <tag> 数据处理 </tag>
+            
+            <tag> 随机数生成 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>VBA窗体相关设置汇总</title>
       <link href="/posts/2061956688.html"/>
       <url>/posts/2061956688.html</url>
@@ -962,9 +1030,9 @@
           
           <category> 编程类 </category>
           
-          <category> VUE </category>
-          
           <category> 前端 </category>
+          
+          <category> VUE </category>
           
           <category> mysql </category>
           
@@ -979,11 +1047,11 @@
             
             <tag> php </tag>
             
-            <tag> mysql </tag>
-            
             <tag> VUE </tag>
             
             <tag> JavaScript </tag>
+            
+            <tag> mysql </tag>
             
             <tag> axios </tag>
             
@@ -1014,11 +1082,11 @@
             
             <tag> 网页 </tag>
             
-            <tag> php </tag>
-            
             <tag> 数据库 </tag>
             
             <tag> POST </tag>
+            
+            <tag> php </tag>
             
             <tag> 表单 </tag>
             
@@ -1044,9 +1112,9 @@
           
           <category> 编程类 </category>
           
-          <category> VUE </category>
-          
           <category> 前端 </category>
+          
+          <category> VUE </category>
           
       </categories>
       
@@ -1079,9 +1147,9 @@
           
           <category> 编程类 </category>
           
-          <category> VUE </category>
-          
           <category> 前端 </category>
+          
+          <category> VUE </category>
           
       </categories>
       
@@ -1120,9 +1188,9 @@
           
           <category> 编程类 </category>
           
-          <category> VUE </category>
-          
           <category> 前端 </category>
+          
+          <category> VUE </category>
           
       </categories>
       
@@ -1157,9 +1225,9 @@
           
           <category> 编程类 </category>
           
-          <category> VUE </category>
-          
           <category> 前端 </category>
+          
+          <category> VUE </category>
           
       </categories>
       
@@ -1194,9 +1262,9 @@
           
           <category> 编程类 </category>
           
-          <category> VUE </category>
-          
           <category> 前端 </category>
+          
+          <category> VUE </category>
           
       </categories>
       
@@ -1218,6 +1286,41 @@
     
     
     <entry>
+      <title>VUE判断对象是否为空</title>
+      <link href="/posts/637024282.html"/>
+      <url>/posts/637024282.html</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>vue.js判断对象是否为空的方法是：将对象转为json，如果为空集合{}，那么该对象就是空对象，如【JSON.stringify(object)&#x3D;&#x3D;’{}’】</p></blockquote><h1 id="判断法一"><a href="#判断法一" class="headerlink" title="判断法一"></a>判断法一</h1><p><strong>将对象转JSON，如果为空集合{} ，那么就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(object)==<span class="string">&#x27;&#123;&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h1 id="判断法二"><a href="#判断法二" class="headerlink" title="判断法二"></a>判断法二</h1><p><strong>判断对象的长度，如果为零，那就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(object).length==<span class="number">0</span></span><br></pre></td></tr></table></figure><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://www.php.cn/vuejs/463861.html">vue.js判断对象是否为空的方法是什么</a></li></ol><hr><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程类 </category>
+          
+          <category> 前端 </category>
+          
+          <category> VUE </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网页 </tag>
+            
+            <tag> VUE </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> JSON </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>VUE获取JSON数据键名</title>
       <link href="/posts/30846541.html"/>
       <url>/posts/30846541.html</url>
@@ -1229,9 +1332,9 @@
           
           <category> 编程类 </category>
           
-          <category> VUE </category>
-          
           <category> 前端 </category>
+          
+          <category> VUE </category>
           
       </categories>
       
@@ -1247,41 +1350,6 @@
             <tag> JSON </tag>
             
             <tag> 键值 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>VUE判断对象是否为空</title>
-      <link href="/posts/637024282.html"/>
-      <url>/posts/637024282.html</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>vue.js判断对象是否为空的方法是：将对象转为json，如果为空集合{}，那么该对象就是空对象，如【JSON.stringify(object)&#x3D;&#x3D;’{}’】</p></blockquote><h1 id="判断法一"><a href="#判断法一" class="headerlink" title="判断法一"></a>判断法一</h1><p><strong>将对象转JSON，如果为空集合{} ，那么就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(object)==<span class="string">&#x27;&#123;&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h1 id="判断法二"><a href="#判断法二" class="headerlink" title="判断法二"></a>判断法二</h1><p><strong>判断对象的长度，如果为零，那就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(object).length==<span class="number">0</span></span><br></pre></td></tr></table></figure><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://www.php.cn/vuejs/463861.html">vue.js判断对象是否为空的方法是什么</a></li></ol><hr><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
-      
-      
-      <categories>
-          
-          <category> 编程类 </category>
-          
-          <category> VUE </category>
-          
-          <category> 前端 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 网页 </tag>
-            
-            <tag> VUE </tag>
-            
-            <tag> JavaScript </tag>
-            
-            <tag> JSON </tag>
             
         </tags>
       
@@ -1312,11 +1380,11 @@
             
             <tag> 网页 </tag>
             
-            <tag> apache </tag>
+            <tag> 数据库 </tag>
             
             <tag> php </tag>
             
-            <tag> 数据库 </tag>
+            <tag> apache </tag>
             
             <tag> mysql </tag>
             
@@ -1349,11 +1417,11 @@
             
             <tag> 网页 </tag>
             
+            <tag> php </tag>
+            
             <tag> 软件安装 </tag>
             
             <tag> apache </tag>
-            
-            <tag> php </tag>
             
         </tags>
       
@@ -1446,9 +1514,9 @@
             
             <tag> 商业 </tag>
             
-            <tag> 5分钟商学院 </tag>
-            
             <tag> 目录 </tag>
+            
+            <tag> 5分钟商学院 </tag>
             
         </tags>
       
@@ -1619,9 +1687,9 @@
             
             <tag> 商业 </tag>
             
-            <tag> 目录 </tag>
-            
             <tag> 洞察力 </tag>
+            
+            <tag> 目录 </tag>
             
         </tags>
       
@@ -1661,7 +1729,7 @@
       <link href="/posts/2486667095.html"/>
       <url>/posts/2486667095.html</url>
       
-        <content type="html"><![CDATA[<h1 id="因需将产品联网处理"><a href="#因需将产品联网处理" class="headerlink" title="因需将产品联网处理"></a>因需将产品联网处理</h1><p>​虽然一直在研究乐鑫esp8266，但发现接入云服务还需自己付费使用，因此就考虑找能免费对接网络的模块，很久以前玩过司南物联芯片，本想购入，但却发现主页都进不去，只好作罢。后来又找汉枫模块和涂鸦模块。</p><a class="btn-beautify block" href="http://www.hi-flying.com/index.php?route=product/category&path=135" title="汉枫模块"><i class="far fa-hand-point-right"></i><span>汉枫模块</span></a><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/MQTT-protocol?id=Kb65nphxrj8f1" title="涂鸦模块"><i class="far fa-hand-point-right"></i><span>涂鸦模块</span></a><p>汉枫看起来挺麻烦，加之比象花费太大时间！就选择涂鸦模块，因为涂鸦网站资料相对较多，也提供相对详细SDK，通过串口UART连接即可，根据说明，只要将其SDK-C导入到工程就可以使用。</p><h1 id="模块选择"><a href="#模块选择" class="headerlink" title="模块选择"></a>模块选择</h1><p>选择的是WBR3模块</p><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/wbr3-module-datasheet?id=K9dujs2k5nriy" title="WBR3模块说明"><i class="far fa-hand-point-right"></i><span>WBR3模块说明</span></a><p>WBR3 是由涂鸦智能开发的一款低功耗嵌入式 Wi-Fi 加蓝牙模组。它由一个高集成度的无线射频芯片W701-VA2-CG构成，内置了 Wi-Fi 网络协议栈和丰富的库函数</p><ul><li>内置低功耗 KM4 MCU，可以兼作应用处理器</li><li>主频 100MHz</li><li>工作电压：3V-3.6V</li><li>外设：9×GPIOs, 1×UART, 1×Log_Tx</li><li>Wi-Fi&#x2F;蓝牙连通性<ul><li>802.11 B&#x2F;G&#x2F;N20</li><li>通道 <a href="mailto:&#x31;&#45;&#x31;&#52;&#64;&#x32;&#46;&#52;&#71;&#72;&#122;">&#x31;&#45;&#x31;&#52;&#64;&#x32;&#46;&#52;&#71;&#72;&#122;</a>(CH1-11 for US&#x2F;CA, CH1-13 for EU&#x2F;CN)</li><li>支持 WEP&#x2F;WPA&#x2F;WPA2&#x2F;WPA2 PSK（AES） 安全模式</li><li>支持 Bluetooth 4.2 Low Energy</li><li>802.11b 模式下 +20dBm 的输出功率</li><li>支持 SmartConfig 功能，包括 Android 和 iOS 设备</li><li>板载 PCB Onboard 天线</li><li>通过 CE、FCC 认证</li><li>工作温度：-20℃ to 85℃</li></ul></li></ul><h3 id="尺寸封装"><a href="#尺寸封装" class="headerlink" title="尺寸封装"></a>尺寸封装</h3><ul><li>WBR3 共有 2 排引脚（2×8），引脚间距为 2mm。</li><li>WBR3 尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×2.9±0.15 mm (H)。WBR3尺寸图如下图所示<img src="/posts/2486667095/1.WBR3%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">1.WBR3脚位图</li></ul><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote><h2 id="电气参数"><a href="#电气参数" class="headerlink" title="电气参数"></a>电气参数</h2><h3 id="绝对电气参数"><a href="#绝对电气参数" class="headerlink" title="绝对电气参数"></a>绝对电气参数</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ts</td><td align="left">存储温度</td><td align="left">-40</td><td align="left">105</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">供电电压</td><td align="left">-0.3</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">静电释放电压（人体模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">2</td><td align="left">KV</td></tr><tr><td align="left">静电释放电压（机器模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">0.5</td><td align="left">KV</td></tr></tbody></table><h3 id="工作条件"><a href="#工作条件" class="headerlink" title="工作条件"></a>工作条件</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">典型值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ta</td><td align="left">工作温度</td><td align="left">-20</td><td align="left">-</td><td align="left">85</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">工作电压</td><td align="left">3.0</td><td align="left">-</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">VIL</td><td align="left">I&#x2F;O低电平输入</td><td align="left">-</td><td align="left">-</td><td align="left">0.8</td><td align="left">V</td></tr><tr><td align="left">VIH</td><td align="left">I&#x2F;O高电平输入</td><td align="left">2.0</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">VOL</td><td align="left">I&#x2F;O低电平输出</td><td align="left">-</td><td align="left">-</td><td align="left">0.4</td><td align="left">V</td></tr><tr><td align="left">VOH</td><td align="left">I&#x2F;O高电平输出</td><td align="left">2.4</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">Imax</td><td align="left">I&#x2F;O驱动电流</td><td align="left">-</td><td align="left">-</td><td align="left">16</td><td align="left">mA</td></tr><tr><td align="left">Cpad</td><td align="left">输入引脚电容</td><td align="left">-</td><td align="left">2</td><td align="left">-</td><td align="left">pF</td></tr></tbody></table><h3 id="射频功耗"><a href="#射频功耗" class="headerlink" title="射频功耗"></a>射频功耗</h3><ul><li><p>TX 连续发送时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">功率</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">17dBm</td><td align="left">217</td><td align="left">268</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">18dBm</td><td align="left">231</td><td align="left">283</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">15dBm</td><td align="left">159</td><td align="left">188</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">17.5dBm</td><td align="left">177</td><td align="left">213</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">13dBm</td><td align="left">145</td><td align="left">167</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">16.5dBm</td><td align="left">165</td><td align="left">193</td><td align="left">mA</td></tr></tbody></table></li><li><p>RX 连续接收时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11B 11M</td><td align="left">63</td><td align="left">65</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11G 54M</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11N HT20 MCS7</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr></tbody></table></li></ul><h2 id="射频参数"><a href="#射频参数" class="headerlink" title="射频参数"></a>射频参数</h2><h3 id="基本射频特性"><a href="#基本射频特性" class="headerlink" title="基本射频特性"></a>基本射频特性</h3><table><thead><tr><th align="left">参数项</th><th align="left">详细说明</th></tr></thead><tbody><tr><td align="left">频率范围</td><td align="left">2.400~2.4835GHz</td></tr><tr><td align="left">Wi-Fi标准</td><td align="left">IEEE 802.11b&#x2F;g&#x2F;n(通道 1-14)</td></tr><tr><td align="left">蓝牙标准</td><td align="left">蓝牙4.2</td></tr><tr><td align="left">数据传输速率</td><td align="left">11b:1,2,5.5, 11 (Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11g:6,9,12,18,24,36,48,54(Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11n:HT20 MCS0~7</td></tr><tr><td align="left">天线类型</td><td align="left">PCB 天线，增益2.5dBi</td></tr></tbody></table><h2 id="天线信息"><a href="#天线信息" class="headerlink" title="天线信息"></a>天线信息</h2><h3 id="天线类型"><a href="#天线类型" class="headerlink" title="天线类型"></a>天线类型</h3><p>只有 PCB 板载天线接入方式，天线增益 2.5dBi。</p><h3 id="降低天线干扰"><a href="#降低天线干扰" class="headerlink" title="降低天线干扰"></a>降低天线干扰</h3><p>在 Wi-Fi 模组上使用 PCB 板载天线时，为确保 Wi-Fi 性能的最优化，建议模组天线部分和其他金属件距离至少在 15mm 以上。</p><h2 id="封装信息及生产指导"><a href="#封装信息及生产指导" class="headerlink" title="封装信息及生产指导"></a>封装信息及生产指导</h2><h3 id="机械尺寸"><a href="#机械尺寸" class="headerlink" title="机械尺寸"></a>机械尺寸</h3><p>WBR3的PCB机械尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×0.8±0.1 mm (H)。WBR3的机械尺寸如下图所示。</p><img src="/posts/2486667095/3.%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">]]></content>
+        <content type="html"><![CDATA[<h1 id="因需将产品联网处理"><a href="#因需将产品联网处理" class="headerlink" title="因需将产品联网处理"></a>因需将产品联网处理</h1><p>​虽然一直在研究乐鑫esp8266，但发现接入云服务还需自己付费使用，因此就考虑找能免费对接网络的模块，很久以前玩过司南物联芯片，本想购入，但却发现主页都进不去，只好作罢。后来又找汉枫模块和涂鸦模块。</p><a class="btn-beautify block" href="http://www.hi-flying.com/index.php?route=product/category&path=135" title="汉枫模块"><i class="far fa-hand-point-right"></i><span>汉枫模块</span></a><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/MQTT-protocol?id=Kb65nphxrj8f1" title="涂鸦模块"><i class="far fa-hand-point-right"></i><span>涂鸦模块</span></a><p>汉枫看起来挺麻烦，加之比象花费太大时间！就选择涂鸦模块，因为涂鸦网站资料相对较多，也提供相对详细SDK，通过串口UART连接即可，根据说明，只要将其SDK-C导入到工程就可以使用。</p><h1 id="模块选择"><a href="#模块选择" class="headerlink" title="模块选择"></a>模块选择</h1><p>选择的是WBR3模块</p><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/wbr3-module-datasheet?id=K9dujs2k5nriy" title="WBR3模块说明"><i class="far fa-hand-point-right"></i><span>WBR3模块说明</span></a><p>WBR3 是由涂鸦智能开发的一款低功耗嵌入式 Wi-Fi 加蓝牙模组。它由一个高集成度的无线射频芯片W701-VA2-CG构成，内置了 Wi-Fi 网络协议栈和丰富的库函数</p><ul><li>内置低功耗 KM4 MCU，可以兼作应用处理器</li><li>主频 100MHz</li><li>工作电压：3V-3.6V</li><li>外设：9×GPIOs, 1×UART, 1×Log_Tx</li><li>Wi-Fi&#x2F;蓝牙连通性<ul><li>802.11 B&#x2F;G&#x2F;N20</li><li>通道 <a href="mailto:&#x31;&#45;&#49;&#x34;&#64;&#x32;&#x2e;&#52;&#71;&#x48;&#122;">&#x31;&#45;&#49;&#x34;&#64;&#x32;&#x2e;&#52;&#71;&#x48;&#122;</a>(CH1-11 for US&#x2F;CA, CH1-13 for EU&#x2F;CN)</li><li>支持 WEP&#x2F;WPA&#x2F;WPA2&#x2F;WPA2 PSK（AES） 安全模式</li><li>支持 Bluetooth 4.2 Low Energy</li><li>802.11b 模式下 +20dBm 的输出功率</li><li>支持 SmartConfig 功能，包括 Android 和 iOS 设备</li><li>板载 PCB Onboard 天线</li><li>通过 CE、FCC 认证</li><li>工作温度：-20℃ to 85℃</li></ul></li></ul><h3 id="尺寸封装"><a href="#尺寸封装" class="headerlink" title="尺寸封装"></a>尺寸封装</h3><ul><li>WBR3 共有 2 排引脚（2×8），引脚间距为 2mm。</li><li>WBR3 尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×2.9±0.15 mm (H)。WBR3尺寸图如下图所示<img src="/posts/2486667095/1.WBR3%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">1.WBR3脚位图</li></ul><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote><h2 id="电气参数"><a href="#电气参数" class="headerlink" title="电气参数"></a>电气参数</h2><h3 id="绝对电气参数"><a href="#绝对电气参数" class="headerlink" title="绝对电气参数"></a>绝对电气参数</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ts</td><td align="left">存储温度</td><td align="left">-40</td><td align="left">105</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">供电电压</td><td align="left">-0.3</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">静电释放电压（人体模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">2</td><td align="left">KV</td></tr><tr><td align="left">静电释放电压（机器模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">0.5</td><td align="left">KV</td></tr></tbody></table><h3 id="工作条件"><a href="#工作条件" class="headerlink" title="工作条件"></a>工作条件</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">典型值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ta</td><td align="left">工作温度</td><td align="left">-20</td><td align="left">-</td><td align="left">85</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">工作电压</td><td align="left">3.0</td><td align="left">-</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">VIL</td><td align="left">I&#x2F;O低电平输入</td><td align="left">-</td><td align="left">-</td><td align="left">0.8</td><td align="left">V</td></tr><tr><td align="left">VIH</td><td align="left">I&#x2F;O高电平输入</td><td align="left">2.0</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">VOL</td><td align="left">I&#x2F;O低电平输出</td><td align="left">-</td><td align="left">-</td><td align="left">0.4</td><td align="left">V</td></tr><tr><td align="left">VOH</td><td align="left">I&#x2F;O高电平输出</td><td align="left">2.4</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">Imax</td><td align="left">I&#x2F;O驱动电流</td><td align="left">-</td><td align="left">-</td><td align="left">16</td><td align="left">mA</td></tr><tr><td align="left">Cpad</td><td align="left">输入引脚电容</td><td align="left">-</td><td align="left">2</td><td align="left">-</td><td align="left">pF</td></tr></tbody></table><h3 id="射频功耗"><a href="#射频功耗" class="headerlink" title="射频功耗"></a>射频功耗</h3><ul><li><p>TX 连续发送时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">功率</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">17dBm</td><td align="left">217</td><td align="left">268</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">18dBm</td><td align="left">231</td><td align="left">283</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">15dBm</td><td align="left">159</td><td align="left">188</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">17.5dBm</td><td align="left">177</td><td align="left">213</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">13dBm</td><td align="left">145</td><td align="left">167</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">16.5dBm</td><td align="left">165</td><td align="left">193</td><td align="left">mA</td></tr></tbody></table></li><li><p>RX 连续接收时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11B 11M</td><td align="left">63</td><td align="left">65</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11G 54M</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11N HT20 MCS7</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr></tbody></table></li></ul><h2 id="射频参数"><a href="#射频参数" class="headerlink" title="射频参数"></a>射频参数</h2><h3 id="基本射频特性"><a href="#基本射频特性" class="headerlink" title="基本射频特性"></a>基本射频特性</h3><table><thead><tr><th align="left">参数项</th><th align="left">详细说明</th></tr></thead><tbody><tr><td align="left">频率范围</td><td align="left">2.400~2.4835GHz</td></tr><tr><td align="left">Wi-Fi标准</td><td align="left">IEEE 802.11b&#x2F;g&#x2F;n(通道 1-14)</td></tr><tr><td align="left">蓝牙标准</td><td align="left">蓝牙4.2</td></tr><tr><td align="left">数据传输速率</td><td align="left">11b:1,2,5.5, 11 (Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11g:6,9,12,18,24,36,48,54(Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11n:HT20 MCS0~7</td></tr><tr><td align="left">天线类型</td><td align="left">PCB 天线，增益2.5dBi</td></tr></tbody></table><h2 id="天线信息"><a href="#天线信息" class="headerlink" title="天线信息"></a>天线信息</h2><h3 id="天线类型"><a href="#天线类型" class="headerlink" title="天线类型"></a>天线类型</h3><p>只有 PCB 板载天线接入方式，天线增益 2.5dBi。</p><h3 id="降低天线干扰"><a href="#降低天线干扰" class="headerlink" title="降低天线干扰"></a>降低天线干扰</h3><p>在 Wi-Fi 模组上使用 PCB 板载天线时，为确保 Wi-Fi 性能的最优化，建议模组天线部分和其他金属件距离至少在 15mm 以上。</p><h2 id="封装信息及生产指导"><a href="#封装信息及生产指导" class="headerlink" title="封装信息及生产指导"></a>封装信息及生产指导</h2><h3 id="机械尺寸"><a href="#机械尺寸" class="headerlink" title="机械尺寸"></a>机械尺寸</h3><p>WBR3的PCB机械尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×0.8±0.1 mm (H)。WBR3的机械尺寸如下图所示。</p><img src="/posts/2486667095/3.%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">]]></content>
       
       
       <categories>
@@ -1959,6 +2027,19 @@
     
     
     <entry>
+      <title>my-first-blog</title>
+      <link href="/posts/3846156473.html"/>
+      <url>/posts/3846156473.html</url>
+      
+        <content type="html"><![CDATA[<p>title: postName #文章页面上的显示名称，一般是中文<br>date: 2013-12-02 15:30:16 #文章生成时间，一般不改，当然也可以任意修改<br>categories: 默认分类 #分类<br>tags: [tag1,tag2,tag3] #文章标签，可空，多标签请用格式，注意:后面有个空格<br>description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面</p><hr><p>以下是正文</p><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用github pages服务搭建博客的好处有：</p><ol><li>全是静态文件，访问速度快；</li><li>免费方便，不用花一分钱就可以搭建一个自由的个人博客，不需要服务器不需要后台；</li><li>可以随意绑定自己的域名，不仔细看的话根本看不出来你的网站是基于github的；</li></ol><a id="more"></a><ol start="4"><li>数据绝对安全，基于github的版本管理，想恢复到哪个历史版本都行；</li><li>博客内容可以轻松打包、转移、发布到其它平台；</li><li>等等；</li></ol>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>这是我的第一个Blog尝试</title>
       <link href="/posts/911816538.html"/>
       <url>/posts/911816538.html</url>
@@ -1974,19 +2055,6 @@
             <tag> 测试 </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>my-first-blog</title>
-      <link href="/posts/3846156473.html"/>
-      <url>/posts/3846156473.html</url>
-      
-        <content type="html"><![CDATA[<p>title: postName #文章页面上的显示名称，一般是中文<br>date: 2013-12-02 15:30:16 #文章生成时间，一般不改，当然也可以任意修改<br>categories: 默认分类 #分类<br>tags: [tag1,tag2,tag3] #文章标签，可空，多标签请用格式，注意:后面有个空格<br>description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面</p><hr><p>以下是正文</p><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用github pages服务搭建博客的好处有：</p><ol><li>全是静态文件，访问速度快；</li><li>免费方便，不用花一分钱就可以搭建一个自由的个人博客，不需要服务器不需要后台；</li><li>可以随意绑定自己的域名，不仔细看的话根本看不出来你的网站是基于github的；</li></ol><a id="more"></a><ol start="4"><li>数据绝对安全，基于github的版本管理，想恢复到哪个历史版本都行；</li><li>博客内容可以轻松打包、转移、发布到其它平台；</li><li>等等；</li></ol>]]></content>
-      
-      
       
     </entry>
     
