@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>了解C#和WinForm | 赵逸尘个人博客</title><meta name="keywords" content="C#,WinForm,.NET"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="了解基本的C#开发信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="了解C#和WinForm">
+<meta property="og:url" content="https://zml3589110.github.io/posts/2295543441.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="了解基本的C#开发信息">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2022-07-27T01:24:20.000Z">
+<meta property="article:modified_time" content="2022-07-27T01:55:47.435Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="WinForm">
+<meta property="article:tag" content=".NET">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/2295543441"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '了解C#和WinForm',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-07-27 09:55:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">119</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">32</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">了解C#和WinForm</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-07-27T01:24:20.000Z" title="发表于 2022-07-27 09:24:20">2022-07-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-07-27T01:55:47.435Z" title="更新于 2022-07-27 09:55:47">2022-07-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/">编程类</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/C/">C#</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="了解C#和WinForm"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="什么是-C-？"><a href="#什么是-C-？" class="headerlink" title="什么是 C# ？"></a>什么是 C# ？</h1><p>C#是一个现代的、通用的、面向对象的、面向组件、结构化语言C#的构想十分接近C和C++,是一门面向对象的编程语言，与java非常相似。</p>
+<h1 id="C-的特点"><a href="#C-的特点" class="headerlink" title="C#的特点"></a>C#的特点</h1><ul>
+<li><p><strong>简单、安全</strong></p>
+<blockquote>
+<p>在 C++ 和 C 语言中程序员最头疼的问题就是指针问题，在 C# 语言中已经不再使用指针，而且不允许直接读取内存等不安全的操作。它比 C、C++、Java 提供了更多的数据类型，并且每个数据类型都是固定大小的。此外还提供了命名空间来管理 C# 文件，命名空间 相当于一个文件夹，在创建程序时，允许在一个命名空间中创建一个或多个类，方便调用和重用</p>
+</blockquote>
+</li>
+<li><p><strong>面向对象</strong></p>
+</li>
+</ul>
+<p>与其他面向对象语言一样，C# 语言也具有面向对象语言的基本特征，即<code>封装、继承、 多态</code>。</p>
+<blockquote>
+<pre><code>**封装：**就是将代码看作一个整体，例如使用类、方法、接口等。在使用定义好的类、 方法、接口等对象时不必考虑其细节，只需要知道其对象名以及所需要的参数即可，也是一种提升代码安全性的方法。
+**继承：**是一种体现代码重用性的特性，减少代码的冗余，但在 C# 语言中仅支持单继承。
+**多态：**不仅体现了代码的重用性，也体现了代码的灵活性，它主要通过继承和实现接口的方式，让类或接口中的成员表现出不同的作用
+</code></pre>
+</blockquote>
+<ul>
+<li><p><strong>支持跨平台</strong><br>最早的 C# 语言仅能在 Windows 平台上开发并使用，目前最新的 C# 6.0 版本已经能在多个操作系统上使用，例如在 Mac、Linux 等。此外，还能将其应用到手机、PDA 等设备上。</p>
+</li>
+<li><p><strong>开发多种类型的程序</strong><br>C# 语言不仅能开发在控制台下运行的应用程序，也能开发 Windows 窗体应用程序、网站、手机应用等多种应用程序，并且其提供的 Visual Studio 2015 开发工具中也支持多种类型的程序，让开发人员能快速地构建 C# 应用程序</p>
+</li>
+</ul>
+<h1 id="了解C-、-NET、Winform的关系"><a href="#了解C-、-NET、Winform的关系" class="headerlink" title="了解C#、.NET、Winform的关系"></a>了解C#、.NET、Winform的关系</h1><ul>
+<li>.NET 是一个开发平台，而 C# 是一种在 .NET 开发平台上使用的编程语言，目前能在 .NET 平台上使用的开发语言很多，例如 Visual Basic .NET、Python、J#、Visual C++.NET 等。但在 .NET 平台上使用最多的是 C# 语言。</li>
+<li>WinForm 是 Windows Form 的简称，是基于 .NET Framework 平台的客户端（PC软件）开发技术，一般使用 C# 编程。C# WinForm 编程需要创建「Windows窗体应用程序」项目。</li>
+<li>.NET 提供了大量 Windows 风格的控件和事件，我们可以直接拿来使用，上手简单，开发快速。</li>
+</ul>
+<h1 id="快速创建Winform程序"><a href="#快速创建Winform程序" class="headerlink" title="快速创建Winform程序"></a>快速创建Winform程序</h1><blockquote>
+<p>使用VS2017,.NET Framework 4.6.1</p>
+</blockquote>
+<ul>
+<li>一、创建窗体应用程序非常简单，依次选择“文件”一“新建”一“项目”命令，弹出如下图所示的对话框，选择Windows窗体应用程序，修改位置即可。</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/img_convert/86b77ebdd9cff3f042e4197ec55f491e.png#pic_center">
+
+<ul>
+<li>二、通过工具箱中的label标签，button按钮，comboBox下拉按钮，直接在拖拽到窗体中；按钮的单击事件直接双击可以跳到对应的方法中进行代码编辑；还需要修改对应标签属性中的Name，方便后续的编辑；创建完成后出现如下界面</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/f586b06ae1094573927e288cfe900c0f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center">
+
+<ul>
+<li>三、点击启动按钮，出现自己编写的窗体界面</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/b6b0618317904fb4903a2f90ef0f9d43.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center">
+
+<h1 id="Winform菜单和工具栏"><a href="#Winform菜单和工具栏" class="headerlink" title="Winform菜单和工具栏"></a>Winform菜单和工具栏</h1><img src="https://img-blog.csdnimg.cn/4931266cefef42088836a0b8601752c7.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_9,color_FFFFFF,t_70,g_se,x_16#pic_center">
+
+<ul>
+<li>一、ListBox:列表框</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/a5cceedc3b244a4088eca5ae68129299.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_16,color_FFFFFF,t_70,g_se,x_16">
+
+<ul>
+<li>二、ComboBox:下拉框列表</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/8577ddc44331479a8b3e3f653d9fb254.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_20,color_FFFFFF,t_70,g_se,x_16">
+
+<ul>
+<li>三、CheckedListBox:复选框列表</li>
+<li>四、MaskedTextBox:用于输入指定格式的内容，比如电话，邮编等信息，指定格式。</li>
+<li>五、numericUpdown:数字显示框，点击向上或者向下来增加或减少数字的显示</li>
+<li>六、RichTextBox:富文本框</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/575ec2000b2f42959b326882e3e3fb7f.png">
+
+<ul>
+<li>七、MenuStrip:窗体上添加菜单栏控件 MenuStrip，直接点击 MenuStrip ，在右边的 Windows 窗体中就可以显示，输入具体的值时需要有提示字母，可以通过&amp;+字母实现</li>
+<li>八、ToolStrip:和添加菜单栏类似，在工具箱中将 ToolStrip 控件直接拖到 Windows 窗体中即可；如果需要指定图片和文字，可以通过属性中的DisplayStyle设置</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/175497e93125477b8f8f9f57326ba809.png#pic_center">
+
+<ul>
+<li>九、DataGridView:在网格中可以用自定义数据的行和列</li>
+<li>十、事件:可以通过属性中的Click指定不同按钮的相同事件</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/915a488732164cab97249542371da64f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_14,color_FFFFFF,t_70,g_se,x_16#pic_center">
+
+<ul>
+<li>十一、容器</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/e3569f476a854c74af6ad0a295d637df.png#pic_center">
+
+<p><strong>在容器中可以放入需要的组件:</strong></p>
+<img src="https://img-blog.csdnimg.cn/24fd881456e8411a9aaf468a5150ca88.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_10,color_FFFFFF,t_70,g_se,x_16">
+
+<ul>
+<li>十二、属性<blockquote>
+<p><strong>Anchor</strong>属性可以将内部容器窗体的拉伸大小随外部窗体的改变而改变</p>
+</blockquote>
+</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/0ff92359c8aa4fe5882b10091052c2aa.png">
+
+<blockquote>
+<p><strong>Dock</strong>属性将控件停靠在窗体的边缘或者填充窗体</p>
+</blockquote>
+<blockquote>
+<p><strong>IsMdiContainer</strong> 将一个窗体设置为主窗体</p>
+</blockquote>
+<img src="https://img-blog.csdnimg.cn/d1f273531aea4affbaa89bd73ffeb9e2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_15,color_FFFFFF,t_70,g_se,x_16">
+
+<img src="https://img-blog.csdnimg.cn/d1f273531aea4affbaa89bd73ffeb9e2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_15,color_FFFFFF,t_70,g_se,x_16">
+
+<blockquote>
+<p><strong>ControlBox</strong>是将窗体中的最大最小设置为不可见状态</p>
+</blockquote>
+<img src="https://img-blog.csdnimg.cn/d921658fe4dc4e14b8281fe010b6de73.png">
+
+<blockquote>
+<p><strong>AcceptButton</strong>设置为true时用户可以通过回车键确认</p>
+</blockquote>
+<blockquote>
+<p><strong>Show和ShowDialog的区别</strong></p>
+</blockquote>
+<ul>
+<li>show是界面可以同时存在，第一个界面出现，出现第二个界面时可以点击第一个界面，而showDialog时出现第二个界面时无法点击第一个界面，必须关闭第二个界面才能点击第一个界面。</li>
+</ul>
+<h1 id="Form初始化、布局"><a href="#Form初始化、布局" class="headerlink" title="Form初始化、布局"></a>Form初始化、布局</h1><ul>
+<li>form初始化操作时是先执行构造方法中的InitializeComponent()，然后执行load()，包括实例化——属性设置——事件注册——将控件添加到当前窗体的Controls中。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>参考文章：<br><a target="_blank" rel="noopener" href="http://c.biancheng.net/csharp/winform/">C语言中文网</a><br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/csharp/tour-of-csharp/">C#教程</a></p>
+<ol>
+<li>C#开发窗体应用方便快捷，界面结构整齐。</li>
+<li>控件的使用不仅可以通过拖拽的方式实现，也可以使用代码的方式实现，添加到Controls中，然后编写相应的逻辑代码。</li>
+<li>VS2017快捷键设置：工具——&gt;选项</li>
+</ol>
+<img src="https://img-blog.csdnimg.cn/a423111d12f043dbb6589da4b8765afa.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_20,color_FFFFFF,t_70,g_se,x_16">
+
+<hr>
+<h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_67729518/article/details/123518389">WinForm学习</a></li>
+</ol>
+<hr>
+<center><font color="red">=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/2295543441.html">https://zml3589110.github.io/posts/2295543441.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C#</a><a class="post-meta__tags" href="/tags/WinForm/">WinForm</a><a class="post-meta__tags" href="/tags/NET/">.NET</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/0.jpg" target="_blank"><img class="post-qr-code-img" src="/img/0.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/1.jpg" target="_blank"><img class="post-qr-code-img" src="/img/1.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2543819108.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">VBA文件管理之一（访问带密码共享）</div></div></a></div><div class="next-post pull-right"><a href="/posts/2033967494.html"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C#窗体之一（esc退出窗体）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2033967494.html" title="C#窗体之一（esc退出窗体）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-27</div><div class="title">C#窗体之一（esc退出窗体）</div></div></a></div><div><a href="/posts/1995699131.html" title="C#退出应用程序方法"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-27</div><div class="title">C#退出应用程序方法</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">119</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">32</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-C-%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">什么是 C# ？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">C#的特点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%86%E8%A7%A3C-%E3%80%81-NET%E3%80%81Winform%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">3.</span> <span class="toc-text">了解C#、.NET、Winform的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BAWinform%E7%A8%8B%E5%BA%8F"><span class="toc-number">4.</span> <span class="toc-text">快速创建Winform程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Winform%E8%8F%9C%E5%8D%95%E5%92%8C%E5%B7%A5%E5%85%B7%E6%A0%8F"><span class="toc-number">5.</span> <span class="toc-text">Winform菜单和工具栏</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Form%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E5%B8%83%E5%B1%80"><span class="toc-number">6.</span> <span class="toc-text">Form初始化、布局</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="toc-number">8.</span> <span class="toc-text">相关链接</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1995699131.html" title="C#退出应用程序方法"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C#退出应用程序方法"/></a><div class="content"><a class="title" href="/posts/1995699131.html" title="C#退出应用程序方法">C#退出应用程序方法</a><time datetime="2022-07-27T02:57:20.000Z" title="发表于 2022-07-27 10:57:20">2022-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2033967494.html" title="C#窗体之一（esc退出窗体）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C#窗体之一（esc退出窗体）"/></a><div class="content"><a class="title" href="/posts/2033967494.html" title="C#窗体之一（esc退出窗体）">C#窗体之一（esc退出窗体）</a><time datetime="2022-07-27T02:54:20.000Z" title="发表于 2022-07-27 10:54:20">2022-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2295543441.html" title="了解C#和WinForm"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="了解C#和WinForm"/></a><div class="content"><a class="title" href="/posts/2295543441.html" title="了解C#和WinForm">了解C#和WinForm</a><time datetime="2022-07-27T01:24:20.000Z" title="发表于 2022-07-27 09:24:20">2022-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2543819108.html" title="VBA文件管理之一（访问带密码共享）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA文件管理之一（访问带密码共享）"/></a><div class="content"><a class="title" href="/posts/2543819108.html" title="VBA文件管理之一（访问带密码共享）">VBA文件管理之一（访问带密码共享）</a><time datetime="2022-07-25T12:29:20.000Z" title="发表于 2022-07-25 20:29:20">2022-07-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/81989925.html" title="VBA数据处理之三(随机数据)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VBA数据处理之三(随机数据)"/></a><div class="content"><a class="title" href="/posts/81989925.html" title="VBA数据处理之三(随机数据)">VBA数据处理之三(随机数据)</a><time datetime="2022-07-25T12:04:20.000Z" title="发表于 2022-07-25 20:04:20">2022-07-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>

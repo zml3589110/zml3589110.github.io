@@ -4,6 +4,103 @@
   
     
     <entry>
+      <title>C#退出应用程序方法</title>
+      <link href="/posts/1995699131.html"/>
+      <url>/posts/1995699131.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="C-退出应用程序的几种方法"><a href="#C-退出应用程序的几种方法" class="headerlink" title="C# 退出应用程序的几种方法"></a>C# 退出应用程序的几种方法</h1><blockquote><p>Process.GetCurrentProcess().Kill(); 这个方法试了报错</p></blockquote><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Application.Exit();<span class="comment">//好像只在主线程可以起作用，而且当有线程，或是阻塞方法的情况下，很容易失灵</span></span><br><span class="line"><span class="keyword">this</span>.Close();<span class="comment">//只是关闭当前窗体。</span></span><br><span class="line">Application.ExitThread();<span class="comment">//退出当前线程上的消息循环，并关闭该线程上的所有窗口。 也会失灵</span></span><br><span class="line">Environment.Exit(<span class="number">0</span>); <span class="comment">//前面三种方法都不能很好的退出程序，此方法可以完全退出程序，这个要强制得多。</span></span><br><span class="line">Process.GetCurrentProcess().Kill();<span class="comment">//此方法完全奏效，绝对是完全退出。</span></span><br></pre></td></tr></table></figure><hr><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://blog.csdn.net/weixin_45499836/article/details/124021582">C# 退出应用程序的几种方法)</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程类 </category>
+          
+          <category> C# </category>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> 关闭程序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C#窗体之一（esc退出窗体）</title>
+      <link href="/posts/2033967494.html"/>
+      <url>/posts/2033967494.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="直接在当前窗体添加代码"><a href="#直接在当前窗体添加代码" class="headerlink" title="直接在当前窗体添加代码"></a>直接在当前窗体添加代码</h1><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//esc退出窗体</span></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="built_in">bool</span> <span class="title">ProcessCmdKey</span>(<span class="params"><span class="keyword">ref</span> System.Windows.Forms.Message msg , System.Windows.Forms.Keys keyData</span>) <span class="comment">//激活回车键</span></span></span><br><span class="line"><span class="function"></span> &#123;</span><br><span class="line">  <span class="built_in">int</span> WM_KEYDOWN=<span class="number">256</span>;       </span><br><span class="line">  <span class="built_in">int</span> WM_SYSKEYDOWN = <span class="number">260</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(msg.Msg == WM_KEYDOWN | msg.Msg == WM_SYSKEYDOWN)</span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">switch</span>(keyData)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">case</span> Keys.Escape:</span><br><span class="line">     <span class="keyword">this</span>.Close();<span class="comment">//csc关闭窗体</span></span><br><span class="line">     <span class="keyword">break</span>;   </span><br><span class="line">   &#125;  </span><br><span class="line">   </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><hr><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://www.cnblogs.com/mingfei200169/articles/578222.html">c#中快捷键的设置(esc退出窗体)</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程类 </category>
+          
+          <category> C# </category>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> 窗体 </tag>
+            
+            <tag> esc </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>了解C#和WinForm</title>
+      <link href="/posts/2295543441.html"/>
+      <url>/posts/2295543441.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="什么是-C-？"><a href="#什么是-C-？" class="headerlink" title="什么是 C# ？"></a>什么是 C# ？</h1><p>C#是一个现代的、通用的、面向对象的、面向组件、结构化语言C#的构想十分接近C和C++,是一门面向对象的编程语言，与java非常相似。</p><h1 id="C-的特点"><a href="#C-的特点" class="headerlink" title="C#的特点"></a>C#的特点</h1><ul><li><p><strong>简单、安全</strong></p><blockquote><p>在 C++ 和 C 语言中程序员最头疼的问题就是指针问题，在 C# 语言中已经不再使用指针，而且不允许直接读取内存等不安全的操作。它比 C、C++、Java 提供了更多的数据类型，并且每个数据类型都是固定大小的。此外还提供了命名空间来管理 C# 文件，命名空间 相当于一个文件夹，在创建程序时，允许在一个命名空间中创建一个或多个类，方便调用和重用</p></blockquote></li><li><p><strong>面向对象</strong></p></li></ul><p>与其他面向对象语言一样，C# 语言也具有面向对象语言的基本特征，即<code>封装、继承、 多态</code>。</p><blockquote><pre><code>**封装：**就是将代码看作一个整体，例如使用类、方法、接口等。在使用定义好的类、 方法、接口等对象时不必考虑其细节，只需要知道其对象名以及所需要的参数即可，也是一种提升代码安全性的方法。**继承：**是一种体现代码重用性的特性，减少代码的冗余，但在 C# 语言中仅支持单继承。**多态：**不仅体现了代码的重用性，也体现了代码的灵活性，它主要通过继承和实现接口的方式，让类或接口中的成员表现出不同的作用</code></pre></blockquote><ul><li><p><strong>支持跨平台</strong><br>最早的 C# 语言仅能在 Windows 平台上开发并使用，目前最新的 C# 6.0 版本已经能在多个操作系统上使用，例如在 Mac、Linux 等。此外，还能将其应用到手机、PDA 等设备上。</p></li><li><p><strong>开发多种类型的程序</strong><br>C# 语言不仅能开发在控制台下运行的应用程序，也能开发 Windows 窗体应用程序、网站、手机应用等多种应用程序，并且其提供的 Visual Studio 2015 开发工具中也支持多种类型的程序，让开发人员能快速地构建 C# 应用程序</p></li></ul><h1 id="了解C-、-NET、Winform的关系"><a href="#了解C-、-NET、Winform的关系" class="headerlink" title="了解C#、.NET、Winform的关系"></a>了解C#、.NET、Winform的关系</h1><ul><li>.NET 是一个开发平台，而 C# 是一种在 .NET 开发平台上使用的编程语言，目前能在 .NET 平台上使用的开发语言很多，例如 Visual Basic .NET、Python、J#、Visual C++.NET 等。但在 .NET 平台上使用最多的是 C# 语言。</li><li>WinForm 是 Windows Form 的简称，是基于 .NET Framework 平台的客户端（PC软件）开发技术，一般使用 C# 编程。C# WinForm 编程需要创建「Windows窗体应用程序」项目。</li><li>.NET 提供了大量 Windows 风格的控件和事件，我们可以直接拿来使用，上手简单，开发快速。</li></ul><h1 id="快速创建Winform程序"><a href="#快速创建Winform程序" class="headerlink" title="快速创建Winform程序"></a>快速创建Winform程序</h1><blockquote><p>使用VS2017,.NET Framework 4.6.1</p></blockquote><ul><li>一、创建窗体应用程序非常简单，依次选择“文件”一“新建”一“项目”命令，弹出如下图所示的对话框，选择Windows窗体应用程序，修改位置即可。</li></ul><img src="https://img-blog.csdnimg.cn/img_convert/86b77ebdd9cff3f042e4197ec55f491e.png#pic_center"><ul><li>二、通过工具箱中的label标签，button按钮，comboBox下拉按钮，直接在拖拽到窗体中；按钮的单击事件直接双击可以跳到对应的方法中进行代码编辑；还需要修改对应标签属性中的Name，方便后续的编辑；创建完成后出现如下界面</li></ul><img src="https://img-blog.csdnimg.cn/f586b06ae1094573927e288cfe900c0f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"><ul><li>三、点击启动按钮，出现自己编写的窗体界面</li></ul><img src="https://img-blog.csdnimg.cn/b6b0618317904fb4903a2f90ef0f9d43.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"><h1 id="Winform菜单和工具栏"><a href="#Winform菜单和工具栏" class="headerlink" title="Winform菜单和工具栏"></a>Winform菜单和工具栏</h1><img src="https://img-blog.csdnimg.cn/4931266cefef42088836a0b8601752c7.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_9,color_FFFFFF,t_70,g_se,x_16#pic_center"><ul><li>一、ListBox:列表框</li></ul><img src="https://img-blog.csdnimg.cn/a5cceedc3b244a4088eca5ae68129299.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_16,color_FFFFFF,t_70,g_se,x_16"><ul><li>二、ComboBox:下拉框列表</li></ul><img src="https://img-blog.csdnimg.cn/8577ddc44331479a8b3e3f653d9fb254.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_20,color_FFFFFF,t_70,g_se,x_16"><ul><li>三、CheckedListBox:复选框列表</li><li>四、MaskedTextBox:用于输入指定格式的内容，比如电话，邮编等信息，指定格式。</li><li>五、numericUpdown:数字显示框，点击向上或者向下来增加或减少数字的显示</li><li>六、RichTextBox:富文本框</li></ul><img src="https://img-blog.csdnimg.cn/575ec2000b2f42959b326882e3e3fb7f.png"><ul><li>七、MenuStrip:窗体上添加菜单栏控件 MenuStrip，直接点击 MenuStrip ，在右边的 Windows 窗体中就可以显示，输入具体的值时需要有提示字母，可以通过&amp;+字母实现</li><li>八、ToolStrip:和添加菜单栏类似，在工具箱中将 ToolStrip 控件直接拖到 Windows 窗体中即可；如果需要指定图片和文字，可以通过属性中的DisplayStyle设置</li></ul><img src="https://img-blog.csdnimg.cn/175497e93125477b8f8f9f57326ba809.png#pic_center"><ul><li>九、DataGridView:在网格中可以用自定义数据的行和列</li><li>十、事件:可以通过属性中的Click指定不同按钮的相同事件</li></ul><img src="https://img-blog.csdnimg.cn/915a488732164cab97249542371da64f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_14,color_FFFFFF,t_70,g_se,x_16#pic_center"><ul><li>十一、容器</li></ul><img src="https://img-blog.csdnimg.cn/e3569f476a854c74af6ad0a295d637df.png#pic_center"><p><strong>在容器中可以放入需要的组件:</strong></p><img src="https://img-blog.csdnimg.cn/24fd881456e8411a9aaf468a5150ca88.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_10,color_FFFFFF,t_70,g_se,x_16"><ul><li>十二、属性<blockquote><p><strong>Anchor</strong>属性可以将内部容器窗体的拉伸大小随外部窗体的改变而改变</p></blockquote></li></ul><img src="https://img-blog.csdnimg.cn/0ff92359c8aa4fe5882b10091052c2aa.png"><blockquote><p><strong>Dock</strong>属性将控件停靠在窗体的边缘或者填充窗体</p></blockquote><blockquote><p><strong>IsMdiContainer</strong> 将一个窗体设置为主窗体</p></blockquote><img src="https://img-blog.csdnimg.cn/d1f273531aea4affbaa89bd73ffeb9e2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_15,color_FFFFFF,t_70,g_se,x_16"><img src="https://img-blog.csdnimg.cn/d1f273531aea4affbaa89bd73ffeb9e2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_15,color_FFFFFF,t_70,g_se,x_16"><blockquote><p><strong>ControlBox</strong>是将窗体中的最大最小设置为不可见状态</p></blockquote><img src="https://img-blog.csdnimg.cn/d921658fe4dc4e14b8281fe010b6de73.png"><blockquote><p><strong>AcceptButton</strong>设置为true时用户可以通过回车键确认</p></blockquote><blockquote><p><strong>Show和ShowDialog的区别</strong></p></blockquote><ul><li>show是界面可以同时存在，第一个界面出现，出现第二个界面时可以点击第一个界面，而showDialog时出现第二个界面时无法点击第一个界面，必须关闭第二个界面才能点击第一个界面。</li></ul><h1 id="Form初始化、布局"><a href="#Form初始化、布局" class="headerlink" title="Form初始化、布局"></a>Form初始化、布局</h1><ul><li>form初始化操作时是先执行构造方法中的InitializeComponent()，然后执行load()，包括实例化——属性设置——事件注册——将控件添加到当前窗体的Controls中。</li></ul><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>参考文章：<br><a href="http://c.biancheng.net/csharp/winform/">C语言中文网</a><br><a href="https://docs.microsoft.com/zh-cn/dotnet/csharp/tour-of-csharp/">C#教程</a></p><ol><li>C#开发窗体应用方便快捷，界面结构整齐。</li><li>控件的使用不仅可以通过拖拽的方式实现，也可以使用代码的方式实现，添加到Controls中，然后编写相应的逻辑代码。</li><li>VS2017快捷键设置：工具——&gt;选项</li></ol><img src="https://img-blog.csdnimg.cn/a423111d12f043dbb6589da4b8765afa.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAenprMjAyMjAzMDY=,size_20,color_FFFFFF,t_70,g_se,x_16"><hr><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://blog.csdn.net/m0_67729518/article/details/123518389">WinForm学习</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程类 </category>
+          
+          <category> C# </category>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> WinForm </tag>
+            
+            <tag> .NET </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>VBA文件管理之一（访问带密码共享）</title>
       <link href="/posts/2543819108.html"/>
       <url>/posts/2543819108.html</url>
@@ -92,9 +189,9 @@
       
         <tags>
             
-            <tag> VBA </tag>
-            
             <tag> 窗体 </tag>
+            
+            <tag> VBA </tag>
             
             <tag> 图片 </tag>
             
@@ -290,9 +387,9 @@
       
         <tags>
             
-            <tag> VBA </tag>
-            
             <tag> 窗体 </tag>
+            
+            <tag> VBA </tag>
             
             <tag> 图片 </tag>
             
@@ -486,9 +583,9 @@
       
         <tags>
             
-            <tag> VBA </tag>
-            
             <tag> 窗体 </tag>
+            
+            <tag> VBA </tag>
             
             <tag> 最大最小化 </tag>
             
@@ -519,9 +616,9 @@
       
         <tags>
             
-            <tag> VBA </tag>
-            
             <tag> 窗体 </tag>
+            
+            <tag> VBA </tag>
             
             <tag> ESC </tag>
             
@@ -862,9 +959,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> C语言 </tag>
-            
             <tag> 涂鸦 </tag>
+            
+            <tag> C语言 </tag>
             
             <tag> WBR3 </tag>
             
@@ -901,9 +998,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> C语言 </tag>
-            
             <tag> 涂鸦 </tag>
+            
+            <tag> C语言 </tag>
             
             <tag> WBR3 </tag>
             
@@ -1030,9 +1127,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
           <category> mysql </category>
           
@@ -1082,11 +1179,11 @@
             
             <tag> 网页 </tag>
             
+            <tag> php </tag>
+            
             <tag> 数据库 </tag>
             
             <tag> POST </tag>
-            
-            <tag> php </tag>
             
             <tag> 表单 </tag>
             
@@ -1112,9 +1209,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -1147,9 +1244,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -1188,9 +1285,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -1225,9 +1322,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -1262,9 +1359,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -1297,9 +1394,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -1332,9 +1429,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -1380,11 +1477,11 @@
             
             <tag> 网页 </tag>
             
-            <tag> 数据库 </tag>
+            <tag> apache </tag>
             
             <tag> php </tag>
             
-            <tag> apache </tag>
+            <tag> 数据库 </tag>
             
             <tag> mysql </tag>
             
@@ -1417,11 +1514,11 @@
             
             <tag> 网页 </tag>
             
-            <tag> php </tag>
-            
             <tag> 软件安装 </tag>
             
             <tag> apache </tag>
+            
+            <tag> php </tag>
             
         </tags>
       
@@ -1514,9 +1611,9 @@
             
             <tag> 商业 </tag>
             
-            <tag> 目录 </tag>
-            
             <tag> 5分钟商学院 </tag>
+            
+            <tag> 目录 </tag>
             
         </tags>
       
@@ -1617,9 +1714,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> C语言 </tag>
-            
             <tag> 涂鸦 </tag>
+            
+            <tag> C语言 </tag>
             
             <tag> WBR3 </tag>
             
@@ -1654,9 +1751,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> 鸿蒙 </tag>
-            
             <tag> C语言 </tag>
+            
+            <tag> 鸿蒙 </tag>
             
             <tag> 小熊派 </tag>
             
@@ -1687,9 +1784,9 @@
             
             <tag> 商业 </tag>
             
-            <tag> 洞察力 </tag>
-            
             <tag> 目录 </tag>
+            
+            <tag> 洞察力 </tag>
             
         </tags>
       
@@ -1729,7 +1826,7 @@
       <link href="/posts/2486667095.html"/>
       <url>/posts/2486667095.html</url>
       
-        <content type="html"><![CDATA[<h1 id="因需将产品联网处理"><a href="#因需将产品联网处理" class="headerlink" title="因需将产品联网处理"></a>因需将产品联网处理</h1><p>​虽然一直在研究乐鑫esp8266，但发现接入云服务还需自己付费使用，因此就考虑找能免费对接网络的模块，很久以前玩过司南物联芯片，本想购入，但却发现主页都进不去，只好作罢。后来又找汉枫模块和涂鸦模块。</p><a class="btn-beautify block" href="http://www.hi-flying.com/index.php?route=product/category&path=135" title="汉枫模块"><i class="far fa-hand-point-right"></i><span>汉枫模块</span></a><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/MQTT-protocol?id=Kb65nphxrj8f1" title="涂鸦模块"><i class="far fa-hand-point-right"></i><span>涂鸦模块</span></a><p>汉枫看起来挺麻烦，加之比象花费太大时间！就选择涂鸦模块，因为涂鸦网站资料相对较多，也提供相对详细SDK，通过串口UART连接即可，根据说明，只要将其SDK-C导入到工程就可以使用。</p><h1 id="模块选择"><a href="#模块选择" class="headerlink" title="模块选择"></a>模块选择</h1><p>选择的是WBR3模块</p><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/wbr3-module-datasheet?id=K9dujs2k5nriy" title="WBR3模块说明"><i class="far fa-hand-point-right"></i><span>WBR3模块说明</span></a><p>WBR3 是由涂鸦智能开发的一款低功耗嵌入式 Wi-Fi 加蓝牙模组。它由一个高集成度的无线射频芯片W701-VA2-CG构成，内置了 Wi-Fi 网络协议栈和丰富的库函数</p><ul><li>内置低功耗 KM4 MCU，可以兼作应用处理器</li><li>主频 100MHz</li><li>工作电压：3V-3.6V</li><li>外设：9×GPIOs, 1×UART, 1×Log_Tx</li><li>Wi-Fi&#x2F;蓝牙连通性<ul><li>802.11 B&#x2F;G&#x2F;N20</li><li>通道 <a href="mailto:&#x31;&#45;&#49;&#x34;&#64;&#x32;&#x2e;&#52;&#71;&#x48;&#122;">&#x31;&#45;&#49;&#x34;&#64;&#x32;&#x2e;&#52;&#71;&#x48;&#122;</a>(CH1-11 for US&#x2F;CA, CH1-13 for EU&#x2F;CN)</li><li>支持 WEP&#x2F;WPA&#x2F;WPA2&#x2F;WPA2 PSK（AES） 安全模式</li><li>支持 Bluetooth 4.2 Low Energy</li><li>802.11b 模式下 +20dBm 的输出功率</li><li>支持 SmartConfig 功能，包括 Android 和 iOS 设备</li><li>板载 PCB Onboard 天线</li><li>通过 CE、FCC 认证</li><li>工作温度：-20℃ to 85℃</li></ul></li></ul><h3 id="尺寸封装"><a href="#尺寸封装" class="headerlink" title="尺寸封装"></a>尺寸封装</h3><ul><li>WBR3 共有 2 排引脚（2×8），引脚间距为 2mm。</li><li>WBR3 尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×2.9±0.15 mm (H)。WBR3尺寸图如下图所示<img src="/posts/2486667095/1.WBR3%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">1.WBR3脚位图</li></ul><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote><h2 id="电气参数"><a href="#电气参数" class="headerlink" title="电气参数"></a>电气参数</h2><h3 id="绝对电气参数"><a href="#绝对电气参数" class="headerlink" title="绝对电气参数"></a>绝对电气参数</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ts</td><td align="left">存储温度</td><td align="left">-40</td><td align="left">105</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">供电电压</td><td align="left">-0.3</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">静电释放电压（人体模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">2</td><td align="left">KV</td></tr><tr><td align="left">静电释放电压（机器模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">0.5</td><td align="left">KV</td></tr></tbody></table><h3 id="工作条件"><a href="#工作条件" class="headerlink" title="工作条件"></a>工作条件</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">典型值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ta</td><td align="left">工作温度</td><td align="left">-20</td><td align="left">-</td><td align="left">85</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">工作电压</td><td align="left">3.0</td><td align="left">-</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">VIL</td><td align="left">I&#x2F;O低电平输入</td><td align="left">-</td><td align="left">-</td><td align="left">0.8</td><td align="left">V</td></tr><tr><td align="left">VIH</td><td align="left">I&#x2F;O高电平输入</td><td align="left">2.0</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">VOL</td><td align="left">I&#x2F;O低电平输出</td><td align="left">-</td><td align="left">-</td><td align="left">0.4</td><td align="left">V</td></tr><tr><td align="left">VOH</td><td align="left">I&#x2F;O高电平输出</td><td align="left">2.4</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">Imax</td><td align="left">I&#x2F;O驱动电流</td><td align="left">-</td><td align="left">-</td><td align="left">16</td><td align="left">mA</td></tr><tr><td align="left">Cpad</td><td align="left">输入引脚电容</td><td align="left">-</td><td align="left">2</td><td align="left">-</td><td align="left">pF</td></tr></tbody></table><h3 id="射频功耗"><a href="#射频功耗" class="headerlink" title="射频功耗"></a>射频功耗</h3><ul><li><p>TX 连续发送时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">功率</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">17dBm</td><td align="left">217</td><td align="left">268</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">18dBm</td><td align="left">231</td><td align="left">283</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">15dBm</td><td align="left">159</td><td align="left">188</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">17.5dBm</td><td align="left">177</td><td align="left">213</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">13dBm</td><td align="left">145</td><td align="left">167</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">16.5dBm</td><td align="left">165</td><td align="left">193</td><td align="left">mA</td></tr></tbody></table></li><li><p>RX 连续接收时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11B 11M</td><td align="left">63</td><td align="left">65</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11G 54M</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11N HT20 MCS7</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr></tbody></table></li></ul><h2 id="射频参数"><a href="#射频参数" class="headerlink" title="射频参数"></a>射频参数</h2><h3 id="基本射频特性"><a href="#基本射频特性" class="headerlink" title="基本射频特性"></a>基本射频特性</h3><table><thead><tr><th align="left">参数项</th><th align="left">详细说明</th></tr></thead><tbody><tr><td align="left">频率范围</td><td align="left">2.400~2.4835GHz</td></tr><tr><td align="left">Wi-Fi标准</td><td align="left">IEEE 802.11b&#x2F;g&#x2F;n(通道 1-14)</td></tr><tr><td align="left">蓝牙标准</td><td align="left">蓝牙4.2</td></tr><tr><td align="left">数据传输速率</td><td align="left">11b:1,2,5.5, 11 (Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11g:6,9,12,18,24,36,48,54(Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11n:HT20 MCS0~7</td></tr><tr><td align="left">天线类型</td><td align="left">PCB 天线，增益2.5dBi</td></tr></tbody></table><h2 id="天线信息"><a href="#天线信息" class="headerlink" title="天线信息"></a>天线信息</h2><h3 id="天线类型"><a href="#天线类型" class="headerlink" title="天线类型"></a>天线类型</h3><p>只有 PCB 板载天线接入方式，天线增益 2.5dBi。</p><h3 id="降低天线干扰"><a href="#降低天线干扰" class="headerlink" title="降低天线干扰"></a>降低天线干扰</h3><p>在 Wi-Fi 模组上使用 PCB 板载天线时，为确保 Wi-Fi 性能的最优化，建议模组天线部分和其他金属件距离至少在 15mm 以上。</p><h2 id="封装信息及生产指导"><a href="#封装信息及生产指导" class="headerlink" title="封装信息及生产指导"></a>封装信息及生产指导</h2><h3 id="机械尺寸"><a href="#机械尺寸" class="headerlink" title="机械尺寸"></a>机械尺寸</h3><p>WBR3的PCB机械尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×0.8±0.1 mm (H)。WBR3的机械尺寸如下图所示。</p><img src="/posts/2486667095/3.%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">]]></content>
+        <content type="html"><![CDATA[<h1 id="因需将产品联网处理"><a href="#因需将产品联网处理" class="headerlink" title="因需将产品联网处理"></a>因需将产品联网处理</h1><p>​虽然一直在研究乐鑫esp8266，但发现接入云服务还需自己付费使用，因此就考虑找能免费对接网络的模块，很久以前玩过司南物联芯片，本想购入，但却发现主页都进不去，只好作罢。后来又找汉枫模块和涂鸦模块。</p><a class="btn-beautify block" href="http://www.hi-flying.com/index.php?route=product/category&path=135" title="汉枫模块"><i class="far fa-hand-point-right"></i><span>汉枫模块</span></a><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/MQTT-protocol?id=Kb65nphxrj8f1" title="涂鸦模块"><i class="far fa-hand-point-right"></i><span>涂鸦模块</span></a><p>汉枫看起来挺麻烦，加之比象花费太大时间！就选择涂鸦模块，因为涂鸦网站资料相对较多，也提供相对详细SDK，通过串口UART连接即可，根据说明，只要将其SDK-C导入到工程就可以使用。</p><h1 id="模块选择"><a href="#模块选择" class="headerlink" title="模块选择"></a>模块选择</h1><p>选择的是WBR3模块</p><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/wbr3-module-datasheet?id=K9dujs2k5nriy" title="WBR3模块说明"><i class="far fa-hand-point-right"></i><span>WBR3模块说明</span></a><p>WBR3 是由涂鸦智能开发的一款低功耗嵌入式 Wi-Fi 加蓝牙模组。它由一个高集成度的无线射频芯片W701-VA2-CG构成，内置了 Wi-Fi 网络协议栈和丰富的库函数</p><ul><li>内置低功耗 KM4 MCU，可以兼作应用处理器</li><li>主频 100MHz</li><li>工作电压：3V-3.6V</li><li>外设：9×GPIOs, 1×UART, 1×Log_Tx</li><li>Wi-Fi&#x2F;蓝牙连通性<ul><li>802.11 B&#x2F;G&#x2F;N20</li><li>通道 <a href="mailto:&#x31;&#x2d;&#x31;&#52;&#x40;&#50;&#x2e;&#x34;&#71;&#72;&#x7a;">&#x31;&#x2d;&#x31;&#52;&#x40;&#50;&#x2e;&#x34;&#71;&#72;&#x7a;</a>(CH1-11 for US&#x2F;CA, CH1-13 for EU&#x2F;CN)</li><li>支持 WEP&#x2F;WPA&#x2F;WPA2&#x2F;WPA2 PSK（AES） 安全模式</li><li>支持 Bluetooth 4.2 Low Energy</li><li>802.11b 模式下 +20dBm 的输出功率</li><li>支持 SmartConfig 功能，包括 Android 和 iOS 设备</li><li>板载 PCB Onboard 天线</li><li>通过 CE、FCC 认证</li><li>工作温度：-20℃ to 85℃</li></ul></li></ul><h3 id="尺寸封装"><a href="#尺寸封装" class="headerlink" title="尺寸封装"></a>尺寸封装</h3><ul><li>WBR3 共有 2 排引脚（2×8），引脚间距为 2mm。</li><li>WBR3 尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×2.9±0.15 mm (H)。WBR3尺寸图如下图所示<img src="/posts/2486667095/1.WBR3%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">1.WBR3脚位图</li></ul><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote><h2 id="电气参数"><a href="#电气参数" class="headerlink" title="电气参数"></a>电气参数</h2><h3 id="绝对电气参数"><a href="#绝对电气参数" class="headerlink" title="绝对电气参数"></a>绝对电气参数</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ts</td><td align="left">存储温度</td><td align="left">-40</td><td align="left">105</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">供电电压</td><td align="left">-0.3</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">静电释放电压（人体模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">2</td><td align="left">KV</td></tr><tr><td align="left">静电释放电压（机器模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">0.5</td><td align="left">KV</td></tr></tbody></table><h3 id="工作条件"><a href="#工作条件" class="headerlink" title="工作条件"></a>工作条件</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">典型值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ta</td><td align="left">工作温度</td><td align="left">-20</td><td align="left">-</td><td align="left">85</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">工作电压</td><td align="left">3.0</td><td align="left">-</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">VIL</td><td align="left">I&#x2F;O低电平输入</td><td align="left">-</td><td align="left">-</td><td align="left">0.8</td><td align="left">V</td></tr><tr><td align="left">VIH</td><td align="left">I&#x2F;O高电平输入</td><td align="left">2.0</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">VOL</td><td align="left">I&#x2F;O低电平输出</td><td align="left">-</td><td align="left">-</td><td align="left">0.4</td><td align="left">V</td></tr><tr><td align="left">VOH</td><td align="left">I&#x2F;O高电平输出</td><td align="left">2.4</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">Imax</td><td align="left">I&#x2F;O驱动电流</td><td align="left">-</td><td align="left">-</td><td align="left">16</td><td align="left">mA</td></tr><tr><td align="left">Cpad</td><td align="left">输入引脚电容</td><td align="left">-</td><td align="left">2</td><td align="left">-</td><td align="left">pF</td></tr></tbody></table><h3 id="射频功耗"><a href="#射频功耗" class="headerlink" title="射频功耗"></a>射频功耗</h3><ul><li><p>TX 连续发送时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">功率</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">17dBm</td><td align="left">217</td><td align="left">268</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">18dBm</td><td align="left">231</td><td align="left">283</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">15dBm</td><td align="left">159</td><td align="left">188</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">17.5dBm</td><td align="left">177</td><td align="left">213</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">13dBm</td><td align="left">145</td><td align="left">167</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">16.5dBm</td><td align="left">165</td><td align="left">193</td><td align="left">mA</td></tr></tbody></table></li><li><p>RX 连续接收时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11B 11M</td><td align="left">63</td><td align="left">65</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11G 54M</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11N HT20 MCS7</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr></tbody></table></li></ul><h2 id="射频参数"><a href="#射频参数" class="headerlink" title="射频参数"></a>射频参数</h2><h3 id="基本射频特性"><a href="#基本射频特性" class="headerlink" title="基本射频特性"></a>基本射频特性</h3><table><thead><tr><th align="left">参数项</th><th align="left">详细说明</th></tr></thead><tbody><tr><td align="left">频率范围</td><td align="left">2.400~2.4835GHz</td></tr><tr><td align="left">Wi-Fi标准</td><td align="left">IEEE 802.11b&#x2F;g&#x2F;n(通道 1-14)</td></tr><tr><td align="left">蓝牙标准</td><td align="left">蓝牙4.2</td></tr><tr><td align="left">数据传输速率</td><td align="left">11b:1,2,5.5, 11 (Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11g:6,9,12,18,24,36,48,54(Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11n:HT20 MCS0~7</td></tr><tr><td align="left">天线类型</td><td align="left">PCB 天线，增益2.5dBi</td></tr></tbody></table><h2 id="天线信息"><a href="#天线信息" class="headerlink" title="天线信息"></a>天线信息</h2><h3 id="天线类型"><a href="#天线类型" class="headerlink" title="天线类型"></a>天线类型</h3><p>只有 PCB 板载天线接入方式，天线增益 2.5dBi。</p><h3 id="降低天线干扰"><a href="#降低天线干扰" class="headerlink" title="降低天线干扰"></a>降低天线干扰</h3><p>在 Wi-Fi 模组上使用 PCB 板载天线时，为确保 Wi-Fi 性能的最优化，建议模组天线部分和其他金属件距离至少在 15mm 以上。</p><h2 id="封装信息及生产指导"><a href="#封装信息及生产指导" class="headerlink" title="封装信息及生产指导"></a>封装信息及生产指导</h2><h3 id="机械尺寸"><a href="#机械尺寸" class="headerlink" title="机械尺寸"></a>机械尺寸</h3><p>WBR3的PCB机械尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×0.8±0.1 mm (H)。WBR3的机械尺寸如下图所示。</p><img src="/posts/2486667095/3.%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">]]></content>
       
       
       <categories>
@@ -1745,9 +1842,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> C语言 </tag>
-            
             <tag> 涂鸦 </tag>
+            
+            <tag> C语言 </tag>
             
         </tags>
       
