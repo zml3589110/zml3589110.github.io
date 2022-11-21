@@ -4,6 +4,72 @@
   
     
     <entry>
+      <title>ubuntu下将Python命令默认指向为Python3</title>
+      <link href="/posts/213945612.html"/>
+      <url>/posts/213945612.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="ubuntu下将Python命令默认指向为Python3"><a href="#ubuntu下将Python命令默认指向为Python3" class="headerlink" title="ubuntu下将Python命令默认指向为Python3"></a>ubuntu下将Python命令默认指向为Python3</h1><p><strong>ubuntu</strong>下输入Python命令默认指向的是&#x2F;usr&#x2F;bin&#x2F;python</p><p>因此，为了方便使用，安装了python3后，我们一般会创建软链接使&#x2F;usr&#x2F;bin&#x2F;python指向&#x2F;usr&#x2F;bin&#x2F;python3。</p><p>备份系统自带python2的软链接：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /usr/bin/python /usr/bin/python.bak</span><br></pre></td></tr></table></figure><p>创建python3软链接：</p><p>（安装python一般会自动生成软链接&#x2F;usr&#x2F;bin&#x2F;python3，如果没有，请将“&#x2F;usr&#x2F;bin&#x2F;python3”改为你安装的python3的位置）</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/bin/python3 /usr/bin/python</span><br></pre></td></tr></table></figure><p>同理，pip也一样</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/bin/pip3 /usr/bin/pip</span><br></pre></td></tr></table></figure><hr><h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol><li><a href="https://blog.csdn.net/leishupei/article/details/120736802">ubuntu下将Python命令默认指向为Python3</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Ubuntu </tag>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Ubuntu下编译环境多版本共存（ESP8266）</title>
+      <link href="/posts/1569020693.html"/>
+      <url>/posts/1569020693.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="ESP32编译环境多版本共存处理办法"><a href="#ESP32编译环境多版本共存处理办法" class="headerlink" title="ESP32编译环境多版本共存处理办法"></a>ESP32编译环境多版本共存处理办法</h1><h2 id="1-现有方法存在的问题"><a href="#1-现有方法存在的问题" class="headerlink" title="1.现有方法存在的问题"></a>1.现有方法存在的问题</h2><p>目前ESP32的官方开发框架ESP-IDF更新很快，我的电脑里已经存了好几个版本的ESP-IDF SDK了。尽管新版本的功能更强大，但旧版本的SDK中也有不少可以学习的知识，看到不同的编程优化思路。<br>每一个版本的SDK都需要配置编译工具所在的路径，以及配置工程路径的环境变量IDF_PATH。设置方法有两种：</p><ol><li>使用如下语句，导入SDK的编译工具和配置环境变量：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/esp/xtensa-esp32-elf/bin&quot;</span>  <span class="comment">#（配置SDK编译工具所在路径）</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> IDF_PATH=~/esp/esp-idf  <span class="comment"># （配置环境变量）</span></span><br></pre></td></tr></table></figure></li></ol><p>通过语句执行的配置，仅在当前终端有效，退出当前终端或者系统重启后，上述配置就失效了，即不可以执行正常的编译了。</p><p>若需继续使用，需再次敲击上述命令完成当前终端的配置。</p><ol start="2"><li>上述配置方法的原理<br>将上述语句，添加到‘～’目录下的.profile文件（这个文件在每次系统启动时就自动运行一次其中的命令），就可以保证上述配置一直有效，不需要每次使用都敲击1.1中的命令，就可以一直使用。（首次配置后，应重启系统，来使配置生效）</li></ol><p>但是，当我们下载了多个版本的SDK时，1.2的这种看起来”很方便的“配置，存在很大问题。比如，我下载了v3.17版本的SDK，也下载了v4.01版本的SDK，他们的IDF_PATH，以及编译工具的PATH都需要设置，把他们都写入到.profile文件，会出现如下所示的重名现象：</p><img src="https://img-blog.csdnimg.cn/20200812003512474.png"><p><strong>最终，IDF_PATH，PATH被赋值了两次，将以最后一次赋值为最终的配置（即对v4.01版本的SDK的配置），因此对v3.17的配置将失效，我们将不能完成v3.17的正常编译。</strong></p><blockquote><p>能不能有一种方法，让我们同时快速完成多个版本的SDK的编译环境配置呢？</p></blockquote><h2 id="2-解决方法："><a href="#2-解决方法：" class="headerlink" title="2.解决方法："></a>2.解决方法：</h2><p>切换到”～“目录下，运行 ls -al命令，查看该目录下的文件：</p><img src="https://img-blog.csdnimg.cn/20200812003731473.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dhbmd5eDEyMzQ=,size_16,color_FFFFFF,t_70"><p><strong>若有.bash_aliases文件就打开它，并添加以下内容：（注：若没有则可以新建-因为默认启动的.bashrc会扫描.bash_aliases下文件）</strong></p><p>（注意，我的SDK版本为v4.0、v3.22、v3.17，它们的编译工具，以及esp-idf工程目录在对应的esp4,esp322,esp317目录下，你可以依据你下载的SDK版本，以及具体的路径替换下述语句的相关目录路径。）</p><p><strong>旧版本的idf 添加下述语句：</strong></p><img src="https://img-blog.csdnimg.cn/20200812003925833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dhbmd5eDEyMzQ=,size_16,color_FFFFFF,t_70"><p><strong>新版本的 idf 添加下述语句：</strong></p><img src="https://img-blog.csdnimg.cn/40a2169649944389bcfa658642e88b89.png"><p>**<em>注意：上述截图中第一条语句的 “.”后有一个空格。（其实不添加也不影响！）</em><br>若没有，就创建它，并添加上述内容。<br>添加后，保存该文件，并重新启动系统或者使用命令source &#x2F;home&#x2F;xxx&#x2F;.bashrc（注意使用正确的bashrc路径）刷新系统配置。</p><p><strong>下面说一下如何使用：</strong><br>如图，打开一个终端，输入printenv IDF_PATH，显示当前IDF_PATH的配置。同理，输入printenv PATH，显示当前PATH的配置。然后运行get_esp322命令，再输入printenv IDF_PATH，发现了没，我们&#x2F;esp322&#x2F;xtensa-esp32-elf&#x2F;bin已经添加到PATH环境变量里了。再运行get_e322，输入printenv PATH，发现，IDF_PATH环境变量已经变为v3.2.2对应的&#x2F;esp322&#x2F;esp-idf了。</p><blockquote><p>不知道为什么我添加的路径都是往后叠加，越加越长</p></blockquote><img src="https://img-blog.csdnimg.cn/20200812004451697.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dhbmd5eDEyMzQ=,size_16,color_FFFFFF,t_70"><p>我们再打开一个终端，运行以下命令，并查看对应的环境变量。发现，输入get_esp317\get_e317也能完成对应于v3.17版本的SDK需要的配置。如此，在不同的终端中，我们输入不同的get_espxx 命令就可以完成设置了，不用敲击过长的命令，也不必担心环境变量名会重复而导致环境变量被反复设置而被覆盖的问题。</p><img src="https://img-blog.csdnimg.cn/20200812004512673.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dhbmd5eDEyMzQ=,size_16,color_FFFFFF,t_70"><h2 id="上述设置的原理说明"><a href="#上述设置的原理说明" class="headerlink" title="上述设置的原理说明"></a>上述设置的原理说明</h2><p>上述设置文件中使用的aliase命令，是linux下给指令起别名的命令行工具，我们通过给export IDF_PATH&#x3D;xxxx这条长指令起别名来达到节省敲击的字符数的目的，也就是说，起别名后，执行get_esp32，就等效于在命令行输入了：</p><p>export PATH&#x3D;”$HOME&#x2F;esp322&#x2F;xtensa-esp32-elf&#x2F;bin:$PATH</p><p>因此我们可以通过输入简单的命令，完成环境的配置。</p><p>另一方面，在”～“目录下的.bash_aliases是一个特殊的文件，它专门用来存放我们给其他命令起别名的设置。并且，每当新建一个终端，在终端启动时会自动运行一次这个文件里的指令，因此，对于不同版本的SDK，我们只需要新建一个终端，运行对应版本的指令，就可以实现当前终端的环境变量的配置，而不影响其他终端，做到多版本SDK开发的共存。</p><p>_.bashrc中有对.bash_aliases的说明：</p><img src="https://img-blog.csdnimg.cn/20200812010421728.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dhbmd5eDEyMzQ=,size_16,color_FFFFFF,t_70"><p><strong>即允许我们新建一个.bash_aliases文件来专门存放我们的起别名的操作。这正是上面我提到的一点。<br>在实践中注意修改对应的路径就可以了，该方法也适用于别的开发环境，多版本SDK共存处理的操作。</strong></p><h1 id="对-Bash-Aliases（别名）-说明"><a href="#对-Bash-Aliases（别名）-说明" class="headerlink" title="对 Bash Aliases（别名） 说明"></a>对 Bash Aliases（别名） 说明</h1><p><strong>Bash中的Aliases（别名）可以简单地称为将运行另一个命令&#x2F;程序的命令或快捷方式，当运行的命令很长且对于经常使用的命令时，那么使用Bash别名是非常有用的。</strong><br>在本文中，小编将简单整理在Linux系统中创建和使用Bash别名的不同方法，感兴趣的朋友可以关注下。</p><h2 id="在Linux中检查Bash别名"><a href="#在Linux中检查Bash别名" class="headerlink" title="在Linux中检查Bash别名"></a>在Linux中检查Bash别名</h2><blockquote><p>Bash Alias是一个shell内置命令，可以通过运行以下命令进行确认：</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">type</span> -a <span class="built_in">alias</span></span></span><br><span class="line">alias is a shell builtin</span><br></pre></td></tr></table></figure><p>在跳转和设置别名之前，首先需要看到涉及的配置文件。一个别名可以在<strong>“用户级”</strong>或<strong>“系统级”</strong>中进行设置。<br>如果调用系统shell，只需在终端键入<strong>“ alias ”</strong>即可查看已定义别名的列表。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ alias</span><br></pre></td></tr></table></figure><img src="http://www.idccoupon.com/wp-content/uploads/2021/02/bashaliase.png"><p><strong>（检查已定义Linux别名的列表）</strong></p><p>在.bashrc文件或.bash_aliases文件中定义用户级别名。该.bash_aliases文件是将所有的别名到一个单独的文件，而不是把它在的.bashrc文件以及其他参数。刚开始，.bash_aliases是不可用的，所以必须创建它。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls -la ~ | grep -i .bash_aliases       <span class="comment"># 检查文件是否可用</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> touch ~/.bash_aliases                  <span class="comment"># 创建一个空的别名文件</span></span></span><br></pre></td></tr></table></figure><img src="http://www.idccoupon.com/wp-content/uploads/2021/02/bashaliases.png"><p><strong>（创建Bash别名文件）</strong></p><p>打开.bashrc文件，并注意以下部分。这部分代码的功用是检查用户主目录下是否存在文件.bash_aliases，并在每次启动新的终端会话时将其加载。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Alias definitions.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> You may want to put all your additions into a separate file like</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ~/.bash_aliases, instead of adding them here directly.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> See /usr/share/doc/bash-doc/examples <span class="keyword">in</span> the bash-doc package.</span></span><br><span class="line"></span><br><span class="line">if [ -f ~/.bash_aliases ]; then</span><br><span class="line">    . ~/.bash_aliases</span><br><span class="line">fi</span><br></pre></td></tr></table></figure><p>你还可以在任何目录下创建自定义别名文件，并在.bashrc或.profile中添加定义以加载它。但我不喜欢这样，个人比较喜欢选择将所有别名分组在.bash_aliases下。</p><p>当然，你也可以在.bashrc文件下添加别名。在.bashrc文件下查找别名部分，其中带有一些预定义的别名。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">enable</span> color support of ls and also add handy aliases</span></span><br><span class="line">if [ -x /usr/bin/dircolors ]; then</span><br><span class="line">    test -r ~/.dircolors &amp;&amp; eval &quot;$(dircolors -b ~/.dircolors)&quot; || eval &quot;$(dircolors -b)&quot;</span><br><span class="line">    alias ls=&#x27;ls --color=auto&#x27;</span><br><span class="line">    #alias dir=&#x27;dir --color=auto&#x27;</span><br><span class="line">    #alias vdir=&#x27;vdir --color=auto&#x27;</span><br><span class="line"></span><br><span class="line">    alias grep=&#x27;grep --color=auto&#x27;</span><br><span class="line">    alias fgrep=&#x27;fgrep --color=auto&#x27;</span><br><span class="line">    alias egrep=&#x27;egrep --color=auto&#x27;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> colored GCC warnings and errors</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">export</span> GCC_COLORS=<span class="string">&#x27;error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01&#x27;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> some more ls aliases</span></span><br><span class="line">alias ll=&#x27;ls -alF&#x27;</span><br><span class="line">alias la=&#x27;ls -A&#x27;</span><br><span class="line">alias l=&#x27;ls -CF&#x27;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add an <span class="string">&quot;alert&quot;</span> <span class="built_in">alias</span> <span class="keyword">for</span> long running commands.  Use like so:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   sleep 10; alert</span></span><br><span class="line">alias alert=&#x27;notify-send --urgency=low -i &quot;$([ $? = 0 ] &amp;&amp; echo terminal || echo error)&quot; &quot;$(history|tail </span><br></pre></td></tr></table></figure><img src="http://www.idccoupon.com/wp-content/uploads/2021/02/bas.png"><h2 id="在Linux系统中创建别名"><a href="#在Linux系统中创建别名" class="headerlink" title="在Linux系统中创建别名"></a><strong>在Linux系统中创建别名</strong></h2><p>你可以创建将仅为当前会话存储并在当前会话结束后将被销毁的临时别名，也可以创建将是持久性的永久别名。</p><p>在Linux中创建别名的命令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">alias</span> &lt;name-of-the-command&gt;=<span class="string">&quot;command to run&quot;</span></span></span><br></pre></td></tr></table></figure><p>例如，创建以下的别名。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">alias</span> Hello=<span class="string">&quot;echo welcome to idccoupon&quot;</span></span></span><br></pre></td></tr></table></figure><p>打开终端并创建所需的任何<strong>别名</strong>命令。注意：如果您打开另一个会话，那么新创建的别名将不可用。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">alias</span> Hello<span class="string">&quot;echo welcome to idccoupon&quot;</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">alias</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> Hello</span></span><br></pre></td></tr></table></figure><p>要使别名永久化，请将其添加到**.bash_aliases**文件中。你可以使用自己喜欢的文本编辑器，也可以使用cat命令或echo命令添加别名。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="built_in">alias</span> nf=<span class="string">&quot;neofetch&quot;</span> &gt;&gt; ~/.bash_aliases</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat &gt;&gt; ~/.bash_aliases</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat ~/.bash_aliases</span></span><br></pre></td></tr></table></figure><img src="http://www.idccoupon.com/wp-content/uploads/2021/02/bashalias.png"><p><strong>（列出定义的别名）</strong></p><p>如果想要它起作用，必须重新加载**.bash_aliases**文件，才能使更改在当前会话中生效。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span>〜/ .bash_aliases</span></span><br></pre></td></tr></table></figure><p>现在，如果我运行<strong>“ nf”（</strong>这是“ neofetch”的别名），它将触发<strong>neofetch</strong>程序。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> nf</span></span><br></pre></td></tr></table></figure><img src="http://www.idccoupon.com/wp-content/uploads/2021/02/bashalia.png"><p><strong>（在Linux中运行Alias）</strong></p><p>此外，一个别名可以覆盖想要想覆盖任何命令。为了进行演示，这里将使用一个uptime命令，该命令将显示系统正常运行时间，登录的用户数以及系统平均负载。现在，我将创建一个别名，该别名将覆盖<strong>uptime命令</strong>的行为。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> uptime</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat &gt;&gt; ~/.bash_aliases <span class="built_in">alias</span> uptime=<span class="string">&quot;echo &#x27;I am running uptime command now&#x27;&quot;</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.bash_aliases</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> uptime</span></span><br></pre></td></tr></table></figure><img src="http://www.idccoupon.com/wp-content/uploads/2021/02/bashali.png"><p><strong>覆盖命令的默认行为）</strong></p><p>从这个例子中可以得出结论，在检查和调用实际命令之前，优先级属于bash别名。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat ~/.bash_aliases</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.bash_aliases</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> uptime</span></span><br></pre></td></tr></table></figure><img src="http://www.idccoupon.com/wp-content/uploads/2021/02/bashal.png"><h2 id="在Linux中删除别名"><a href="#在Linux中删除别名" class="headerlink" title="在Linux中删除别名"></a>在Linux中删除别名</h2><p>现在，从**.bash_aliases<strong>文件中删除</strong>正常运行时间<strong>条目，然后重新加载</strong>.bash_aliases<strong>文件，该文件仍将使用别名定义输出正常运行时间。这是因为别名定义已加载到当前的Shell会话中，所以必须启动新会话或通过运行</strong>unalias**命令取消别名定义，如下图所示。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">unalias</span> uptime</span></span><br></pre></td></tr></table></figure><img src="http://www.idccoupon.com/wp-content/uploads/2021/02/basha.png"><p><strong>在Linux中删除别名）</strong></p><p><strong>注意</strong>：Unalias将从当前加载的会话中删除别名定义，而不是从**.bashrc<strong>或</strong>.bash_aliases中删除**。</p><h2 id="添加系统范围的别名"><a href="#添加系统范围的别名" class="headerlink" title="添加系统范围的别名"></a>添加系统范围的别名</h2><p>至此，我们已经了解了如何在用户级别中设置别名。而如果想要全局设置别名，可以修改<strong>“ &#x2F;etc&#x2F;bash.bashrc”</strong>文件并添加将在全局范围内生效的别名。当然需要具有提升的特权才能修改<strong>bash.bashrc</strong>文件。</p><p>或者，在<strong>“ &#x2F;etc&#x2F;profile.d&#x2F;”</strong>下创建一个脚本。当登录到shell时，<strong>“ &#x2F; etc &#x2F; profile”</strong>将在<strong>profile.d</strong>下运行任何脚本，然后实际运行<strong>〜&#x2F; .profile</strong>。此方法将减少弄乱**&#x2F; etc &#x2F; profile<strong>或</strong>&#x2F;etc&#x2F;bash.bashrc**文件的风险。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo cat &gt;&gt; /etc/profile.d/alias.sh</span></span><br><span class="line">alias ls=”ls -ltra”</span><br></pre></td></tr></table></figure><p>以下是从**&#x2F; etc &#x2F; profile<strong>获取的代码，该代码负责运行我们放在</strong>&#x2F;etc&#x2F;profiles.d&#x2F;**下的所有脚本。它将查找带有<code>.sh</code>扩展名的所有文件，然后运行source命令。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> tail / etc / profile</span></span><br></pre></td></tr></table></figure><img src="http://www.idccoupon.com/wp-content/uploads/2021/02/bash.png"><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>以上就是在Linux系统中创建和使用Bash Aliases（别名）的简单方法，不难发现，可以很容易的在Linux系统中设置别名、配置文件的别名，以及在“<strong>用户级</strong>”或“<strong>系统级</strong>”环境中设置别名的方法。</p><p>如果经常使用Linux命令，而且命令比较长的话， 那么不妨为其多设置几个别名，这样工作起来更加的便捷和高效。</p><hr><h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol><li><a href="https://blog.csdn.net/wangyx1234/article/details/107947892">ESP32编译环境多版本共存处理办法</a></li><li><a href="http://www.idccoupon.com/3938.html">Linux系统中创建和使用Bash Aliases（别名）的不同方法概述</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> 编译环境 </category>
+          
+          <category> ESP8266 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Ubuntu </tag>
+            
+            <tag> 编译环境 </tag>
+            
+            <tag> 多版本共存 </tag>
+            
+            <tag> Bash Aliases </tag>
+            
+            <tag> 别名 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>bat字符串拼接</title>
       <link href="/posts/2626575334.html"/>
       <url>/posts/2626575334.html</url>
@@ -641,13 +707,13 @@
       
         <tags>
             
-            <tag> 加密 </tag>
-            
-            <tag> Base64 </tag>
-            
             <tag> QT </tag>
             
             <tag> 硬件信息读取 </tag>
+            
+            <tag> 加密 </tag>
+            
+            <tag> Base64 </tag>
             
         </tags>
       
@@ -2419,9 +2485,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> C语言 </tag>
-            
             <tag> 涂鸦 </tag>
+            
+            <tag> C语言 </tag>
             
             <tag> WBR3 </tag>
             
@@ -2458,9 +2524,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> C语言 </tag>
-            
             <tag> 涂鸦 </tag>
+            
+            <tag> C语言 </tag>
             
             <tag> WBR3 </tag>
             
@@ -2587,11 +2653,11 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
+          <category> mysql </category>
           
           <category> VUE </category>
           
-          <category> mysql </category>
+          <category> 前端 </category>
           
           <category> php </category>
           
@@ -2669,9 +2735,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -2704,9 +2770,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -2745,9 +2811,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -2782,9 +2848,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -2819,9 +2885,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -2843,6 +2909,41 @@
     
     
     <entry>
+      <title>VUE判断对象是否为空</title>
+      <link href="/posts/637024282.html"/>
+      <url>/posts/637024282.html</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>vue.js判断对象是否为空的方法是：将对象转为json，如果为空集合{}，那么该对象就是空对象，如【JSON.stringify(object)&#x3D;&#x3D;’{}’】</p></blockquote><h1 id="判断法一"><a href="#判断法一" class="headerlink" title="判断法一"></a>判断法一</h1><p><strong>将对象转JSON，如果为空集合{} ，那么就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(object)==<span class="string">&#x27;&#123;&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h1 id="判断法二"><a href="#判断法二" class="headerlink" title="判断法二"></a>判断法二</h1><p><strong>判断对象的长度，如果为零，那就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(object).length==<span class="number">0</span></span><br></pre></td></tr></table></figure><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://www.php.cn/vuejs/463861.html">vue.js判断对象是否为空的方法是什么</a></li></ol><hr><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程类 </category>
+          
+          <category> VUE </category>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网页 </tag>
+            
+            <tag> VUE </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> JSON </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>VUE获取JSON数据键名</title>
       <link href="/posts/30846541.html"/>
       <url>/posts/30846541.html</url>
@@ -2854,9 +2955,9 @@
           
           <category> 编程类 </category>
           
-          <category> 前端 </category>
-          
           <category> VUE </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -2872,41 +2973,6 @@
             <tag> JSON </tag>
             
             <tag> 键值 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>VUE判断对象是否为空</title>
-      <link href="/posts/637024282.html"/>
-      <url>/posts/637024282.html</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>vue.js判断对象是否为空的方法是：将对象转为json，如果为空集合{}，那么该对象就是空对象，如【JSON.stringify(object)&#x3D;&#x3D;’{}’】</p></blockquote><h1 id="判断法一"><a href="#判断法一" class="headerlink" title="判断法一"></a>判断法一</h1><p><strong>将对象转JSON，如果为空集合{} ，那么就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(object)==<span class="string">&#x27;&#123;&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h1 id="判断法二"><a href="#判断法二" class="headerlink" title="判断法二"></a>判断法二</h1><p><strong>判断对象的长度，如果为零，那就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(object).length==<span class="number">0</span></span><br></pre></td></tr></table></figure><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://www.php.cn/vuejs/463861.html">vue.js判断对象是否为空的方法是什么</a></li></ol><hr><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
-      
-      
-      <categories>
-          
-          <category> 编程类 </category>
-          
-          <category> 前端 </category>
-          
-          <category> VUE </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 网页 </tag>
-            
-            <tag> VUE </tag>
-            
-            <tag> JavaScript </tag>
-            
-            <tag> JSON </tag>
             
         </tags>
       
@@ -3071,9 +3137,9 @@
             
             <tag> 商业 </tag>
             
-            <tag> 5分钟商学院 </tag>
-            
             <tag> 目录 </tag>
+            
+            <tag> 5分钟商学院 </tag>
             
         </tags>
       
@@ -3174,9 +3240,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> C语言 </tag>
-            
             <tag> 涂鸦 </tag>
+            
+            <tag> C语言 </tag>
             
             <tag> WBR3 </tag>
             
@@ -3211,9 +3277,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> 鸿蒙 </tag>
-            
             <tag> C语言 </tag>
+            
+            <tag> 鸿蒙 </tag>
             
             <tag> 小熊派 </tag>
             
@@ -3244,9 +3310,9 @@
             
             <tag> 商业 </tag>
             
-            <tag> 目录 </tag>
-            
             <tag> 洞察力 </tag>
+            
+            <tag> 目录 </tag>
             
         </tags>
       
@@ -3286,7 +3352,7 @@
       <link href="/posts/2486667095.html"/>
       <url>/posts/2486667095.html</url>
       
-        <content type="html"><![CDATA[<h1 id="因需将产品联网处理"><a href="#因需将产品联网处理" class="headerlink" title="因需将产品联网处理"></a>因需将产品联网处理</h1><p>​虽然一直在研究乐鑫esp8266，但发现接入云服务还需自己付费使用，因此就考虑找能免费对接网络的模块，很久以前玩过司南物联芯片，本想购入，但却发现主页都进不去，只好作罢。后来又找汉枫模块和涂鸦模块。</p><a class="btn-beautify block" href="http://www.hi-flying.com/index.php?route=product/category&path=135" title="汉枫模块"><i class="far fa-hand-point-right"></i><span>汉枫模块</span></a><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/MQTT-protocol?id=Kb65nphxrj8f1" title="涂鸦模块"><i class="far fa-hand-point-right"></i><span>涂鸦模块</span></a><p>汉枫看起来挺麻烦，加之比象花费太大时间！就选择涂鸦模块，因为涂鸦网站资料相对较多，也提供相对详细SDK，通过串口UART连接即可，根据说明，只要将其SDK-C导入到工程就可以使用。</p><h1 id="模块选择"><a href="#模块选择" class="headerlink" title="模块选择"></a>模块选择</h1><p>选择的是WBR3模块</p><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/wbr3-module-datasheet?id=K9dujs2k5nriy" title="WBR3模块说明"><i class="far fa-hand-point-right"></i><span>WBR3模块说明</span></a><p>WBR3 是由涂鸦智能开发的一款低功耗嵌入式 Wi-Fi 加蓝牙模组。它由一个高集成度的无线射频芯片W701-VA2-CG构成，内置了 Wi-Fi 网络协议栈和丰富的库函数</p><ul><li>内置低功耗 KM4 MCU，可以兼作应用处理器</li><li>主频 100MHz</li><li>工作电压：3V-3.6V</li><li>外设：9×GPIOs, 1×UART, 1×Log_Tx</li><li>Wi-Fi&#x2F;蓝牙连通性<ul><li>802.11 B&#x2F;G&#x2F;N20</li><li>通道 <a href="mailto:&#49;&#45;&#49;&#52;&#64;&#50;&#46;&#x34;&#71;&#72;&#x7a;">&#49;&#45;&#49;&#52;&#64;&#50;&#46;&#x34;&#71;&#72;&#x7a;</a>(CH1-11 for US&#x2F;CA, CH1-13 for EU&#x2F;CN)</li><li>支持 WEP&#x2F;WPA&#x2F;WPA2&#x2F;WPA2 PSK（AES） 安全模式</li><li>支持 Bluetooth 4.2 Low Energy</li><li>802.11b 模式下 +20dBm 的输出功率</li><li>支持 SmartConfig 功能，包括 Android 和 iOS 设备</li><li>板载 PCB Onboard 天线</li><li>通过 CE、FCC 认证</li><li>工作温度：-20℃ to 85℃</li></ul></li></ul><h3 id="尺寸封装"><a href="#尺寸封装" class="headerlink" title="尺寸封装"></a>尺寸封装</h3><ul><li>WBR3 共有 2 排引脚（2×8），引脚间距为 2mm。</li><li>WBR3 尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×2.9±0.15 mm (H)。WBR3尺寸图如下图所示<img src="/posts/2486667095/1.WBR3%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">1.WBR3脚位图</li></ul><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote><h2 id="电气参数"><a href="#电气参数" class="headerlink" title="电气参数"></a>电气参数</h2><h3 id="绝对电气参数"><a href="#绝对电气参数" class="headerlink" title="绝对电气参数"></a>绝对电气参数</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ts</td><td align="left">存储温度</td><td align="left">-40</td><td align="left">105</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">供电电压</td><td align="left">-0.3</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">静电释放电压（人体模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">2</td><td align="left">KV</td></tr><tr><td align="left">静电释放电压（机器模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">0.5</td><td align="left">KV</td></tr></tbody></table><h3 id="工作条件"><a href="#工作条件" class="headerlink" title="工作条件"></a>工作条件</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">典型值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ta</td><td align="left">工作温度</td><td align="left">-20</td><td align="left">-</td><td align="left">85</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">工作电压</td><td align="left">3.0</td><td align="left">-</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">VIL</td><td align="left">I&#x2F;O低电平输入</td><td align="left">-</td><td align="left">-</td><td align="left">0.8</td><td align="left">V</td></tr><tr><td align="left">VIH</td><td align="left">I&#x2F;O高电平输入</td><td align="left">2.0</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">VOL</td><td align="left">I&#x2F;O低电平输出</td><td align="left">-</td><td align="left">-</td><td align="left">0.4</td><td align="left">V</td></tr><tr><td align="left">VOH</td><td align="left">I&#x2F;O高电平输出</td><td align="left">2.4</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">Imax</td><td align="left">I&#x2F;O驱动电流</td><td align="left">-</td><td align="left">-</td><td align="left">16</td><td align="left">mA</td></tr><tr><td align="left">Cpad</td><td align="left">输入引脚电容</td><td align="left">-</td><td align="left">2</td><td align="left">-</td><td align="left">pF</td></tr></tbody></table><h3 id="射频功耗"><a href="#射频功耗" class="headerlink" title="射频功耗"></a>射频功耗</h3><ul><li><p>TX 连续发送时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">功率</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">17dBm</td><td align="left">217</td><td align="left">268</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">18dBm</td><td align="left">231</td><td align="left">283</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">15dBm</td><td align="left">159</td><td align="left">188</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">17.5dBm</td><td align="left">177</td><td align="left">213</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">13dBm</td><td align="left">145</td><td align="left">167</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">16.5dBm</td><td align="left">165</td><td align="left">193</td><td align="left">mA</td></tr></tbody></table></li><li><p>RX 连续接收时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11B 11M</td><td align="left">63</td><td align="left">65</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11G 54M</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11N HT20 MCS7</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr></tbody></table></li></ul><h2 id="射频参数"><a href="#射频参数" class="headerlink" title="射频参数"></a>射频参数</h2><h3 id="基本射频特性"><a href="#基本射频特性" class="headerlink" title="基本射频特性"></a>基本射频特性</h3><table><thead><tr><th align="left">参数项</th><th align="left">详细说明</th></tr></thead><tbody><tr><td align="left">频率范围</td><td align="left">2.400~2.4835GHz</td></tr><tr><td align="left">Wi-Fi标准</td><td align="left">IEEE 802.11b&#x2F;g&#x2F;n(通道 1-14)</td></tr><tr><td align="left">蓝牙标准</td><td align="left">蓝牙4.2</td></tr><tr><td align="left">数据传输速率</td><td align="left">11b:1,2,5.5, 11 (Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11g:6,9,12,18,24,36,48,54(Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11n:HT20 MCS0~7</td></tr><tr><td align="left">天线类型</td><td align="left">PCB 天线，增益2.5dBi</td></tr></tbody></table><h2 id="天线信息"><a href="#天线信息" class="headerlink" title="天线信息"></a>天线信息</h2><h3 id="天线类型"><a href="#天线类型" class="headerlink" title="天线类型"></a>天线类型</h3><p>只有 PCB 板载天线接入方式，天线增益 2.5dBi。</p><h3 id="降低天线干扰"><a href="#降低天线干扰" class="headerlink" title="降低天线干扰"></a>降低天线干扰</h3><p>在 Wi-Fi 模组上使用 PCB 板载天线时，为确保 Wi-Fi 性能的最优化，建议模组天线部分和其他金属件距离至少在 15mm 以上。</p><h2 id="封装信息及生产指导"><a href="#封装信息及生产指导" class="headerlink" title="封装信息及生产指导"></a>封装信息及生产指导</h2><h3 id="机械尺寸"><a href="#机械尺寸" class="headerlink" title="机械尺寸"></a>机械尺寸</h3><p>WBR3的PCB机械尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×0.8±0.1 mm (H)。WBR3的机械尺寸如下图所示。</p><img src="/posts/2486667095/3.%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">]]></content>
+        <content type="html"><![CDATA[<h1 id="因需将产品联网处理"><a href="#因需将产品联网处理" class="headerlink" title="因需将产品联网处理"></a>因需将产品联网处理</h1><p>​虽然一直在研究乐鑫esp8266，但发现接入云服务还需自己付费使用，因此就考虑找能免费对接网络的模块，很久以前玩过司南物联芯片，本想购入，但却发现主页都进不去，只好作罢。后来又找汉枫模块和涂鸦模块。</p><a class="btn-beautify block" href="http://www.hi-flying.com/index.php?route=product/category&path=135" title="汉枫模块"><i class="far fa-hand-point-right"></i><span>汉枫模块</span></a><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/MQTT-protocol?id=Kb65nphxrj8f1" title="涂鸦模块"><i class="far fa-hand-point-right"></i><span>涂鸦模块</span></a><p>汉枫看起来挺麻烦，加之比象花费太大时间！就选择涂鸦模块，因为涂鸦网站资料相对较多，也提供相对详细SDK，通过串口UART连接即可，根据说明，只要将其SDK-C导入到工程就可以使用。</p><h1 id="模块选择"><a href="#模块选择" class="headerlink" title="模块选择"></a>模块选择</h1><p>选择的是WBR3模块</p><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/wbr3-module-datasheet?id=K9dujs2k5nriy" title="WBR3模块说明"><i class="far fa-hand-point-right"></i><span>WBR3模块说明</span></a><p>WBR3 是由涂鸦智能开发的一款低功耗嵌入式 Wi-Fi 加蓝牙模组。它由一个高集成度的无线射频芯片W701-VA2-CG构成，内置了 Wi-Fi 网络协议栈和丰富的库函数</p><ul><li>内置低功耗 KM4 MCU，可以兼作应用处理器</li><li>主频 100MHz</li><li>工作电压：3V-3.6V</li><li>外设：9×GPIOs, 1×UART, 1×Log_Tx</li><li>Wi-Fi&#x2F;蓝牙连通性<ul><li>802.11 B&#x2F;G&#x2F;N20</li><li>通道 <a href="mailto:&#x31;&#x2d;&#x31;&#52;&#x40;&#x32;&#x2e;&#x34;&#71;&#x48;&#122;">&#x31;&#x2d;&#x31;&#52;&#x40;&#x32;&#x2e;&#x34;&#71;&#x48;&#122;</a>(CH1-11 for US&#x2F;CA, CH1-13 for EU&#x2F;CN)</li><li>支持 WEP&#x2F;WPA&#x2F;WPA2&#x2F;WPA2 PSK（AES） 安全模式</li><li>支持 Bluetooth 4.2 Low Energy</li><li>802.11b 模式下 +20dBm 的输出功率</li><li>支持 SmartConfig 功能，包括 Android 和 iOS 设备</li><li>板载 PCB Onboard 天线</li><li>通过 CE、FCC 认证</li><li>工作温度：-20℃ to 85℃</li></ul></li></ul><h3 id="尺寸封装"><a href="#尺寸封装" class="headerlink" title="尺寸封装"></a>尺寸封装</h3><ul><li>WBR3 共有 2 排引脚（2×8），引脚间距为 2mm。</li><li>WBR3 尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×2.9±0.15 mm (H)。WBR3尺寸图如下图所示<img src="/posts/2486667095/1.WBR3%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">1.WBR3脚位图</li></ul><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote><h2 id="电气参数"><a href="#电气参数" class="headerlink" title="电气参数"></a>电气参数</h2><h3 id="绝对电气参数"><a href="#绝对电气参数" class="headerlink" title="绝对电气参数"></a>绝对电气参数</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ts</td><td align="left">存储温度</td><td align="left">-40</td><td align="left">105</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">供电电压</td><td align="left">-0.3</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">静电释放电压（人体模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">2</td><td align="left">KV</td></tr><tr><td align="left">静电释放电压（机器模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">0.5</td><td align="left">KV</td></tr></tbody></table><h3 id="工作条件"><a href="#工作条件" class="headerlink" title="工作条件"></a>工作条件</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">典型值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ta</td><td align="left">工作温度</td><td align="left">-20</td><td align="left">-</td><td align="left">85</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">工作电压</td><td align="left">3.0</td><td align="left">-</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">VIL</td><td align="left">I&#x2F;O低电平输入</td><td align="left">-</td><td align="left">-</td><td align="left">0.8</td><td align="left">V</td></tr><tr><td align="left">VIH</td><td align="left">I&#x2F;O高电平输入</td><td align="left">2.0</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">VOL</td><td align="left">I&#x2F;O低电平输出</td><td align="left">-</td><td align="left">-</td><td align="left">0.4</td><td align="left">V</td></tr><tr><td align="left">VOH</td><td align="left">I&#x2F;O高电平输出</td><td align="left">2.4</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">Imax</td><td align="left">I&#x2F;O驱动电流</td><td align="left">-</td><td align="left">-</td><td align="left">16</td><td align="left">mA</td></tr><tr><td align="left">Cpad</td><td align="left">输入引脚电容</td><td align="left">-</td><td align="left">2</td><td align="left">-</td><td align="left">pF</td></tr></tbody></table><h3 id="射频功耗"><a href="#射频功耗" class="headerlink" title="射频功耗"></a>射频功耗</h3><ul><li><p>TX 连续发送时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">功率</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">17dBm</td><td align="left">217</td><td align="left">268</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">18dBm</td><td align="left">231</td><td align="left">283</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">15dBm</td><td align="left">159</td><td align="left">188</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">17.5dBm</td><td align="left">177</td><td align="left">213</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">13dBm</td><td align="left">145</td><td align="left">167</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">16.5dBm</td><td align="left">165</td><td align="left">193</td><td align="left">mA</td></tr></tbody></table></li><li><p>RX 连续接收时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11B 11M</td><td align="left">63</td><td align="left">65</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11G 54M</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11N HT20 MCS7</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr></tbody></table></li></ul><h2 id="射频参数"><a href="#射频参数" class="headerlink" title="射频参数"></a>射频参数</h2><h3 id="基本射频特性"><a href="#基本射频特性" class="headerlink" title="基本射频特性"></a>基本射频特性</h3><table><thead><tr><th align="left">参数项</th><th align="left">详细说明</th></tr></thead><tbody><tr><td align="left">频率范围</td><td align="left">2.400~2.4835GHz</td></tr><tr><td align="left">Wi-Fi标准</td><td align="left">IEEE 802.11b&#x2F;g&#x2F;n(通道 1-14)</td></tr><tr><td align="left">蓝牙标准</td><td align="left">蓝牙4.2</td></tr><tr><td align="left">数据传输速率</td><td align="left">11b:1,2,5.5, 11 (Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11g:6,9,12,18,24,36,48,54(Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11n:HT20 MCS0~7</td></tr><tr><td align="left">天线类型</td><td align="left">PCB 天线，增益2.5dBi</td></tr></tbody></table><h2 id="天线信息"><a href="#天线信息" class="headerlink" title="天线信息"></a>天线信息</h2><h3 id="天线类型"><a href="#天线类型" class="headerlink" title="天线类型"></a>天线类型</h3><p>只有 PCB 板载天线接入方式，天线增益 2.5dBi。</p><h3 id="降低天线干扰"><a href="#降低天线干扰" class="headerlink" title="降低天线干扰"></a>降低天线干扰</h3><p>在 Wi-Fi 模组上使用 PCB 板载天线时，为确保 Wi-Fi 性能的最优化，建议模组天线部分和其他金属件距离至少在 15mm 以上。</p><h2 id="封装信息及生产指导"><a href="#封装信息及生产指导" class="headerlink" title="封装信息及生产指导"></a>封装信息及生产指导</h2><h3 id="机械尺寸"><a href="#机械尺寸" class="headerlink" title="机械尺寸"></a>机械尺寸</h3><p>WBR3的PCB机械尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×0.8±0.1 mm (H)。WBR3的机械尺寸如下图所示。</p><img src="/posts/2486667095/3.%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">]]></content>
       
       
       <categories>
@@ -3302,9 +3368,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> C语言 </tag>
-            
             <tag> 涂鸦 </tag>
+            
+            <tag> C语言 </tag>
             
         </tags>
       
