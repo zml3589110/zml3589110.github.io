@@ -4,6 +4,68 @@
   
     
     <entry>
+      <title>LVGL学习(一)之模拟器搭建</title>
+      <link href="/posts/1814094880.html"/>
+      <url>/posts/1814094880.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h1><img src="https://img-blog.csdnimg.cn/52c6cb43948f4c23aef162e9c03cec90.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5oyo6Lii5rCR5belYml1Yml1,size_20,color_FFFFFF,t_70,g_se,x_16"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>lvgl提供了非常多的部件(30多个)给用户使用，这些部件的所有样式都是可以修改的。它们都有默认的样式，但是当我们觉得默认的样式不合适自己项目的时候可以就需要进行修改了，本文来教大家怎么修改 tabview部件顶部框(选项卡)的默认样式。</p><p>配置：</p><ul><li>codeblocks 20.03</li><li>lvgl v 8.1</li></ul><h1 id="修改样式"><a href="#修改样式" class="headerlink" title="修改样式"></a>修改样式</h1><p><strong>默认的样式</strong><br>正常我们这样就可以创建出一个 tabview部件：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">lv_obj_t</span>* tv;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">lv_obj_t</span>* t1;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">lv_obj_t</span>* t2;</span><br><span class="line"></span><br><span class="line">tv = lv_tabview_create(lv_scr_act(), LV_DIR_TOP, LV_DPI_DEF / <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">t1 = lv_tabview_add_tab(tv, <span class="string">&quot;Selectors&quot;</span>);</span><br><span class="line">t2 = lv_tabview_add_tab(tv, <span class="string">&quot;Text input&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">lv_obj_t</span>* tab_btns = lv_tabview_get_tab_btns(tv);</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>它的选项卡的默认样式是这样的：</p><img src="https://img-blog.csdnimg.cn/58d8e25b08074e9ea5ac0b254fdd77de.png"><h2 id="背景色"><a href="#背景色" class="headerlink" title="背景色"></a>背景色</h2><p><strong>修改背景色</strong><br>我们一下它的被选中时的背景色，我们只需要后面添加修改样式的代码即可，这里我使用本地样式修改，你也可以使用共享样式：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lv_obj_set_style_bg_color(tab_btns, lv_palette_main(LV_PALETTE_RED), LV_PART_ITEMS | LV_STATE_CHECKED);</span><br></pre></td></tr></table></figure><p>然后我们就能看到选中时的背景颜色被修改了：</p><img src="https://img-blog.csdnimg.cn/b25418def3d64f7fa84a5ac386404ecb.png"><p><strong>去除背景色</strong><br>如果我不想要背景色呢？那我们让背景色为透明即可：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lv_obj_set_style_bg_opa(tab_btns, LV_OPA_0, LV_PART_ITEMS | LV_STATE_CHECKED);</span><br></pre></td></tr></table></figure><p>这样我们就能看到选中时没有高亮的背景色了：</p><img src="https://img-blog.csdnimg.cn/5dd852291bfd4688b062e342a4457dea.png"><h2 id="边框颜色"><a href="#边框颜色" class="headerlink" title="边框颜色"></a>边框颜色</h2><p><strong>修改边框颜色</strong><br>我们也可以修改选中时的边框颜色，我们只需要后面添加修改样式的代码即可，这里我是用本地样式修改，你也可以使用共享样式：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lv_obj_set_style_border_color(tab_btns, lv_palette_main(LV_PALETTE_GREEN), LV_PART_ITEMS | LV_STATE_CHECKED);</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>然后我们就能看到选中时的边框颜色被修改了：</p><img src="https://img-blog.csdnimg.cn/992641e298cb4cf4ae9e6e748c3ec99c.png"><p><strong>去除边框</strong><br>如果我不想要边框呢？那我们让边框为透明即可：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lv_obj_set_style_border_opa(tab_btns, LV_OPA_0, LV_PART_ITEMS | LV_STATE_CHECKED);</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>这样我们就能看到选中时没有边框了：</p><img src="https://img-blog.csdnimg.cn/0d265fd734d0449889cd07efb480e42f.png"><h2 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h2><p><strong>文字颜色</strong><br>我们也可以修改文字颜色，我们只需要后面添加修改样式的代码即可，这里我是用本地样式修改，你也可以使用共享样式：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//本地样式修改选中时的文字颜色</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_text_color(tab_btns, lv_palette_main(LV_PALETTE_RED), LV_PART_ITEMS | LV_STATE_CHECKED);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//本地样式修改未选中时的文字颜色</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_text_color(tab_btns, lv_palette_main(LV_PALETTE_RED), 0);</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>这样我们就能看到文字颜色被改变了：</p><img src="https://img-blog.csdnimg.cn/c8ee0746cfaa485c84f348314b4f5039.png"><p><strong>文字大小</strong><br>我们也可以修改文字的大小(lvgl内置字体)，我们只需要后面添加修改样式的代码即可，这里我是用本地样式修改，你也可以使用共享样式：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//本地样式修改选中时的文字颜色</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_text_color(tab_btns, lv_palette_main(LV_PALETTE_RED), LV_PART_ITEMS | LV_STATE_CHECKED);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//本地样式修改未选中时的文字颜色</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_text_color(tab_btns, lv_palette_main(LV_PALETTE_RED), 0);</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>这样我们就能看到文字大小被改变了：</p><img src="https://img-blog.csdnimg.cn/499d58b87fe14404920285a0f09be820.png"><p><strong>显示中文</strong></p><p>通过学习 <a href="https://www.bilibili.com/video/BV1Ya411r7K2?p=15">lvgl使用中文字库</a>教程，我们就知道怎么在lvgl中快速使用中文字库了： <a href="https://www.bilibili.com/video/BV1Ya411r7K2?p=15">https://www.bilibili.com/video/BV1Ya411r7K2?p=15</a></p><p>下面我们可以让tabview的选项卡显示中文，我们只需要后面添加修改样式的代码即可，这里我是用本地样式修改，你也可以使用共享样式：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 本地样式修改字体(使用自定义字体-中文)</span></span><br><span class="line">   LV_FONT_DECLARE(lv_font_source_han_sans_bold_20);</span><br><span class="line">   lv_obj_set_style_text_font(tab_btns, &amp;lv_font_source_han_sans_bold_20, <span class="number">0</span>);   <span class="comment">// 使用自定义的字库</span></span><br><span class="line">   lv_obj_set_style_text_font(tab_btns, &amp;lv_font_source_han_sans_bold_20, LV_PART_ITEMS | LV_STATE_CHECKED);   <span class="comment">// 使用自定义的字库</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>这样我们就能看到显示中文了：</p><img src="https://img-blog.csdnimg.cn/a81d77a9222b4656aef78372c303e6f2.png"><h1 id="代码总结"><a href="#代码总结" class="headerlink" title="代码总结"></a>代码总结</h1><p>以上的代码贴在下面了，大家可以参考自己实验看看：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">static</span> <span class="keyword">lv_obj_t</span>* tv;</span><br><span class="line">   <span class="keyword">static</span> <span class="keyword">lv_obj_t</span>* t1;</span><br><span class="line">   <span class="keyword">static</span> <span class="keyword">lv_obj_t</span>* t2;</span><br><span class="line"></span><br><span class="line">   tv = lv_tabview_create(lv_scr_act(), LV_DIR_TOP, LV_DPI_DEF / <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">   t1 = lv_tabview_add_tab(tv, <span class="string">&quot;Selectors&quot;</span>);</span><br><span class="line">   t2 = lv_tabview_add_tab(tv, <span class="string">&quot;Text input&quot;</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">lv_obj_t</span>* tab_btns = lv_tabview_get_tab_btns(tv);</span><br><span class="line"></span><br><span class="line">   <span class="comment">//本地样式修改背景色</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_bg_color(tab_btns, lv_palette_main(LV_PALETTE_RED), LV_PART_ITEMS | LV_STATE_CHECKED);</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">//本地样式修改透明度</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_bg_opa(tab_btns, LV_OPA_0, LV_PART_ITEMS | LV_STATE_CHECKED);</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">//修改选中时边框的颜色</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_border_color(tab_btns, lv_palette_main(LV_PALETTE_GREEN), LV_PART_ITEMS | LV_STATE_CHECKED);</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">//修改选中时边框的颜色透明度</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_border_opa(tab_btns, LV_OPA_0, LV_PART_ITEMS | LV_STATE_CHECKED);</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">//本地样式修改选中时的文字颜色</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_text_color(tab_btns, lv_palette_main(LV_PALETTE_RED), LV_PART_ITEMS | LV_STATE_CHECKED);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//本地样式修改未选中时的文字颜色</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_text_color(tab_btns, lv_palette_main(LV_PALETTE_RED), 0);</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 本地样式修改字体(使用内置字体)</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_text_font(tab_btns, &amp;lv_font_montserrat_28, LV_PART_ITEMS | LV_STATE_CHECKED);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 本地样式修改字体(使用自定义字体-中文)</span></span><br><span class="line">   <span class="comment">//LV_FONT_DECLARE(lv_font_source_han_sans_bold_20);</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_text_font(tab_btns, &amp;lv_font_source_han_sans_bold_20, 0);   // 使用自定义的字库</span></span><br><span class="line">   <span class="comment">//lv_obj_set_style_text_font(tab_btns, &amp;lv_font_source_han_sans_bold_20, LV_PART_ITEMS | LV_STATE_CHECKED);   // 使用自定义的字库</span></span><br><span class="line">   </span><br><span class="line"></span><br></pre></td></tr></table></figure><h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p><strong>获取LVGL内置调色板的颜色：</strong><br>lv_palette_main(LV_PALETTE_…)<br>其中 LV_PALETTE_… 有这些可选：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> &#123;</span></span><br><span class="line">    LV_PALETTE_RED,</span><br><span class="line">    LV_PALETTE_PINK,</span><br><span class="line">    LV_PALETTE_PURPLE,</span><br><span class="line">    LV_PALETTE_DEEP_PURPLE,</span><br><span class="line">    LV_PALETTE_INDIGO,</span><br><span class="line">    LV_PALETTE_BLUE,</span><br><span class="line">    LV_PALETTE_LIGHT_BLUE,</span><br><span class="line">    LV_PALETTE_CYAN,</span><br><span class="line">    LV_PALETTE_TEAL,</span><br><span class="line">    LV_PALETTE_GREEN,</span><br><span class="line">    LV_PALETTE_LIGHT_GREEN,</span><br><span class="line">    LV_PALETTE_LIME,</span><br><span class="line">    LV_PALETTE_YELLOW,</span><br><span class="line">    LV_PALETTE_AMBER,</span><br><span class="line">    LV_PALETTE_ORANGE,</span><br><span class="line">    LV_PALETTE_DEEP_ORANGE,</span><br><span class="line">    LV_PALETTE_BROWN,</span><br><span class="line">    LV_PALETTE_BLUE_GREY,</span><br><span class="line">    LV_PALETTE_GREY,</span><br><span class="line">    _LV_PALETTE_LAST,</span><br><span class="line">    LV_PALETTE_NONE = <span class="number">0xff</span>,</span><br><span class="line">&#125; <span class="keyword">lv_palette_t</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p><strong>使用自定义颜色</strong></p><p>除了使用 <code>lv_palette_main(LV_PALETTE_...)</code> 我们可以使用自定义的颜色值：</p><ul><li>十六进制颜色码： lv_color_hex(0x000000)</li><li>RGB值：LV_COLOR_MAKE(0x00, 0x00, 0x00)</li></ul><p>使用示例：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lv_obj_set_style_bg_color(tab_btns, lv_color_hex(<span class="number">0x000000</span>), LV_PART_ITEMS | LV_STATE_CHECKED);</span><br><span class="line">lv_obj_set_style_bg_color(tab_btns,  LV_COLOR_MAKE(<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>), LV_PART_ITEMS | LV_STATE_CHECKED);</span><br><span class="line"></span><br></pre></td></tr></table></figure><p><strong>lvgl视频教程</strong><br><a href="https://www.bilibili.com/video/av209749730">https://www.bilibili.com/video/av209749730</a></p><p>百问网LVGL(v8)系列课程(韦东山·监制) 教程基于lvgl v8.2版本，课程适配多个平台、多款板子</p><p>百问网LVGL(v8)视频课程(韦东山·监制) 教程基于lvgl v8.2版本，课程适配多个平台、多款板子！视频学习地址：<a href="https://www.bilibili.com/video/BV1Ya411r7K2">https://www.bilibili.com/video/BV1Ya411r7K2</a></p><p>视频教程配套资料<br><a href="https://gitee.com/weidongshan/lvgl_100ask_course_materials">https://gitee.com/weidongshan/lvgl_100ask_course_materials</a><br>相关学习资源<br>lvgl官网：<a href="https://lvgl.io/">https://lvgl.io</a><br>lvgl官方文档：<a href="https://docs.lvgl.io/">https://docs.lvgl.io</a><br>百问网lvgl中文文档：<a href="http://lvgl.100ask.net/">http://lvgl.100ask.net</a><br>百问网lvgl论坛：<a href="https://forums.100ask.net/c/13-category/13">https://forums.100ask.net/c/13-category/13</a><br>百问网lvgl学习交流群：<a href="http://lvgl.100ask.net/master/contact_us/index.html">http://lvgl.100ask.net/master/contact_us/index.html</a><br>百问网lvgl视频教程：<br><a href="https://www.bilibili.com/video/BV1Ya411r7K2">https://www.bilibili.com/video/BV1Ya411r7K2</a><br><a href="https://www.100ask.net/detail/p_61c5a317e4b0cca4a4e8b6f1/6">https://www.100ask.net/detail/p_61c5a317e4b0cca4a4e8b6f1/6</a><br>————————————————<br>版权声明：本文为CSDN博主「挨踢民工biubiu」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_35181236/article/details/122121775">https://blog.csdn.net/qq_35181236/article/details/122121775</a></p><hr><h1 id="相关链接-侵删"><a href="#相关链接-侵删" class="headerlink" title="相关链接(侵删)"></a>相关链接(侵删)</h1><ol><li><a href="https://blog.csdn.net/qq_35181236/article/details/122121775">LVGL|lvgl教程之修改lvgl tabview部件顶部框(选项卡)的默认样式</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程类 </category>
+          
+          <category> C </category>
+          
+          <category> GUI </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> GUI </tag>
+            
+            <tag> C </tag>
+            
+            <tag> LVGL </tag>
+            
+            <tag> lvgl tabview </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Windows Kits在根目录下自动创建</title>
+      <link href="/posts/2654094191.html"/>
+      <url>/posts/2654094191.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="将-windows-kits-移到相应位置"><a href="#将-windows-kits-移到相应位置" class="headerlink" title="将 windows kits 移到相应位置"></a>将 windows kits 移到相应位置</h1><p>你是不是当时下载了Visual Stdio，然后莫名奇妙就多了个Windows Kits，<br>可以把它移动到VisualStdio里面找到你安装的Windows kits的文件夹，然后把它整个截切到想要移动的地方。<br>比如说，我就是把”D:\Windows kits”整个剪切到”D:\DevelopmentTool\VisualStdio2022\Windows Kits”。<br><strong>PS:需要注意的是这里是剪切文件夹，而不是复制，不然在你cmd下使用mklink提示“文件已经被创建”。</strong></p><h1 id="修改注册表实现链接"><a href="#修改注册表实现链接" class="headerlink" title="修改注册表实现链接"></a>修改注册表实现链接</h1><p>下载vs后，2022的直接默认在根目录下载kits文件夹，这让强迫症的我难受死了，经过三天的努力，终于解决了这个问题，<br>这个方法不是使用软连接的方法，使用软连接原来的地方还会多个快捷方式，对于别人来说治标不治本，对我来说屁用没有，<br>还是很难受，我看也没人写，我就写出来可以参考下，也免得我自己忘记。</p><p>通过修改注册表进行移动文件夹不报错。我修改了三个地方。</p><h2 id="位置一"><a href="#位置一" class="headerlink" title="位置一:"></a>位置一:</h2><ul><li>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots</li></ul><img src="https://i0.hdslb.com/bfs/article/bf4e8c40c5e3a820f095fa64cc03ef7414d8ed15.png@942w_401h_progressive.webp"><h2 id="位置二"><a href="#位置二" class="headerlink" title="位置二:"></a>位置二:</h2><ul><li>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Microsoft SDKs\Windows\v10.0</li></ul><img src="https://i0.hdslb.com/bfs/article/5b94976f6987fe887fd038d175cf5927a699272d.png@942w_368h_progressive.webp"><h2 id="位置三"><a href="#位置三" class="headerlink" title="位置三:"></a>位置三:</h2><ul><li>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows Kits\Installed Roots</li></ul><img src="https://i0.hdslb.com/bfs/article/87140356f377eded39f19d47c4d5a7466cf027b3.png@942w_389h_progressive.webp"><hr><blockquote><p><strong>说明：本文是收集参考文档，以方便查看（侵删）</strong></p></blockquote><hr><h1 id="信息链接"><a href="#信息链接" class="headerlink" title="信息链接:"></a>信息链接:</h1><ol><li><a href="https://www.bilibili.com/read/cv16890467">下载vs后，移动windows kits文件夹(不使用快捷方式的方法)</a></li><li><a href="https://www.zhihu.com/question/440612684">出现在E盘的Windows Kits是怎么回事？删掉可以吗？</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> Visual Stdio </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Visual Stdio </tag>
+            
+            <tag> Windows Kits </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ubuntu下将Python命令默认指向为Python3</title>
       <link href="/posts/213945612.html"/>
       <url>/posts/213945612.html</url>
@@ -707,13 +769,13 @@
       
         <tags>
             
-            <tag> QT </tag>
-            
-            <tag> 硬件信息读取 </tag>
-            
             <tag> 加密 </tag>
             
             <tag> Base64 </tag>
+            
+            <tag> QT </tag>
+            
+            <tag> 硬件信息读取 </tag>
             
         </tags>
       
@@ -816,9 +878,9 @@
             
             <tag> C# </tag>
             
-            <tag> 串口通讯 </tag>
-            
             <tag> UI </tag>
+            
+            <tag> 串口通讯 </tag>
             
         </tags>
       
@@ -2485,9 +2547,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> 涂鸦 </tag>
-            
             <tag> C语言 </tag>
+            
+            <tag> 涂鸦 </tag>
             
             <tag> WBR3 </tag>
             
@@ -2524,9 +2586,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> 涂鸦 </tag>
-            
             <tag> C语言 </tag>
+            
+            <tag> 涂鸦 </tag>
             
             <tag> WBR3 </tag>
             
@@ -2653,11 +2715,11 @@
           
           <category> 编程类 </category>
           
-          <category> mysql </category>
-          
           <category> VUE </category>
           
           <category> 前端 </category>
+          
+          <category> mysql </category>
           
           <category> php </category>
           
@@ -2909,41 +2971,6 @@
     
     
     <entry>
-      <title>VUE判断对象是否为空</title>
-      <link href="/posts/637024282.html"/>
-      <url>/posts/637024282.html</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>vue.js判断对象是否为空的方法是：将对象转为json，如果为空集合{}，那么该对象就是空对象，如【JSON.stringify(object)&#x3D;&#x3D;’{}’】</p></blockquote><h1 id="判断法一"><a href="#判断法一" class="headerlink" title="判断法一"></a>判断法一</h1><p><strong>将对象转JSON，如果为空集合{} ，那么就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(object)==<span class="string">&#x27;&#123;&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h1 id="判断法二"><a href="#判断法二" class="headerlink" title="判断法二"></a>判断法二</h1><p><strong>判断对象的长度，如果为零，那就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(object).length==<span class="number">0</span></span><br></pre></td></tr></table></figure><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://www.php.cn/vuejs/463861.html">vue.js判断对象是否为空的方法是什么</a></li></ol><hr><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
-      
-      
-      <categories>
-          
-          <category> 编程类 </category>
-          
-          <category> VUE </category>
-          
-          <category> 前端 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 网页 </tag>
-            
-            <tag> VUE </tag>
-            
-            <tag> JavaScript </tag>
-            
-            <tag> JSON </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>VUE获取JSON数据键名</title>
       <link href="/posts/30846541.html"/>
       <url>/posts/30846541.html</url>
@@ -2973,6 +3000,41 @@
             <tag> JSON </tag>
             
             <tag> 键值 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VUE判断对象是否为空</title>
+      <link href="/posts/637024282.html"/>
+      <url>/posts/637024282.html</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>vue.js判断对象是否为空的方法是：将对象转为json，如果为空集合{}，那么该对象就是空对象，如【JSON.stringify(object)&#x3D;&#x3D;’{}’】</p></blockquote><h1 id="判断法一"><a href="#判断法一" class="headerlink" title="判断法一"></a>判断法一</h1><p><strong>将对象转JSON，如果为空集合{} ，那么就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(object)==<span class="string">&#x27;&#123;&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h1 id="判断法二"><a href="#判断法二" class="headerlink" title="判断法二"></a>判断法二</h1><p><strong>判断对象的长度，如果为零，那就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(object).length==<span class="number">0</span></span><br></pre></td></tr></table></figure><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://www.php.cn/vuejs/463861.html">vue.js判断对象是否为空的方法是什么</a></li></ol><hr><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程类 </category>
+          
+          <category> VUE </category>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网页 </tag>
+            
+            <tag> VUE </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> JSON </tag>
             
         </tags>
       
@@ -3137,9 +3199,9 @@
             
             <tag> 商业 </tag>
             
-            <tag> 目录 </tag>
-            
             <tag> 5分钟商学院 </tag>
+            
+            <tag> 目录 </tag>
             
         </tags>
       
@@ -3240,9 +3302,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> 涂鸦 </tag>
-            
             <tag> C语言 </tag>
+            
+            <tag> 涂鸦 </tag>
             
             <tag> WBR3 </tag>
             
@@ -3277,9 +3339,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> C语言 </tag>
-            
             <tag> 鸿蒙 </tag>
+            
+            <tag> C语言 </tag>
             
             <tag> 小熊派 </tag>
             
@@ -3310,9 +3372,9 @@
             
             <tag> 商业 </tag>
             
-            <tag> 洞察力 </tag>
-            
             <tag> 目录 </tag>
+            
+            <tag> 洞察力 </tag>
             
         </tags>
       
@@ -3352,7 +3414,7 @@
       <link href="/posts/2486667095.html"/>
       <url>/posts/2486667095.html</url>
       
-        <content type="html"><![CDATA[<h1 id="因需将产品联网处理"><a href="#因需将产品联网处理" class="headerlink" title="因需将产品联网处理"></a>因需将产品联网处理</h1><p>​虽然一直在研究乐鑫esp8266，但发现接入云服务还需自己付费使用，因此就考虑找能免费对接网络的模块，很久以前玩过司南物联芯片，本想购入，但却发现主页都进不去，只好作罢。后来又找汉枫模块和涂鸦模块。</p><a class="btn-beautify block" href="http://www.hi-flying.com/index.php?route=product/category&path=135" title="汉枫模块"><i class="far fa-hand-point-right"></i><span>汉枫模块</span></a><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/MQTT-protocol?id=Kb65nphxrj8f1" title="涂鸦模块"><i class="far fa-hand-point-right"></i><span>涂鸦模块</span></a><p>汉枫看起来挺麻烦，加之比象花费太大时间！就选择涂鸦模块，因为涂鸦网站资料相对较多，也提供相对详细SDK，通过串口UART连接即可，根据说明，只要将其SDK-C导入到工程就可以使用。</p><h1 id="模块选择"><a href="#模块选择" class="headerlink" title="模块选择"></a>模块选择</h1><p>选择的是WBR3模块</p><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/wbr3-module-datasheet?id=K9dujs2k5nriy" title="WBR3模块说明"><i class="far fa-hand-point-right"></i><span>WBR3模块说明</span></a><p>WBR3 是由涂鸦智能开发的一款低功耗嵌入式 Wi-Fi 加蓝牙模组。它由一个高集成度的无线射频芯片W701-VA2-CG构成，内置了 Wi-Fi 网络协议栈和丰富的库函数</p><ul><li>内置低功耗 KM4 MCU，可以兼作应用处理器</li><li>主频 100MHz</li><li>工作电压：3V-3.6V</li><li>外设：9×GPIOs, 1×UART, 1×Log_Tx</li><li>Wi-Fi&#x2F;蓝牙连通性<ul><li>802.11 B&#x2F;G&#x2F;N20</li><li>通道 <a href="mailto:&#x31;&#x2d;&#x31;&#52;&#x40;&#x32;&#x2e;&#x34;&#71;&#x48;&#122;">&#x31;&#x2d;&#x31;&#52;&#x40;&#x32;&#x2e;&#x34;&#71;&#x48;&#122;</a>(CH1-11 for US&#x2F;CA, CH1-13 for EU&#x2F;CN)</li><li>支持 WEP&#x2F;WPA&#x2F;WPA2&#x2F;WPA2 PSK（AES） 安全模式</li><li>支持 Bluetooth 4.2 Low Energy</li><li>802.11b 模式下 +20dBm 的输出功率</li><li>支持 SmartConfig 功能，包括 Android 和 iOS 设备</li><li>板载 PCB Onboard 天线</li><li>通过 CE、FCC 认证</li><li>工作温度：-20℃ to 85℃</li></ul></li></ul><h3 id="尺寸封装"><a href="#尺寸封装" class="headerlink" title="尺寸封装"></a>尺寸封装</h3><ul><li>WBR3 共有 2 排引脚（2×8），引脚间距为 2mm。</li><li>WBR3 尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×2.9±0.15 mm (H)。WBR3尺寸图如下图所示<img src="/posts/2486667095/1.WBR3%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">1.WBR3脚位图</li></ul><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote><h2 id="电气参数"><a href="#电气参数" class="headerlink" title="电气参数"></a>电气参数</h2><h3 id="绝对电气参数"><a href="#绝对电气参数" class="headerlink" title="绝对电气参数"></a>绝对电气参数</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ts</td><td align="left">存储温度</td><td align="left">-40</td><td align="left">105</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">供电电压</td><td align="left">-0.3</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">静电释放电压（人体模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">2</td><td align="left">KV</td></tr><tr><td align="left">静电释放电压（机器模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">0.5</td><td align="left">KV</td></tr></tbody></table><h3 id="工作条件"><a href="#工作条件" class="headerlink" title="工作条件"></a>工作条件</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">典型值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ta</td><td align="left">工作温度</td><td align="left">-20</td><td align="left">-</td><td align="left">85</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">工作电压</td><td align="left">3.0</td><td align="left">-</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">VIL</td><td align="left">I&#x2F;O低电平输入</td><td align="left">-</td><td align="left">-</td><td align="left">0.8</td><td align="left">V</td></tr><tr><td align="left">VIH</td><td align="left">I&#x2F;O高电平输入</td><td align="left">2.0</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">VOL</td><td align="left">I&#x2F;O低电平输出</td><td align="left">-</td><td align="left">-</td><td align="left">0.4</td><td align="left">V</td></tr><tr><td align="left">VOH</td><td align="left">I&#x2F;O高电平输出</td><td align="left">2.4</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">Imax</td><td align="left">I&#x2F;O驱动电流</td><td align="left">-</td><td align="left">-</td><td align="left">16</td><td align="left">mA</td></tr><tr><td align="left">Cpad</td><td align="left">输入引脚电容</td><td align="left">-</td><td align="left">2</td><td align="left">-</td><td align="left">pF</td></tr></tbody></table><h3 id="射频功耗"><a href="#射频功耗" class="headerlink" title="射频功耗"></a>射频功耗</h3><ul><li><p>TX 连续发送时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">功率</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">17dBm</td><td align="left">217</td><td align="left">268</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">18dBm</td><td align="left">231</td><td align="left">283</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">15dBm</td><td align="left">159</td><td align="left">188</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">17.5dBm</td><td align="left">177</td><td align="left">213</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">13dBm</td><td align="left">145</td><td align="left">167</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">16.5dBm</td><td align="left">165</td><td align="left">193</td><td align="left">mA</td></tr></tbody></table></li><li><p>RX 连续接收时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11B 11M</td><td align="left">63</td><td align="left">65</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11G 54M</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11N HT20 MCS7</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr></tbody></table></li></ul><h2 id="射频参数"><a href="#射频参数" class="headerlink" title="射频参数"></a>射频参数</h2><h3 id="基本射频特性"><a href="#基本射频特性" class="headerlink" title="基本射频特性"></a>基本射频特性</h3><table><thead><tr><th align="left">参数项</th><th align="left">详细说明</th></tr></thead><tbody><tr><td align="left">频率范围</td><td align="left">2.400~2.4835GHz</td></tr><tr><td align="left">Wi-Fi标准</td><td align="left">IEEE 802.11b&#x2F;g&#x2F;n(通道 1-14)</td></tr><tr><td align="left">蓝牙标准</td><td align="left">蓝牙4.2</td></tr><tr><td align="left">数据传输速率</td><td align="left">11b:1,2,5.5, 11 (Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11g:6,9,12,18,24,36,48,54(Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11n:HT20 MCS0~7</td></tr><tr><td align="left">天线类型</td><td align="left">PCB 天线，增益2.5dBi</td></tr></tbody></table><h2 id="天线信息"><a href="#天线信息" class="headerlink" title="天线信息"></a>天线信息</h2><h3 id="天线类型"><a href="#天线类型" class="headerlink" title="天线类型"></a>天线类型</h3><p>只有 PCB 板载天线接入方式，天线增益 2.5dBi。</p><h3 id="降低天线干扰"><a href="#降低天线干扰" class="headerlink" title="降低天线干扰"></a>降低天线干扰</h3><p>在 Wi-Fi 模组上使用 PCB 板载天线时，为确保 Wi-Fi 性能的最优化，建议模组天线部分和其他金属件距离至少在 15mm 以上。</p><h2 id="封装信息及生产指导"><a href="#封装信息及生产指导" class="headerlink" title="封装信息及生产指导"></a>封装信息及生产指导</h2><h3 id="机械尺寸"><a href="#机械尺寸" class="headerlink" title="机械尺寸"></a>机械尺寸</h3><p>WBR3的PCB机械尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×0.8±0.1 mm (H)。WBR3的机械尺寸如下图所示。</p><img src="/posts/2486667095/3.%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">]]></content>
+        <content type="html"><![CDATA[<h1 id="因需将产品联网处理"><a href="#因需将产品联网处理" class="headerlink" title="因需将产品联网处理"></a>因需将产品联网处理</h1><p>​虽然一直在研究乐鑫esp8266，但发现接入云服务还需自己付费使用，因此就考虑找能免费对接网络的模块，很久以前玩过司南物联芯片，本想购入，但却发现主页都进不去，只好作罢。后来又找汉枫模块和涂鸦模块。</p><a class="btn-beautify block" href="http://www.hi-flying.com/index.php?route=product/category&path=135" title="汉枫模块"><i class="far fa-hand-point-right"></i><span>汉枫模块</span></a><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/MQTT-protocol?id=Kb65nphxrj8f1" title="涂鸦模块"><i class="far fa-hand-point-right"></i><span>涂鸦模块</span></a><p>汉枫看起来挺麻烦，加之比象花费太大时间！就选择涂鸦模块，因为涂鸦网站资料相对较多，也提供相对详细SDK，通过串口UART连接即可，根据说明，只要将其SDK-C导入到工程就可以使用。</p><h1 id="模块选择"><a href="#模块选择" class="headerlink" title="模块选择"></a>模块选择</h1><p>选择的是WBR3模块</p><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/wbr3-module-datasheet?id=K9dujs2k5nriy" title="WBR3模块说明"><i class="far fa-hand-point-right"></i><span>WBR3模块说明</span></a><p>WBR3 是由涂鸦智能开发的一款低功耗嵌入式 Wi-Fi 加蓝牙模组。它由一个高集成度的无线射频芯片W701-VA2-CG构成，内置了 Wi-Fi 网络协议栈和丰富的库函数</p><ul><li>内置低功耗 KM4 MCU，可以兼作应用处理器</li><li>主频 100MHz</li><li>工作电压：3V-3.6V</li><li>外设：9×GPIOs, 1×UART, 1×Log_Tx</li><li>Wi-Fi&#x2F;蓝牙连通性<ul><li>802.11 B&#x2F;G&#x2F;N20</li><li>通道 <a href="mailto:&#x31;&#45;&#x31;&#x34;&#x40;&#50;&#46;&#52;&#71;&#72;&#122;">&#x31;&#45;&#x31;&#x34;&#x40;&#50;&#46;&#52;&#71;&#72;&#122;</a>(CH1-11 for US&#x2F;CA, CH1-13 for EU&#x2F;CN)</li><li>支持 WEP&#x2F;WPA&#x2F;WPA2&#x2F;WPA2 PSK（AES） 安全模式</li><li>支持 Bluetooth 4.2 Low Energy</li><li>802.11b 模式下 +20dBm 的输出功率</li><li>支持 SmartConfig 功能，包括 Android 和 iOS 设备</li><li>板载 PCB Onboard 天线</li><li>通过 CE、FCC 认证</li><li>工作温度：-20℃ to 85℃</li></ul></li></ul><h3 id="尺寸封装"><a href="#尺寸封装" class="headerlink" title="尺寸封装"></a>尺寸封装</h3><ul><li>WBR3 共有 2 排引脚（2×8），引脚间距为 2mm。</li><li>WBR3 尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×2.9±0.15 mm (H)。WBR3尺寸图如下图所示<img src="/posts/2486667095/1.WBR3%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">1.WBR3脚位图</li></ul><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote><h2 id="电气参数"><a href="#电气参数" class="headerlink" title="电气参数"></a>电气参数</h2><h3 id="绝对电气参数"><a href="#绝对电气参数" class="headerlink" title="绝对电气参数"></a>绝对电气参数</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ts</td><td align="left">存储温度</td><td align="left">-40</td><td align="left">105</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">供电电压</td><td align="left">-0.3</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">静电释放电压（人体模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">2</td><td align="left">KV</td></tr><tr><td align="left">静电释放电压（机器模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">0.5</td><td align="left">KV</td></tr></tbody></table><h3 id="工作条件"><a href="#工作条件" class="headerlink" title="工作条件"></a>工作条件</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">典型值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ta</td><td align="left">工作温度</td><td align="left">-20</td><td align="left">-</td><td align="left">85</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">工作电压</td><td align="left">3.0</td><td align="left">-</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">VIL</td><td align="left">I&#x2F;O低电平输入</td><td align="left">-</td><td align="left">-</td><td align="left">0.8</td><td align="left">V</td></tr><tr><td align="left">VIH</td><td align="left">I&#x2F;O高电平输入</td><td align="left">2.0</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">VOL</td><td align="left">I&#x2F;O低电平输出</td><td align="left">-</td><td align="left">-</td><td align="left">0.4</td><td align="left">V</td></tr><tr><td align="left">VOH</td><td align="left">I&#x2F;O高电平输出</td><td align="left">2.4</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">Imax</td><td align="left">I&#x2F;O驱动电流</td><td align="left">-</td><td align="left">-</td><td align="left">16</td><td align="left">mA</td></tr><tr><td align="left">Cpad</td><td align="left">输入引脚电容</td><td align="left">-</td><td align="left">2</td><td align="left">-</td><td align="left">pF</td></tr></tbody></table><h3 id="射频功耗"><a href="#射频功耗" class="headerlink" title="射频功耗"></a>射频功耗</h3><ul><li><p>TX 连续发送时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">功率</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">17dBm</td><td align="left">217</td><td align="left">268</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">18dBm</td><td align="left">231</td><td align="left">283</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">15dBm</td><td align="left">159</td><td align="left">188</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">17.5dBm</td><td align="left">177</td><td align="left">213</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">13dBm</td><td align="left">145</td><td align="left">167</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">16.5dBm</td><td align="left">165</td><td align="left">193</td><td align="left">mA</td></tr></tbody></table></li><li><p>RX 连续接收时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11B 11M</td><td align="left">63</td><td align="left">65</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11G 54M</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11N HT20 MCS7</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr></tbody></table></li></ul><h2 id="射频参数"><a href="#射频参数" class="headerlink" title="射频参数"></a>射频参数</h2><h3 id="基本射频特性"><a href="#基本射频特性" class="headerlink" title="基本射频特性"></a>基本射频特性</h3><table><thead><tr><th align="left">参数项</th><th align="left">详细说明</th></tr></thead><tbody><tr><td align="left">频率范围</td><td align="left">2.400~2.4835GHz</td></tr><tr><td align="left">Wi-Fi标准</td><td align="left">IEEE 802.11b&#x2F;g&#x2F;n(通道 1-14)</td></tr><tr><td align="left">蓝牙标准</td><td align="left">蓝牙4.2</td></tr><tr><td align="left">数据传输速率</td><td align="left">11b:1,2,5.5, 11 (Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11g:6,9,12,18,24,36,48,54(Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11n:HT20 MCS0~7</td></tr><tr><td align="left">天线类型</td><td align="left">PCB 天线，增益2.5dBi</td></tr></tbody></table><h2 id="天线信息"><a href="#天线信息" class="headerlink" title="天线信息"></a>天线信息</h2><h3 id="天线类型"><a href="#天线类型" class="headerlink" title="天线类型"></a>天线类型</h3><p>只有 PCB 板载天线接入方式，天线增益 2.5dBi。</p><h3 id="降低天线干扰"><a href="#降低天线干扰" class="headerlink" title="降低天线干扰"></a>降低天线干扰</h3><p>在 Wi-Fi 模组上使用 PCB 板载天线时，为确保 Wi-Fi 性能的最优化，建议模组天线部分和其他金属件距离至少在 15mm 以上。</p><h2 id="封装信息及生产指导"><a href="#封装信息及生产指导" class="headerlink" title="封装信息及生产指导"></a>封装信息及生产指导</h2><h3 id="机械尺寸"><a href="#机械尺寸" class="headerlink" title="机械尺寸"></a>机械尺寸</h3><p>WBR3的PCB机械尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×0.8±0.1 mm (H)。WBR3的机械尺寸如下图所示。</p><img src="/posts/2486667095/3.%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class title="This is an 1.涂鸦WIFI基本开发(一) image">]]></content>
       
       
       <categories>
@@ -3368,9 +3430,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> 涂鸦 </tag>
-            
             <tag> C语言 </tag>
+            
+            <tag> 涂鸦 </tag>
             
         </tags>
       
