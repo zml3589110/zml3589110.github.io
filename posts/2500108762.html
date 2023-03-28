@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Ubuntu使用minicom串口工具 | 赵逸尘个人博客</title><meta name="keywords" content="Ubuntu,串口,minicom"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Ubuntu开启Samba服务，主要是针对esp32编译环境需要软链接，之前用虚拟机共享出现Windows没有软链接功能导致异常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu使用minicom串口工具">
+<meta property="og:url" content="https://zml3589110.github.io/posts/2500108762.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="Ubuntu开启Samba服务，主要是针对esp32编译环境需要软链接，之前用虚拟机共享出现Windows没有软链接功能导致异常">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2023-03-28T06:56:20.000Z">
+<meta property="article:modified_time" content="2023-03-28T07:15:44.232Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="串口">
+<meta property="article:tag" content="minicom">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/2500108762"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ubuntu使用minicom串口工具',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-28 15:15:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">262</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">73</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ubuntu使用minicom串口工具</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-28T06:56:20.000Z" title="发表于 2023-03-28 14:56:20">2023-03-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-28T07:15:44.232Z" title="更新于 2023-03-28 15:15:44">2023-03-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/minicom/">minicom</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Ubuntu使用minicom串口工具"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="linux查看usb转串口设备使用的端口号"><a href="#linux查看usb转串口设备使用的端口号" class="headerlink" title="linux查看usb转串口设备使用的端口号"></a>linux查看usb转串口设备使用的端口号</h1><p><strong>查看使用的端口号：</strong></p>
+<img src="https://img-blog.csdnimg.cn/20210613112924873.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzY3MzYwMw==,size_16,color_FFFFFF,t_70">
+
+<p><strong>也可以输入以下命令查看：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l /dev/ttyUSB*</span><br></pre></td></tr></table></figure>
+
+<img src="https://img-blog.csdnimg.cn/20210613114213709.png">
+
+<p><strong>可以看到有几个设备挂载。</strong></p>
+<p>设置端口号：<br>输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo minicom -s</span><br></pre></td></tr></table></figure>
+
+<img src="https://img-blog.csdnimg.cn/20210613113046237.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzY3MzYwMw==,size_16,color_FFFFFF,t_70">
+
+<p>运行代码：<br>完成</p>
+<h1 id="退出方法"><a href="#退出方法" class="headerlink" title="退出方法"></a>退出方法</h1><p>1）需使用Ctrl+a 进入设置状态<br>2）按z进入设置菜单<br>（1）S键：发送文件到目标系统中；<br>（2）W键：自动卷屏。当显示的内容超过一行之後，自动将後面的内容换行。这个功能在查看内核的啓动信息时很有用。<br>（3）C键：清除屏幕的显示内容；<br>（4）B键：浏览minicom的历史显示；<br>（5）X键：退出mInicom，会提示确认退出。</p>
+<h1 id="minicom常用指令"><a href="#minicom常用指令" class="headerlink" title="minicom常用指令"></a>minicom常用指令</h1><p>因为现在电脑基本不配备串行接口，所以，usb转串口成为硬件调试时的必然选择。目前知道的，PL2303的驱动是有的，在dev下的名称是ttyUSB#。</p>
+<p>minicom，tkterm都是linux下应用比较广泛的串口软件，这里简单介绍minicom使用。</p>
+<p>一，安装</p>
+<p>debian 系，比如 ubuntu、mint等：</p>
+<p>sudo apt-get install minicom</p>
+<p>二，配置</p>
+<p>首先，查看串口设备是否可用。linux下的所有操作面向用户的都是文件操作，在对串口操作之前，我们应该先确认自己对该文件有没有读写权限。</p>
+<p>ls -l &#x2F;dev&#x2F;ttyUSB*</p>
+<p>linux下的usb串口命名为ttyUSB，运行上面命令，可以看到有几个设备挂载。</p>
+<p>我们这里是：</p>
+<p>crw-rw—- 1 root dialout 188, 0 Apr 10 17:10 &#x2F;dev&#x2F;ttyUSB0</p>
+<p>只有ttuUSB0.</p>
+<p>但是正如上面显示，ttyUSB0这个设备是root所有的，所以，我们以普通用户身份打开minicom是没法访问该文件的。</p>
+<p>然后，运行$ sudo minicom -s ， 设置串口。</p>
+<p>进入minicom的配置界面，使用上下键选择Serial port setup，回车。此时光标在“change which setting”后面停留，它的上面有如下菜单：</p>
+<p>Serial port setup [Enter]+————————————————————-+</p>
+<p>| A – Serial Device : &#x2F;dev&#x2F;ttyUSB0 |</p>
+<p>| B – Lockfile Location : &#x2F;var&#x2F;lock |</p>
+<p>| C – Callin Program : |</p>
+<p>| D – Callout Program -: |</p>
+<p>| E – Bps&#x2F;Par&#x2F;Bits : 115200 8N1 |</p>
+<p>| F – Hardware Flow Control : No |</p>
+<p>| G – Software Flow Control : No |</p>
+<p>| |</p>
+<p>| Change which setting? |</p>
+<p>+————————————————————-+</p>
+<p>我们只需输入上面对应的字母，就可以进如相应的菜单进行设置。设置完成，回车，光标会回到“change which setting”后面，如此重复。完成按回车返回主菜单即可。</p>
+<p>注意：如果不是 USB 转串口，而是直接使用串口，那么 Serial Device 要配置为 &#x2F;dev&#x2F;ttyS0(具体哪个设备，系统不同名字不同，如果你不知道，那就看你运气了)。</p>
+<p>返回主菜单后，选择“Save setup as dfl”，将其保存为默认设置，然后选择 Exit 退出，注意，不是退出 minicom。</p>
+<p>三，使用</p>
+<p>如果上面设置顺利，重新给开发板上电后，此时，窗口里就有信息打印出来了。minicom基本操作如下：</p>
+<p>1)组合键 Ctrl+a 进入设置状态；</p>
+<p>2)按 z 打开帮助菜单，或者你用的熟练的话，直接输入菜单对应的字母即可；</p>
+<p>(1)S键：发送文件到目标系统中；</p>
+<p>(2)W键：自动卷屏。当显示的内容超过一行之後，自动将後面的内容换行。这个功能在查看内核的啓动信息时很有用。</p>
+<p>(3)C键：清除屏幕的显示内容；</p>
+<p>(4)B键：浏览minicom的历史显示；</p>
+<p>(5)X键：退出mInicom，会提示确认退出。</p>
+<ol start="3">
+<li>比如，使用 Ctrl-A–&gt;O 进入 minicom 配置菜单：</li>
+</ol>
+<p>+—–[configuration]——+</p>
+<p>| Filenames and paths |</p>
+<p>| File transfer protocols -|</p>
+<p>| Serial port setup |</p>
+<p>| Modem and dialing |</p>
+<p>| Screen and keyboard |</p>
+<p>| Save setup as dfl |</p>
+<p>| Save setup as.. |</p>
+<p>| Exit |</p>
+<p>+————————–+</p>
+<p>我们可以配置使用 Ctrl-A-S 发送文件时的默认路径，可选择”Filenames and paths”进行配置：</p>
+<p>+———————————————————————–+</p>
+<p>| A – Download directory : &#x2F;home&#x2F;crliu |</p>
+<p>| B – Upload directory : &#x2F;tmp |</p>
+<p>| C – Script directory : |</p>
+<p>| D – Script program : runscript |</p>
+<p>| E – Kermit program : |</p>
+<p>| F – Logging options |</p>
+<p>| |</p>
+<p>| Change which setting? |</p>
+<p>+———————————————————————–+</p>
+<p>如上，A – download 下载文件的存放位置(开发板 —&gt; PC, rz)开发板上的文件将被传输到PC机上的&#x2F;home&#x2F;crliu目录下。</p>
+<p>B – upload 从此处读取上传的文件(PC —&gt; 开发板, sz)PC机向开发板发送文件，需要发送的文件在&#x2F;tmp目录下(PC机上的目录)。</p>
+<p>四，其他技巧</p>
+<p>启动 minicom 的时候，会检测 MINICOM 环境变量，将它们作为命令参数，如果命令中指定了某个参数，那么这个 MINICOM 中的相应的某个参数会被替换。</p>
+<p>我们在 ~&#x2F;.bashrc 文件中添加这一行，使得 minicom 默认每次都进入彩色模式，并自动进入串口配置：</p>
+<p>export MINICOM&#x3D;’-s -c on’</p>
+<p>The configuration 参数更有趣。通常，minicom从文件“minirc.dfl”中获取其缺省值。不过，若你给minicom一个参数，它将尝试从文件“minirc.configuration”中获取缺省值。因此，为不同端口、不同用户等创建多个配置文件是可能的。最好使用设备名，如：tty1， tty64，sio2等。如果用户创建了自己的配置文件，那么该文件将以“.minirc.dfl”为名出现在他的home目录中。</p>
+<p>minicom的全局配置文件通常在&#x2F;etc&#x2F;minirc.dfl. minicom将其配置文件保存在一个目录中，通常是：&#x2F;var&#x2F;lib&#x2F;minicom, &#x2F;usr&#x2F;local&#x2F;etc或者&#x2F;etc。要想知道minicom编译时内定的缺省目录，可用命令“minicom -h”，在那儿你可能还会找到runscript(1) 的demo文件。</p>
+<p>配置文件的文件名格式：minirc.user。minicom默认加载配置文件minirc.df1，但你也可以仿照minirc.df1编辑自己的配置文件minirc.user，输入minicom user启动时则加载minirc.user。如在本机上，我做了一个minirc.root，输入minicom root 启动minicom，则系统自动加载&#x2F;etc&#x2F;minirc.root中的配置。</p>
+<p>$HOME&#x2F;.minirc.*</p>
+<p>$HOME&#x2F;.dialdir</p>
+<p>$HOME&#x2F;minicom.log</p>
+<p>&#x2F;usr&#x2F;share&#x2F;locale&#x2F;*&#x2F;LC_MESSAGES&#x2F;minicom.mo</p>
+<p>*命令行启动minicom的参数</p>
+<p>更多的参数，参见”man minicom”的输出。</p>
+<p>-s</p>
+<p>设置。 root 使用此选项在&#x2F;etc&#x2F;minirc.dfl中编辑系统范围的缺省值。使用此参数后，minicom 将 不 进行初始化， 而是直接进入配置菜单。如果因为你的系统被改变，或者第一次运行minicom时，minicom不能启动，这个参数就会很有用。对于多数系统，已经内定了比较合适的缺省值。</p>
+<p>-o</p>
+<p>不进行初始化。minicom 将跳过初始化代码。如果你未复位(reset)就退出了minicom，又想重启一次会话(session)，那么用这个选项就比较爽(不会再有错误提示：modem is locked —- 注)。但是也有潜在的危险：由于未对lock文件等进行检查，因此一般用户可能会与uucp之类的东东发生冲突……也许以后这个参数会被去掉。现在姑且假定，使用modem的用户对自己的行为足够负责。</p>
+<p>-m</p>
+<p>用Meta或Alt键重载命令键。在1.80版中这是缺省值，也可以在minicom 菜单中配置这个选项。不过若你一直使用不同的终端，其中有些没有Meta或Alt键，那么方便的做法还是把缺省的命令键设置为Ctrl-A，当你有了支持 Meta或Alt键的键盘时再使用此选项。Minicom假定你的Meta键发送ESC前缀，而不是设置字符最高位的那一种(见下)。</p>
+<p>-M</p>
+<p>跟“-m”一样，但是假定你的Meta键设置字符高端的第八位(发送128+字符代码)。</p>
+<p>-z</p>
+<p>使用终端状态行。仅当终端支持，并且在其termcap或terminfo<a target="_blank" rel="noopener" href="https://cloud.tencent.com/solution/database?from=10680">数据库</a>入口中有相关信息时才可用。</p>
+<p>-l</p>
+<p>逐字翻译 高位被置位的字符。使用此标志， minicom将不再尝试将IBM行字符翻译为ASCII码，而是将其直接传送。许多PC-Unix克隆不经翻译也能正确显示它们(Linux使用专门的模式：Coherent和Sco)。</p>
+<p>-w</p>
+<p>在启动的时候就自动换行，这样启动之后不用运行 w进行设置了，详细参考后面。</p>
+<p>-a</p>
+<p>特性使用。 有些终端，特别是televideo终端， 有个很讨厌的特性处理(串行而非并行)。minicom缺省使用‘-a on’，但若你在用这样的终端，你就可以(必须!)加上选项‘-a off’。尾字‘on’或‘off’需要加上。</p>
+<p>-t</p>
+<p>终端类型。使用此标志， 你可以重载环境变量TERM， 这在环境变量MINICOM 中使用很方便； 你可以创建一个专门的 termcap 入口以备minicom 在控制台上使用，它将屏幕初始化为raw模式， 这样，连同‘-l’标志一起，就可以不经翻译而显示IBM行字符。</p>
+<p>-c</p>
+<p>颜色使用。些终端(如Linux控制台)支持标准ANSI转义序列色彩。由于termcap显然没有对于色彩的支持，因而minicom 硬性内置了这些转义序列的代码。所以此选项缺省为off。使用‘-c on’可以打开此项。把这个标志，还有‘-m’放入MINICOM环境变量中是个不错的选择。</p>
+<p>-S</p>
+<p>脚本。 启动时执行给定名字的脚本。到目前为止，还不支持将用户名和口令传送给启动脚本。如果你还使用了‘-d’选项，以在启动时开始拨号，此脚本将在拨号之前运行，拨号项目入口由‘-d’指明。</p>
+<p>-p</p>
+<p>要使用的伪终端。 它超载配置文件中定义的终端端口，但仅当其为伪tty设备。提供的文件名必须采用这样的形式：(&#x2F;dev&#x2F;)tty[p-z][0-f]</p>
+<p>-C</p>
+<p>文件名。 启动时打开捕获文件。</p>
+<p>-8</p>
+<p>不经修改地传送8位字符。“连续”意指未对地点&#x2F;特性进行真正改变，就不插入地点&#x2F;特性控制序列。此模式用于显示8位多字节字符，比如日本字(TMD！应该是中国字!!)。不是8位字符的语言都需要(例如显示芬兰文字就不需要这个)。</p>
+<h1 id="linux-查看所有USB端口"><a href="#linux-查看所有USB端口" class="headerlink" title="linux 查看所有USB端口"></a>linux 查看所有USB端口</h1><p>1、查看串口是否可用</p>
+<p>可以对串口发送数据比如对com1口，echo &#x2F;dev&#x2F;ttyS0</p>
+<p>2、查看串口名称使用</p>
+<p>ls -l &#x2F;dev&#x2F;ttyS*</p>
+<p>一般情况下串口的名称全部在dev下面，如果你没有外插串口卡的话默认是dev下的ttyS*,一般ttyS0对应com1，ttyS1对应com2，当然也不一定是必然的；</p>
+<p>3、查看串口驱动</p>
+<p>cat&#x2F;proc&#x2F;tty&#x2F;drivers&#x2F;serial</p>
+<p>4、查看串口设备</p>
+<p>dmesg | grep ttyS*</p>
+<p>5、查一下板子上的串口有没有设备</p>
+<p>grep tty&#x2F;proc&#x2F;devices</p>
+<p>如果有ttyS设备，再看&#x2F;dev&#x2F;有没有ttyS*，如没有就建立一个：mknod &#x2F;dev&#x2F;ttyS0 c 4 64</p>
+<p>如果板子的设备中没有标准串口设备ttyS0，也没有ttySAC0。&#x2F;dev下应该有一个USB串口：&#x2F;dev&#x2F;ttyUSB0.</p>
+<p>当一个串行卡或数据卡被侦测到时，它会被指定成为第一个可用的串行设备。通常是&#x2F;dev&#x2F;ttyS1(cua1)或&#x2F;dev&#x2F;ttyS2(cua2)，这完成看原已内建的串口数目。ttyS*设备会被报告在&#x2F;var&#x2F;run&#x2F;stab内。</p>
+<p>PC上的串口一般是ttyS，板子上Linux的串口一般叫做ttySAC</p>
+<p>补充:</p>
+<p>如果需要查看这个串口设备输出</p>
+<p>cat ttyUSB0</p>
+<p>如果需要对这个设备输入</p>
+<p>echo aaaaa&gt;ttyUSB0</p>
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43673603/article/details/117871650">linux查看usb转串口设备使用的端口号</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/jhyworkspace/article/details/53572284">minicom退出方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2070441">minicom指令_Minicom 使用初步</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34489089/article/details/116677110">linux 查看所有USB端口,linux查看所有串口和usb设备方法</a></li>
+</ol>
+<hr>
+<center><font color="red">=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/2500108762.html">https://zml3589110.github.io/posts/2500108762.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ubuntu/">Ubuntu</a><a class="post-meta__tags" href="/tags/%E4%B8%B2%E5%8F%A3/">串口</a><a class="post-meta__tags" href="/tags/minicom/">minicom</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/0.jpg" target="_blank"><img class="post-qr-code-img" src="/img/0.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/1.jpg" target="_blank"><img class="post-qr-code-img" src="/img/1.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/posts/3713584928.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Ubuntu烧录下载时找不到USB0报错</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/213945612.html" title="ubuntu下将Python命令默认指向为Python3"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-21</div><div class="title">ubuntu下将Python命令默认指向为Python3</div></div></a></div><div><a href="/posts/471655546.html" title="Ubuntu常用命令之ubuntu20.04重启网络方法"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-24</div><div class="title">Ubuntu常用命令之ubuntu20.04重启网络方法</div></div></a></div><div><a href="/posts/969895767.html" title="Ubuntu无法访问github"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-24</div><div class="title">Ubuntu无法访问github</div></div></a></div><div><a href="/posts/1569020693.html" title="Ubuntu下编译环境多版本共存（ESP8266）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-21</div><div class="title">Ubuntu下编译环境多版本共存（ESP8266）</div></div></a></div><div><a href="/posts/2332243333.html" title="Ubuntu开启Samba服务"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-03</div><div class="title">Ubuntu开启Samba服务</div></div></a></div><div><a href="/posts/442091668.html" title="通过HOMEKIT让ESP8266控制继电器"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-25</div><div class="title">通过HOMEKIT让ESP8266控制继电器</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">262</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">73</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux%E6%9F%A5%E7%9C%8Busb%E8%BD%AC%E4%B8%B2%E5%8F%A3%E8%AE%BE%E5%A4%87%E4%BD%BF%E7%94%A8%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="toc-number">1.</span> <span class="toc-text">linux查看usb转串口设备使用的端口号</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%80%E5%87%BA%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">退出方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#minicom%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">minicom常用指令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89USB%E7%AB%AF%E5%8F%A3"><span class="toc-number">4.</span> <span class="toc-text">linux 查看所有USB端口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/2500108762.html" title="Ubuntu使用minicom串口工具"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu使用minicom串口工具"/></a><div class="content"><a class="title" href="/posts/2500108762.html" title="Ubuntu使用minicom串口工具">Ubuntu使用minicom串口工具</a><time datetime="2023-03-28T06:56:20.000Z" title="发表于 2023-03-28 14:56:20">2023-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3713584928.html" title="Ubuntu烧录下载时找不到USB0报错"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu烧录下载时找不到USB0报错"/></a><div class="content"><a class="title" href="/posts/3713584928.html" title="Ubuntu烧录下载时找不到USB0报错">Ubuntu烧录下载时找不到USB0报错</a><time datetime="2023-03-28T06:45:20.000Z" title="发表于 2023-03-28 14:45:20">2023-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2527818842.html" title="ESP32环境(Ubuntu) 问题集锦"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP32环境(Ubuntu) 问题集锦"/></a><div class="content"><a class="title" href="/posts/2527818842.html" title="ESP32环境(Ubuntu) 问题集锦">ESP32环境(Ubuntu) 问题集锦</a><time datetime="2023-03-27T08:12:20.000Z" title="发表于 2023-03-27 16:12:20">2023-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/442091668.html" title="通过HOMEKIT让ESP8266控制继电器"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="通过HOMEKIT让ESP8266控制继电器"/></a><div class="content"><a class="title" href="/posts/442091668.html" title="通过HOMEKIT让ESP8266控制继电器">通过HOMEKIT让ESP8266控制继电器</a><time datetime="2023-03-25T08:13:20.000Z" title="发表于 2023-03-25 16:13:20">2023-03-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2501953460.html" title="C 使用 sizeof 判断数组大小报错"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C 使用 sizeof 判断数组大小报错"/></a><div class="content"><a class="title" href="/posts/2501953460.html" title="C 使用 sizeof 判断数组大小报错">C 使用 sizeof 判断数组大小报错</a><time datetime="2023-03-03T02:57:20.000Z" title="发表于 2023-03-03 10:57:20">2023-03-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
