@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Ubuntu文件压缩、解压缩等操作 | 赵逸尘个人博客</title><meta name="keywords" content="Ubuntu,zar,压缩,解压,软链接"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Ubuntu文件压缩、解压缩、打包解包(带软链接)、拷贝文件(带软链接)、拷贝文件夹">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu文件压缩、解压缩等操作">
+<meta property="og:url" content="https://zml3589110.github.io/posts/2452845339.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="Ubuntu文件压缩、解压缩、打包解包(带软链接)、拷贝文件(带软链接)、拷贝文件夹">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2023-10-17T00:36:20.000Z">
+<meta property="article:modified_time" content="2023-10-17T00:53:25.729Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="zar">
+<meta property="article:tag" content="压缩">
+<meta property="article:tag" content="解压">
+<meta property="article:tag" content="软链接">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/2452845339"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ubuntu文件压缩、解压缩等操作',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-17 08:53:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">169</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">266</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">77</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ubuntu文件压缩、解压缩等操作</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-10-17T00:36:20.000Z" title="发表于 2023-10-17 08:36:20">2023-10-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-17T00:53:25.729Z" title="更新于 2023-10-17 08:53:25">2023-10-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/zar/">zar</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/">文件管理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">855</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Ubuntu文件压缩、解压缩等操作"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="打包、压缩、解压缩-Lnux需先打包成一个文件再压缩"><a href="#打包、压缩、解压缩-Lnux需先打包成一个文件再压缩" class="headerlink" title="打包、压缩、解压缩(Lnux需先打包成一个文件再压缩)"></a>打包、压缩、解压缩(Lnux需先打包成一个文件再压缩)</h1><p>在具体总结各类压缩文件之前，首先要弄清两个概念：打包和压缩。</p>
+<p>打包是指将一大堆文件或目录什么的变成一个总的文件，压缩则是将一个大的文件通过一些压缩算法变成一个小文件。为什么要区分这两个概念呢？其实这源于Linux中的很多压缩程序只能针对一个文件进行压缩，这样当你想要压缩一大堆文件时，你就得先借助另外的工具将这一大堆文件先打成一个包，然后再就原来的压缩程序进行压缩。</p>
+<p>Linux下最常用的打包程序就是tar了，使用tar程序打出来的包我们常称为tar包，tar包文件的命令通常都是以.tar结尾的。生成tar包后，就可以用其它的程序来进行压缩了。</p>
+<h2 id="课堂笔记-tar既能打包又能解压缩"><a href="#课堂笔记-tar既能打包又能解压缩" class="headerlink" title="课堂笔记(tar既能打包又能解压缩)"></a>课堂笔记(tar既能打包又能解压缩)</h2><img src="https://img-blog.csdnimg.cn/709ccabc1f6949d488eec8d0925544ad.png">
+
+<img src="https://img-blog.csdnimg.cn/2c517ed25b014ad8a9c52c0147af2bd1.png">
+
+<img src="https://img-blog.csdnimg.cn/d53dc1dfb3f24c11b5f1e9d272853263.png">
+
+<p><strong>上面笔记中打包顺序写反了：tar - vcf test.tar test</strong></p>
+<img src="https://img-blog.csdnimg.cn/ba8e0dd368e645e7aebb93bc1b8b2c99.png">
+
+<p><strong>tar提供打包解包的同时还具有压缩和解压缩功能：</strong></p>
+<img src="https://img-blog.csdnimg.cn/b44a581f7de9455bb5037a6beebe4bff.png">
+
+<img src="https://img-blog.csdnimg.cn/13723a96f7b348b5a2969aed4e033b26.png">
+
+<p><strong>注意：不好用的时候，把参数Z去掉，或者你文件从Windows传到虚拟机有问题。</strong></p>
+<img src="https://img-blog.csdnimg.cn/80d88168445c4d08a6a767dbfc04f3b2.png">
+
+<h1 id="打包解包-带软链接"><a href="#打包解包-带软链接" class="headerlink" title="打包解包(带软链接)"></a>打包解包(带软链接)</h1><img src="https://img-blog.csdnimg.cn/b5315f38e46542ebbb51724d0a836496.png">
+
+<p><strong>解包提示有问题的话，直接用 tar -vxf test.tar 解包软链接也生效。</strong></p>
+<h2 id="1-拷贝文件-带软链接"><a href="#1-拷贝文件-带软链接" class="headerlink" title="1.拷贝文件(带软链接)"></a>1.拷贝文件(带软链接)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -d dep/libs/*  到开发板的/usr/lib下</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-拷贝文件夹"><a href="#2-拷贝文件夹" class="headerlink" title="2.拷贝文件夹"></a>2.拷贝文件夹</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r certs  到开发板的/mnt/user_data/iot_data下</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-命令实现"><a href="#3-命令实现" class="headerlink" title="3.命令实现"></a>3.命令实现</h2><p><strong>解包 .tar：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf FileName.tar</span><br></pre></td></tr></table></figure>
+
+<p><strong>打包.tar：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -cvf FileName.tar DirName  <span class="comment"># tar是打包，不是压缩！</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>解压.tar.gz 和 .tgz：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf FileName.tar.gz</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.tar.gz 和 .tgz：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf FileName.tar.gz DirName</span><br></pre></td></tr></table></figure>
+<p><strong>解压.zip：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip FileName.zip</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.zip：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zip -r FileName.zip DirName</span><br></pre></td></tr></table></figure>
+<p>-r 表示递归</p>
+<p><strong>解包.tgz：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf FileName.tgz</span><br></pre></td></tr></table></figure>
+<p><strong>解压.gz：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gunzip FileName.gz</span><br></pre></td></tr></table></figure>
+<p><strong>解压.gz：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gzip -d FileName.gz</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.gz：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gzip FileName</span><br></pre></td></tr></table></figure>
+<p><strong>解压.bz2：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bzip2 -d FileName.bz2</span><br></pre></td></tr></table></figure>
+<p><strong>解压.bz2：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bunzip2 FileName.bz2</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.bz2：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bzip2 -z FileName</span><br></pre></td></tr></table></figure>
+<p><strong>解压.tar.bz2：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -jxvf FileName.tar.bz2</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.tar.bz2：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar- jcvf FileName.tar.bz2 DirName</span><br></pre></td></tr></table></figure>
+<p><strong>解压.bz：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bzip2 -d FileName.bz</span><br></pre></td></tr></table></figure>
+<p><strong>解压.bz：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bunzip2 FileName.bz</span><br></pre></td></tr></table></figure>
+<p><strong>解压.tar.bz：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar jxvf FileName.tar.bz</span><br></pre></td></tr></table></figure>
+<p><strong>.tar.xz 这是两层压缩，外面是xz压缩方式，里层是tar压缩</strong><br>所以可以分两步实现解压</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ xz -d filename.tar.xz</span><br><span class="line">$ tar -xvf filename.tar</span><br></pre></td></tr></table></figure>
+<p><strong>也可以直接解压</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xvJf filename.tar.xz</span><br><span class="line">or</span><br><span class="line">tar -Jxf filename.tar.xz</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.tar.xz：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -Jcf filename.tar.xz filename</span><br></pre></td></tr></table></figure>
+<p><strong>解压.Z：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uncompress FileName.Z</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.Z：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compress FileName</span><br></pre></td></tr></table></figure>
+<p><strong>解压.tar.Z：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -Zxvf FileName.tar.Z</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.tar.Z：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar Zcvf FileName.tar.Z DirName</span><br></pre></td></tr></table></figure>
+<p><strong>解压.rar：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rar -x FileName.rar</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.rar：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rar -a FileName.rar DirName</span><br></pre></td></tr></table></figure>
+<p><strong>解压.lha：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lha -e FileName.lha</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.lha：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lha -a FileName.lha FileName</span><br></pre></td></tr></table></figure>
+<p><strong>解包.rpm：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm2cpio FileName.rpm | cpio -div</span><br></pre></td></tr></table></figure>
+<p><strong>解包.deb：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ar p FileName.deb data.tar.gz | tar -zxf </span><br></pre></td></tr></table></figure>
+<p><strong>解压.tar .tgz .tar.gz .tar.Z .tar.bz .tar.bz2 .zip .cpio .rpm .deb .slp .arj .rar .ace .lha .lzh .lzx .lzs .arc .sda .sfx .lnx .zoo .cab .kar .cpt .pit .sit .sea：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sEx x FileName.*</span><br></pre></td></tr></table></figure>
+<p><strong>压缩.tar .tgz .tar.gz .tar.Z .tar.bz .tar.bz2 .zip .cpio .rpm .deb .slp .arj .rar .ace .lha .lzh .lzx .lzs .arc .sda .sfx .lnx .zoo .cab .kar .cpt .pit .sit .sea：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sEx a FileName.* FileName</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhuguanlin121/article/details/118726551">Ubuntu文件压缩、解压缩、打包解包(带软链接)、拷贝文件(带软链接)、拷贝文件夹</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45309916/article/details/107791294">Ubuntu 命令解压文件大全</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/ji519974770/article/details/81916468">打包和压缩的概念和区别</a></li>
+</ol>
+<hr>
+<center><font color="red">=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/2452845339.html">https://zml3589110.github.io/posts/2452845339.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ubuntu/">Ubuntu</a><a class="post-meta__tags" href="/tags/zar/">zar</a><a class="post-meta__tags" href="/tags/%E5%8E%8B%E7%BC%A9/">压缩</a><a class="post-meta__tags" href="/tags/%E8%A7%A3%E5%8E%8B/">解压</a><a class="post-meta__tags" href="/tags/%E8%BD%AF%E9%93%BE%E6%8E%A5/">软链接</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/posts/3701598706.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">HEXO打包到github报错</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/213945612.html" title="ubuntu下将Python命令默认指向为Python3"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-21</div><div class="title">ubuntu下将Python命令默认指向为Python3</div></div></a></div><div><a href="/posts/471655546.html" title="Ubuntu常用命令之ubuntu20.04重启网络方法"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-24</div><div class="title">Ubuntu常用命令之ubuntu20.04重启网络方法</div></div></a></div><div><a href="/posts/969895767.html" title="Ubuntu无法访问github"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-24</div><div class="title">Ubuntu无法访问github</div></div></a></div><div><a href="/posts/1569020693.html" title="Ubuntu下编译环境多版本共存（ESP8266）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-21</div><div class="title">Ubuntu下编译环境多版本共存（ESP8266）</div></div></a></div><div><a href="/posts/2332243333.html" title="Ubuntu开启Samba服务"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-03</div><div class="title">Ubuntu开启Samba服务</div></div></a></div><div><a href="/posts/2500108762.html" title="Ubuntu使用minicom串口工具"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-28</div><div class="title">Ubuntu使用minicom串口工具</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">169</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">266</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">77</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E3%80%81%E5%8E%8B%E7%BC%A9%E3%80%81%E8%A7%A3%E5%8E%8B%E7%BC%A9-Lnux%E9%9C%80%E5%85%88%E6%89%93%E5%8C%85%E6%88%90%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%86%8D%E5%8E%8B%E7%BC%A9"><span class="toc-number">1.</span> <span class="toc-text">打包、压缩、解压缩(Lnux需先打包成一个文件再压缩)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0-tar%E6%97%A2%E8%83%BD%E6%89%93%E5%8C%85%E5%8F%88%E8%83%BD%E8%A7%A3%E5%8E%8B%E7%BC%A9"><span class="toc-number">1.1.</span> <span class="toc-text">课堂笔记(tar既能打包又能解压缩)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E8%A7%A3%E5%8C%85-%E5%B8%A6%E8%BD%AF%E9%93%BE%E6%8E%A5"><span class="toc-number">2.</span> <span class="toc-text">打包解包(带软链接)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6-%E5%B8%A6%E8%BD%AF%E9%93%BE%E6%8E%A5"><span class="toc-number">2.1.</span> <span class="toc-text">1.拷贝文件(带软链接)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">2.2.</span> <span class="toc-text">2.拷贝文件夹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%91%BD%E4%BB%A4%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.3.</span> <span class="toc-text">3.命令实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/2452845339.html" title="Ubuntu文件压缩、解压缩等操作"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu文件压缩、解压缩等操作"/></a><div class="content"><a class="title" href="/posts/2452845339.html" title="Ubuntu文件压缩、解压缩等操作">Ubuntu文件压缩、解压缩等操作</a><time datetime="2023-10-17T00:36:20.000Z" title="发表于 2023-10-17 08:36:20">2023-10-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3701598706.html" title="HEXO打包到github报错"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HEXO打包到github报错"/></a><div class="content"><a class="title" href="/posts/3701598706.html" title="HEXO打包到github报错">HEXO打包到github报错</a><time datetime="2023-07-08T06:29:20.000Z" title="发表于 2023-07-08 14:29:20">2023-07-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2500108762.html" title="Ubuntu使用minicom串口工具"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu使用minicom串口工具"/></a><div class="content"><a class="title" href="/posts/2500108762.html" title="Ubuntu使用minicom串口工具">Ubuntu使用minicom串口工具</a><time datetime="2023-03-28T06:56:20.000Z" title="发表于 2023-03-28 14:56:20">2023-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3713584928.html" title="Ubuntu烧录下载时找不到USB0报错"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu烧录下载时找不到USB0报错"/></a><div class="content"><a class="title" href="/posts/3713584928.html" title="Ubuntu烧录下载时找不到USB0报错">Ubuntu烧录下载时找不到USB0报错</a><time datetime="2023-03-28T06:45:20.000Z" title="发表于 2023-03-28 14:45:20">2023-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2527818842.html" title="ESP32环境(Ubuntu) 问题集锦"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP32环境(Ubuntu) 问题集锦"/></a><div class="content"><a class="title" href="/posts/2527818842.html" title="ESP32环境(Ubuntu) 问题集锦">ESP32环境(Ubuntu) 问题集锦</a><time datetime="2023-03-27T08:12:20.000Z" title="发表于 2023-03-27 16:12:20">2023-03-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
