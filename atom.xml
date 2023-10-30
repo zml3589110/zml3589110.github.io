@@ -6,7 +6,7 @@
   <link href="https://zml3589110.github.io/atom.xml" rel="self"/>
   
   <link href="https://zml3589110.github.io/"/>
-  <updated>2023-10-30T09:22:31.443Z</updated>
+  <updated>2023-10-30T13:05:49.081Z</updated>
   <id>https://zml3589110.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>蓝牙相关知识收集</title>
+    <link href="https://zml3589110.github.io/posts/4036844216.html"/>
+    <id>https://zml3589110.github.io/posts/4036844216.html</id>
+    <published>2023-10-30T12:58:20.000Z</published>
+    <updated>2023-10-30T13:05:49.081Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h1><ol><li><a href="https://blog.csdn.net/guoqx/article/details/129174436">蓝牙 - 如何在Windows下抓取蓝牙数据</a><br>首先，要在Windows上安装一个工具：Bluetooth Virtual Sniffer (btvs.exe)。<br>下载路径：</li></ol><p>访问：Get the Microsoft Bluetooth Test Platform software package - Windows drivers | Microsoft Learn</p><p>点击下载：<a href="https://download.microsoft.com/download/e/e/e/eeed3cd5-bdbd-47db-9b8e-ca9d2df2cd29/BluetoothTestPlatformPack-1.14.0.msi">https://download.microsoft.com/download/e/e/e/eeed3cd5-bdbd-47db-9b8e-ca9d2df2cd29/BluetoothTestPlatformPack-1.14.0.msi</a></p><p>下一步安装WireShark</p><p>在命令行终端里，运行btvs.exe程序。</p><p>c:\BTP\v1.14.0\x86&gt;btvs.exe -Mode Wireshark</p><p>然后就会启动Wireshark，开始抓取蓝牙数据。要抓取成功，要打开电脑的蓝牙功能，才会有数据出现。</p><ol start="2"><li><a href="https://blog.csdn.net/linan101/article/details/124007791">蓝牙 BLE 广播包信息解析</a><br>低功耗蓝牙 BLE 广播数据解析：</li></ol><p>低功耗蓝牙包含两类报文：广播报文 &amp; 数据报文；<br>在广播的时候使用3个信道，顺序广播；</p><p>广播包 有效数据部分 无效数据部分</p><h1 id="包解析"><a href="#包解析" class="headerlink" title="包解析"></a>包解析</h1><ol><li><a href="https://sleepingbug.blog.csdn.net/article/details/50628568">蓝牙4.0 BLE 广播包解析</a></li></ol><h1 id="阿里云蓝牙"><a href="#阿里云蓝牙" class="headerlink" title="阿里云蓝牙"></a>阿里云蓝牙</h1><ol><li><a href="https://help.aliyun.com/document_detail/173318.html">蓝牙BLE非交互式广播规范</a></li></ol><h1 id="C-蓝牙开发"><a href="#C-蓝牙开发" class="headerlink" title="C#蓝牙开发"></a>C#蓝牙开发</h1><ol><li><p><a href="https://blog.csdn.net/A244108451/article/details/128664207">使用C#进行蓝牙开发-接收BLE广播</a></p></li><li><p><a href="https://blog.csdn.net/allexw/article/details/129127168">使用C#进行低功耗蓝牙BLE开发</a></p></li><li><p><a href="https://www.jb51.net/article/273720.htm">C#连接蓝牙设备的实现示例</a></p></li><li><p><a href="https://blog.csdn.net/Ikaros_521/article/details/118700495">win10 蓝牙调试工具 Bluetooth LE Explorer 简单使用</a></p></li><li><p><a href="https://blog.csdn.net/code_long/article/details/105636398">C# ble 4.0 低能耗 蓝牙交互</a></p></li><li><p><a href="https://blog.csdn.net/shengfakun1234/article/details/110928783">Win10 平台C#与低功耗蓝牙BLE设备通信案例</a></p></li></ol><hr><h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+    
+    
+    <summary type="html">蓝牙知识合集</summary>
+    
+    
+    
+    <category term="蓝牙" scheme="https://zml3589110.github.io/categories/%E8%93%9D%E7%89%99/"/>
+    
+    <category term="抓包" scheme="https://zml3589110.github.io/categories/%E6%8A%93%E5%8C%85/"/>
+    
+    <category term="Wireshark" scheme="https://zml3589110.github.io/categories/Wireshark/"/>
+    
+    <category term="Bluetooth Test Platform" scheme="https://zml3589110.github.io/categories/Bluetooth-Test-Platform/"/>
+    
+    <category term="C#" scheme="https://zml3589110.github.io/categories/C/"/>
+    
+    
+    <category term="蓝牙知识" scheme="https://zml3589110.github.io/tags/%E8%93%9D%E7%89%99%E7%9F%A5%E8%AF%86/"/>
+    
+    <category term="抓包" scheme="https://zml3589110.github.io/tags/%E6%8A%93%E5%8C%85/"/>
+    
+  </entry>
   
   <entry>
     <title>Homeassistant环境Docker配置</title>
@@ -648,37 +679,6 @@
     <category term="Groupbox" scheme="https://zml3589110.github.io/tags/Groupbox/"/>
     
     <category term="checkbox" scheme="https://zml3589110.github.io/tags/checkbox/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# 用代码向窗体中添加控件</title>
-    <link href="https://zml3589110.github.io/posts/952047602.html"/>
-    <id>https://zml3589110.github.io/posts/952047602.html</id>
-    <published>2023-02-23T03:04:20.000Z</published>
-    <updated>2023-03-27T00:14:26.534Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="添加控件步骤"><a href="#添加控件步骤" class="headerlink" title="添加控件步骤"></a>添加控件步骤</h1><p>（1）实例化一个控件；</p><p>（2）设置控件实例属性；</p><p>（3）将控件实例添加到窗体的Controls集合中</p><h2 id="【示例】"><a href="#【示例】" class="headerlink" title="【示例】"></a>【示例】</h2><p>（1）在Visual Studio中新建一个“Windos 窗体应用程序”</p><p>（2）窗体代码Form1.cs如下：</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Forms;</span><br><span class="line"><span class="keyword">using</span> System.Drawing;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">WindowsFormsApplication1</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">Form1</span> : <span class="title">Form</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Form1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            InitializeComponent();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//实例化一个命令按钮</span></span><br><span class="line">            Button btn = <span class="keyword">new</span> Button();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//设置命令按钮的属性 </span></span><br><span class="line">            btn.Location = <span class="keyword">new</span> Point(<span class="number">50</span>, <span class="number">50</span>);</span><br><span class="line">            btn.Size = <span class="keyword">new</span> Size(<span class="number">80</span>, <span class="number">25</span>);</span><br><span class="line">            btn.Text = <span class="string">&quot;退出&quot;</span>;</span><br><span class="line">            btn.Click += btn_Click;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//添加到窗口的Controls集合中</span></span><br><span class="line">            <span class="keyword">this</span>.Controls.Add(btn);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">btn_Click</span>(<span class="params"><span class="built_in">object</span> sender, EventArgs e</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>.Close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>（3）运行效果<br>窗体启动后：</p><img src="https://www.521u.com/img.php?id=c995d143ad4bd113bfad996f5cafa40f4bfb050e?x-bce-process=image%2Fresize%2Cm_lfit%2Cw_600%2Ch_800%2Climit_1%2Fquality%2Cq_85%2Fformat%2Cf_auto"><hr><h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol><li><a href="https://www.521u.com/read/227384424.html">C#如何用代码向窗体中添加控件？）</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
-    
-    
-    <summary type="html">C# 使用代码的方式向窗体中添加控件</summary>
-    
-    
-    
-    <category term="编程类" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/"/>
-    
-    <category term="C#" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/C/"/>
-    
-    <category term="前端" scheme="https://zml3589110.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-    <category term="C#" scheme="https://zml3589110.github.io/tags/C/"/>
-    
-    <category term="路径" scheme="https://zml3589110.github.io/tags/%E8%B7%AF%E5%BE%84/"/>
-    
-    <category term="控件" scheme="https://zml3589110.github.io/tags/%E6%8E%A7%E4%BB%B6/"/>
-    
-    <category term="窗体" scheme="https://zml3589110.github.io/tags/%E7%AA%97%E4%BD%93/"/>
     
   </entry>
   
