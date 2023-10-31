@@ -6,7 +6,7 @@
   <link href="https://zml3589110.github.io/atom.xml" rel="self"/>
   
   <link href="https://zml3589110.github.io/"/>
-  <updated>2023-10-30T13:05:49.081Z</updated>
+  <updated>2023-10-30T13:06:21.508Z</updated>
   <id>https://zml3589110.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zml3589110.github.io/posts/4036844216.html"/>
     <id>https://zml3589110.github.io/posts/4036844216.html</id>
     <published>2023-10-30T12:58:20.000Z</published>
-    <updated>2023-10-30T13:05:49.081Z</updated>
+    <updated>2023-10-30T13:06:21.508Z</updated>
     
     <content type="html"><![CDATA[<h1 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h1><ol><li><a href="https://blog.csdn.net/guoqx/article/details/129174436">蓝牙 - 如何在Windows下抓取蓝牙数据</a><br>首先，要在Windows上安装一个工具：Bluetooth Virtual Sniffer (btvs.exe)。<br>下载路径：</li></ol><p>访问：Get the Microsoft Bluetooth Test Platform software package - Windows drivers | Microsoft Learn</p><p>点击下载：<a href="https://download.microsoft.com/download/e/e/e/eeed3cd5-bdbd-47db-9b8e-ca9d2df2cd29/BluetoothTestPlatformPack-1.14.0.msi">https://download.microsoft.com/download/e/e/e/eeed3cd5-bdbd-47db-9b8e-ca9d2df2cd29/BluetoothTestPlatformPack-1.14.0.msi</a></p><p>下一步安装WireShark</p><p>在命令行终端里，运行btvs.exe程序。</p><p>c:\BTP\v1.14.0\x86&gt;btvs.exe -Mode Wireshark</p><p>然后就会启动Wireshark，开始抓取蓝牙数据。要抓取成功，要打开电脑的蓝牙功能，才会有数据出现。</p><ol start="2"><li><a href="https://blog.csdn.net/linan101/article/details/124007791">蓝牙 BLE 广播包信息解析</a><br>低功耗蓝牙 BLE 广播数据解析：</li></ol><p>低功耗蓝牙包含两类报文：广播报文 &amp; 数据报文；<br>在广播的时候使用3个信道，顺序广播；</p><p>广播包 有效数据部分 无效数据部分</p><h1 id="包解析"><a href="#包解析" class="headerlink" title="包解析"></a>包解析</h1><ol><li><a href="https://sleepingbug.blog.csdn.net/article/details/50628568">蓝牙4.0 BLE 广播包解析</a></li></ol><h1 id="阿里云蓝牙"><a href="#阿里云蓝牙" class="headerlink" title="阿里云蓝牙"></a>阿里云蓝牙</h1><ol><li><a href="https://help.aliyun.com/document_detail/173318.html">蓝牙BLE非交互式广播规范</a></li></ol><h1 id="C-蓝牙开发"><a href="#C-蓝牙开发" class="headerlink" title="C#蓝牙开发"></a>C#蓝牙开发</h1><ol><li><p><a href="https://blog.csdn.net/A244108451/article/details/128664207">使用C#进行蓝牙开发-接收BLE广播</a></p></li><li><p><a href="https://blog.csdn.net/allexw/article/details/129127168">使用C#进行低功耗蓝牙BLE开发</a></p></li><li><p><a href="https://www.jb51.net/article/273720.htm">C#连接蓝牙设备的实现示例</a></p></li><li><p><a href="https://blog.csdn.net/Ikaros_521/article/details/118700495">win10 蓝牙调试工具 Bluetooth LE Explorer 简单使用</a></p></li><li><p><a href="https://blog.csdn.net/code_long/article/details/105636398">C# ble 4.0 低能耗 蓝牙交互</a></p></li><li><p><a href="https://blog.csdn.net/shengfakun1234/article/details/110928783">Win10 平台C#与低功耗蓝牙BLE设备通信案例</a></p></li></ol><hr><h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
     
