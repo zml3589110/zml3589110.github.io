@@ -6,7 +6,7 @@
   <link href="https://zml3589110.github.io/atom.xml" rel="self"/>
   
   <link href="https://zml3589110.github.io/"/>
-  <updated>2023-10-30T13:06:21.508Z</updated>
+  <updated>2023-12-01T02:24:54.662Z</updated>
   <id>https://zml3589110.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>VirtualBox虚拟机开机后台自启动</title>
+    <link href="https://zml3589110.github.io/posts/3955128240.html"/>
+    <id>https://zml3589110.github.io/posts/3955128240.html</id>
+    <published>2023-12-01T02:11:20.000Z</published>
+    <updated>2023-12-01T02:24:54.662Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="编写BAT脚本文件"><a href="#编写BAT脚本文件" class="headerlink" title="编写BAT脚本文件"></a>编写BAT脚本文件</h1><p>编写bat脚本,其中F:\program\Oracle\VirtualBox为Virtualbox可执行文件所在目录，右键桌面快捷图标可以看到</p><p>虚拟机的名字在虚拟机主界面列表中就可以看到</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@ECHO OFF</span><br><span class="line">F:\program\Oracle\VirtualBox\VBoxManage.exe startvm ES1 --type headless</span><br><span class="line">F:\program\Oracle\VirtualBox\VBoxManage.exe startvm ES2 --type headless</span><br><span class="line">F:\program\Oracle\VirtualBox\VBoxManage.exe startvm ES3 --type headless</span><br><span class="line">EXIT</span><br></pre></td></tr></table></figure><p>上面脚本是启动了３个虚拟机，根据自己需要改动即可</p><p>把Virtualbox.bat拉到 “C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup”下。这样就能开机启动了。</p><h1 id="遇到问题后自己解决办法"><a href="#遇到问题后自己解决办法" class="headerlink" title="遇到问题后自己解决办法"></a>遇到问题后自己解决办法</h1><p><strong>由于路径是 Program Files 有空格键，所以直接这样写是失败的！</strong><br>后边写成了分批模式就成功</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d:</span><br><span class="line"><span class="built_in">cd</span> Program Files</span><br><span class="line"><span class="built_in">cd</span> Oracle\VirtualBox</span><br><span class="line">VBoxManage.exe startvm Ubuntu --<span class="built_in">type</span> headless </span><br></pre></td></tr></table></figure><h1 id="BAT详细说明"><a href="#BAT详细说明" class="headerlink" title="BAT详细说明"></a>BAT详细说明</h1><p>Windows7下安装个linux虚拟机，学习下非常好。</p><p>但是每次使用linux的时候，都是打开virtualBox–&gt;启动安装的linux系统–&gt;再用远程桌面(SSH等)连接</p><p>每次手动打开比较麻烦，而且linux虚拟机也有窗口，比较冗杂。如果能开机自启，并且后台运行linux虚拟机(没有可见窗口)，那就开心了。</p><h2 id="找到VirtualBox的安装目录"><a href="#找到VirtualBox的安装目录" class="headerlink" title="找到VirtualBox的安装目录"></a>找到VirtualBox的安装目录</h2><p>我的virtualbox安装在 D:virualBox，进入这个目录，你会看到有个VBoxManage.exe文件，没有错，我们就是用它来启动虚拟机的。</p><p>怎么启动呢?命令行如下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VBoxManage startvm &lt;uuid&gt;|&lt;name&gt; [--<span class="built_in">type</span> gui|sdl|headless] </span><br></pre></td></tr></table></figure><p>比如我新建的虚拟机叫study，那么</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:virualBoxVBoxManage startvm study --<span class="built_in">type</span> headless </span><br></pre></td></tr></table></figure><p>–type headless:表示后台执行，没有窗口哦</p><p>来，我们打开cmd，试下这个命令</p><p>提示已经启动了study虚拟机了。</p><h2 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h2><p>现在看不到窗口了，但是还是需要手动输入命令行启动。如果能开机自启动就好了</p><p>1、首选我们要做一个bat脚本：virtualboxtStart.bat</p><p>2、里面写入上面的命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:virualBoxVBoxManage startvm study --<span class="built_in">type</span> headless  </span><br></pre></td></tr></table></figure><p>3、把virtualboxtStart.bat放到C:ProgramDataMicrosoftWindowsStart MenuProgramsStartup，这个目录下的脚本是开机的时候自动运行的哦</p><p>好了，小工告成。重启电脑，你就会发现，Windows7偷偷帮我们启动了study这个虚拟机了。</p><p>可以用SSH连接，操作了。</p><p>注：也可以在cmd中使用命令行对虚拟机进行状态管理：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VBoxManage controlvm &lt;uuid&gt;|&lt;name&gt; pause|resume|reset|poweroff|savestate| </span><br></pre></td></tr></table></figure><p>比如我想关闭：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:virualBoxVBoxManage controlvm study poweroff </span><br></pre></td></tr></table></figure><h1 id="解决bat批处理文件使用路径有空格-试过无效果"><a href="#解决bat批处理文件使用路径有空格-试过无效果" class="headerlink" title="解决bat批处理文件使用路径有空格(试过无效果)"></a>解决bat批处理文件使用路径有空格(试过无效果)</h1><p>编写批处理文件时，如果文件路径中有空格会无法读取完整路径，这时候可以将有空格的路径用双引号括起来</p><p>在start xxx.exe语句中，不能用双引号把整个路径括起来，要选择性的括有空格的那个</p><p>很多帖子写的是这样括</p><p>start G:\Siemens&quot;NX 12.0”\UGII\ugraf.exe</p><p>但是我试了之后发现运行的时候这个双引号连带着里面的文件名都变成了乱码</p><p>解决方法是把两边的“\”也括进去</p><p>start G:\Siemens”\NX 12.0&quot;UGII\ugraf.exe</p><p>这样就ok了</p><hr><blockquote><p><strong>说明：本文是收集参考文档，以方便查看</strong></p></blockquote><hr><h1 id="信息链接"><a href="#信息链接" class="headerlink" title="信息链接:"></a>信息链接:</h1><ol><li><a href="http://www.hzhcontrols.com/new-402594.html">如何在Windows 7下实现VirtualBox虚拟机开机后台自启动</a></li><li><a href="https://ispacesoft.com/107434.html">设置virtualbox开机自启动，并启动虚拟机</a></li><li><a href="https://blog.csdn.net/qq_58846219/article/details/134461042">解决bat批处理文件使用路径有空格</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+    
+    
+    <summary type="html">虚拟机 Virtual box 在系统打开时自动启动相应系统，不用每次开机得手动启动</summary>
+    
+    
+    
+    <category term="问题收集" scheme="https://zml3589110.github.io/categories/%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86/"/>
+    
+    <category term="开机自启" scheme="https://zml3589110.github.io/categories/%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86/%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/"/>
+    
+    
+    <category term="虚拟机" scheme="https://zml3589110.github.io/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+    <category term="Virtual box" scheme="https://zml3589110.github.io/tags/Virtual-box/"/>
+    
+    <category term="开机自启" scheme="https://zml3589110.github.io/tags/%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>蓝牙相关知识收集</title>
@@ -644,41 +671,6 @@
     <category term="错误" scheme="https://zml3589110.github.io/tags/%E9%94%99%E8%AF%AF/"/>
     
     <category term="一列没有单元格" scheme="https://zml3589110.github.io/tags/%E4%B8%80%E5%88%97%E6%B2%A1%E6%9C%89%E5%8D%95%E5%85%83%E6%A0%BC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# 控件Groupbox之一（动态添加checkbox）</title>
-    <link href="https://zml3589110.github.io/posts/3607925543.html"/>
-    <id>https://zml3589110.github.io/posts/3607925543.html</id>
-    <published>2023-02-23T03:10:20.000Z</published>
-    <updated>2023-03-27T00:14:26.623Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p><strong>添加都是在groupbox的text的位置，每添加一个就不前面加的覆盖了</strong></p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(DataRow dr <span class="keyword">in</span> dt.Rows)</span><br><span class="line"></span><br><span class="line">         &#123;</span><br><span class="line"></span><br><span class="line">            CheckBox chkbox = <span class="keyword">new</span> CheckBox();</span><br><span class="line"></span><br><span class="line">            chkbox.Text = dr[<span class="string">&quot;模块名称&quot;</span>].ToString();</span><br><span class="line"></span><br><span class="line">            gpboxBrow.Controls.Add(chkbox);</span><br><span class="line"></span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure><h2 id="添加位置坐标来解决问题"><a href="#添加位置坐标来解决问题" class="headerlink" title="添加位置坐标来解决问题"></a>添加位置坐标来解决问题</h2><ul><li><p>方法一：</p><p>在你的代码中添加这样的代码：</p></li></ul><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkbox.Location = <span class="keyword">new</span> System.Drawing.Point(<span class="number">349</span>, <span class="number">210</span>);</span><br><span class="line">chkbox.Size = <span class="keyword">new</span> System.Drawing.Size(<span class="number">75</span>, <span class="number">23</span>);</span><br></pre></td></tr></table></figure><p><strong>例如：动态添加两个Button</strong></p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button2_Click</span>(<span class="params"><span class="built_in">object</span> sender, EventArgs e</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">// button1</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">Button btn = <span class="keyword">new</span> Button();</span><br><span class="line">btn.Location = <span class="keyword">new</span> System.Drawing.Point(<span class="number">349</span>, <span class="number">210</span>);</span><br><span class="line">btn.Name = <span class="string">&quot;button1&quot;</span>;</span><br><span class="line">btn.Size = <span class="keyword">new</span> System.Drawing.Size(<span class="number">75</span>, <span class="number">23</span>);</span><br><span class="line">btn.TabIndex = <span class="number">2</span>;</span><br><span class="line">btn.Text = <span class="string">&quot;button1&quot;</span>;</span><br><span class="line">btn.UseVisualStyleBackColor = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">this</span>.Controls.Add(btn);</span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// button2</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">Button btn2 = <span class="keyword">new</span> Button();</span><br><span class="line">btn2.Location = <span class="keyword">new</span> System.Drawing.Point(<span class="number">349</span>, <span class="number">240</span>);</span><br><span class="line">btn2.Name = <span class="string">&quot;button2&quot;</span>;</span><br><span class="line">btn2.Size = <span class="keyword">new</span> System.Drawing.Size(<span class="number">75</span>, <span class="number">23</span>);</span><br><span class="line">btn2.TabIndex = <span class="number">3</span>;</span><br><span class="line">btn2.Text = <span class="string">&quot;button2&quot;</span>;</span><br><span class="line"><span class="keyword">this</span>.Controls.Add(btn2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="或者设置chkbox-Location属性"><a href="#或者设置chkbox-Location属性" class="headerlink" title="或者设置chkbox.Location属性"></a>或者设置chkbox.Location属性</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> y = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">foreach</span>(DataRow dr <span class="keyword">in</span> dt.Rows)</span><br><span class="line">         &#123;</span><br><span class="line">            y += <span class="number">30</span>;</span><br><span class="line">            CheckBox chkbox = <span class="keyword">new</span> CheckBox();</span><br><span class="line">            chkbox.Location = <span class="keyword">new</span> Point(<span class="number">10</span>,y);</span><br><span class="line">            chkbox.Text = dr[<span class="string">&quot;模块名称&quot;</span>].ToString();</span><br><span class="line">            gpboxBrow.Controls.Add(chkbox);</span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure><hr><h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol><li><a href="https://bbs.csdn.net/topics/290088852?list=559332">groupbox 里动态添加checkbox的问题</a></li></ol><hr><center><font color="red">=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
-    
-    
-    <summary type="html">C# 在控件Groupbox内动态添加 checkbox 复选框</summary>
-    
-    
-    
-    <category term="编程类" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/"/>
-    
-    <category term="C#" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/C/"/>
-    
-    <category term="前端" scheme="https://zml3589110.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    <category term="控件" scheme="https://zml3589110.github.io/categories/%E6%8E%A7%E4%BB%B6/"/>
-    
-    <category term="Groupbox" scheme="https://zml3589110.github.io/categories/Groupbox/"/>
-    
-    
-    <category term="C#" scheme="https://zml3589110.github.io/tags/C/"/>
-    
-    <category term="控件" scheme="https://zml3589110.github.io/tags/%E6%8E%A7%E4%BB%B6/"/>
-    
-    <category term="Groupbox" scheme="https://zml3589110.github.io/tags/Groupbox/"/>
-    
-    <category term="checkbox" scheme="https://zml3589110.github.io/tags/checkbox/"/>
     
   </entry>
   
