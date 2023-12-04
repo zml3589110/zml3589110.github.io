@@ -1,0 +1,321 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Hexo + Typora + 开发Hexo插件 解决图片路径不一致 | 赵逸尘个人博客</title><meta name="keywords" content="HEXO,Typora,图片,正则表达式,RegExp,replace"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="hexo图片显示问题，Typora 添加图片时顺便下载下来，这样离线也能查看了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo + Typora + 开发Hexo插件 解决图片路径不一致">
+<meta property="og:url" content="https://zml3589110.github.io/posts/653633827.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="hexo图片显示问题，Typora 添加图片时顺便下载下来，这样离线也能查看了">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2023-12-04T06:07:20.000Z">
+<meta property="article:modified_time" content="2023-12-04T07:03:52.574Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="HEXO">
+<meta property="article:tag" content="Typora">
+<meta property="article:tag" content="图片">
+<meta property="article:tag" content="正则表达式">
+<meta property="article:tag" content="RegExp">
+<meta property="article:tag" content="replace">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/653633827"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo + Typora + 开发Hexo插件 解决图片路径不一致',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-04 15:03:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">184</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">280</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">92</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Hexo + Typora + 开发Hexo插件 解决图片路径不一致</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-04T06:07:20.000Z" title="发表于 2023-12-04 14:07:20">2023-12-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-04T07:03:52.574Z" title="更新于 2023-12-04 15:03:52">2023-12-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/gihub/">gihub</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/gihub/Typora/">Typora</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%9B%BE%E7%89%87/">图片</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Hexo + Typora + 开发Hexo插件 解决图片路径不一致"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="问题说明"><a href="#问题说明" class="headerlink" title="问题说明"></a>问题说明</h1><p>在文章中，Typora编写时显示的很正常，但推送上去后就不行了，图片集体挂掉，无法显示出来，后来才找到这个方法！<br>这个方法的核心是源文章使用的是 Typora 图片引用方式，但推送编译时就更改路径方式，使用本地引用方法。<br>hexo-asset-img 这个文件夹中的 index.js 也是遵循 JavaScript 语法，自己研究之后发现他是使用正则表达式来替换路径，也就是说先识别出 typora 下图片路径，然后替换成hexo能使用的路径就行了！</p>
+<p><strong>问题点：</strong></p>
+<p>使用时发现一直没有替换，最后一层层调出才发现，使用正则表达式时，“+”是有效字符，需要正则化才行，费了一早上才知道！</p>
+<p><a target="_blank" rel="noopener" href="https://ask.csdn.net/questions/257783">关于js正则匹配的问题，怎么加上一个”+”就匹配不上了？</a></p>
+<p>这篇文章有说明：<br>+号在正则表达式中是有意义的，要转义</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oldStr = oldStr.replace(<span class="string">&#x27;+&#x27;</span>,<span class="string">&#x27;\\+&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="1-下载安装-Typora"><a href="#1-下载安装-Typora" class="headerlink" title="1. 下载安装 Typora"></a>1. 下载安装 Typora</h1><p><a target="_blank" rel="noopener" href="https://typora.io/">https://typora.io/</a></p>
+<h1 id="2-配置-Typora-图片路径"><a href="#2-配置-Typora-图片路径" class="headerlink" title="2. 配置 Typora 图片路径"></a>2. 配置 Typora 图片路径</h1><p>![img](1.Hexo + Typora + 开发Hexo插件 解决图片路径不一致&#x2F;image-5f4b358d49ecff6196bdedac1b022c2a.png)</p>
+<p>![img](1.Hexo + Typora + 开发Hexo插件 解决图片路径不一致&#x2F;image-c3df7eb6e26d520ff42b722a2c83f2bb.png)</p>
+<p>图片文件保存路径: .&#x2F;${filename} 即保存到与 当前正在编辑的文件名 相同的同级文件夹下</p>
+<p>下面三项依次为</p>
+<ul>
+<li><p>对本地位置的图片应用上述规则</p>
+</li>
+<li><p>对网络位置的图片应用上述规则</p>
+</li>
+<li><p>优先使用相对路径</p>
+</li>
+</ul>
+<p><strong>建议都勾选上，至少要勾选上第一项</strong></p>
+<p>PS：使用 Ctrl+V 粘贴 即可复制图片到Typora图片文件夹</p>
+<h1 id="3-配置-Hexo-图片文件夹"><a href="#3-配置-Hexo-图片文件夹" class="headerlink" title="3. 配置 Hexo 图片文件夹"></a>3. 配置 Hexo 图片文件夹</h1><p>![img](1.Hexo + Typora + 开发Hexo插件 解决图片路径不一致&#x2F;image-4fefcdb6876c6f7ec8e002cdcddde463.png)</p>
+<p>在 Hexo 根目录打开配置文件 <strong>_config.yml</strong></p>
+<p><strong>搜索 post_asset_folder，false 改为 true</strong></p>
+<p>![img](1.Hexo + Typora + 开发Hexo插件 解决图片路径不一致&#x2F;image-b288223fe2dd6816890d13f9e580be35.png)</p>
+<p>这样修改后，每次 ‘hexo new page’ 生成新文章，都会在文章文件同级目录创建一个与文章文件名同名的文件夹，我们就在这里存放此文章的图片。</p>
+<p>![img](1.Hexo + Typora + 开发Hexo插件 解决图片路径不一致&#x2F;image-303f4cfea59a8aa80059fc9b56e96cc0.png)</p>
+<p><strong>PS: 这被称为 文章资源文件夹, 参考官方文档： <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders">https://hexo.io/zh-cn/docs/asset-folders</a></strong></p>
+<h1 id="4-开发-Hexo-转换图片路径-插件"><a href="#4-开发-Hexo-转换图片路径-插件" class="headerlink" title="4. 开发 Hexo 转换图片路径 插件"></a>4. 开发 Hexo 转换图片路径 插件</h1><p><strong>注意：自己最后使用的是npm直接下载方式安装，不过这个方式也刚好可以学习插件开发了</strong></p>
+<p>现在，我们在 Typora下使用 <img src="/postname/example.jpg" alt="example">引用图片，享受实时预览，但需发布到 Hexo，使之发布后能正确加载我们的图片，还需要做以下转换:</p>
+<p><img src="/postname/example.jpg" alt="example"> –&gt; </p>
+<p>而这个转换我们需要在文章编译为html之前，在编译过程中转换为 这样的标签</p>
+<p><strong>PS: <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders#%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%BC%95%E7%94%A8%E7%9A%84%E6%A0%87%E7%AD%BE%E6%8F%92%E4%BB%B6">Hexo官方文档 - 相对路径引用的标签插件</a></strong></p>
+<h2 id="4-1-创建文件夹-hexo-asset-img，初始化npm包"><a href="#4-1-创建文件夹-hexo-asset-img，初始化npm包" class="headerlink" title="4.1 创建文件夹 hexo-asset-img，初始化npm包"></a>4.1 创建文件夹 hexo-asset-img，初始化npm包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir hexo-asset-img</span><br><span class="line"><span class="built_in">cd</span> hexo-asset-img</span><br><span class="line">npm init</span><br></pre></td></tr></table></figure>
+
+<p>![img](1.Hexo + Typora + 开发Hexo插件 解决图片路径不一致&#x2F;image-2c872375cf8af43072ef10ed213b13d6.png)</p>
+<h2 id="4-2-编写插件-index-js"><a href="#4-2-编写插件-index-js" class="headerlink" title="4.2 编写插件 index.js"></a>4.2 编写插件 index.js</h2><p><strong>创建 index.js，编写代码如下</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> log = <span class="built_in">require</span>(<span class="string">&#x27;hexo-log&#x27;</span>)(&#123; <span class="string">&#x27;debug&#x27;</span>: <span class="literal">false</span>, <span class="string">&#x27;slient&#x27;</span>: <span class="literal">false</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * md文件返回 true</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>data </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ignore</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 好奇怪，试了一下, md返回true, 但却需要忽略 取反!</span></span><br><span class="line">    <span class="keyword">var</span> source = data.source;</span><br><span class="line">    <span class="keyword">var</span> ext = source.substring(source.lastIndexOf(<span class="string">&#x27;.&#x27;</span>)).toLowerCase();</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;md&#x27;</span>,].indexOf(ext) &gt; -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">action</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> reverseSource = data.source.split(<span class="string">&quot;&quot;</span>).reverse().join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> fileName = reverseSource.substring(<span class="number">3</span>, reverseSource.indexOf(<span class="string">&quot;/&quot;</span>)).split(<span class="string">&quot;&quot;</span>).reverse().join(<span class="string">&quot;&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ![example](postname/example.jpg)  --&gt;  &#123;% asset_img example.jpg example %&#125;</span></span><br><span class="line">    <span class="keyword">var</span> regExp = <span class="built_in">RegExp</span>(<span class="string">&quot;!\\[(.*?)\\]\\(&quot;</span> + fileName + <span class="string">&#x27;/(.+?)\\)&#x27;</span>, <span class="string">&quot;g&quot;</span>);</span><br><span class="line">    <span class="comment">// hexo g</span></span><br><span class="line">    data.content = data.content.replace(regExp, <span class="string">&quot;&#123;% asset_img $2 $1 %&#125;&quot;</span>,<span class="string">&quot;g&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// log.info(`hexo-asset-img: filename: $&#123;fileName&#125;, title: $&#123;data.title.trim()&#125;`);</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hexo.extend.filter.register(<span class="string">&#x27;before_post_render&#x27;</span>,<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!ignore(data))&#123;</span><br><span class="line">        action(data)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3-本地测试插件"><a href="#4-3-本地测试插件" class="headerlink" title="4.3 本地测试插件"></a>4.3 本地测试插件</h2><ol>
+<li>Hexo根目录下 package.json 中 dependencies添加一行 “hexo-asset-img”: “^1.0.0”,</li>
+<li>将 hexo-asset-img文件夹复制到 Hexo根目录下 node_modules文件夹下</li>
+</ol>
+<p><strong>注意：二者缺一不可，笔者试过不修改 package.json ，但没成功加载插件</strong></p>
+<ul>
+<li>重新生成文章</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s # 本地预览</span><br><span class="line"></span><br><span class="line">ps:也可以直接  hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>PS：当然之后你还需要修正以前文章的图片路径</strong></p>
+<p>public&#x2F;posts 生成结果如下图所示，成功</p>
+<p>![img](1.Hexo + Typora + 开发Hexo插件 解决图片路径不一致&#x2F;image-49faf02cc39fc79b7d41181b34026384.png)</p>
+<p>图片路径被转换成功</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=<span class="string">&quot;/posts/hexo-typora/image-2c872375cf8af43072ef10ed213b13d6.png&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;&quot;</span> title=<span class="string">&quot;image-20201128103300470&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>后话：</strong><br>所说的问题就出现在了这里，一直是以为没什么问题，然而，多次尝试发现图片地址并未被改变，以为插件不起作用，但文件夹确确实实生成了，无奈只能研究其中代码含义，才有前面说的结果。<br>这里是作者列出详细步骤，实际上使用的话直接npm下载插件也行的了。</li>
+</ul>
+<h2 id="4-4-发布插件"><a href="#4-4-发布插件" class="headerlink" title="4.4 发布插件"></a>4.4 发布插件</h2><p>注意: 你需要先登录 npm login</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --registry https://registry.npmjs.org</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://moeci.com/posts/hexo-typora/image-b0e539a443bb2dcc1aca24229a412d5b.png" alt="img"></p>
+<h2 id="5-使用插件"><a href="#5-使用插件" class="headerlink" title="5. 使用插件"></a>5. 使用插件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-img --save</span><br></pre></td></tr></table></figure>
+
+<p>关联 GitHub<br><a target="_blank" rel="noopener" href="https://github.com/yiyungent/hexo-asset-img">yiyungent&#x2F;hexo-asset-img: Hexo插件: 转换 图片相对路径 为 asset_img</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yiyungent/hexo-asset-img">https://github.com/yiyungent/hexo-asset-img</a></p>
+<h1 id="作者说明"><a href="#作者说明" class="headerlink" title="作者说明"></a>作者说明</h1><h2 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h2><p>hexo-asset-image 已无效, 大概是从 Hexo 5 开始，并且此仓库已 archive</p>
+<p>Q: 为什么使用本地图片 而不是网络图片 (图床) ?<br>A:</p>
+<ol>
+<li>第三方图床不稳定, 容易丢失图片</li>
+<li>自行搭建图床, 随着上传错误图片, 删除文章而没有删除关联图片 次数的增多, 未引用图片越来越多, 图床中也越来越多的无用冗余图片, 还不方便删除, 也容易误删除</li>
+<li>本地图片 与 文章在一个文件夹, 易打包, 在无网络或网络较差时也能预览</li>
+<li>本地图片 放在与 文章文件名同名文件夹内 方便管理</li>
+</ol>
+<p><code>补充:</code><br>很多 <code>markdown编辑器</code> 提供粘贴图片到本地图片文件夹, 这些图片文件名通常不易读, 较长, 如果每次删除文章中的图片引用, 都手动去删除相应图片, 以及删除文章, 手动删除关联图片文件夹, 比较麻烦, 但不删除, 未引用图片又会越来越多, 因此 <code>删除未引用图片工具</code> 应运而生!</p>
+<ul>
+<li><a href="https://gitee.com/link?target=https://github.com/yiyungent/clear-image-action">yiyungent&#x2F;clear-image-action: 🔧 Image detection. | 图片检测 | 清理未引用图片 | 删除未引用图片 | 检查引用的图片是否有效 | GitHub Actions</a></li>
+<li><a href="https://gitee.com/link?target=https://github.com/yiyungent/coo">yiyungent&#x2F;coo: 🧰 .NET 自用CLI, 工具集</a></li>
+</ul>
+<h2 id="相关项目"><a href="#相关项目" class="headerlink" title="相关项目"></a>相关项目</h2><ul>
+<li><a href="https://gitee.com/link?target=https://github.com/yiyungent/clear-image-action">yiyungent&#x2F;clear-image-action: 🔧 Image detection. | 图片检测 | 清理未引用图片 | 删除未引用图片 | 检查引用的图片是否有效 | GitHub Actions</a></li>
+<li><a href="https://gitee.com/link?target=https://github.com/xcodebuild/hexo-asset-image">xcodebuild&#x2F;hexo-asset-image</a></li>
+<li><a href="https://gitee.com/link?target=https://github.com/cocowool/hexo-image-link">cocowool&#x2F;hexo-image-link</a></li>
+<li><a href="https://gitee.com/link?target=https://github.com/cnzsb/hexo-asset">cnzsb&#x2F;hexo-asset</a></li>
+</ul>
+<h1 id="NET-自用-CLI-工具集-清理未引用图片"><a href="#NET-自用-CLI-工具集-清理未引用图片" class="headerlink" title=".NET 自用 CLI | 工具集(清理未引用图片)"></a>.NET 自用 CLI | 工具集(清理未引用图片)</h1><blockquote>
+<p>需要先在本地安装 <code>.NET 6 SDK</code></p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://dotnet.microsoft.com/download/dotnet/thank-you/sdk-6.0.100-windows-x64-installer">Windows | .NET 6 SDK | 下载</a></li>
+<li><a target="_blank" rel="noopener" href="https://dotnet.microsoft.com/download/dotnet/thank-you/sdk-6.0.100-macos-x64-installer">macOS | .NET 6 SDK | 下载</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/dotnet/core/install/linux?WT.mc_id=dotnet-35129-website">Linux | .NET 6 SDK</a></li>
+</ul>
+<p>然后 安装 <code>coo</code> 工具集</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet tool install -g coo</span><br></pre></td></tr></table></figure>
+
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><h4 id="1-mdimg"><a href="#1-mdimg" class="headerlink" title="1. mdimg"></a>1. mdimg</h4><blockquote>
+<ol>
+<li>清理 md文件的未引用图片: 例如使用 <code>Hexo</code>, 采用本地图片文件 (图片放在md同名文件夹下) 等</li>
+</ol>
+</blockquote>
+<p><code>&quot;F:\Com\me\Repos\notebook\source\_posts&quot;</code> 为 <code>Hexo文章目录</code>, 本人图片与文章处于同一目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 统计分析</span><br><span class="line">coo mdimg &quot;F:\Com\me\Repos\notebook\source\_posts&quot;</span><br><span class="line"># 统计分析 并删除未引用图片</span><br><span class="line">coo mdimg -d &quot;F:\Com\me\Repos\notebook\source\_posts&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>补充:</p>
+<ol>
+<li><code>所有图片数量=引用图片数+未引用图片数</code><br>这个等式匹配不上 <code>属于正常现象</code>, 因为 匹配 所有图片 时, 目前仅匹配了 <code>png,jpg,jpeg,gif</code>, 而 你在md中引用的图片可能还有其它<br>因此 <code>所有图片数量&lt;=引用图片数+未引用图片数</code></li>
+<li>Windows, macOS 不区分路径大小写, 但 Linux 区分大小写<br>本工具匹配时, 忽略大小写, 因此不用担心 引用时, 大小写不一致 而导致工具以为 未引用此图片 而误删,<br>因此工具 可能存在漏删, 但不会误删除引用图片</li>
+<li>本工具通过检测 <code>文章.md</code> 中图片的相对路径引用, 并转换为绝对路径, 与目标目录的所有存在图片的绝对路径进行匹配, 来找出哪些图片未引用</li>
+</ol>
+</blockquote>
+<h4 id="2-cimg"><a href="#2-cimg" class="headerlink" title="2. cimg"></a>2. cimg</h4><blockquote>
+<ol>
+<li>清理 未引用图片 (<code>mdimg</code> 升级版)<br>支持识别 <code>md,html,htm</code></li>
+</ol>
+</blockquote>
+<blockquote>
+<p>支持 <code>相对路径</code>: 相对于当前命令行执行所在路径</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">coo cimg -d --ignore-paths=<span class="string">&quot;IgnoreDir1,IgnoreDir2,images/1.png&quot;</span> <span class="string">&quot;source/_posts&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>--ignore-paths=&quot;IgnoreDir1,IgnoreDir2,images/1.png&quot;</code> 这些图片地址忽略, 不会被删除</p>
+</blockquote>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>卸载 coo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet tool uninstall -g coo</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="相关链接-侵删"><a href="#相关链接-侵删" class="headerlink" title="相关链接(侵删)"></a>相关链接(侵删)</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://moeci.com/posts/hexo-typora/#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85-typora">Hexo + Typora + 开发Hexo插件 解决图片路径不一致</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/yiyungent/hexo-asset-img/">gitee hexo-asset-img</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645679541">(这个方法过时-思路可参考)解决Hexo+Github+Typora图片无法正确显示的问题</a></li>
+</ol>
+<hr>
+<center><font color=red>=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/653633827.html">https://zml3589110.github.io/posts/653633827.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/HEXO/">HEXO</a><a class="post-meta__tags" href="/tags/Typora/">Typora</a><a class="post-meta__tags" href="/tags/%E5%9B%BE%E7%89%87/">图片</a><a class="post-meta__tags" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a><a class="post-meta__tags" href="/tags/RegExp/">RegExp</a><a class="post-meta__tags" href="/tags/replace/">replace</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/1932715036.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">小熊派鸿蒙系统环境搭建</div></div></a></div><div class="next-post pull-right"><a href="/posts/1804493672.html"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">HEXO插件说明</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1804493672.html" title="HEXO插件说明"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-04</div><div class="title">HEXO插件说明</div></div></a></div><div><a href="/posts/2738849392.html" title="HEXO打开 related_posts 推荐功能时出现编译异常"><img class="cover" src="http://up.36992.com/pic/e6/c5/51/e6c551e768092c8655292d89a4034a74.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-11</div><div class="title">HEXO打开 related_posts 推荐功能时出现编译异常</div></div></a></div><div><a href="/posts/3701598706.html" title="HEXO打包到github报错"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-08</div><div class="title">HEXO打包到github报错</div></div></a></div><div><a href="/posts/2614359431.html" title="HEXO本地服务正常，发布github后排版异常"><img class="cover" src="http://up.36992.com/pic/e6/c5/51/e6c551e768092c8655292d89a4034a74.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-04</div><div class="title">HEXO本地服务正常，发布github后排版异常</div></div></a></div><div><a href="/posts/2061956688.html" title="VBA窗体相关设置汇总"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-23</div><div class="title">VBA窗体相关设置汇总</div></div></a></div><div><a href="/posts/2635706068.html" title="VBA窗体使用图片"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">VBA窗体使用图片</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">184</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">280</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">92</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">问题说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85-Typora"><span class="toc-number">2.</span> <span class="toc-text">1. 下载安装 Typora</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE-Typora-%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84"><span class="toc-number">3.</span> <span class="toc-text">2. 配置 Typora 图片路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE-Hexo-%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">4.</span> <span class="toc-text">3. 配置 Hexo 图片文件夹</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%BC%80%E5%8F%91-Hexo-%E8%BD%AC%E6%8D%A2%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84-%E6%8F%92%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">4. 开发 Hexo 转换图片路径 插件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9-hexo-asset-img%EF%BC%8C%E5%88%9D%E5%A7%8B%E5%8C%96npm%E5%8C%85"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 创建文件夹 hexo-asset-img，初始化npm包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E7%BC%96%E5%86%99%E6%8F%92%E4%BB%B6-index-js"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 编写插件 index.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E6%9C%AC%E5%9C%B0%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6"><span class="toc-number">5.3.</span> <span class="toc-text">4.3 本地测试插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E5%8F%91%E5%B8%83%E6%8F%92%E4%BB%B6"><span class="toc-number">5.4.</span> <span class="toc-text">4.4 发布插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="toc-number">5.5.</span> <span class="toc-text">5. 使用插件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%9C%E8%80%85%E8%AF%B4%E6%98%8E"><span class="toc-number">6.</span> <span class="toc-text">作者说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%B7%E6%BA%90"><span class="toc-number">6.1.</span> <span class="toc-text">起源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%A1%B9%E7%9B%AE"><span class="toc-number">6.2.</span> <span class="toc-text">相关项目</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NET-%E8%87%AA%E7%94%A8-CLI-%E5%B7%A5%E5%85%B7%E9%9B%86-%E6%B8%85%E7%90%86%E6%9C%AA%E5%BC%95%E7%94%A8%E5%9B%BE%E7%89%87"><span class="toc-number">7.</span> <span class="toc-text">.NET 自用 CLI | 工具集(清理未引用图片)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD"><span class="toc-number">7.0.1.</span> <span class="toc-text">功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-mdimg"><span class="toc-number">7.0.1.1.</span> <span class="toc-text">1. mdimg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-cimg"><span class="toc-number">7.0.1.2.</span> <span class="toc-text">2. cimg</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">7.0.2.</span> <span class="toc-text">补充</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5-%E4%BE%B5%E5%88%A0"><span class="toc-number">8.</span> <span class="toc-text">相关链接(侵删)</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/3383621347.html" title="JavaScript正则表达式"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript正则表达式"/></a><div class="content"><a class="title" href="/posts/3383621347.html" title="JavaScript正则表达式">JavaScript正则表达式</a><time datetime="2023-12-04T07:35:20.000Z" title="发表于 2023-12-04 15:35:20">2023-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2069770813.html" title="Hexo的常用指令合集"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo的常用指令合集"/></a><div class="content"><a class="title" href="/posts/2069770813.html" title="Hexo的常用指令合集">Hexo的常用指令合集</a><time datetime="2023-12-04T07:14:20.000Z" title="发表于 2023-12-04 15:14:20">2023-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1804493672.html" title="HEXO插件说明"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HEXO插件说明"/></a><div class="content"><a class="title" href="/posts/1804493672.html" title="HEXO插件说明">HEXO插件说明</a><time datetime="2023-12-04T07:07:20.000Z" title="发表于 2023-12-04 15:07:20">2023-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/653633827.html" title="Hexo + Typora + 开发Hexo插件 解决图片路径不一致"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo + Typora + 开发Hexo插件 解决图片路径不一致"/></a><div class="content"><a class="title" href="/posts/653633827.html" title="Hexo + Typora + 开发Hexo插件 解决图片路径不一致">Hexo + Typora + 开发Hexo插件 解决图片路径不一致</a><time datetime="2023-12-04T06:07:20.000Z" title="发表于 2023-12-04 14:07:20">2023-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1932715036.html" title="小熊派鸿蒙系统环境搭建"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="小熊派鸿蒙系统环境搭建"/></a><div class="content"><a class="title" href="/posts/1932715036.html" title="小熊派鸿蒙系统环境搭建">小熊派鸿蒙系统环境搭建</a><time datetime="2023-12-04T02:04:01.986Z" title="发表于 2023-12-04 10:04:01">2023-12-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
