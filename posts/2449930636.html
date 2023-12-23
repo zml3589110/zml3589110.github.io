@@ -1,0 +1,293 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ESP8266及ESP32固件生成及烧录方法 | 赵逸尘个人博客</title><meta name="keywords" content="Ubuntu,ESP8266,物联网,乐鑫,烧录,USB0,ESP01S"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ESP8266及ESP32固件生成及烧录方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESP8266及ESP32固件生成及烧录方法">
+<meta property="og:url" content="https://zml3589110.github.io/posts/2449930636.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="ESP8266及ESP32固件生成及烧录方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2023-12-23T09:16:20.000Z">
+<meta property="article:modified_time" content="2023-12-23T09:23:23.896Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="ESP8266">
+<meta property="article:tag" content="物联网">
+<meta property="article:tag" content="乐鑫">
+<meta property="article:tag" content="烧录">
+<meta property="article:tag" content="USB0">
+<meta property="article:tag" content="ESP01S">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/2449930636"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ESP8266及ESP32固件生成及烧录方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-23 17:23:23'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">189</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">287</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">95</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ESP8266及ESP32固件生成及烧录方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-23T09:16:20.000Z" title="发表于 2023-12-23 17:16:20">2023-12-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-23T09:23:23.896Z" title="更新于 2023-12-23 17:23:23">2023-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ESP8266/">ESP8266</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ESP32/">ESP32</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B9%90%E9%91%AB/">乐鑫</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ESP8266及ESP32固件生成及烧录方法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>ESP32模块是将天线开关、RF balun、功率放大器、接收低噪声放大器、滤波器、电源管理模块等功能集于一体。ESP32只需极少的外围器件，即可实现强大的处理性能、可靠的安全性能，和 Wi-Fi &amp; 蓝牙功能。</p>
+<p>采购新的ESP32模块的时候，里面是没有AT指令固件的，需要进行烧录，下面以ESP-32S为例进行说明，同时也作为以后工作中使用。</p>
+<p>相关的工具和资料，可以关注我的公众号，回复“ <strong>ESP-32S</strong> ”，进行下载。</p>
+<img src="/posts/undefined/640" class="" title="null">
+
+<p><strong>一、烧录工具介绍</strong></p>
+<p><strong>软件介绍</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在这里，老刘使用的是：  </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flash_download_tool_v3.8.7_0</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/640" class="" title="null">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们将软件进行解压缩，找到以下图标的exe文件。</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/640" class="" title="null">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以管理员的模式进行打开。</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://mmbiz.qpic.cn/sz_mmbiz_png/wusRysY7oJxqDCBT80Jia11gGTkiaR1lPEgURUVc1jFmBFAprEqmfyoue8tu6o8spficl21yxotrzGibKicEx0cllvA/640?wx_fmt=png" alt="null"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">其中ChipType我们选择“ESP32”，</span><br><span class="line"></span><br><span class="line">          WorkMode我们选择“develop”。点击OK。</span><br><span class="line"></span><br><span class="line">   弹出以下对话框。</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/640" class="" title="null">
+
+<p>①我们选择SPIDownload</p>
+<p>②点击…找到我们要下载固件的路径，地址为0x0</p>
+<p>③默认的是40MHz</p>
+<p>④默认的DIO模式</p>
+<p>⑤要进行DoNotChgBin的勾选</p>
+<p>⑥开始下载、停止、擦除按钮</p>
+<p>⑦选择电脑识别的COM口，可以在设备管理器里面进行查询，而波特率，个人建议越大越好，下载的速度会快一些。</p>
+<p><strong>硬件连接</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用串口调试助手，连接到模块的&quot;下载固件&#x2F;输出日志&quot;的串口，在这里，根据文档中，ESP-32S模块的&quot;下载固件&#x2F;输出日志&quot;的串口为U0TXD和U0RXD。分别连接到USB转串口的工具上。别忘记连接GND。  </span><br><span class="line"></span><br><span class="line">在下载固件的时候，需要将模块的IO0和GND进行相连。通过ESP-32S的资料可以看出。</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/640" class="" title="null">
+
+<p><strong>进行下载</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">点击START按键的时候，会有如下提示：</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/640" class="" title="null">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SYNC等待上电同步，右边的窗口也在等待中，我们将ESP32模块重新上电。</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/640" class="" title="null">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">软件自动进行下载操作，直到显示FINISH完成</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/640" class="" title="null">
+
+<p>至此，下载完成，如果不成功，有以下几种可能，需要注意一下：</p>
+<p>a、下载的版本号不对；</p>
+<p>b、选择的bin文件不对；</p>
+<p>c、没有勾选DoNotChgBin</p>
+<p>d、没有选对COM口（USB转串口的COM以及模块的下载串口）</p>
+<p>e、没有将GPIO0和GND相连。</p>
+<p><strong>二、at.py工具的使用</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">该工具是用来修改ESP-AT官方发布的固件，包括Wi-Fi配置、证书和密钥配置、串口配置、GATTS配置等等。我们使用这个工具来进行&quot;AT命令响应&quot;串口的配置，配置为GPIO16和GPIO17。  </span><br><span class="line"></span><br><span class="line">方法如下：  </span><br></pre></td></tr></table></figure>
+
+<p><strong>a、python安装（3.7版本以上，在这里默认安装好了）</strong></p>
+<p>**b、at.py下载（在我的资料包里面有，或者从官网下载） **<img src="/posts/undefined/640" class="" title="null"></p>
+<p><strong>c、查看at.py的用法</strong></p>
+<p>在命令行中输入以下指令：</p>
+<ul>
+<li></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python at.py modify_bin --help</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/640" class="" title="null">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">会有详细的说明，我们现在使用更改串口的指令。按照官方的说明进行设置。</span><br></pre></td></tr></table></figure>
+
+<p><strong>d、修改AT指令的串口</strong><img src="/posts/undefined/640" class="" title="null"></p>
+<ul>
+<li></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">python at.py modify_bin --baud 921600 --tx_pin 17 --rx_pin 16 --cts_pin -1 --rts_pin -1 --input factory_XXX.bin  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> 注意factory\_XXX.bin文件可以到官网下载，也可以使用老刘资料包中的文件。</span><br><span class="line"></span><br><span class="line"> 官网下载地址：</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;docs.ai-thinker.com&#x2F;en&#x2F;esp32&#x2F;sdk</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/640" class="" title="null">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">更改之后，生成了新的bin文件。而文件名称是target.bin文件，而且每次生成的都是这个文件名字，可以查看一下at.py文件，可以看见以下的代码，默认的就是target.bin。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">parser_modify_bin.add_argument(&#39;--output&#39;, &#39;-o&#39;,  </span><br><span class="line"> help&#x3D;&#39;Output filename of AT firmware or parameter partition&#39;,  </span><br><span class="line"> metavar&#x3D;&#39;filename&#39;,  </span><br><span class="line"> type&#x3D;str,  </span><br><span class="line"> default&#x3D;&#39;target.bin&#39;)  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   如果想更改其它的参数，也可以使用at.py工具进行修改。  </span><br></pre></td></tr></table></figure>
+
+<p><strong>结：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以上为使用at.py工具修改bin文件，以及如何进行烧录的设置。留作备份，后续工作中会使用到。</span><br></pre></td></tr></table></figure>
+
+<p>延续阅读</p>
+<hr>
+<p>1.<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MjM5MzAzMjM0OQ==&mid=2455588987&idx=1&sn=7e90dbbb5bf50c08b9d06501e6210df7&chksm=b134c1898643489f64ad4c3f73dda88d9a3aac39115e7942e962f5c5b4684a4c9cc7039aefad&scene=21#wechat_redirect">环境搭建 | VScode与ESP-IDF完美结合让ESP32窜起来</a></p>
+<p>2.<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MjM5MzAzMjM0OQ==&mid=2455588940&idx=1&sn=65db54c1526503c2da72a3561599682a&chksm=b134c1be864348a8e4e58d3692bd0470bcf877a46fd5890c2e26822d5fe8893296c2f787137a&scene=21#wechat_redirect">环境搭建 | Eclipse与ESP-IDF完美结合让ESP32飞起来</a></p>
+<p>3.<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MjM5MzAzMjM0OQ==&mid=2455588591&idx=1&sn=7f8d969a497d6392f77f7be6149b8897&chksm=b134df1d8643560b902ae2dfa10020145346922fbe8c413bf71a28697a621f8898f9dbc19dc1&scene=21#wechat_redirect">Python挺酷的 | Thonny MicroPython ESP32 开发环境搭建</a></p>
+<p>4.<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MjM5MzAzMjM0OQ==&mid=2455588498&idx=1&sn=30ec74449bbf45e7abf210175b602688&chksm=b134df6086435676ca8d9ccc741b29352866b8680c59be400d412d2d4d6063d54f51b704fc9c&scene=21#wechat_redirect">Python挺酷的 | 识别蓝牙MIDI（基于ESP32开发板）</a></p>
+<p>5.<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MjM5MzAzMjM0OQ==&mid=2455588458&idx=1&sn=9cbc1c622ec4506c5c77fc8b105cdde0&chksm=b134df988643568ed12878ecde1cfecb8f5b3d3a03bd0b6fd43641ac61a9ccf07ea01279601e&scene=21#wechat_redirect">Python挺酷的 | PyCharm MicroPython ESP32 开发环境搭建</a></p>
+<h1 id="出现等待上电同步如何解决"><a href="#出现等待上电同步如何解决" class="headerlink" title="出现等待上电同步如何解决"></a>出现等待上电同步如何解决</h1><h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%BC%80%E5%8F%91%E6%9D%BF&spm=1001.2101.3001.7020">开发板</a>：ESP32 DEVKIT V1</p>
+<p>芯片：<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=ESP32&spm=1001.2101.3001.7020">ESP32</a>-F</p>
+<h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><h6 id="使用乐鑫ESP32-DOWNLOAD-TOOL-V3-9-2向ESP32开发板烧录固件时，点击“START”，出现“等待上电同步”"><a href="#使用乐鑫ESP32-DOWNLOAD-TOOL-V3-9-2向ESP32开发板烧录固件时，点击“START”，出现“等待上电同步”" class="headerlink" title="使用乐鑫ESP32 DOWNLOAD TOOL V3.9.2向ESP32开发板烧录固件时，点击“START”，出现“等待上电同步”"></a>使用乐鑫ESP32 DOWNLOAD TOOL V3.9.2向ESP32开发板烧录固件时，点击“START”，出现“等待上电同步”</h6><h2 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h2><h6 id="同时按住RST与BOOT持续一秒，然后松开RST键，观察是否开始下载，如果未成功多试几次，已验证。"><a href="#同时按住RST与BOOT持续一秒，然后松开RST键，观察是否开始下载，如果未成功多试几次，已验证。" class="headerlink" title="同时按住RST与BOOT持续一秒，然后松开RST键，观察是否开始下载，如果未成功多试几次，已验证。"></a>同时按住RST与BOOT持续一秒，然后松开RST键，观察是否开始下载，如果未成功多试几次，已验证。</h6><img src="/posts/undefined/beeee661fbb64fd7b8745897835a2003.png" class="" title="img">
+
+
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://www.ai2news.com/blog/3050637/">ESP8266及ESP32固件生成及烧录方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ai2news.com/blog/3050637/#">玩转开发板 | ESP8266及ESP32固件生成及烧录方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52805940/article/details/133931201">ESP32系列烧录固件，出现等待上电同步如何解决</a></li>
+</ol>
+<hr>
+<center><font color=red>=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/2449930636.html">https://zml3589110.github.io/posts/2449930636.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ubuntu/">Ubuntu</a><a class="post-meta__tags" href="/tags/ESP8266/">ESP8266</a><a class="post-meta__tags" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/">物联网</a><a class="post-meta__tags" href="/tags/%E4%B9%90%E9%91%AB/">乐鑫</a><a class="post-meta__tags" href="/tags/%E7%83%A7%E5%BD%95/">烧录</a><a class="post-meta__tags" href="/tags/USB0/">USB0</a><a class="post-meta__tags" href="/tags/ESP01S/">ESP01S</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/posts/4026894451.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ESP01S刷MQTT固件</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/3713584928.html" title="Ubuntu烧录下载时找不到USB0报错"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-28</div><div class="title">Ubuntu烧录下载时找不到USB0报错</div></div></a></div><div><a href="/posts/4026894451.html" title="ESP01S刷MQTT固件"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-23</div><div class="title">ESP01S刷MQTT固件</div></div></a></div><div><a href="/posts/442091668.html" title="通过HOMEKIT让ESP8266控制继电器"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-25</div><div class="title">通过HOMEKIT让ESP8266控制继电器</div></div></a></div><div><a href="/posts/2171885577.html" title="乐鑫Esp8266_RTOS_SDK最新SDK_IDF编译环境搭建"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-27</div><div class="title">乐鑫Esp8266_RTOS_SDK最新SDK_IDF编译环境搭建</div></div></a></div><div><a href="/posts/1724428249.html" title="Homeassistant环境Docker配置"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-30</div><div class="title">Homeassistant环境Docker配置</div></div></a></div><div><a href="/posts/2870405859.html" title="ESP32开发SDK-IDF环境搭建(Ubuntu)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-03</div><div class="title">ESP32开发SDK-IDF环境搭建(Ubuntu)</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">189</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">287</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">95</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BA%E7%8E%B0%E7%AD%89%E5%BE%85%E4%B8%8A%E7%94%B5%E5%90%8C%E6%AD%A5%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">2.</span> <span class="toc-text">出现等待上电同步如何解决</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90"><span class="toc-number">2.1.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">问题：</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%B9%90%E9%91%ABESP32-DOWNLOAD-TOOL-V3-9-2%E5%90%91ESP32%E5%BC%80%E5%8F%91%E6%9D%BF%E7%83%A7%E5%BD%95%E5%9B%BA%E4%BB%B6%E6%97%B6%EF%BC%8C%E7%82%B9%E5%87%BB%E2%80%9CSTART%E2%80%9D%EF%BC%8C%E5%87%BA%E7%8E%B0%E2%80%9C%E7%AD%89%E5%BE%85%E4%B8%8A%E7%94%B5%E5%90%8C%E6%AD%A5%E2%80%9D"><span class="toc-number">2.2.0.0.0.1.</span> <span class="toc-text">使用乐鑫ESP32 DOWNLOAD TOOL V3.9.2向ESP32开发板烧录固件时，点击“START”，出现“等待上电同步”</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%EF%BC%9A"><span class="toc-number">2.3.</span> <span class="toc-text">解决办法：</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%90%8C%E6%97%B6%E6%8C%89%E4%BD%8FRST%E4%B8%8EBOOT%E6%8C%81%E7%BB%AD%E4%B8%80%E7%A7%92%EF%BC%8C%E7%84%B6%E5%90%8E%E6%9D%BE%E5%BC%80RST%E9%94%AE%EF%BC%8C%E8%A7%82%E5%AF%9F%E6%98%AF%E5%90%A6%E5%BC%80%E5%A7%8B%E4%B8%8B%E8%BD%BD%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%9C%AA%E6%88%90%E5%8A%9F%E5%A4%9A%E8%AF%95%E5%87%A0%E6%AC%A1%EF%BC%8C%E5%B7%B2%E9%AA%8C%E8%AF%81%E3%80%82"><span class="toc-number">2.3.0.0.0.1.</span> <span class="toc-text">同时按住RST与BOOT持续一秒，然后松开RST键，观察是否开始下载，如果未成功多试几次，已验证。</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/2449930636.html" title="ESP8266及ESP32固件生成及烧录方法"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP8266及ESP32固件生成及烧录方法"/></a><div class="content"><a class="title" href="/posts/2449930636.html" title="ESP8266及ESP32固件生成及烧录方法">ESP8266及ESP32固件生成及烧录方法</a><time datetime="2023-12-23T09:16:20.000Z" title="发表于 2023-12-23 17:16:20">2023-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4026894451.html" title="ESP01S刷MQTT固件"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP01S刷MQTT固件"/></a><div class="content"><a class="title" href="/posts/4026894451.html" title="ESP01S刷MQTT固件">ESP01S刷MQTT固件</a><time datetime="2023-12-23T08:39:20.000Z" title="发表于 2023-12-23 16:39:20">2023-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2741096271.html" title="STM32F错误收集"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="STM32F错误收集"/></a><div class="content"><a class="title" href="/posts/2741096271.html" title="STM32F错误收集">STM32F错误收集</a><time datetime="2023-12-22T03:14:20.000Z" title="发表于 2023-12-22 11:14:20">2023-12-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4084148530.html" title="U8G2的OLED库基础"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="U8G2的OLED库基础"/></a><div class="content"><a class="title" href="/posts/4084148530.html" title="U8G2的OLED库基础">U8G2的OLED库基础</a><time datetime="2023-12-22T02:39:20.000Z" title="发表于 2023-12-22 10:39:20">2023-12-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2286740127.html" title="U8G2移植STM32类"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="U8G2移植STM32类"/></a><div class="content"><a class="title" href="/posts/2286740127.html" title="U8G2移植STM32类">U8G2移植STM32类</a><time datetime="2023-12-21T12:53:20.000Z" title="发表于 2023-12-21 20:53:20">2023-12-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>

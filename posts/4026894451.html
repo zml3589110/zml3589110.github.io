@@ -1,0 +1,977 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ESP01S刷MQTT固件 | 赵逸尘个人博客</title><meta name="keywords" content="Ubuntu,ESP8266,乐鑫,烧录,ESP01S,MQTT"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ESP01S刷MQTT固件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESP01S刷MQTT固件">
+<meta property="og:url" content="https://zml3589110.github.io/posts/4026894451.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="ESP01S刷MQTT固件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2023-12-23T08:39:20.000Z">
+<meta property="article:modified_time" content="2023-12-23T09:04:36.764Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="ESP8266">
+<meta property="article:tag" content="乐鑫">
+<meta property="article:tag" content="烧录">
+<meta property="article:tag" content="ESP01S">
+<meta property="article:tag" content="MQTT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/4026894451"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ESP01S刷MQTT固件',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-23 17:04:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">189</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">287</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">95</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ESP01S刷MQTT固件</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-23T08:39:20.000Z" title="发表于 2023-12-23 16:39:20">2023-12-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-23T09:04:36.764Z" title="更新于 2023-12-23 17:04:36">2023-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ESP8266/">ESP8266</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B9%90%E9%91%AB/">乐鑫</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ESP01S刷MQTT固件"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="简单步骤（这个方法不知为啥连接不上MQTT-可能是公司组mese）"><a href="#简单步骤（这个方法不知为啥连接不上MQTT-可能是公司组mese）" class="headerlink" title="简单步骤（这个方法不知为啥连接不上MQTT-可能是公司组mese）"></a>简单步骤（这个方法不知为啥连接不上MQTT-可能是公司组mese）</h1><p>刷个ESP01S把我卡了将近一天，特难受，记录一下正确的烧录固件方式。之前刷了固件总是没一点返回值(输入AT\r\n)，只是在电源重接时才会接收到一些乱码，总以为是CH340接出的3.3V电压不稳，换成PL2303HXD串口也没是一样没反应，改成用MCU里提供的电源照样没反应，其实就是刷固件的某些细节弄错了。</p>
+<p>所需资料下载：链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1kuAWqa2V5djK2eT4i68HWA?pwd=h9n7%E6%8F%90%E5%8F%96%E7%A0%81%EF%BC%9Ah9n7">https://pan.baidu.com/s/1kuAWqa2V5djK2eT4i68HWA?pwd=h9n7提取码：h9n7</a></p>
+<ol>
+<li>刷固件接线方式</li>
+</ol>
+<p>TTL　　 　　 ESP01S</p>
+<p>3.3V　 ——   3V3</p>
+<p>3.3V　 ——   EN</p>
+<p>GND  ——   IO0</p>
+<p>GND  ——   GND</p>
+<p>RX    ——   TX</p>
+<p>TX　　——   RX</p>
+<ol start="2">
+<li><p>烧录步骤</p>
+<p>2.1 解压flash_download_tool_3.9.2_0.zip 并进入文件双击运行</p>
+</li>
+</ol>
+<img src="/posts/undefined/1936955-20230731105510760-1357049533.png" class="" title="img">
+
+<p>弹出 　</p>
+<img src="/posts/undefined/1936955-20230731105628751-1404211892.png" class="" title="img">
+
+<p>选择OK。</p>
+<p>2.2 解压<img src="/posts/undefined/1936955-20230731110417699-1172226695.png" class="" title="img">得到<img src="/posts/undefined/1936955-20230731110452034-556921523.png" class="" title="img"><br>2.3  </p>
+<img src="/posts/undefined/1936955-20230731114235777-1672014936.png" class="" title="img">
+
+<p>2.4 <img src="/posts/undefined/1936955-20230731114523241-1402549596.png" class="" title="img">等待呈现<img src="/posts/undefined/1936955-20230731114606370-1158057307.png" class="" title="img">烧录完成。</p>
+<p>2.5 烧录完成后接线方式（注意：先把TTL USB接口取下断电）</p>
+<p>　　　　　　TTL　　 　　 ESP01S</p>
+<p>　　　　　　3.3V　 ——   3V3</p>
+<p>　　　　　　GND  ——   GND</p>
+<p>　　　　　　RX    ——   TX</p>
+<p>　　　　　　TX　　——   RX</p>
+<p>2.6 测试MQTT固件是否刷成功</p>
+<p>2.6.1 出bug <img src="/posts/undefined/1936955-20230731122639613-1596493463.png" class="" title="img">， 其实重新上电就好了(把ESP01S的3V3针脚线拔了，重新接上就OK了)。<br>2.6.2 打开安信可的串口调试助手 <img src="/posts/undefined/1936955-20230731123926859-2023667097.png" class="" title="img"><br>测试成功<img src="/posts/undefined/1936955-20230731124139808-207517086.png" class="" title="img"></p>
+<h2 id="所需文件下载地址："><a href="#所需文件下载地址：" class="headerlink" title="所需文件下载地址："></a>所需文件下载地址：</h2><p>1.烧录WIFI固件工具：ESP_DOWNLOAD_TOOL<br>下载地址：<a target="_blank" rel="noopener" href="https://www.espressif.com/sites/default/files/tools/flash_download_tool_3.9.2_0.zip">https://www.espressif.com/sites/default/files/tools/flash_download_tool_3.9.2_0.zip</a></p>
+<p>2.安信可串口调试助手<br>下载地址：<a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/_media/tools/aithinker_serial_tool_v1.2.3.7z">https://docs.ai-thinker.com/_media/tools/aithinker_serial_tool_v1.2.3.7z</a></p>
+<p>3.MQTT透传AT固件(固件号：1471)<br>下载地址：<a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/_media/1471_esp8266-at_mqtt-1m.zip">https://docs.ai-thinker.com/_media/1471_esp8266-at_mqtt-1m.zip</a></p>
+<h1 id="ESP-01S-ESP8266详情"><a href="#ESP-01S-ESP8266详情" class="headerlink" title="ESP-01S ESP8266详情"></a>ESP-01S ESP8266详情</h1><h2 id="产品概述"><a href="#产品概述" class="headerlink" title="产品概述"></a>产品概述</h2><p>ESP-01S ESP8266 是基于乐鑫ESP8266开发的低功耗WiFi模块，可以方便地进行二次开发，接入云端服务，实现手机3&#x2F;4G全球随时随地的控制，加速产品原型设计。</p>
+<p>模块核心处理器 ESP8266 在较小尺寸封装中集成了业界领先的 Tensilica L106 超低功耗 32 位微型 MCU，带有 16 位精简模式，主频支持 80 MHz 和 160 MHz，支持 RTOS，集成 Wi-Fi MAC&#x2F; BB&#x2F;RF&#x2F;PA&#x2F;LNA。支持标准的 IEEE802.11 b&#x2F;g&#x2F;n 协议，完整的 TCP&#x2F;IP 协议栈。用户可以使用该模块为现有的设备添加联网功能，也可以构建独立的网络控制器。</p>
+<p>ESP8266 是高性能无线 SoC，以最低成本提供最大实用性，为 Wi-Fi 功能嵌入其他系统提供无限可能。</p>
+<h3 id="产品特点"><a href="#产品特点" class="headerlink" title="产品特点"></a>产品特点</h3><ul>
+<li>体积超小的802.11b&#x2F;g&#x2F;n WiFi SOC模块</li>
+<li>采用低功率32位CPU，可兼作应用处理器</li>
+<li>主频最高可达160MHz</li>
+<li>支持USART、GPIO等接口</li>
+<li>支持多种休眠模式，深度睡眠电流低至20uA</li>
+<li>内嵌LWIP协议栈</li>
+<li>支持STA、AP、STA+AP工作模式</li>
+<li>支持smart config、AirKiss一键配网</li>
+<li>通用AT指令可快速上手</li>
+<li>支持SDK二次开发</li>
+<li>支持串口本地升级和远程固件升级（FOTA）</li>
+</ul>
+<h2 id="选型列表"><a href="#选型列表" class="headerlink" title="选型列表"></a>选型列表</h2><p>模组认证对比：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-01_ESP8266">ESP-01</a>：暂无</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-01M_ESP8285">ESP-01M</a>：FCC&#x2F;CE&#x2F;SRRC&#x2F;REACH&#x2F;RoHs</li>
+<li>ESP-01S：RoHs</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-07_ESP8266">ESP-07</a>：暂无</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-07S_ESP8266">ESP-07S</a>：FCC&#x2F;CE&#x2F;SRRC&#x2F;REACH&#x2F;RoHs</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-12F_ESP8266">ESP-12F</a>：FCC&#x2F;CE&#x2F;SRRC&#x2F;IC&#x2F;KCC&#x2F;NCC&#x2F;REACH&#x2F;TELEC&#x2F;ANATEL&#x2F;RoHs</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-12S_ESP8266">ESP-12S</a>：FCC&#x2F;CE&#x2F;SRRC&#x2F;RoHs&#x2F;阿里飞燕认证</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-15F_ESP8266">ESP-15F</a>：SRRC</li>
+</ul>
+<p>电气参数对比：</p>
+<table>
+<thead>
+<tr>
+<th align="center">型号</th>
+<th align="center">芯片方案</th>
+<th align="center">天线形式</th>
+<th align="center">封装形式</th>
+<th align="center">尺寸 (mm)</th>
+<th align="center">传输距离 (米)</th>
+<th align="center">供电电压</th>
+<th align="center">SPI Flash</th>
+<th align="center">IO 数</th>
+<th align="center">Modem Sleep</th>
+<th align="center">Light Sleep</th>
+<th align="center">Deep Sleep</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-01_ESP8266">ESP-01</a></td>
+<td align="center">ESP8266</td>
+<td align="center">板载天线</td>
+<td align="center">DIP-8</td>
+<td align="center">24.7 * 14.4 * 11.0</td>
+<td align="center">50</td>
+<td align="center">3.3V</td>
+<td align="center">8Mbit</td>
+<td align="center">2</td>
+<td align="center">20mA</td>
+<td align="center">2mA</td>
+<td align="center">20uA</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-01M_ESP8285">ESP-01M</a></td>
+<td align="center">ESP8285</td>
+<td align="center">板载天线</td>
+<td align="center">DIP-18</td>
+<td align="center">18.0 * 18.0 * 2.8</td>
+<td align="center">40</td>
+<td align="center">3.3V</td>
+<td align="center">8Mbit &#x2F; 16Mbit</td>
+<td align="center">11</td>
+<td align="center">20mA</td>
+<td align="center">2mA</td>
+<td align="center">20uA</td>
+</tr>
+<tr>
+<td align="center">ESP-01S</td>
+<td align="center">ESP8266</td>
+<td align="center">板载天线</td>
+<td align="center">DIP-8</td>
+<td align="center">24.7 * 14.4 * 11.0</td>
+<td align="center">50</td>
+<td align="center">3.3V</td>
+<td align="center">8Mbit</td>
+<td align="center">2</td>
+<td align="center">20mA</td>
+<td align="center">2mA</td>
+<td align="center">20uA</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-07_ESP8266">ESP-07</a></td>
+<td align="center">ESP8266</td>
+<td align="center">IPEX座 &#x2F; 陶瓷天线</td>
+<td align="center">SMD-16</td>
+<td align="center">21.2 * 16.0 * 3.0</td>
+<td align="center">50</td>
+<td align="center">3.3V</td>
+<td align="center">8Mbit</td>
+<td align="center">9</td>
+<td align="center">20mA</td>
+<td align="center">2mA</td>
+<td align="center">20uA</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-07S_ESP8266">ESP-07S</a></td>
+<td align="center">ESP8266</td>
+<td align="center">IPEX座 &#x2F; 陶瓷天线</td>
+<td align="center">SMD-16</td>
+<td align="center">17.0 * 16.0 * 3.0</td>
+<td align="center">100</td>
+<td align="center">3.3V</td>
+<td align="center">32Mbit</td>
+<td align="center">9</td>
+<td align="center">20mA</td>
+<td align="center">2mA</td>
+<td align="center">20uA</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-12F_ESP8266">ESP-12F</a></td>
+<td align="center">ESP8266</td>
+<td align="center">板载天线</td>
+<td align="center">SMD-22</td>
+<td align="center">24.0 * 16.0 * 3.0</td>
+<td align="center">80</td>
+<td align="center">3.3V</td>
+<td align="center">32Mbit</td>
+<td align="center">9</td>
+<td align="center">20mA</td>
+<td align="center">2mA</td>
+<td align="center">20uA</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-12S_ESP8266">ESP-12S</a></td>
+<td align="center">ESP8266</td>
+<td align="center">板载天线</td>
+<td align="center">SMD-16</td>
+<td align="center">24.0 * 16.0 * 3.0</td>
+<td align="center">80</td>
+<td align="center">3.3V</td>
+<td align="center">32Mbit</td>
+<td align="center">9</td>
+<td align="center">20mA</td>
+<td align="center">2mA</td>
+<td align="center">20uA</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/ESP-15F_ESP8266">ESP-15F</a></td>
+<td align="center">ESP8266</td>
+<td align="center">板载天线 &#x2F; IPEX座</td>
+<td align="center">PH2.54接线器</td>
+<td align="center">41.3 * 24.1 * 6.6</td>
+<td align="center">50</td>
+<td align="center">5V</td>
+<td align="center">32Mbit</td>
+<td align="center">3</td>
+<td align="center">多种</td>
+<td align="center">多种</td>
+<td align="center">多种</td>
+</tr>
+</tbody></table>
+<ul>
+<li>通信协议：完整的802.11b&#x2F;g&#x2F;n WiFi SoC模块</li>
+<li>工作频段：2400~2483.5MHz</li>
+</ul>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>ESP-01S ESP8266 出厂时已默认内置 AT 固件，且默认波特率为 115200，可参考 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/index.php?title=ESP-01S_ESP8266&printable#.E8.AE.BE.E8.AE.A1.E6.8C.87.E5.8D.97">#设计指南</a> 搭建最小系统电路，之后即可进行 AT 指令操作。</p>
+<p>串口与网络调试助手下载：<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Sscom5.13.1.zip">串口调试助手</a></p>
+<h3 id="硬件连接"><a href="#硬件连接" class="headerlink" title="硬件连接"></a>硬件连接</h3><table>
+<thead>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Icon-warning.png"><img src="/posts/undefined/20px-Icon-warning.png" class="" title="Icon-warning.png"></a>注意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">由于模块功率较大，尽量请勿使用 USB 转 TTL 的 3.3V 供电。建议使用 3 节干电池或经过 LDO 转换后的 3.3V。</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01S_ESP8266_Connection.png"><img src="/posts/undefined/800px-ESP-01S_ESP8266_Connection.png" class="" title="ESP-01S ESP8266 Connection.png"></a></p>
+<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><p>本章节讲解如何在 PC 端通过串口配置 2 个 ESP-01S ESP8266 通过 TCP 相互通信。</p>
+<table>
+<thead>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Icon-warning.png"><img src="/posts/undefined/20px-Icon-warning.png" class="" title="Icon-warning.png"></a>注意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">所有的 AT 命令都需要以 \r\n 结束（回车换行）。如果在 PC 端进行测试，可通过 PC 端代替一端模块建立相应的连接。</td>
+</tr>
+</tbody></table>
+<p>更多示例请参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_at_instruction_set_cn.pdf">AT指令集</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_at_instruction_set_en.pdf">AT Instruction Set</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_at_command_examples_cn.pdf">ESP8266 AT 指令使⽤用示例</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_at_command_examples_en.pdf">ESP8266 AT Command Examples</a></li>
+</ul>
+<h4 id="TCP-通信测试"><a href="#TCP-通信测试" class="headerlink" title="TCP 通信测试"></a>TCP 通信测试</h4><p>本实验需要用到 2 个模块，如果用 PC 端作为服务器的话，单个模块也可以进行这个实验，见<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/index.php?title=ESP-01S_ESP8266&printable#HTTP_.E9.80.9A.E4.BF.A1.E6.B5.8B.E8.AF.95">#HTTP 通信测试</a>。</p>
+<p><strong>TCP Server 端配置：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AT+CWMODE&#x3D;2                                 &#x2F;&#x2F;配置为 AP 模式，响应：OK</span><br><span class="line">AT+CWSAP_DEF&#x3D;&quot;TCP_Server&quot;,&quot;12345678&quot;,5,4    &#x2F;&#x2F;配置 AP 信息，响应：OK</span><br><span class="line">AT+CIFSR                                    &#x2F;&#x2F;查询本机 IP 地址</span><br><span class="line">AT+CIPMUX&#x3D;1                                 &#x2F;&#x2F;开启多链接</span><br><span class="line">AT+CIPSERVER&#x3D;1                              &#x2F;&#x2F;开启服务器</span><br></pre></td></tr></table></figure>
+
+<p><strong>TCP Client 端配置：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">AT+CWMODE&#x3D;1                                 &#x2F;&#x2F;配置为Station 模式</span><br><span class="line">AT+CWJAP_DEF&#x3D;&quot;TCP_Server&quot;,&quot;12345678&quot;        &#x2F;&#x2F;连接到AP</span><br><span class="line">AT+CIFSR                                    &#x2F;&#x2F;查询本机IP 地址</span><br><span class="line">AT+CIPMUX&#x3D;0                                 &#x2F;&#x2F;开启单链接</span><br><span class="line">AT+CIPSTART&#x3D;&quot;TCP&quot;,&quot;192.168.4.1&quot;,333         &#x2F;&#x2F;连接到TCP 服务器</span><br><span class="line">AT+CIPSEND&#x3D;12                               &#x2F;&#x2F;发送 12 个字节的数据到服务器端</span><br></pre></td></tr></table></figure>
+
+<p>出现 <strong>&gt;</strong> 符号之后，串口发送任意 12 个字节，如 Hello world! （不带回车换行）</p>
+<p>此时Server端的串口打印：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+IPD,0,12:Hello world!</span><br></pre></td></tr></table></figure>
+
+<p>上述操作如果执行成功的话，预期结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>Server 端：</th>
+<th>Client 端：</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_6.png"><img src="/posts/undefined/ESP-01_07_12_ESP8266_User_Manual_6.png" class="" title="ESP-01 07 12 ESP8266 User Manual 6.png"></a></td>
+<td><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_7.png"><img src="/posts/undefined/ESP-01_07_12_ESP8266_User_Manual_7.png" class="" title="ESP-01 07 12 ESP8266 User Manual 7.png"></a></td>
+</tr>
+</tbody></table>
+<p>TCP Server 端通信完成之后，如需关闭服务器，则发送：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPSERVER&#x3D;0                              &#x2F;&#x2F;关闭服务器</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTTP-通信测试"><a href="#HTTP-通信测试" class="headerlink" title="HTTP 通信测试"></a>HTTP 通信测试</h3><p>如果只有一个模块的话，用户只要能把它连接到路由器中，也可以对单个模块进行测试。本例子中，模块是 Client 端，以访问本网页为例。</p>
+<p><strong>Client 端配置：</strong></p>
+<p>串口依次发送：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">AT+CWMODE&#x3D;1                                 &#x2F;&#x2F;配置为Station 模式</span><br><span class="line">AT+CWJAP_DEF&#x3D;&quot;SSID&quot;,&quot;password&quot;              &#x2F;&#x2F;SSID是路由器的名称，password是密码</span><br><span class="line">AT+CIPCLOSE                                 &#x2F;&#x2F;尝试关闭连接。如果之前没有连接则会报错，可忽略</span><br><span class="line">AT+CIPSTART&#x3D;&quot;TCP&quot;,&quot;wiki.diustou.com&quot;,80     &#x2F;&#x2F;连接到服务器</span><br><span class="line">AT+CIPMODE&#x3D;1                                &#x2F;&#x2F;透传模式</span><br><span class="line">AT+CIPSEND                                  &#x2F;&#x2F;发送内容</span><br></pre></td></tr></table></figure>
+
+<p>出现 <strong>&gt;</strong> 符号之后，串口发送 GET 请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: wiki.diustou.com:80</span><br><span class="line">Connection: keep-alive</span><br><span class="line">\r\n\r\n（结束符）</span><br></pre></td></tr></table></figure>
+
+<p>之后服务器便会返回响应的内容。</p>
+<p>退出透传，不要勾选新行（\r\n）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+++</span><br></pre></td></tr></table></figure>
+
+<p>退出连接。</p>
+<h2 id="固件烧录方法"><a href="#固件烧录方法" class="headerlink" title="固件烧录方法"></a>固件烧录方法</h2><h3 id="管脚电平"><a href="#管脚电平" class="headerlink" title="管脚电平"></a>管脚电平</h3><p>进入下载模式的时候，需要把 GPIO0管脚拉低，EN拉高，其他IO管脚悬空。管脚分布图见 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/index.php?title=ESP-01S_ESP8266&printable#.E4.BA.A7.E5.93.81.E5.B0.BA.E5.AF.B8">#产品尺寸</a>。</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>\1. 打开烧录软件：<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP_Download_Tool_v3.8.5.zip">ESP Download Tool</a>。</p>
+<p>\2. 依次点击 Developer Mode –&gt; ESP8266 DownloadTool。</p>
+<p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_8.png"><img src="/posts/undefined/ESP-01_07_12_ESP8266_User_Manual_8.png" class="" title="ESP-01 07 12 ESP8266 User Manual 8.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_9.png"><img src="/posts/undefined/ESP-01_07_12_ESP8266_User_Manual_9.png" class="" title="ESP-01 07 12 ESP8266 User Manual 9.png"></a></p>
+<p>\3. 点击 […]，选择所需固件，固件下载请参见 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/index.php?title=ESP-01S_ESP8266&printable#ESP8266_.E5.9B.BA.E4.BB.B6.E6.B1.87.E6.80.BB">#ESP8266 固件汇总</a>。</p>
+<p>\4. 选择之后记得勾选固件，勾选之后固件路径会变绿。</p>
+<p>\5. 填入固件的起始位置，一般是 0x0，详见对应固件的说明。</p>
+<p>\6. CrystalFreq：26M，<strong>此处禁止修改</strong>。</p>
+<p>\7. SPI SPEED：40M，<strong>此处禁止修改</strong>。</p>
+<p>\8. SPI MODE：DOUT</p>
+<p>\9. FLASH SIZE：8Mbit</p>
+<p>\10. 选择相应的串口，波特率任意。建议使用 FT232 串口模块，可以支持更高的波特率，有些串口模块不支持超过 1M 的波特率。</p>
+<p>\11. 断开电源，点击 START，等待上电同步。</p>
+<p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_10.png"><img src="/posts/undefined/ESP-01_07_12_ESP8266_User_Manual_10.png" class="" title="ESP-01 07 12 ESP8266 User Manual 10.png"></a></p>
+<p>\12. 重新上电便会开始下载。如果烧录成功，Download Panel 将提示：FINISH。</p>
+<p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_11.png"><img src="/posts/undefined/ESP-01_07_12_ESP8266_User_Manual_11.png" class="" title="ESP-01 07 12 ESP8266 User Manual 11.png"></a></p>
+<h2 id="产品尺寸"><a href="#产品尺寸" class="headerlink" title="产品尺寸"></a>产品尺寸</h2><p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_ESP8266_Dimensions.png"><img src="/posts/undefined/400px-ESP-01_ESP8266_Dimensions.png" class="" title="ESP-01 ESP8266 Dimensions.png"></a></p>
+<h2 id="管脚定义"><a href="#管脚定义" class="headerlink" title="管脚定义"></a>管脚定义</h2><table>
+<thead>
+<tr>
+<th align="center">#</th>
+<th align="center">名称</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">GND</td>
+<td align="center">GND</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">IO2</td>
+<td align="center">U1_TXD，I2C_SDA，I2SO_WS</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">IO0</td>
+<td align="center">GPIO0，HSPI_MISO，I2SI_DATA</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">RXD</td>
+<td align="center">GPIO3，I2SO_DATA</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">TXD</td>
+<td align="center">GPIO1</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">EN</td>
+<td align="center">芯片使能端，高电平有效</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">RST</td>
+<td align="center">复位引脚，低电平有效</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">VCC</td>
+<td align="center">模组供电引脚，电压范围 3.0~3.6V</td>
+</tr>
+</tbody></table>
+<h2 id="启动模式"><a href="#启动模式" class="headerlink" title="启动模式"></a>启动模式</h2><table>
+<thead>
+<tr>
+<th align="center">模式</th>
+<th align="center">CH_PD (EN)</th>
+<th align="center">RST</th>
+<th align="center">GPIO15</th>
+<th align="center">GPIO0</th>
+<th align="center">GPIO2</th>
+<th align="center">TXD0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">下载模式</td>
+<td align="center">高</td>
+<td align="center">高</td>
+<td align="center">低</td>
+<td align="center">低</td>
+<td align="center">高</td>
+<td align="center">高</td>
+</tr>
+<tr>
+<td align="center">运行模式</td>
+<td align="center">高</td>
+<td align="center">高</td>
+<td align="center">低</td>
+<td align="center">高</td>
+<td align="center">高</td>
+<td align="center">高</td>
+</tr>
+<tr>
+<td align="center">测试模式</td>
+<td align="center">高</td>
+<td align="center">高</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center">低</td>
+</tr>
+</tbody></table>
+<h2 id="电气特性"><a href="#电气特性" class="headerlink" title="电气特性"></a>电气特性</h2><h3 id="最大额定值"><a href="#最大额定值" class="headerlink" title="最大额定值"></a>最大额定值</h3><table>
+<thead>
+<tr>
+<th align="center">额定值</th>
+<th align="center">条件</th>
+<th align="center">值</th>
+<th align="center">单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">存储温度</td>
+<td align="center">-</td>
+<td align="center">-40 ~ 125</td>
+<td align="center">℃</td>
+</tr>
+<tr>
+<td align="center">最大焊接温度</td>
+<td align="center">-</td>
+<td align="center">250</td>
+<td align="center">℃</td>
+</tr>
+<tr>
+<td align="center">工作电压</td>
+<td align="center">IPC&#x2F;JEDEC J-STD-020</td>
+<td align="center">+3.0 ~ +3.6</td>
+<td align="center">V</td>
+</tr>
+</tbody></table>
+<h3 id="建议工作环境"><a href="#建议工作环境" class="headerlink" title="建议工作环境"></a>建议工作环境</h3><table>
+<thead>
+<tr>
+<th>工作温度</th>
+<th>-20</th>
+<th>25</th>
+<th>70</th>
+<th>℃</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>供电电压</td>
+<td>3.0</td>
+<td>3.3</td>
+<td>3.6</td>
+<td>V</td>
+</tr>
+</tbody></table>
+<h3 id="数字端口特征"><a href="#数字端口特征" class="headerlink" title="数字端口特征"></a>数字端口特征</h3><table>
+<thead>
+<tr>
+<th align="center">说明</th>
+<th align="center">名称</th>
+<th align="center">最小值</th>
+<th align="center">典型值</th>
+<th align="center">最大值</th>
+<th align="center">单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">输入逻辑电平低</td>
+<td align="center">VIL</td>
+<td align="center">-0.3</td>
+<td align="center">-</td>
+<td align="center">0.25 * VDD</td>
+<td align="center">V</td>
+</tr>
+<tr>
+<td align="center">输入逻辑电平高</td>
+<td align="center">VIH</td>
+<td align="center">0.75 * VDD</td>
+<td align="center">-</td>
+<td align="center">VDD + 0.3</td>
+<td align="center">V</td>
+</tr>
+<tr>
+<td align="center">输出逻辑电平低</td>
+<td align="center">VOL</td>
+<td align="center">N</td>
+<td align="center">-</td>
+<td align="center">0.1 * VDD</td>
+<td align="center">V</td>
+</tr>
+<tr>
+<td align="center">输出逻辑电平高</td>
+<td align="center">VOH</td>
+<td align="center">0.8 * VDD</td>
+<td align="center">-</td>
+<td align="center">N</td>
+<td align="center">V</td>
+</tr>
+</tbody></table>
+<ul>
+<li>注意：如无特殊说明，测试条件为：VDD &#x3D; 3.3 V，温度为 25 ℃。</li>
+</ul>
+<h3 id="功耗"><a href="#功耗" class="headerlink" title="功耗"></a>功耗</h3><p>所有测量均在没有 SAW 滤波器的情况下，于天线接口处完成。</p>
+<p>所有发射数据是基于 90% 的占空比，在持续发射的模式下测得的。</p>
+<table>
+<thead>
+<tr>
+<th align="center">模式</th>
+<th align="center">典型值</th>
+<th align="center">单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">传送 802.11b, CCK 11Mbps, POUT&#x3D;+17dBm</td>
+<td align="center">170</td>
+<td align="center">mA</td>
+</tr>
+<tr>
+<td align="center">传送 802.11g, OFDM 54Mbps, POUT &#x3D;+15dBm</td>
+<td align="center">140</td>
+<td align="center">mA</td>
+</tr>
+<tr>
+<td align="center">传送 802.11n, MCS7, POUT &#x3D;+13dBm</td>
+<td align="center">120</td>
+<td align="center">mA</td>
+</tr>
+<tr>
+<td align="center">接收 802.11b,包长 1024 字节, -80dBm</td>
+<td align="center">50</td>
+<td align="center">mA</td>
+</tr>
+<tr>
+<td align="center">接收 802.11g,包长 1024 字节, -70dBm</td>
+<td align="center">56</td>
+<td align="center">mA</td>
+</tr>
+<tr>
+<td align="center">接收 802.11n,包长 1024 字节, -65dBm</td>
+<td align="center">56</td>
+<td align="center">mA</td>
+</tr>
+<tr>
+<td align="center">Modem-Sleep①</td>
+<td align="center">20</td>
+<td align="center">mA</td>
+</tr>
+<tr>
+<td align="center">Light-Sleep②</td>
+<td align="center">2</td>
+<td align="center">mA</td>
+</tr>
+<tr>
+<td align="center">Deep-Sleep③</td>
+<td align="center">20</td>
+<td align="center">uA</td>
+</tr>
+<tr>
+<td align="center">Power Off</td>
+<td align="center">0.5</td>
+<td align="center">uA</td>
+</tr>
+</tbody></table>
+<ul>
+<li>注①：Modem-Sleep⽤于需要 CPU 一直处于工作状态如 PWM 或 I2S 应⽤等。在保持 WiFi 连接时，如果没有数据传输，可根据 802.11 标准 (如 U-APSD)，关闭 WiFi Modem 电路来省电。例如，在 DTIM3 时，每 sleep 300mS，醒来 3mS 接收 AP 的 Beacon 包等，则整体平均电流约 20mA。</li>
+<li>注②：Light-Sleep 用于 CPU 可暂停的应用，如 WiFi 开关。在保持 WiFi 连接时，如果没有数据传输，可根据 802.11 标准(如 U-APSD)，关闭 WiFi Modem 电路并暂停 CPU 来省电。例如，在 DTIM3 时，每 sleep 300 ms，醒来 3ms 接收 AP 的 Beacon 包等，则整体平均电流约 2 mA。</li>
+<li>注③：Deep-Sleep 用于不需一直保持 WiFi 连接，很长时间才发送一次数据包的应用，如每 100 秒测量⼀次温度的传感器。每 300 s 醒来后需 0.3s - 1s 连上 AP 发送数据,则整体平均电流可远小于 1mA。</li>
+</ul>
+<h3 id="发射功率"><a href="#发射功率" class="headerlink" title="发射功率"></a>发射功率</h3><table>
+<thead>
+<tr>
+<th align="center">描述</th>
+<th align="center">最小值</th>
+<th align="center">典型值</th>
+<th align="center">最大值</th>
+<th align="center">单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">802.11b@11Mbps</td>
+<td align="center">14</td>
+<td align="center">16</td>
+<td align="center">18</td>
+<td align="center">dBm</td>
+</tr>
+<tr>
+<td align="center">802.11g@54Mbps</td>
+<td align="center">12</td>
+<td align="center">14</td>
+<td align="center">16</td>
+<td align="center">dBm</td>
+</tr>
+<tr>
+<td align="center">802.11n@HT20, MCS7</td>
+<td align="center">11</td>
+<td align="center">13</td>
+<td align="center">15</td>
+<td align="center">dBm</td>
+</tr>
+</tbody></table>
+<h3 id="接收灵敏度"><a href="#接收灵敏度" class="headerlink" title="接收灵敏度"></a>接收灵敏度</h3><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">典型值</th>
+<th align="center">单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">DSSS, 1 Mbps</td>
+<td align="center">-90</td>
+<td align="center">dBm</td>
+</tr>
+<tr>
+<td align="center">CCK, 11 Mbps</td>
+<td align="center">-85</td>
+<td align="center">dBm</td>
+</tr>
+<tr>
+<td align="center">6 Mbps (1&#x2F;2 BPSK)</td>
+<td align="center">-88</td>
+<td align="center">dBm</td>
+</tr>
+<tr>
+<td align="center">54 Mbps (3&#x2F;4 64-QAM)</td>
+<td align="center">-70</td>
+<td align="center">dBm</td>
+</tr>
+<tr>
+<td align="center">HT20, MCS7 (65 Mbps, 72.2 Mbps)</td>
+<td align="center">-67</td>
+<td align="center">dBm</td>
+</tr>
+</tbody></table>
+<h2 id="设计指南"><a href="#设计指南" class="headerlink" title="设计指南"></a>设计指南</h2><h3 id="天线摆放说明"><a href="#天线摆放说明" class="headerlink" title="天线摆放说明"></a>天线摆放说明</h3><p>为了使终端产品获得最佳的射频性能，请注意根据本指南合理设计模块及天线在底板上的摆放位置。</p>
+<ul>
+<li>方案 1（推荐）：将模块沿 PCB 板边放置，且天线在板框外；</li>
+<li>方案 2：将模块沿 PCB 板边放置，天线沿板边放置且下方挖空；</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-12S_Antenna_Location.png"><img src="/posts/undefined/400px-ESP-12S_Antenna_Location.png" class="" title="ESP-12S Antenna Location.png"></a></p>
+<h3 id="模块外围走线说明"><a href="#模块外围走线说明" class="headerlink" title="模块外围走线说明"></a>模块外围走线说明</h3><ol>
+<li>模块外围引出了一些 GPIO 口，如需使用建议在 IO 口上串联 10-100 欧姆的电阻。这样可以抑制过冲，是两边电平更平稳。对 EMI 和 ESD 都有帮助。</li>
+<li>特殊 IO 口的上下拉，需参考规格书的使用说明，此处会影响到模块的启动配置。</li>
+<li>模块的 IO 口是 3.3V 如果主控与模块的 IO 电平不匹配，需要增加电平转换电路。</li>
+<li>如果 IO 口直连到外围接口，或者排针等端子，建议在 IO 走线靠近端子处预留 ESD 器件。</li>
+</ol>
+<h3 id="GPIO-电平转换"><a href="#GPIO-电平转换" class="headerlink" title="GPIO 电平转换"></a>GPIO 电平转换</h3><p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_1.png"><img src="/posts/undefined/400px-ESP-01_07_12_ESP8266_User_Manual_1.png" class="" title="ESP-01 07 12 ESP8266 User Manual 1.png"></a></p>
+<h3 id="电源参考设计"><a href="#电源参考设计" class="headerlink" title="电源参考设计"></a>电源参考设计</h3><p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_2.png"><img src="/posts/undefined/400px-ESP-01_07_12_ESP8266_User_Manual_2.png" class="" title="ESP-01 07 12 ESP8266 User Manual 2.png"></a></p>
+<h3 id="ADC-参考设计"><a href="#ADC-参考设计" class="headerlink" title="ADC 参考设计"></a>ADC 参考设计</h3><p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_3.png"><img src="/posts/undefined/400px-ESP-01_07_12_ESP8266_User_Manual_3.png" class="" title="ESP-01 07 12 ESP8266 User Manual 3.png"></a></p>
+<h3 id="自动下载电路"><a href="#自动下载电路" class="headerlink" title="自动下载电路"></a>自动下载电路</h3><p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_4.png"><img src="/posts/undefined/400px-ESP-01_07_12_ESP8266_User_Manual_4.png" class="" title="ESP-01 07 12 ESP8266 User Manual 4.png"></a></p>
+<h3 id="回流焊炉温曲线"><a href="#回流焊炉温曲线" class="headerlink" title="回流焊炉温曲线"></a>回流焊炉温曲线</h3><p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP-01_07_12_ESP8266_User_Manual_5.png"><img src="/posts/undefined/400px-ESP-01_07_12_ESP8266_User_Manual_5.png" class="" title="ESP-01 07 12 ESP8266 User Manual 5.png"></a></p>
+<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p>ESP8266 和 ESP8285 资源通用。</p>
+<h3 id="用户手册"><a href="#用户手册" class="headerlink" title="用户手册"></a>用户手册</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_series_modules_user_manual_zh_v1.5.pdf">ESP8266系列模组用户手册</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_series_modules_user_manual_en.pdf">ESP8266 Series Modules User Manual</a></li>
+</ul>
+<h3 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_stm32_demo.zip">ESP8266 的 STM32 AT 指令工程</a></li>
+</ul>
+<h3 id="ESP8266-固件汇总"><a href="#ESP8266-固件汇总" class="headerlink" title="ESP8266 固件汇总"></a>ESP8266 固件汇总</h3><p><strong>博安通 AT 固件</strong></p>
+<ul>
+<li>特性：操作简单，任何mcu均可直接接入</li>
+<li>下载地址： <a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/_media/esp8266/bat_at_v1.7.1.0.rar">博安通出厂固件</a></li>
+<li>更新时间：2019年12月22日</li>
+<li>更新说明： v1.7.1.0 AT Firmware，内含 8Mbit 和 32Mbit 两个版本，请客户根据自己产品的flash大小来烧录</li>
+</ul>
+<p><strong>直连腾讯开发平台的AT固件</strong></p>
+<ul>
+<li>特性：可连接腾讯开发平台</li>
+<li>下载地址： <a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/_media/esp8266/aithinker_qcloud_at.rar">安信可腾讯云AT固件</a></li>
+<li>更新说明：2020年02月28日更新，串口引脚为 txd&#x3D;GPIO15, rxd&#x3D;GPIO13.</li>
+</ul>
+<p><strong>MQTT 透传AT固件 (默认)</strong></p>
+<ul>
+<li>特性：支持TLS连接，务必注意通讯引脚为（ txd&#x3D;GPIO15, rxd&#x3D;GPIO13）</li>
+<li>下载地址： <a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/_media/esp8266/mqtt%E5%9B%BA%E4%BB%B6.rar">MQTT固件</a></li>
+<li>使用说明： <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP8266-MQTT%E6%8C%87%E4%BB%A4%E6%89%8B%E5%86%8C.pdf">ESP8266-MQTT指令手册</a></li>
+<li>更新时间：2020年2月21日</li>
+<li>更新说明：IO13为RX、IO15为TX作为AT串口与单片机TX&#x2F;RX接线连接，串口1作为log串口，默认波特率为115200。测试TCP直连服务器使用 EMQ，测试TLS连接服务器使用 AWS。</li>
+</ul>
+<p><strong>MQTT透传AT固件（AT通讯串口改为UART0）</strong></p>
+<ul>
+<li>特性：支持TLS连接</li>
+<li>下载地址：<a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/_media/mqtt.zip">MQTT固件（改）</a></li>
+<li>使用说明：<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP8266-MQTT%E6%8C%87%E4%BB%A4%E6%89%8B%E5%86%8C.pdf">ESP8266-MQTT指令手册</a></li>
+<li>更新时间：2020年5月09日</li>
+<li>更新说明：正常的RX、TX作为AT串口与单片机TX&#x2F;RX接线连接，串口1作为log串口，默认波特率为115200。测试TCP直连服务器使用 EMQ，测试TLS连接服务器使用 AWS。</li>
+</ul>
+<p><strong>出厂默认 AT 固件</strong></p>
+<ul>
+<li>特性：一条指令即可连接到安信可云服务，操作简单，任何mcu均可直接接入</li>
+<li>下载地址：<a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/_media/esp8266/ai-thinker_esp8266_at_firmware_dout_v1.5.4.1-a_20171130.rar">默认出厂固件</a></li>
+<li>更新时间：2017年11月30日</li>
+<li>更新说明：v1.5.4.1 AT Firmware，内含 8Mbit 和 32Mbit 两个版本 ，注意：1MByte flash的模组因为内存不足，所有带AiCloud2.0的AT固件都不能使用，flash大于或等于2MByte。使用CIUPDATE命令升级前，请确认模组的flash大于或等于2M！</li>
+</ul>
+<h3 id="ESP8266-开发工具"><a href="#ESP8266-开发工具" class="headerlink" title="ESP8266 开发工具"></a>ESP8266 开发工具</h3><p><strong>SDK 一体化开发环境：</strong></p>
+<ul>
+<li>下载地址：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Mbi2xoHQxyYM35lnJEUBTA">网盘链接</a> 提取码： fzfd</li>
+<li>更新时间：2019.07.22</li>
+<li>更新说明：支持 ESP32&#x2F;ESP8266</li>
+</ul>
+<p><strong>烧录WiFi固件工具：</strong></p>
+<ul>
+<li>下载地址：<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:ESP_Download_Tool_v3.8.5.zip">ESP Download Tool</a></li>
+<li>更新时间：2020.8.15</li>
+<li>更新说明：支持ESP32&#x2F;ESP32-S2&#x2F;ESP8266&#x2F;ESP8285</li>
+</ul>
+<h3 id="AT-指令"><a href="#AT-指令" class="headerlink" title="AT 指令"></a>AT 指令</h3><ul>
+<li>ESP8266 AT指令集 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_at_instruction_set_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_at_instruction_set_en.pdf">英文</a></li>
+<li>ESP8266 AT 指令使用示例 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_at_command_examples_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_at_command_examples_en.pdf">英文</a></li>
+</ul>
+<h3 id="官方应用文档"><a href="#官方应用文档" class="headerlink" title="官方应用文档"></a>官方应用文档</h3><ul>
+<li>ESP8266 SSL加密使用手册 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_sdk_ssl_user_manual_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_sdk_ssl_user_manual_en.pdf">英文</a></li>
+<li>ESP8266 低功耗解决方案 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266-low_power_solutions_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266-low_power_solutions_en.pdf">英文</a></li>
+<li>ESP8266 flash读写说明 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_flash_rw_operation_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Espressif_iot_flash_rw_operation_en.pdf">英文</a></li>
+<li>ESP8266 云端升级指南<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_fota_upgrade_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_fota_guide_en_.pdf">英文</a></li>
+<li>ESP8266 固件下载协议<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266-sdk_application_note_firmware_download_protocol_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266-sdk_application_note_firmware_download_protocol_en.pdf">英文</a></li>
+<li>ESP8266 技术参考 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266-technical_reference_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266-technical_reference_en.pdf">英文</a></li>
+<li>ESP8266 常见问题 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Espressif_faq_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Espressif_faq_en.pdf">英文</a></li>
+<li>ESP8266 硬件设计指南 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_hardware_design_guidelines_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_hardware_design_guidelines_en.pdf">英文</a></li>
+<li>ESP8266 WIFI信道选择指南 <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_hardware_design_guidelines_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_hardware_design_guidelines_en.pdf">英文</a></li>
+<li>ESP8266_RTOS_SDK 编程手册（RTOS SDK V2.X 及之前版本） <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_rtos_sdk_programming_guide_cn.pdf">中文</a>，<a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_rtos_sdk_programming_guide_en.pdf">英文</a></li>
+<li>ESP8266_RTOS_SDK API参考（RTOS SDK V2.X 及之前版本） <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_rtos_sdk_api_reference.pdf">中文</a></li>
+<li>ESP8266_RTOS_SDK V3.0 及之后版本<a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/lib/exe/fetch.php?tok=cc983e&media=https://github.com/espressif/ESP8266_RTOS_SDK">编程代码</a> <a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/lib/exe/fetch.php?tok=b5555b&media=https://docs.espressif.com/projects/esp8266-rtos-sdk/en/latest/get-started/index.html">编程指南</a></li>
+</ul>
+<h3 id="产品规格书"><a href="#产品规格书" class="headerlink" title="产品规格书"></a>产品规格书</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp-01s_product_specification_zh_v1.0.pdf">产品规格书</a></li>
+</ul>
+<h3 id="SDK-二次开发资料"><a href="#SDK-二次开发资料" class="headerlink" title="SDK 二次开发资料"></a>SDK 二次开发资料</h3><ul>
+<li>硬件资源： <a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/%E6%96%87%E4%BB%B6:Esp8266_modules_libraries.zip">ESP8266PCB封装文件</a></li>
+<li><a target="_blank" rel="noopener" href="http://aiclouds3.0-docs.aithinker.com/#/2.device/configuration_windows">Windows平台 SDK二次开发环境搭建</a></li>
+<li><a target="_blank" rel="noopener" href="http://aiclouds3.0-docs.aithinker.com/#/2.device/configuration_linux">Linux (Ubuntu) 平台 SDK二次开发环境搭建</a></li>
+</ul>
+<h4 id="云平台对接示例"><a href="#云平台对接示例" class="headerlink" title="云平台对接示例"></a>云平台对接示例</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Ai-Thinker-Open/Ai-Thinker-Open-qcloud-esp-wifi">对接腾讯物联开发平台 （不支持任何音响语音控制）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Boantong_/article/details/104633166">AT对接亚马逊云平台（不支持任何音响语音控制）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Boantong_/article/details/104791452">AT透传指令接入阿里云物联网平台笔记（非天猫精灵语音控制）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Boantong_/article/details/104836750">AT透传指令接入微软IOT物联网平台</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Boantong_/article/details/106059991">接入天猫精灵IOT平台控制单路插座的教程 （支持天猫精灵语音控制）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Boantong_/article/details/105970895">接入天猫精灵IOT平台实现控制RGB冷暖灯的教程 （支持天猫精灵语音控制）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Boantong_/article/details/105676625">接入阿里生活飞燕平台国际版，实现亚马逊Alexa Echo音响语音控制； （不支持天猫精灵语音控制）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Boantong_/article/details/105651819">接入阿里飞燕 , 轻松天猫精灵语音控制单片机。 （天猫精灵语音控制）</a></li>
+<li>小程序MQTT通过连接百度天工远程控制安信可ESP8266开发板； （不支持任何音响语音控制）<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Ai-Thinker-Open/WCMiniColorControl">小程序源码</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Ai-Thinker-Open/AiClouds3.0-Device/tree/master/Ai-examples/4.BaiDu-rgb-esp8266">设备端源码</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="ESP8266上云实验"><a href="#ESP8266上云实验" class="headerlink" title="ESP8266上云实验"></a>ESP8266上云实验</h1><p>由于AT固件的配置过于麻烦，所以使用了MQTT固件进行配置。</p>
+<p>ESP8266 - MQTT固件<br>由于购买回来的ESP8266-01S默认的是AT固件，现在需要用到MQTT指令，所以需要将其刷到AT固件</p>
+<p>MQTT 固件 ： <a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/_media/1471_esp8266-at_mqtt-1m.zip">https://docs.ai-thinker.com/_media/1471_esp8266-at_mqtt-1m.zip</a></p>
+<p>刷固件软件 ：<a target="_blank" rel="noopener" href="https://docs.ai-thinker.com/_media/flash_download_tool_v3.8.5_1.zip">https://docs.ai-thinker.com/_media/flash_download_tool_v3.8.5_1.zip</a></p>
+<p>将以上两个文件均下载，保存。</p>
+<p>打开刷固件软件 - 选择ESP8266 -&gt; DOWNLOADTOLL -&gt; 将固件包导入</p>
+<p>其余配置如图所示，配置完可以点击START</p>
+<img src="/posts/undefined/ffb8c69fbdd56aae1211da570d6ede69.png" class="" title="img">
+
+<h5 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h5><ol>
+<li>RST和INT0需用杜邦线接地，然后把RST悬空。点击START后，会显示等待上电同步，需插拔一下3.3V电源线，然后就能跑起来</li>
+<li>设置SPI SPEED 为 20Mhz 和 SPI MODE 为 DIO、 波特率为115200</li>
+<li>没有勾选固件，也是能跑，但跑了个寂寞</li>
+<li>刷完固件，需重新启动一下，然后通过串口查询当前的固件版本 AT+GMR</li>
+</ol>
+<h4 id="ESP8266-MQTT配置指令"><a href="#ESP8266-MQTT配置指令" class="headerlink" title="ESP8266 - MQTT配置指令"></a>ESP8266 - MQTT配置指令</h4><table>
+<thead>
+<tr>
+<th><strong>指令</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>配置 STA 模式</td>
+<td>AT+CWMODE&#x3D;1</td>
+</tr>
+<tr>
+<td>连接路由器</td>
+<td>AT+CWJAP&#x3D;”wifi_Name”,”wifi_Password”</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>配置MQTT属性</th>
+<th>AT+MQTTUSERCFG&#x3D;0,1,”clientID”,”username”,”password”,0,0,””</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>连接制定的 MQTT broker</td>
+<td>AT+MQTTCONN&#x3D;0,”47.111.117.220”,1883,0</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>查询 MQTT 连接状态</th>
+<th>AT+MQTTCONN?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>订阅 topic 数据</td>
+<td>AT+MQTTSUB&#x3D;0,”topicName”,1</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>发布 topic 数据</th>
+<th>AT+MQTTPUB&#x3D;0,”topicName”,”payload”,1,0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>指令解析</p>
+<p><a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-at/zh_CN/release-v2.2.0.0_esp8266/AT_Command_Set/MQTT_AT_Commands.html#">MQTT AT Commands — ESP-AT 用户指南 文档 (espressif.com)</a></p>
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xilimiss510/p/17592856.html">ESP01S刷MQTT固件</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://wiki.diustou.com/cn/index.php?title=ESP-01S_ESP8266&printable">ESP-01S ESP8266</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45249507/article/details/129007327">基于ESP8266上云实验</a></p>
+</li>
+</ol>
+<hr>
+<center><font color=red>=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/4026894451.html">https://zml3589110.github.io/posts/4026894451.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ubuntu/">Ubuntu</a><a class="post-meta__tags" href="/tags/ESP8266/">ESP8266</a><a class="post-meta__tags" href="/tags/%E4%B9%90%E9%91%AB/">乐鑫</a><a class="post-meta__tags" href="/tags/%E7%83%A7%E5%BD%95/">烧录</a><a class="post-meta__tags" href="/tags/ESP01S/">ESP01S</a><a class="post-meta__tags" href="/tags/MQTT/">MQTT</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2741096271.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">STM32F错误收集</div></div></a></div><div class="next-post pull-right"><a href="/posts/2449930636.html"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ESP8266及ESP32固件生成及烧录方法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2449930636.html" title="ESP8266及ESP32固件生成及烧录方法"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-23</div><div class="title">ESP8266及ESP32固件生成及烧录方法</div></div></a></div><div><a href="/posts/3713584928.html" title="Ubuntu烧录下载时找不到USB0报错"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-28</div><div class="title">Ubuntu烧录下载时找不到USB0报错</div></div></a></div><div><a href="/posts/442091668.html" title="通过HOMEKIT让ESP8266控制继电器"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-25</div><div class="title">通过HOMEKIT让ESP8266控制继电器</div></div></a></div><div><a href="/posts/2171885577.html" title="乐鑫Esp8266_RTOS_SDK最新SDK_IDF编译环境搭建"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-27</div><div class="title">乐鑫Esp8266_RTOS_SDK最新SDK_IDF编译环境搭建</div></div></a></div><div><a href="/posts/1724428249.html" title="Homeassistant环境Docker配置"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-30</div><div class="title">Homeassistant环境Docker配置</div></div></a></div><div><a href="/posts/2870405859.html" title="ESP32开发SDK-IDF环境搭建(Ubuntu)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-03</div><div class="title">ESP32开发SDK-IDF环境搭建(Ubuntu)</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">189</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">287</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">95</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%AD%A5%E9%AA%A4%EF%BC%88%E8%BF%99%E4%B8%AA%E6%96%B9%E6%B3%95%E4%B8%8D%E7%9F%A5%E4%B8%BA%E5%95%A5%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8AMQTT-%E5%8F%AF%E8%83%BD%E6%98%AF%E5%85%AC%E5%8F%B8%E7%BB%84mese%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">简单步骤（这个方法不知为啥连接不上MQTT-可能是公司组mese）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%80%E9%9C%80%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">所需文件下载地址：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ESP-01S-ESP8266%E8%AF%A6%E6%83%85"><span class="toc-number">2.</span> <span class="toc-text">ESP-01S ESP8266详情</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A7%E5%93%81%E6%A6%82%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">产品概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A7%E5%93%81%E7%89%B9%E7%82%B9"><span class="toc-number">2.1.1.</span> <span class="toc-text">产品特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E5%9E%8B%E5%88%97%E8%A1%A8"><span class="toc-number">2.2.</span> <span class="toc-text">选型列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">2.3.</span> <span class="toc-text">使用说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.3.1.</span> <span class="toc-text">硬件连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.3.2.</span> <span class="toc-text">使用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-%E9%80%9A%E4%BF%A1%E6%B5%8B%E8%AF%95"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">TCP 通信测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-%E9%80%9A%E4%BF%A1%E6%B5%8B%E8%AF%95"><span class="toc-number">2.3.3.</span> <span class="toc-text">HTTP 通信测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BA%E4%BB%B6%E7%83%A7%E5%BD%95%E6%96%B9%E6%B3%95"><span class="toc-number">2.4.</span> <span class="toc-text">固件烧录方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E8%84%9A%E7%94%B5%E5%B9%B3"><span class="toc-number">2.4.1.</span> <span class="toc-text">管脚电平</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.4.2.</span> <span class="toc-text">步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A7%E5%93%81%E5%B0%BA%E5%AF%B8"><span class="toc-number">2.5.</span> <span class="toc-text">产品尺寸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E8%84%9A%E5%AE%9A%E4%B9%89"><span class="toc-number">2.6.</span> <span class="toc-text">管脚定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.7.</span> <span class="toc-text">启动模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7"><span class="toc-number">2.8.</span> <span class="toc-text">电气特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E9%A2%9D%E5%AE%9A%E5%80%BC"><span class="toc-number">2.8.1.</span> <span class="toc-text">最大额定值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E8%AE%AE%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="toc-number">2.8.2.</span> <span class="toc-text">建议工作环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AB%AF%E5%8F%A3%E7%89%B9%E5%BE%81"><span class="toc-number">2.8.3.</span> <span class="toc-text">数字端口特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%80%97"><span class="toc-number">2.8.4.</span> <span class="toc-text">功耗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B0%84%E5%8A%9F%E7%8E%87"><span class="toc-number">2.8.5.</span> <span class="toc-text">发射功率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E7%81%B5%E6%95%8F%E5%BA%A6"><span class="toc-number">2.8.6.</span> <span class="toc-text">接收灵敏度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%8C%87%E5%8D%97"><span class="toc-number">2.9.</span> <span class="toc-text">设计指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A9%E7%BA%BF%E6%91%86%E6%94%BE%E8%AF%B4%E6%98%8E"><span class="toc-number">2.9.1.</span> <span class="toc-text">天线摆放说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%A4%96%E5%9B%B4%E8%B5%B0%E7%BA%BF%E8%AF%B4%E6%98%8E"><span class="toc-number">2.9.2.</span> <span class="toc-text">模块外围走线说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPIO-%E7%94%B5%E5%B9%B3%E8%BD%AC%E6%8D%A2"><span class="toc-number">2.9.3.</span> <span class="toc-text">GPIO 电平转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E6%BA%90%E5%8F%82%E8%80%83%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.9.4.</span> <span class="toc-text">电源参考设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ADC-%E5%8F%82%E8%80%83%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.9.5.</span> <span class="toc-text">ADC 参考设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E4%B8%8B%E8%BD%BD%E7%94%B5%E8%B7%AF"><span class="toc-number">2.9.6.</span> <span class="toc-text">自动下载电路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E6%B5%81%E7%84%8A%E7%82%89%E6%B8%A9%E6%9B%B2%E7%BA%BF"><span class="toc-number">2.9.7.</span> <span class="toc-text">回流焊炉温曲线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD"><span class="toc-number">2.10.</span> <span class="toc-text">资源下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C"><span class="toc-number">2.10.1.</span> <span class="toc-text">用户手册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.10.2.</span> <span class="toc-text">示例程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ESP8266-%E5%9B%BA%E4%BB%B6%E6%B1%87%E6%80%BB"><span class="toc-number">2.10.3.</span> <span class="toc-text">ESP8266 固件汇总</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ESP8266-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="toc-number">2.10.4.</span> <span class="toc-text">ESP8266 开发工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AT-%E6%8C%87%E4%BB%A4"><span class="toc-number">2.10.5.</span> <span class="toc-text">AT 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3"><span class="toc-number">2.10.6.</span> <span class="toc-text">官方应用文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC%E4%B9%A6"><span class="toc-number">2.10.7.</span> <span class="toc-text">产品规格书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SDK-%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E8%B5%84%E6%96%99"><span class="toc-number">2.10.8.</span> <span class="toc-text">SDK 二次开发资料</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%91%E5%B9%B3%E5%8F%B0%E5%AF%B9%E6%8E%A5%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.10.8.1.</span> <span class="toc-text">云平台对接示例</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ESP8266%E4%B8%8A%E4%BA%91%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text">ESP8266上云实验</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">3.0.0.0.1.</span> <span class="toc-text">遇到的问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ESP8266-MQTT%E9%85%8D%E7%BD%AE%E6%8C%87%E4%BB%A4"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">ESP8266 - MQTT配置指令</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/2449930636.html" title="ESP8266及ESP32固件生成及烧录方法"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP8266及ESP32固件生成及烧录方法"/></a><div class="content"><a class="title" href="/posts/2449930636.html" title="ESP8266及ESP32固件生成及烧录方法">ESP8266及ESP32固件生成及烧录方法</a><time datetime="2023-12-23T09:16:20.000Z" title="发表于 2023-12-23 17:16:20">2023-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4026894451.html" title="ESP01S刷MQTT固件"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP01S刷MQTT固件"/></a><div class="content"><a class="title" href="/posts/4026894451.html" title="ESP01S刷MQTT固件">ESP01S刷MQTT固件</a><time datetime="2023-12-23T08:39:20.000Z" title="发表于 2023-12-23 16:39:20">2023-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2741096271.html" title="STM32F错误收集"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="STM32F错误收集"/></a><div class="content"><a class="title" href="/posts/2741096271.html" title="STM32F错误收集">STM32F错误收集</a><time datetime="2023-12-22T03:14:20.000Z" title="发表于 2023-12-22 11:14:20">2023-12-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4084148530.html" title="U8G2的OLED库基础"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="U8G2的OLED库基础"/></a><div class="content"><a class="title" href="/posts/4084148530.html" title="U8G2的OLED库基础">U8G2的OLED库基础</a><time datetime="2023-12-22T02:39:20.000Z" title="发表于 2023-12-22 10:39:20">2023-12-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2286740127.html" title="U8G2移植STM32类"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="U8G2移植STM32类"/></a><div class="content"><a class="title" href="/posts/2286740127.html" title="U8G2移植STM32类">U8G2移植STM32类</a><time datetime="2023-12-21T12:53:20.000Z" title="发表于 2023-12-21 20:53:20">2023-12-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
