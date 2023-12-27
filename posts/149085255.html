@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ESP01S接入苹果homekit | 赵逸尘个人博客</title><meta name="keywords" content="Ubuntu,ESP8266,乐鑫,ESP01S,homekit,esp-homekit-direct,esp-homekit-devices"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ESP01S接入homekit，实现苹果家庭控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESP01S接入苹果homekit">
+<meta property="og:url" content="https://zml3589110.github.io/posts/149085255.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="ESP01S接入homekit，实现苹果家庭控制">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2023-12-27T00:41:20.000Z">
+<meta property="article:modified_time" content="2023-12-27T00:41:19.617Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="ESP8266">
+<meta property="article:tag" content="乐鑫">
+<meta property="article:tag" content="ESP01S">
+<meta property="article:tag" content="homekit">
+<meta property="article:tag" content="esp-homekit-direct">
+<meta property="article:tag" content="esp-homekit-devices">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/149085255"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ESP01S接入苹果homekit',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-27 08:41:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">190</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">290</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">95</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ESP01S接入苹果homekit</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-27T00:41:20.000Z" title="发表于 2023-12-27 08:41:20">2023-12-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-27T00:41:19.617Z" title="更新于 2023-12-27 08:41:19">2023-12-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ESP8266/">ESP8266</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B9%90%E9%91%AB/">乐鑫</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ESP01S接入苹果homekit"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="方式一：导入三个文件，认证码-11111111"><a href="#方式一：导入三个文件，认证码-11111111" class="headerlink" title="方式一：导入三个文件，认证码 11111111"></a>方式一：导入三个文件，认证码 11111111</h1><p><a target="_blank" rel="noopener" href="https://gitee.com/qcchat/esp-homekit-direct">https://gitee.com/qcchat/esp-homekit-direct</a></p>
+<p><a href="git@gitee.com:dai_jian/Sonoff-Homekit.git">Sonoff-Homekit</a></p>
+<h2 id="bilibili视频使用的文件"><a href="#bilibili视频使用的文件" class="headerlink" title="bilibili视频使用的文件"></a>bilibili视频使用的文件</h2><p>固件和工具下载地址：<br>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1zppF3IUorvEO7knatS5piQ">https://pan.baidu.com/s/1zppF3IUorvEO7knatS5piQ</a> 提取码：xso7<br>源码地址：<a target="_blank" rel="noopener" href="https://github.com/LeeLulin/esp-homekit-direct">https://github.com/LeeLulin/esp-homekit-direct</a></p>
+<h3 id="网盘文件使用说明"><a href="#网盘文件使用说明" class="headerlink" title="网盘文件使用说明"></a>网盘文件使用说明</h3><p>下载网盘上的连接，有三个文件依次烧录即可<br><strong>rboot.bin 0x0<br>blank_config.bin 0x1000<br>switch.bin 0x2000</strong><br>先擦除后下载即可！</p>
+<h3 id="源码说明"><a href="#源码说明" class="headerlink" title="源码说明"></a>源码说明</h3><p>在window上使用git乌龟下载一直失败，在使用git bash 命令拉下来的时候成功了，也不知什么原因！</p>
+<p>这个库使用的使用 esp-open-rtos 系统，所以前面要先把这个环境搭建好！ 这个环境介绍说明的是跟 esp-free-rtos 一样，只是编译模式有所不同，每一个文件工程都独立包含了 esp-open-rtos 工程文件，而 esp-free-rtos 则是把总工程放到一个地方，有点像 SVN 和 GIT 的区别，一个完全copy副本，一个不需要！</p>
+<p>在安装好环境之后就能根据 MD 文件说明操作，但是，在编译的时候会报错，一般报错就根据报错地方修改即可！</p>
+<h4 id="报错一：wifi-config-c文件中找不到html配置信息"><a href="#报错一：wifi-config-c文件中找不到html配置信息" class="headerlink" title="报错一：wifi_config.c文件中找不到html配置信息"></a>报错一：wifi_config.c文件中找不到html配置信息</h4><img src="/posts/undefined/2023-12-26_201506.png" class="" title="html文件">
+
+<p>这个故障主要是wifi配置html页面无法生成，故而在编译时也没法找到这些const字段。</p>
+<img src="/posts/undefined/2023-12-26_202430.png" class="" title="embed文件错误">
+
+<p>在排查以后才发现主要还是 <strong>esp-homekit-direct\external_libs\wifi_config\tools\embed.py</strong> 文件错误导致的</p>
+<p>两处 print 均报错，需要加上括号后才能通过并编译出相应的 html 字段<br>print ‘Error: no parts found’ 修改为：print (‘Error: no parts found’)<br>print gen_embedded(f.read()) 修改为：print (gen_embedded(f.read()))</p>
+<h4 id="报错二：生成-switch-bin-时设置的内存错误"><a href="#报错二：生成-switch-bin-时设置的内存错误" class="headerlink" title="报错二：生成 switch.bin 时设置的内存错误"></a>报错二：生成 switch.bin 时设置的内存错误</h4><img src="/posts/undefined/2023-12-26_205613.png" class="" title="firmware">
+
+<p>在输出内存配置中，选项为 xMB，例如这个模块8MB，但设置的时候为8m，会报错且无法输出 bin 文件。<br>这时候就需要修改 <strong>esp-homekit-direct\sdk\esp-open-rtos\parameters.mk</strong> 文件。</p>
+<img src="/posts/undefined/2023-12-26_202721.png" class="" title="mk文件">
+
+<p>然后重新编译就能得到 switch.bin 了</p>
+<p>感觉这个方式接入 homekit 是最方便的了，另一个种 installer 方式接入会等待 github很久而且还不一定成功，可能是因为墙的原因。<br>而这种方式就能很快接入 家庭，不过还未试看能否接入 HomeAssistan 了。</p>
+<h2 id="（步骤详细）ESP8266控制继电器（支持HOMEKIT）"><a href="#（步骤详细）ESP8266控制继电器（支持HOMEKIT）" class="headerlink" title="（步骤详细）ESP8266控制继电器（支持HOMEKIT）"></a>（步骤详细）ESP8266控制继电器（支持HOMEKIT）</h2><p><strong>ESP8266控制继电器（支持HOMEKIT，无需homebridge，可用SIRI控制）</strong><br>首先感谢：<a target="_blank" rel="noopener" href="https://github.com/RavenSystem/esp-homekit-devices">https://github.com/RavenSystem/esp-homekit-devices</a>   <a target="_blank" rel="noopener" href="https://gitcode.com/ravensystem/esp-homekit-devices/overview?utm_source=csdn_github_accelerator&isLogin=1">——&gt;镜像地址</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Gruppio/Sonoff-Homekit">https://github.com/Gruppio/Sonoff-Homekit</a>   <a target="_blank" rel="noopener" href="https://gitcode.com/mirrors/Gruppio/Sonoff-Homekit/overview">——&gt;镜像地址</a></p>
+<p>主要设备：ESP8266、1路5V继电器、杜邦线若干。</p>
+<img src="/posts/undefined/20190113140601235.jpg" class="" title="ESP8266">
+
+<img src="/posts/undefined/image-20231226210852275.png" class="" title="image-20231226210852275">
+
+<img src="/posts/undefined/image-20231226210922313.png" class="" title="image-20231226210922313">
+
+<p>下面开始进入正题：开始给ESP8266刷固件<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Xp3CvFbdh4McnkBIacfsuQ">https://pan.baidu.com/s/1Xp3CvFbdh4McnkBIacfsuQ</a> （固件自取）</p>
+<p>本次采用esptool.py来刷鞋固件，所以需要给电脑安装python环境。<br><strong><a target="_blank" rel="noopener" href="http://安装esptool.py/">安装esptool.py</a></strong><br>pip install esptool<br><strong>切换到python的安装路径不知道在哪的输入</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">where python</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/20190113142401883.png" class="" title="python路径">
+
+<p>cd &#x2F;python路径 切换到python安装目录，在此目录下放上我们要刷写的固件</p>
+<img src="/posts/undefined/20190113142724432.png" class="" title="固件截图">
+
+<p>好，开始用micro-USB线将ESP8266连接到计算机（如果不识别自行安装CH340驱动）记住端口号，我的是COM3</p>
+<img src="/posts/undefined/20190113143206883.png" class="" title="端口号">
+
+<p>先清空flash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py --port COM3 erase_flash</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/2019011314341874.png" class="" title="清空FLASH">
+
+<p><strong>刷入固件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py -p COM3 -b 115200 write_flash -fs 1MB -fm dout -ff 40m 0x0 rboot.bin 0x1000 blank_config.bin 0x2000 Sonoff_ON.bin</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/20190113143825879.png" class="" title="刷固件">
+
+<p>到这里固件已经刷入完成，搜索WIFI看到名为Switch-******的SSID，连接上后进入192.168.4.1进行设置为其连接上一个可联网的WIFI。</p>
+<img src="/posts/undefined/20190113144217426.png" class="" title="在这里插入图片描述">
+
+<p>这时打开ios的家庭APP，添加配件，选择“我没有代码或无法扫描”输入配对码：11111111</p>
+<img src="/posts/undefined/20190113144537603.png" class="" title="在这里插入图片描述">
+
+<img src="/posts/undefined/20190113144609464.png" class="" title="在这里插入图片描述">
+
+<p>我们可以从串口信息看到正在添加HOMEKIT 客户端</p>
+<img src="/posts/undefined/20190113145119352.png" class="" title="在这里插入图片描述">
+
+<p>这时已经成功添加到家庭APP，支持SIRI控制</p>
+<img src="/posts/undefined/20190113145151882.png" class="" title="在这里插入图片描述">
+
+<p>接下来，让我们把继电器连接到ESP8266的D6 (GPIO12)口上。ESP8266接笔记本的USB口可能会供电不足导致不能控制继电器。我在这里就用充电宝做电源了。我们可以试试让siri帮你开关继电器了</p>
+<img src="/posts/undefined/2019011314553482.jpg" class="" title="在这里插入图片描述">
+
+<img src="/posts/undefined/20190113145902241.png" class="" title="在这里插入图片描述">
+
+
+
+<h1 id="方式二：一个文件-fullhaabot-bin"><a href="#方式二：一个文件-fullhaabot-bin" class="headerlink" title="方式二：一个文件 fullhaabot.bin"></a>方式二：一个文件 fullhaabot.bin</h1><p><strong>这个方法刷入并设置好WIFI后需要等待很久，看串口日志发现需要下载 github 上的 HAA文件下来，所以十分缓慢，而且 JSON 格式的 GPIO 设置自己还是没弄成功，这个也有相应的库</strong></p>
+<h2 id="20-元将普通电灯接入"><a href="#20-元将普通电灯接入" class="headerlink" title="20 元将普通电灯接入"></a>20 元将普通电灯接入</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最开始我是看到 B 站有刷固件接入 HomeKit 的视频，我了解了一下之后觉得有些问题，他们都用的是统一的一个 Sonoff 固件，刷入之后可以直接通过 NodeMCU D6 <strong>GPIO12</strong> 引脚输出高低电平，但是我甚至没找到这个固件的来源，所有视频都是草草地丢一个下载链接，告诉你下载刷进去就行了…而且这个输出引脚没法修改，后期接线的话会有一些问题。</p>
+<p>后来我在 GitHub 上找到一个项目 <a target="_blank" rel="noopener" href="https://github.com/RavenSystem/esp-homekit-devices">RavenSystem&#x2F;esp-homekit-devices</a>，该固件可以刷入采用 8266 芯片的设备，接入 HomeKit 并提供丰富的自定义选项，而我之前在 B 站看到的固件，应该就是基于该项目修改，原本用于 Sonoff 开关的一个固件（查了一下 Sonoff 是深圳一家公司的物联网产品，主打 WiFi 继电器）。那么就可以通过该项目，很轻松地实现我们的目标。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我们需要这些东西：</p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/859902515.jpg"><img src="/posts/undefined/859902515.jpg" class="" title="ESP-01"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/762280384.jpg"><img src="/posts/undefined/762280384.jpg" class="" title="继电器"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/934420998.jpg"><img src="/posts/undefined/934420998.jpg" class="" title="200V 转 5V"></a></p>
+<table>
+<thead>
+<tr>
+<th align="left">材料</th>
+<th align="left">价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ESP-01</td>
+<td align="left">6.02 元</td>
+</tr>
+<tr>
+<td align="left">继电器模块</td>
+<td align="left">8 元</td>
+</tr>
+<tr>
+<td align="left">220V 转 5V 降压模块</td>
+<td align="left">6.25 元</td>
+</tr>
+<tr>
+<td align="left">总计</td>
+<td align="left">20.45 元</td>
+</tr>
+</tbody></table>
+<p>除了这些以外，还需要杜邦线若干，ESP-01 USB 转串口下载器一个。</p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/348784334.jpg"><img src="/posts/undefined/348784334.jpg" class="" title="杜邦线"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/3231254825.jpg"><img src="/posts/undefined/3231254825.jpg" class="" title="USB 转串口"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/2888607209.jpg"><img src="/posts/undefined/2888607209.jpg" class="" title="NodeMCU"></a></p>
+<p>为什么不用 NodeMCU 呢，因为开发板体积太大了，不必要的引脚和模块浪费空间，而且 ESP-01 有配套的继电器模块，8 个引脚一一对应，可以直接插在上面，由继电器给 ESP-01 供电，并通过 GPIO 0 引脚控制继电器，避免了复杂的接线。</p>
+<h2 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h2><p>首先给 ESP-01 刷入固件。</p>
+<p><del>下载这三个文件 <a target="_blank" rel="noopener" href="https://github.com/RavenSystem/haa_ota/releases/latest/download/haaboot.bin">haaboot.bin</a> <a target="_blank" rel="noopener" href="https://github.com/SuperHouse/esp-open-rtos/raw/master/bootloader/firmware_prebuilt/rboot.bin">rboot.bin</a> <a target="_blank" rel="noopener" href="https://github.com/SuperHouse/esp-open-rtos/raw/master/bootloader/firmware_prebuilt/blank_config.bin">blank_config.bin</a>。</del></p>
+<p><strong>6 月 5 日 更新：</strong></p>
+<p>今天发现 HAA 更新了他们的安装方式，之前的三个文件变成了一个 <a target="_blank" rel="noopener" href="https://github.com/RavenSystem/haa/releases/latest/download/fullhaaboot.bin">fullhaabot.bin</a>。现在只需要下载这一个文件就可以了。</p>
+<p>通过下载器让 ESP-01 连接电脑并进入烧录模式（flash-mode）。</p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/107259591.jpg"><img src="/posts/undefined/107259591.jpg" class="" title="下载"></a></p>
+<p>根据下载器所使用的 USB 转串口芯片安装对应的驱动程序。完成之后在 <code>设备管理器 - 端口</code> 中应该能看到对应设备，记录下设备名之后所对应的串口号。</p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/2664456500.png"><img src="/posts/undefined/2664456500.png" class="" title="设备管理器"></a></p>
+<p>鼠标右键点击 <code>属性 - 端口设置</code>，在 <code>位/秒(B)</code> 选项中修改当前的波特率，默认应该为 <code>9600</code>，为了下面脚本方便这里改为 <code>115200</code>。</p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/37624545.png"><img src="/posts/undefined/37624545.png" class="" title="波特率"></a></p>
+<p>这里我们采用 <a target="_blank" rel="noopener" href="https://github.com/espressif/esptool">esptool.py</a> 来刷入固件，电脑需要有 Python 环境。</p>
+<p>安装 esptool.py：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install esptool</span><br></pre></td></tr></table></figure>
+
+<p><strong>Shell</strong></p>
+<p>然后抹除 ESP-01 的闪存：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py -p /dev/&lt;your_ESPPort&gt; erase_flash</span><br></pre></td></tr></table></figure>
+
+<p><strong>Shell</strong></p>
+<p>这里的 <code>/dev/&lt;your_ESPPort&gt;</code> 对应刚才在设备管理器中看到的端口号 COMx。</p>
+<p><del>最后刷入刚才下载的三个文件：</del></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py -p /dev/&lt;your_ESPPort&gt; --baud 115200 write_flash -fs 1MB -fm dout -ff 40m 0x0 rboot.bin 0x1000 blank_config.bin 0x2000 haaboot.bin # 更新之后用下面的方式刷入新文件</span><br></pre></td></tr></table></figure>
+
+<p><strong>Shell</strong></p>
+<p>现在只需要刷入这一个文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py -p /dev/&lt;your_ESPPort&gt; --baud 115200 write_flash -fs 1MB -fm dout -ff 40m 0x0 fullhaaboot.bin</span><br></pre></td></tr></table></figure>
+
+<p><strong>Shell</strong></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>完成之后，ESP-01 会建立一个 SSID 为 <code>HAA-XXXXXX</code> 的开放 2.4GHz WiFi 热点，连接它，等待几秒钟，就会跳转到 Home Accessory Architect 的配置页面。</p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/3813654022.jpeg"><img src="/posts/undefined/3813654022.jpeg" class="" title="Home Accessory Architect"></a></p>
+<p>这里我们需要写一个 JSON 来配置 ESP-01 的功能，HAA 提供了相当丰富的物联网设备类型供我们选择，这里我们选择相对简单的的开关（Switch）来配置。</p>
+<p>将 wiki 中提供的范例 JSON 稍加修改：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;c&quot;</span>: &#123; <span class="attr">&quot;l&quot;</span>: <span class="number">1</span>, <span class="attr">&quot;b&quot;</span>: [&#123; <span class="attr">&quot;g&quot;</span>: <span class="number">2</span>, <span class="attr">&quot;t&quot;</span>: <span class="number">5</span> &#125;] &#125;,</span><br><span class="line">  <span class="attr">&quot;a&quot;</span>: [&#123;</span><br><span class="line">    <span class="attr">&quot;t&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">&quot;s&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">&quot;0&quot;</span>: &#123; <span class="attr">&quot;r&quot;</span>: [&#123; <span class="attr">&quot;g&quot;</span>: <span class="number">0</span>, <span class="attr">&quot;v&quot;</span>: <span class="number">1</span> &#125;] &#125;,</span><br><span class="line">    <span class="attr">&quot;1&quot;</span>: &#123; <span class="attr">&quot;r&quot;</span>: [&#123; <span class="attr">&quot;g&quot;</span>: <span class="number">0</span>, <span class="attr">&quot;v&quot;</span>: <span class="number">0</span> &#125;] &#125;,</span><br><span class="line">    <span class="attr">&quot;b&quot;</span>: [&#123; <span class="attr">&quot;g&quot;</span>: <span class="number">2</span> &#125;]</span><br><span class="line">  &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>JSON</strong></p>
+<p>这里表示了一个基本类型的开关（<code>&quot;t&quot;: 1</code>），通过 GPIO 0 控制继电器，因为这个继电器模块是 GPIO 0 低电平时闭合，所以在下面的 <code>&quot;0&quot;</code> 表示开关关闭的选项中 <code>&quot;v&quot;: 1</code> 表示高电平，而 <code>&quot;1&quot;</code> 与之相反。LED 指示灯定义为 GPIO 1，按钮定义为 GPIO 2，<code>&quot;s&quot;: 1</code> 表示通电后默认为开关打开状态。</p>
+<p>详细的配置规则可以参阅原项目的 <a target="_blank" rel="noopener" href="https://github.com/RavenSystem/esp-homekit-devices/wiki/Switches">Wiki</a>。</p>
+<p>将 JSON 填入配置页面，并在下方连接 WiFi，注意 ESP-01 仅能连接 2.4GHz 的 WiFi。</p>
+<p>之后点击保存并等待 7 分钟左右，完成后 LED 会亮起几秒钟。</p>
+<p>在设备安装或者更新的时候，可以在 macOS 或 GNU&#x2F;Linux 设备上通过下面的命令检测日志获取设备状态：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -kulnw0 45678</span><br></pre></td></tr></table></figure>
+
+<p><strong>Shell</strong></p>
+<h2 id="接线"><a href="#接线" class="headerlink" title="接线"></a>接线</h2><p>将 220V 的火线与零线接到 220V 转 5V 降压模块上。</p>
+<p>降压模块输出 5V 电接入继电器的 VCC 与 GND。将 ESP-01 插在继电器上，因为该继电器自带一个 5V 转 3.3V，所以可以直接给 ESP-01 供电。</p>
+<p>将继电器的常开端（NO）与通用端（COM）与灯泡和 220V 连接，当继电器闭合时即形成回路点亮灯泡。</p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/3817180843.jpg"><img src="/posts/undefined/3817180843.jpg" class="" title="接线"></a></p>
+<h2 id="添加-HomeKit-设备"><a href="#添加-HomeKit-设备" class="headerlink" title="添加 HomeKit 设备"></a>添加 HomeKit 设备</h2><p>在 iOS 设备中打开「家庭」App，通过下方的设置代码，按照正常步骤添加新配件。大约等待 30 秒即可添加完成。</p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/3106914530.png"><img src="/posts/undefined/3106914530.png" class="" title="QR-Code"></a>QR-Code</p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/3727147545.jpg"><img src="/posts/undefined/3727147545.jpg" class="" title="Normal Code"></a>Normal Code</p>
+<p>现在我们就可以在 iOS 设备上通过 HomeKit 控制灯泡了。</p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/2321898814.png"><img src="/posts/undefined/2321898814.png" class="" title="添加配件"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/4139855746.png"><img src="/posts/undefined/4139855746.png" class="" title="设置配件"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/1199656558.png"><img src="/posts/undefined/1199656558.png" class="" title="家庭"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imwtx.com/usr/uploads/2020/04/208523972.png"><img src="/posts/undefined/208523972.png" class="" title="Siri"></a></p>
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1jE411K7AE/?vd_source=a92d344f368228401039c4668df84983">（bilibili视频）仅用20元成本，将esp8266接入HomeKit，用Siri控制你的灯</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/TWTF1998/article/details/86419559">ESP8266控制继电器（支持HOMEKIT）</a></li>
+<li><a target="_blank" rel="noopener" href="https://imwtx.com/archives/143/">20 元将普通电灯接入 HomeKit</a></li>
+</ol>
+<hr>
+<center><font color=red>=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/149085255.html">https://zml3589110.github.io/posts/149085255.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ubuntu/">Ubuntu</a><a class="post-meta__tags" href="/tags/ESP8266/">ESP8266</a><a class="post-meta__tags" href="/tags/%E4%B9%90%E9%91%AB/">乐鑫</a><a class="post-meta__tags" href="/tags/ESP01S/">ESP01S</a><a class="post-meta__tags" href="/tags/homekit/">homekit</a><a class="post-meta__tags" href="/tags/esp-homekit-direct/">esp-homekit-direct</a><a class="post-meta__tags" href="/tags/esp-homekit-devices/">esp-homekit-devices</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/posts/2449930636.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ESP8266及ESP32固件生成及烧录方法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2449930636.html" title="ESP8266及ESP32固件生成及烧录方法"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-23</div><div class="title">ESP8266及ESP32固件生成及烧录方法</div></div></a></div><div><a href="/posts/4026894451.html" title="ESP01S刷MQTT固件"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-23</div><div class="title">ESP01S刷MQTT固件</div></div></a></div><div><a href="/posts/442091668.html" title="通过HOMEKIT让ESP8266控制继电器"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-25</div><div class="title">通过HOMEKIT让ESP8266控制继电器</div></div></a></div><div><a href="/posts/3713584928.html" title="Ubuntu烧录下载时找不到USB0报错"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-28</div><div class="title">Ubuntu烧录下载时找不到USB0报错</div></div></a></div><div><a href="/posts/2171885577.html" title="乐鑫Esp8266_RTOS_SDK最新SDK_IDF编译环境搭建"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-27</div><div class="title">乐鑫Esp8266_RTOS_SDK最新SDK_IDF编译环境搭建</div></div></a></div><div><a href="/posts/1724428249.html" title="Homeassistant环境Docker配置"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-30</div><div class="title">Homeassistant环境Docker配置</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">190</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">290</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">95</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E5%AF%BC%E5%85%A5%E4%B8%89%E4%B8%AA%E6%96%87%E4%BB%B6%EF%BC%8C%E8%AE%A4%E8%AF%81%E7%A0%81-11111111"><span class="toc-number">1.</span> <span class="toc-text">方式一：导入三个文件，认证码 11111111</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bilibili%E8%A7%86%E9%A2%91%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">bilibili视频使用的文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%9B%98%E6%96%87%E4%BB%B6%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.1.</span> <span class="toc-text">网盘文件使用说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.2.</span> <span class="toc-text">源码说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E4%B8%80%EF%BC%9Awifi-config-c%E6%96%87%E4%BB%B6%E4%B8%AD%E6%89%BE%E4%B8%8D%E5%88%B0html%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">报错一：wifi_config.c文件中找不到html配置信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E4%BA%8C%EF%BC%9A%E7%94%9F%E6%88%90-switch-bin-%E6%97%B6%E8%AE%BE%E7%BD%AE%E7%9A%84%E5%86%85%E5%AD%98%E9%94%99%E8%AF%AF"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">报错二：生成 switch.bin 时设置的内存错误</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E6%AD%A5%E9%AA%A4%E8%AF%A6%E7%BB%86%EF%BC%89ESP8266%E6%8E%A7%E5%88%B6%E7%BB%A7%E7%94%B5%E5%99%A8%EF%BC%88%E6%94%AF%E6%8C%81HOMEKIT%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">（步骤详细）ESP8266控制继电器（支持HOMEKIT）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6-fullhaabot-bin"><span class="toc-number">2.</span> <span class="toc-text">方式二：一个文件 fullhaabot.bin</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#20-%E5%85%83%E5%B0%86%E6%99%AE%E9%80%9A%E7%94%B5%E7%81%AF%E6%8E%A5%E5%85%A5"><span class="toc-number">2.1.</span> <span class="toc-text">20 元将普通电灯接入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">2.3.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B7%E6%9C%BA"><span class="toc-number">2.4.</span> <span class="toc-text">刷机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">2.5.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E7%BA%BF"><span class="toc-number">2.6.</span> <span class="toc-text">接线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-HomeKit-%E8%AE%BE%E5%A4%87"><span class="toc-number">2.7.</span> <span class="toc-text">添加 HomeKit 设备</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/149085255.html" title="ESP01S接入苹果homekit"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP01S接入苹果homekit"/></a><div class="content"><a class="title" href="/posts/149085255.html" title="ESP01S接入苹果homekit">ESP01S接入苹果homekit</a><time datetime="2023-12-27T00:41:20.000Z" title="发表于 2023-12-27 08:41:20">2023-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2449930636.html" title="ESP8266及ESP32固件生成及烧录方法"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP8266及ESP32固件生成及烧录方法"/></a><div class="content"><a class="title" href="/posts/2449930636.html" title="ESP8266及ESP32固件生成及烧录方法">ESP8266及ESP32固件生成及烧录方法</a><time datetime="2023-12-23T09:16:20.000Z" title="发表于 2023-12-23 17:16:20">2023-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4026894451.html" title="ESP01S刷MQTT固件"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP01S刷MQTT固件"/></a><div class="content"><a class="title" href="/posts/4026894451.html" title="ESP01S刷MQTT固件">ESP01S刷MQTT固件</a><time datetime="2023-12-23T08:39:20.000Z" title="发表于 2023-12-23 16:39:20">2023-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2741096271.html" title="STM32F错误收集"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="STM32F错误收集"/></a><div class="content"><a class="title" href="/posts/2741096271.html" title="STM32F错误收集">STM32F错误收集</a><time datetime="2023-12-22T03:14:20.000Z" title="发表于 2023-12-22 11:14:20">2023-12-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4084148530.html" title="U8G2的OLED库基础"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="U8G2的OLED库基础"/></a><div class="content"><a class="title" href="/posts/4084148530.html" title="U8G2的OLED库基础">U8G2的OLED库基础</a><time datetime="2023-12-22T02:39:20.000Z" title="发表于 2023-12-22 10:39:20">2023-12-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>

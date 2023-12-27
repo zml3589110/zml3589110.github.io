@@ -4,9 +4,9 @@
   
     
     <entry>
-      <title>ESP01S刷MQTT固件</title>
-      <link href="/posts/4026894451.html"/>
-      <url>/posts/4026894451.html</url>
+      <title>ESP01S接入苹果homekit</title>
+      <link href="/posts/149085255.html"/>
+      <url>/posts/149085255.html</url>
       
         <content type="html"><![CDATA[<h1 id="方式一：导入三个文件，认证码-11111111"><a href="#方式一：导入三个文件，认证码-11111111" class="headerlink" title="方式一：导入三个文件，认证码 11111111"></a>方式一：导入三个文件，认证码 11111111</h1><p><a href="https://gitee.com/qcchat/esp-homekit-direct">https://gitee.com/qcchat/esp-homekit-direct</a></p><p><a href="git@gitee.com:dai_jian/Sonoff-Homekit.git">Sonoff-Homekit</a></p><h2 id="bilibili视频使用的文件"><a href="#bilibili视频使用的文件" class="headerlink" title="bilibili视频使用的文件"></a>bilibili视频使用的文件</h2><p>固件和工具下载地址：<br>链接：<a href="https://pan.baidu.com/s/1zppF3IUorvEO7knatS5piQ">https://pan.baidu.com/s/1zppF3IUorvEO7knatS5piQ</a> 提取码：xso7<br>源码地址：<a href="https://github.com/LeeLulin/esp-homekit-direct">https://github.com/LeeLulin/esp-homekit-direct</a></p><h3 id="网盘文件使用说明"><a href="#网盘文件使用说明" class="headerlink" title="网盘文件使用说明"></a>网盘文件使用说明</h3><p>下载网盘上的连接，有三个文件依次烧录即可<br><strong>rboot.bin 0x0<br>blank_config.bin 0x1000<br>switch.bin 0x2000</strong><br>先擦除后下载即可！</p><h3 id="源码说明"><a href="#源码说明" class="headerlink" title="源码说明"></a>源码说明</h3><p>在window上使用git乌龟下载一直失败，在使用git bash 命令拉下来的时候成功了，也不知什么原因！</p><p>这个库使用的使用 esp-open-rtos 系统，所以前面要先把这个环境搭建好！ 这个环境介绍说明的是跟 esp-free-rtos 一样，只是编译模式有所不同，每一个文件工程都独立包含了 esp-open-rtos 工程文件，而 esp-free-rtos 则是把总工程放到一个地方，有点像 SVN 和 GIT 的区别，一个完全copy副本，一个不需要！</p><p>在安装好环境之后就能根据 MD 文件说明操作，但是，在编译的时候会报错，一般报错就根据报错地方修改即可！</p><h4 id="报错一：wifi-config-c文件中找不到html配置信息"><a href="#报错一：wifi-config-c文件中找不到html配置信息" class="headerlink" title="报错一：wifi_config.c文件中找不到html配置信息"></a>报错一：wifi_config.c文件中找不到html配置信息</h4><img src="/posts/undefined/2023-12-26_201506.png" class="" title="html文件"><p>这个故障主要是wifi配置html页面无法生成，故而在编译时也没法找到这些const字段。</p><img src="/posts/undefined/2023-12-26_202430.png" class="" title="embed文件错误"><p>在排查以后才发现主要还是 <strong>esp-homekit-direct\external_libs\wifi_config\tools\embed.py</strong> 文件错误导致的</p><p>两处 print 均报错，需要加上括号后才能通过并编译出相应的 html 字段<br>print ‘Error: no parts found’ 修改为：print (‘Error: no parts found’)<br>print gen_embedded(f.read()) 修改为：print (gen_embedded(f.read()))</p><h4 id="报错二：生成-switch-bin-时设置的内存错误"><a href="#报错二：生成-switch-bin-时设置的内存错误" class="headerlink" title="报错二：生成 switch.bin 时设置的内存错误"></a>报错二：生成 switch.bin 时设置的内存错误</h4><img src="/posts/undefined/2023-12-26_205613.png" class="" title="firmware"><p>在输出内存配置中，选项为 xMB，例如这个模块8MB，但设置的时候为8m，会报错且无法输出 bin 文件。<br>这时候就需要修改 <strong>esp-homekit-direct\sdk\esp-open-rtos\parameters.mk</strong> 文件。</p><img src="/posts/undefined/2023-12-26_202721.png" class="" title="mk文件"><p>然后重新编译就能得到 switch.bin 了</p><p>感觉这个方式接入 homekit 是最方便的了，另一个种 installer 方式接入会等待 github很久而且还不一定成功，可能是因为墙的原因。<br>而这种方式就能很快接入 家庭，不过还未试看能否接入 HomeAssistan 了。</p><h2 id="（步骤详细）ESP8266控制继电器（支持HOMEKIT）"><a href="#（步骤详细）ESP8266控制继电器（支持HOMEKIT）" class="headerlink" title="（步骤详细）ESP8266控制继电器（支持HOMEKIT）"></a>（步骤详细）ESP8266控制继电器（支持HOMEKIT）</h2><p><strong>ESP8266控制继电器（支持HOMEKIT，无需homebridge，可用SIRI控制）</strong><br>首先感谢：<a href="https://github.com/RavenSystem/esp-homekit-devices">https://github.com/RavenSystem/esp-homekit-devices</a>   <a href="https://gitcode.com/ravensystem/esp-homekit-devices/overview?utm_source=csdn_github_accelerator&isLogin=1">——&gt;镜像地址</a></p><p><a href="https://github.com/Gruppio/Sonoff-Homekit">https://github.com/Gruppio/Sonoff-Homekit</a>   <a href="https://gitcode.com/mirrors/Gruppio/Sonoff-Homekit/overview">——&gt;镜像地址</a></p><p>主要设备：ESP8266、1路5V继电器、杜邦线若干。</p><img src="/posts/undefined/20190113140601235.jpg" class="" title="ESP8266"><img src="/posts/undefined/image-20231226210852275.png" class="" title="image-20231226210852275"><img src="/posts/undefined/image-20231226210922313.png" class="" title="image-20231226210922313"><p>下面开始进入正题：开始给ESP8266刷固件<br><a href="https://pan.baidu.com/s/1Xp3CvFbdh4McnkBIacfsuQ">https://pan.baidu.com/s/1Xp3CvFbdh4McnkBIacfsuQ</a> （固件自取）</p><p>本次采用esptool.py来刷鞋固件，所以需要给电脑安装python环境。<br><strong><a href="http://安装esptool.py/">安装esptool.py</a></strong><br>pip install esptool<br><strong>切换到python的安装路径不知道在哪的输入</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">where python</span><br></pre></td></tr></table></figure><img src="/posts/undefined/20190113142401883.png" class="" title="python路径"><p>cd &#x2F;python路径 切换到python安装目录，在此目录下放上我们要刷写的固件</p><img src="/posts/undefined/20190113142724432.png" class="" title="固件截图"><p>好，开始用micro-USB线将ESP8266连接到计算机（如果不识别自行安装CH340驱动）记住端口号，我的是COM3</p><img src="/posts/undefined/20190113143206883.png" class="" title="端口号"><p>先清空flash</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py --port COM3 erase_flash</span><br></pre></td></tr></table></figure><img src="/posts/undefined/2019011314341874.png" class="" title="清空FLASH"><p><strong>刷入固件</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py -p COM3 -b 115200 write_flash -fs 1MB -fm dout -ff 40m 0x0 rboot.bin 0x1000 blank_config.bin 0x2000 Sonoff_ON.bin</span><br></pre></td></tr></table></figure><img src="/posts/undefined/20190113143825879.png" class="" title="刷固件"><p>到这里固件已经刷入完成，搜索WIFI看到名为Switch-******的SSID，连接上后进入192.168.4.1进行设置为其连接上一个可联网的WIFI。</p><img src="/posts/undefined/20190113144217426.png" class="" title="在这里插入图片描述"><p>这时打开ios的家庭APP，添加配件，选择“我没有代码或无法扫描”输入配对码：11111111</p><img src="/posts/undefined/20190113144537603.png" class="" title="在这里插入图片描述"><img src="/posts/undefined/20190113144609464.png" class="" title="在这里插入图片描述"><p>我们可以从串口信息看到正在添加HOMEKIT 客户端</p><img src="/posts/undefined/20190113145119352.png" class="" title="在这里插入图片描述"><p>这时已经成功添加到家庭APP，支持SIRI控制</p><img src="/posts/undefined/20190113145151882.png" class="" title="在这里插入图片描述"><p>接下来，让我们把继电器连接到ESP8266的D6 (GPIO12)口上。ESP8266接笔记本的USB口可能会供电不足导致不能控制继电器。我在这里就用充电宝做电源了。我们可以试试让siri帮你开关继电器了</p><img src="/posts/undefined/2019011314553482.jpg" class="" title="在这里插入图片描述"><img src="/posts/undefined/20190113145902241.png" class="" title="在这里插入图片描述"><h1 id="方式二：一个文件-fullhaabot-bin"><a href="#方式二：一个文件-fullhaabot-bin" class="headerlink" title="方式二：一个文件 fullhaabot.bin"></a>方式二：一个文件 fullhaabot.bin</h1><p><strong>这个方法刷入并设置好WIFI后需要等待很久，看串口日志发现需要下载 github 上的 HAA文件下来，所以十分缓慢，而且 JSON 格式的 GPIO 设置自己还是没弄成功，这个也有相应的库</strong></p><h2 id="20-元将普通电灯接入"><a href="#20-元将普通电灯接入" class="headerlink" title="20 元将普通电灯接入"></a>20 元将普通电灯接入</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最开始我是看到 B 站有刷固件接入 HomeKit 的视频，我了解了一下之后觉得有些问题，他们都用的是统一的一个 Sonoff 固件，刷入之后可以直接通过 NodeMCU D6 <strong>GPIO12</strong> 引脚输出高低电平，但是我甚至没找到这个固件的来源，所有视频都是草草地丢一个下载链接，告诉你下载刷进去就行了…而且这个输出引脚没法修改，后期接线的话会有一些问题。</p><p>后来我在 GitHub 上找到一个项目 <a href="https://github.com/RavenSystem/esp-homekit-devices">RavenSystem&#x2F;esp-homekit-devices</a>，该固件可以刷入采用 8266 芯片的设备，接入 HomeKit 并提供丰富的自定义选项，而我之前在 B 站看到的固件，应该就是基于该项目修改，原本用于 Sonoff 开关的一个固件（查了一下 Sonoff 是深圳一家公司的物联网产品，主打 WiFi 继电器）。那么就可以通过该项目，很轻松地实现我们的目标。</p><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我们需要这些东西：</p><p><a href="https://imwtx.com/usr/uploads/2020/04/859902515.jpg"><img src="/posts/undefined/859902515.jpg" class="" title="ESP-01"></a></p><p><a href="https://imwtx.com/usr/uploads/2020/04/762280384.jpg"><img src="/posts/undefined/762280384.jpg" class="" title="继电器"></a></p><p><a href="https://imwtx.com/usr/uploads/2020/04/934420998.jpg"><img src="/posts/undefined/934420998.jpg" class="" title="200V 转 5V"></a></p><table><thead><tr><th align="left">材料</th><th align="left">价格</th></tr></thead><tbody><tr><td align="left">ESP-01</td><td align="left">6.02 元</td></tr><tr><td align="left">继电器模块</td><td align="left">8 元</td></tr><tr><td align="left">220V 转 5V 降压模块</td><td align="left">6.25 元</td></tr><tr><td align="left">总计</td><td align="left">20.45 元</td></tr></tbody></table><p>除了这些以外，还需要杜邦线若干，ESP-01 USB 转串口下载器一个。</p><p><a href="https://imwtx.com/usr/uploads/2020/04/348784334.jpg"><img src="/posts/undefined/348784334.jpg" class="" title="杜邦线"></a></p><p><a href="https://imwtx.com/usr/uploads/2020/04/3231254825.jpg"><img src="/posts/undefined/3231254825.jpg" class="" title="USB 转串口"></a></p><p><a href="https://imwtx.com/usr/uploads/2020/04/2888607209.jpg"><img src="/posts/undefined/2888607209.jpg" class="" title="NodeMCU"></a></p><p>为什么不用 NodeMCU 呢，因为开发板体积太大了，不必要的引脚和模块浪费空间，而且 ESP-01 有配套的继电器模块，8 个引脚一一对应，可以直接插在上面，由继电器给 ESP-01 供电，并通过 GPIO 0 引脚控制继电器，避免了复杂的接线。</p><h2 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h2><p>首先给 ESP-01 刷入固件。</p><p><del>下载这三个文件 <a href="https://github.com/RavenSystem/haa_ota/releases/latest/download/haaboot.bin">haaboot.bin</a> <a href="https://github.com/SuperHouse/esp-open-rtos/raw/master/bootloader/firmware_prebuilt/rboot.bin">rboot.bin</a> <a href="https://github.com/SuperHouse/esp-open-rtos/raw/master/bootloader/firmware_prebuilt/blank_config.bin">blank_config.bin</a>。</del></p><p><strong>6 月 5 日 更新：</strong></p><p>今天发现 HAA 更新了他们的安装方式，之前的三个文件变成了一个 <a href="https://github.com/RavenSystem/haa/releases/latest/download/fullhaaboot.bin">fullhaabot.bin</a>。现在只需要下载这一个文件就可以了。</p><p>通过下载器让 ESP-01 连接电脑并进入烧录模式（flash-mode）。</p><p><a href="https://imwtx.com/usr/uploads/2020/04/107259591.jpg"><img src="/posts/undefined/107259591.jpg" class="" title="下载"></a></p><p>根据下载器所使用的 USB 转串口芯片安装对应的驱动程序。完成之后在 <code>设备管理器 - 端口</code> 中应该能看到对应设备，记录下设备名之后所对应的串口号。</p><p><a href="https://imwtx.com/usr/uploads/2020/04/2664456500.png"><img src="/posts/undefined/2664456500.png" class="" title="设备管理器"></a></p><p>鼠标右键点击 <code>属性 - 端口设置</code>，在 <code>位/秒(B)</code> 选项中修改当前的波特率，默认应该为 <code>9600</code>，为了下面脚本方便这里改为 <code>115200</code>。</p><p><a href="https://imwtx.com/usr/uploads/2020/04/37624545.png"><img src="/posts/undefined/37624545.png" class="" title="波特率"></a></p><p>这里我们采用 <a href="https://github.com/espressif/esptool">esptool.py</a> 来刷入固件，电脑需要有 Python 环境。</p><p>安装 esptool.py：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install esptool</span><br></pre></td></tr></table></figure><p><strong>Shell</strong></p><p>然后抹除 ESP-01 的闪存：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py -p /dev/&lt;your_ESPPort&gt; erase_flash</span><br></pre></td></tr></table></figure><p><strong>Shell</strong></p><p>这里的 <code>/dev/&lt;your_ESPPort&gt;</code> 对应刚才在设备管理器中看到的端口号 COMx。</p><p><del>最后刷入刚才下载的三个文件：</del></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py -p /dev/&lt;your_ESPPort&gt; --baud 115200 write_flash -fs 1MB -fm dout -ff 40m 0x0 rboot.bin 0x1000 blank_config.bin 0x2000 haaboot.bin # 更新之后用下面的方式刷入新文件</span><br></pre></td></tr></table></figure><p><strong>Shell</strong></p><p>现在只需要刷入这一个文件：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py -p /dev/&lt;your_ESPPort&gt; --baud 115200 write_flash -fs 1MB -fm dout -ff 40m 0x0 fullhaaboot.bin</span><br></pre></td></tr></table></figure><p><strong>Shell</strong></p><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>完成之后，ESP-01 会建立一个 SSID 为 <code>HAA-XXXXXX</code> 的开放 2.4GHz WiFi 热点，连接它，等待几秒钟，就会跳转到 Home Accessory Architect 的配置页面。</p><p><a href="https://imwtx.com/usr/uploads/2020/04/3813654022.jpeg"><img src="/posts/undefined/3813654022.jpeg" class="" title="Home Accessory Architect"></a></p><p>这里我们需要写一个 JSON 来配置 ESP-01 的功能，HAA 提供了相当丰富的物联网设备类型供我们选择，这里我们选择相对简单的的开关（Switch）来配置。</p><p>将 wiki 中提供的范例 JSON 稍加修改：</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;c&quot;</span>: &#123; <span class="attr">&quot;l&quot;</span>: <span class="number">1</span>, <span class="attr">&quot;b&quot;</span>: [&#123; <span class="attr">&quot;g&quot;</span>: <span class="number">2</span>, <span class="attr">&quot;t&quot;</span>: <span class="number">5</span> &#125;] &#125;,</span><br><span class="line">  <span class="attr">&quot;a&quot;</span>: [&#123;</span><br><span class="line">    <span class="attr">&quot;t&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">&quot;s&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">&quot;0&quot;</span>: &#123; <span class="attr">&quot;r&quot;</span>: [&#123; <span class="attr">&quot;g&quot;</span>: <span class="number">0</span>, <span class="attr">&quot;v&quot;</span>: <span class="number">1</span> &#125;] &#125;,</span><br><span class="line">    <span class="attr">&quot;1&quot;</span>: &#123; <span class="attr">&quot;r&quot;</span>: [&#123; <span class="attr">&quot;g&quot;</span>: <span class="number">0</span>, <span class="attr">&quot;v&quot;</span>: <span class="number">0</span> &#125;] &#125;,</span><br><span class="line">    <span class="attr">&quot;b&quot;</span>: [&#123; <span class="attr">&quot;g&quot;</span>: <span class="number">2</span> &#125;]</span><br><span class="line">  &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>JSON</strong></p><p>这里表示了一个基本类型的开关（<code>&quot;t&quot;: 1</code>），通过 GPIO 0 控制继电器，因为这个继电器模块是 GPIO 0 低电平时闭合，所以在下面的 <code>&quot;0&quot;</code> 表示开关关闭的选项中 <code>&quot;v&quot;: 1</code> 表示高电平，而 <code>&quot;1&quot;</code> 与之相反。LED 指示灯定义为 GPIO 1，按钮定义为 GPIO 2，<code>&quot;s&quot;: 1</code> 表示通电后默认为开关打开状态。</p><p>详细的配置规则可以参阅原项目的 <a href="https://github.com/RavenSystem/esp-homekit-devices/wiki/Switches">Wiki</a>。</p><p>将 JSON 填入配置页面，并在下方连接 WiFi，注意 ESP-01 仅能连接 2.4GHz 的 WiFi。</p><p>之后点击保存并等待 7 分钟左右，完成后 LED 会亮起几秒钟。</p><p>在设备安装或者更新的时候，可以在 macOS 或 GNU&#x2F;Linux 设备上通过下面的命令检测日志获取设备状态：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -kulnw0 45678</span><br></pre></td></tr></table></figure><p><strong>Shell</strong></p><h2 id="接线"><a href="#接线" class="headerlink" title="接线"></a>接线</h2><p>将 220V 的火线与零线接到 220V 转 5V 降压模块上。</p><p>降压模块输出 5V 电接入继电器的 VCC 与 GND。将 ESP-01 插在继电器上，因为该继电器自带一个 5V 转 3.3V，所以可以直接给 ESP-01 供电。</p><p>将继电器的常开端（NO）与通用端（COM）与灯泡和 220V 连接，当继电器闭合时即形成回路点亮灯泡。</p><p><a href="https://imwtx.com/usr/uploads/2020/04/3817180843.jpg"><img src="/posts/undefined/3817180843.jpg" class="" title="接线"></a></p><h2 id="添加-HomeKit-设备"><a href="#添加-HomeKit-设备" class="headerlink" title="添加 HomeKit 设备"></a>添加 HomeKit 设备</h2><p>在 iOS 设备中打开「家庭」App，通过下方的设置代码，按照正常步骤添加新配件。大约等待 30 秒即可添加完成。</p><p><a href="https://imwtx.com/usr/uploads/2020/04/3106914530.png"><img src="/posts/undefined/3106914530.png" class="" title="QR-Code"></a>QR-Code</p><p><a href="https://imwtx.com/usr/uploads/2020/04/3727147545.jpg"><img src="/posts/undefined/3727147545.jpg" class="" title="Normal Code"></a>Normal Code</p><p>现在我们就可以在 iOS 设备上通过 HomeKit 控制灯泡了。</p><p><a href="https://imwtx.com/usr/uploads/2020/04/2321898814.png"><img src="/posts/undefined/2321898814.png" class="" title="添加配件"></a></p><p><a href="https://imwtx.com/usr/uploads/2020/04/4139855746.png"><img src="/posts/undefined/4139855746.png" class="" title="设置配件"></a></p><p><a href="https://imwtx.com/usr/uploads/2020/04/1199656558.png"><img src="/posts/undefined/1199656558.png" class="" title="家庭"></a></p><p><a href="https://imwtx.com/usr/uploads/2020/04/208523972.png"><img src="/posts/undefined/208523972.png" class="" title="Siri"></a></p><hr><h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol><li><a href="https://www.bilibili.com/video/BV1jE411K7AE/?vd_source=a92d344f368228401039c4668df84983">（bilibili视频）仅用20元成本，将esp8266接入HomeKit，用Siri控制你的灯</a></li><li><a href="https://blog.csdn.net/TWTF1998/article/details/86419559">ESP8266控制继电器（支持HOMEKIT）</a></li><li><a href="https://imwtx.com/archives/143/">20 元将普通电灯接入 HomeKit</a></li></ol><hr><center><font color=red>=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
       
@@ -274,13 +274,13 @@
             
             <tag> 网页 </tag>
             
-            <tag> HTML </tag>
+            <tag> RegExp </tag>
             
             <tag> JavaScript </tag>
             
-            <tag> 加号匹配 </tag>
+            <tag> HTML </tag>
             
-            <tag> RegExp </tag>
+            <tag> 加号匹配 </tag>
             
         </tags>
       
@@ -293,7 +293,7 @@
       <link href="/posts/2069770813.html"/>
       <url>/posts/2069770813.html</url>
       
-        <content type="html"><![CDATA[<blockquote><p>hexo有许多主题，其实最火爆的是NexT、Matery等，复制关键词到GitHub或者baidu都能搜到。权衡利弊最终我还是选择了大多数人使用的next。</p></blockquote><h1 id="常用命令说明"><a href="#常用命令说明" class="headerlink" title="常用命令说明"></a>常用命令说明</h1><ul><li>（1）hexo g或hexo generate<br>该命令执行后在hexo站点根目录下生成public文件夹</li></ul><img src="/posts/2069770813/7683010350d24da995d50c154352b35d.png" class="" title="在这里插入图片描述"><ul><li>（2）hexo clean</li></ul><p>把（1）中的public文件夹删除</p><ul><li>（3）hexo s或hexo server<br>启动服务，默认地址为<a href="http://localhost:4000/%EF%BC%8C4000%E7%AB%AF%E5%8F%A3">http://localhost:4000/，4000端口</a></li></ul><img src="/posts/2069770813/185e5eec8e4e4769b821f6157468d87d.png" class="" title="在这里插入图片描述"><ul><li><p>（4）hexo d或hexo deploy<br>部署站点，在本地生成.deploy_git文件夹，并将编译后的文件上传至 GitHub。</p></li><li><p>（5）hexo new [layout] <title><br>例如： hexo new photo “my-first-blog”<br>上述指令执行时，Hexo 会尝试在 scaffolds 中寻找photo.md布局，若找到，则根据该布局新建文章；若未找到或指令中未指定该参数，则使用post.md新建文章。新建文章的名称在_config.yml中配置。</p></li></ul><img src="/posts/2069770813/35dacad9d318449696f68e6697eab9c7.png" class="" title="在这里插入图片描述"><ul><li>（6）删除文章<br>只需在本地把source&#x2F;_posts文件夹下的文章源文件删除后，执行以下命令重新部署即可。</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s // 一定要先 clean，防止灵异事件发生</span><br></pre></td></tr></table></figure><ul><li>（7）备份&#x2F;迁移你的Hexo博客</li></ul><ol><li>备份根目录</li></ol><img src="/posts/2069770813/8b7829cea05440408b386a27bc71cade.png" class="" title="在这里插入图片描述"><ol start="2"><li>参考<a href="https://hexoscript.gitbook.io/hexo-script/v/1.3-1/shi-yong-bu-zhou/zhun-bei-gong-ju">文档3：hexo-script使用文档</a>重新安装hexo</li><li>使用备份的目录覆盖新装的hexo目录</li></ol><img src="/posts/2069770813/56e7368f24dc4f258cdf2f2141543328.png" class="" title="在这里插入图片描述"><ol start="4"><li>最后使用下面的命令直接运行即可<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure></li><li>生成新的SSH公钥并上传至GitHub<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;a237440035&quot;</span><br><span class="line">git config --global user.email &quot;237440035@qq.com&quot;</span><br><span class="line">ssh-keygen -t ed25519 -C &quot;237440035@qq.com&quot;</span><br></pre></td></tr></table></figure></li></ol><img src="/posts/2069770813/878226dbaf9849fb8528198ef9ad2ac4.png" class="" title="在这里插入图片描述"><p>公钥为：SHA256:57GWXC&#x2F;PLymwxMVw9NoNKMpaoSI71Mum7Y9tPZZbgPI <a href="mailto:&#x32;&#51;&#55;&#52;&#x34;&#48;&#x30;&#51;&#x35;&#64;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;">&#x32;&#51;&#55;&#52;&#x34;&#48;&#x30;&#51;&#x35;&#64;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;</a><br>也可以在文件C:\Users\Administrator.ssh\id_ed25519.pub中查看<br>将公钥复制在GitHub中即可使用hexo d命令</p><img src="/posts/2069770813/018945bae1274b7783e02631b033d741.png" class="" title="在这里插入图片描述"><h5 id="个性化定制你的Hexo博客"><a href="#个性化定制你的Hexo博客" class="headerlink" title="个性化定制你的Hexo博客"></a>个性化定制你的Hexo博客</h5><blockquote><p><a href="https://blog.csdn.net/qq_42889280/article/details/103087433">1、Hexo博客+Next主题深度优化与定制</a><br><a href="https://www.jianshu.com/p/baab04284923">2、备份你的Hexo博客</a><br><a href="https://hexoscript.gitbook.io/hexo-script/v/1.3-1/shi-yong-bu-zhou/zhun-bei-gong-ju">3、hexo-script使用文档</a><br><a href="https://www.jianshu.com/p/78c218f9d1e7">4、Hexo-设置阅读全文</a></p></blockquote><hr><h1 id="相关链接-侵删"><a href="#相关链接-侵删" class="headerlink" title="相关链接(侵删)"></a>相关链接(侵删)</h1><ol><li><a href="https://blog.csdn.net/vpqtxzmzezeqjj9977/article/details/122982320">Hexo的常用指令合集</a></li></ol><hr><center><font color=red>=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+        <content type="html"><![CDATA[<blockquote><p>hexo有许多主题，其实最火爆的是NexT、Matery等，复制关键词到GitHub或者baidu都能搜到。权衡利弊最终我还是选择了大多数人使用的next。</p></blockquote><h1 id="常用命令说明"><a href="#常用命令说明" class="headerlink" title="常用命令说明"></a>常用命令说明</h1><ul><li>（1）hexo g或hexo generate<br>该命令执行后在hexo站点根目录下生成public文件夹</li></ul><img src="/posts/2069770813/7683010350d24da995d50c154352b35d.png" class="" title="在这里插入图片描述"><ul><li>（2）hexo clean</li></ul><p>把（1）中的public文件夹删除</p><ul><li>（3）hexo s或hexo server<br>启动服务，默认地址为<a href="http://localhost:4000/%EF%BC%8C4000%E7%AB%AF%E5%8F%A3">http://localhost:4000/，4000端口</a></li></ul><img src="/posts/2069770813/185e5eec8e4e4769b821f6157468d87d.png" class="" title="在这里插入图片描述"><ul><li><p>（4）hexo d或hexo deploy<br>部署站点，在本地生成.deploy_git文件夹，并将编译后的文件上传至 GitHub。</p></li><li><p>（5）hexo new [layout] <title><br>例如： hexo new photo “my-first-blog”<br>上述指令执行时，Hexo 会尝试在 scaffolds 中寻找photo.md布局，若找到，则根据该布局新建文章；若未找到或指令中未指定该参数，则使用post.md新建文章。新建文章的名称在_config.yml中配置。</p></li></ul><img src="/posts/2069770813/35dacad9d318449696f68e6697eab9c7.png" class="" title="在这里插入图片描述"><ul><li>（6）删除文章<br>只需在本地把source&#x2F;_posts文件夹下的文章源文件删除后，执行以下命令重新部署即可。</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s // 一定要先 clean，防止灵异事件发生</span><br></pre></td></tr></table></figure><ul><li>（7）备份&#x2F;迁移你的Hexo博客</li></ul><ol><li>备份根目录</li></ol><img src="/posts/2069770813/8b7829cea05440408b386a27bc71cade.png" class="" title="在这里插入图片描述"><ol start="2"><li>参考<a href="https://hexoscript.gitbook.io/hexo-script/v/1.3-1/shi-yong-bu-zhou/zhun-bei-gong-ju">文档3：hexo-script使用文档</a>重新安装hexo</li><li>使用备份的目录覆盖新装的hexo目录</li></ol><img src="/posts/2069770813/56e7368f24dc4f258cdf2f2141543328.png" class="" title="在这里插入图片描述"><ol start="4"><li>最后使用下面的命令直接运行即可<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure></li><li>生成新的SSH公钥并上传至GitHub<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;a237440035&quot;</span><br><span class="line">git config --global user.email &quot;237440035@qq.com&quot;</span><br><span class="line">ssh-keygen -t ed25519 -C &quot;237440035@qq.com&quot;</span><br></pre></td></tr></table></figure></li></ol><img src="/posts/2069770813/878226dbaf9849fb8528198ef9ad2ac4.png" class="" title="在这里插入图片描述"><p>公钥为：SHA256:57GWXC&#x2F;PLymwxMVw9NoNKMpaoSI71Mum7Y9tPZZbgPI <a href="mailto:&#x32;&#x33;&#55;&#x34;&#x34;&#48;&#x30;&#51;&#x35;&#x40;&#113;&#x71;&#46;&#x63;&#x6f;&#109;">&#x32;&#x33;&#55;&#x34;&#x34;&#48;&#x30;&#51;&#x35;&#x40;&#113;&#x71;&#46;&#x63;&#x6f;&#109;</a><br>也可以在文件C:\Users\Administrator.ssh\id_ed25519.pub中查看<br>将公钥复制在GitHub中即可使用hexo d命令</p><img src="/posts/2069770813/018945bae1274b7783e02631b033d741.png" class="" title="在这里插入图片描述"><h5 id="个性化定制你的Hexo博客"><a href="#个性化定制你的Hexo博客" class="headerlink" title="个性化定制你的Hexo博客"></a>个性化定制你的Hexo博客</h5><blockquote><p><a href="https://blog.csdn.net/qq_42889280/article/details/103087433">1、Hexo博客+Next主题深度优化与定制</a><br><a href="https://www.jianshu.com/p/baab04284923">2、备份你的Hexo博客</a><br><a href="https://hexoscript.gitbook.io/hexo-script/v/1.3-1/shi-yong-bu-zhou/zhun-bei-gong-ju">3、hexo-script使用文档</a><br><a href="https://www.jianshu.com/p/78c218f9d1e7">4、Hexo-设置阅读全文</a></p></blockquote><hr><h1 id="相关链接-侵删"><a href="#相关链接-侵删" class="headerlink" title="相关链接(侵删)"></a>相关链接(侵删)</h1><ol><li><a href="https://blog.csdn.net/vpqtxzmzezeqjj9977/article/details/122982320">Hexo的常用指令合集</a></li></ol><hr><center><font color=red>=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
       
       
       <categories>
@@ -334,11 +334,11 @@
       
         <tags>
             
-            <tag> JavaScript </tag>
-            
             <tag> HEXO </tag>
             
             <tag> 插件 </tag>
+            
+            <tag> JavaScript </tag>
             
         </tags>
       
@@ -367,15 +367,15 @@
       
         <tags>
             
-            <tag> RegExp </tag>
-            
             <tag> HEXO </tag>
-            
-            <tag> 图片 </tag>
             
             <tag> Typora </tag>
             
+            <tag> 图片 </tag>
+            
             <tag> 正则表达式 </tag>
+            
+            <tag> RegExp </tag>
             
             <tag> replace </tag>
             
@@ -406,9 +406,9 @@
             
             <tag> WIFI </tag>
             
-            <tag> C语言 </tag>
-            
             <tag> 鸿蒙 </tag>
+            
+            <tag> C语言 </tag>
             
             <tag> 小熊派 </tag>
             
@@ -731,13 +731,13 @@
             
             <tag> Ubuntu </tag>
             
-            <tag> 软链接 </tag>
-            
             <tag> zar </tag>
             
             <tag> 压缩 </tag>
             
             <tag> 解压 </tag>
+            
+            <tag> 软链接 </tag>
             
         </tags>
       
@@ -1610,9 +1610,9 @@
           
           <category> C# </category>
           
-          <category> 前端 </category>
-          
           <category> 文件管理 </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -1740,9 +1740,9 @@
       
         <tags>
             
-            <tag> C# </tag>
-            
             <tag> 串口 </tag>
+            
+            <tag> C# </tag>
             
             <tag> 控件 </tag>
             
@@ -1830,9 +1830,9 @@
             
             <tag> 控件 </tag>
             
-            <tag> 动态 </tag>
-            
             <tag> 绘图 </tag>
+            
+            <tag> 动态 </tag>
             
             <tag> Chart </tag>
             
@@ -2306,9 +2306,9 @@
           
           <category> C# </category>
           
-          <category> 前端 </category>
-          
           <category> 文件管理 </category>
+          
+          <category> 前端 </category>
           
           <category> CSV </category>
           
@@ -2600,9 +2600,9 @@
           
           <category> C </category>
           
-          <category> STM32 </category>
-          
           <category> FreeRTOS </category>
+          
+          <category> STM32 </category>
           
           <category> DMA </category>
           
@@ -2617,13 +2617,13 @@
             
             <tag> STM32 </tag>
             
+            <tag> FreeRTOS </tag>
+            
             <tag> SPI </tag>
             
             <tag> keil </tag>
             
             <tag> DMA </tag>
-            
-            <tag> FreeRTOS </tag>
             
             <tag> LCD </tag>
             
@@ -2680,9 +2680,9 @@
           
           <category> C </category>
           
-          <category> STM32 </category>
-          
           <category> FreeRTOS </category>
+          
+          <category> STM32 </category>
           
       </categories>
       
@@ -2693,9 +2693,9 @@
             
             <tag> STM32 </tag>
             
-            <tag> keil </tag>
-            
             <tag> FreeRTOS </tag>
+            
+            <tag> keil </tag>
             
             <tag> 移植 </tag>
             
@@ -2960,9 +2960,9 @@
           
           <category> C# </category>
           
-          <category> 前端 </category>
-          
           <category> 文件管理 </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -2973,9 +2973,9 @@
             
             <tag> 文件管理 </tag>
             
-            <tag> UI </tag>
-            
             <tag> 复制文件 </tag>
+            
+            <tag> UI </tag>
             
         </tags>
       
@@ -2997,9 +2997,9 @@
           
           <category> C# </category>
           
-          <category> 前端 </category>
-          
           <category> 文件管理 </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -3010,9 +3010,9 @@
             
             <tag> 文件管理 </tag>
             
-            <tag> UI </tag>
-            
             <tag> 复制文件 </tag>
+            
+            <tag> UI </tag>
             
             <tag> 进度条 </tag>
             
@@ -3180,9 +3180,9 @@
           
           <category> C# </category>
           
-          <category> 前端 </category>
-          
           <category> 文件管理 </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -3215,9 +3215,9 @@
           
           <category> C# </category>
           
-          <category> 前端 </category>
-          
           <category> 文件管理 </category>
+          
+          <category> 前端 </category>
           
       </categories>
       
@@ -4639,9 +4639,9 @@
             
             <tag> 窗体 </tag>
             
-            <tag> VBA </tag>
-            
             <tag> 图片 </tag>
+            
+            <tag> VBA </tag>
             
         </tags>
       
@@ -4837,9 +4837,9 @@
             
             <tag> 窗体 </tag>
             
-            <tag> VBA </tag>
-            
             <tag> 图片 </tag>
+            
+            <tag> VBA </tag>
             
         </tags>
       
@@ -5407,9 +5407,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> 涂鸦 </tag>
-            
             <tag> C语言 </tag>
+            
+            <tag> 涂鸦 </tag>
             
             <tag> WBR3 </tag>
             
@@ -5446,9 +5446,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> 涂鸦 </tag>
-            
             <tag> C语言 </tag>
+            
+            <tag> 涂鸦 </tag>
             
             <tag> WBR3 </tag>
             
@@ -5575,9 +5575,9 @@
           
           <category> 编程类 </category>
           
-          <category> mysql </category>
-          
           <category> VUE </category>
+          
+          <category> mysql </category>
           
           <category> 前端 </category>
           
@@ -5831,41 +5831,6 @@
     
     
     <entry>
-      <title>VUE判断对象是否为空</title>
-      <link href="/posts/637024282.html"/>
-      <url>/posts/637024282.html</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>vue.js判断对象是否为空的方法是：将对象转为json，如果为空集合{}，那么该对象就是空对象，如【JSON.stringify(object)&#x3D;&#x3D;’{}’】</p></blockquote><h1 id="判断法一"><a href="#判断法一" class="headerlink" title="判断法一"></a>判断法一</h1><p><strong>将对象转JSON，如果为空集合{} ，那么就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(object)==<span class="string">&#x27;&#123;&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h1 id="判断法二"><a href="#判断法二" class="headerlink" title="判断法二"></a>判断法二</h1><p><strong>判断对象的长度，如果为零，那就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(object).length==<span class="number">0</span></span><br></pre></td></tr></table></figure><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://www.php.cn/vuejs/463861.html">vue.js判断对象是否为空的方法是什么</a></li></ol><hr><hr><center><font color=red>=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
-      
-      
-      <categories>
-          
-          <category> 编程类 </category>
-          
-          <category> VUE </category>
-          
-          <category> 前端 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 网页 </tag>
-            
-            <tag> JavaScript </tag>
-            
-            <tag> VUE </tag>
-            
-            <tag> JSON </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>VUE获取JSON数据键名</title>
       <link href="/posts/30846541.html"/>
       <url>/posts/30846541.html</url>
@@ -5895,6 +5860,41 @@
             <tag> JSON </tag>
             
             <tag> 键值 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VUE判断对象是否为空</title>
+      <link href="/posts/637024282.html"/>
+      <url>/posts/637024282.html</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>vue.js判断对象是否为空的方法是：将对象转为json，如果为空集合{}，那么该对象就是空对象，如【JSON.stringify(object)&#x3D;&#x3D;’{}’】</p></blockquote><h1 id="判断法一"><a href="#判断法一" class="headerlink" title="判断法一"></a>判断法一</h1><p><strong>将对象转JSON，如果为空集合{} ，那么就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(object)==<span class="string">&#x27;&#123;&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h1 id="判断法二"><a href="#判断法二" class="headerlink" title="判断法二"></a>判断法二</h1><p><strong>判断对象的长度，如果为零，那就是空对象</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(object).length==<span class="number">0</span></span><br></pre></td></tr></table></figure><h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ol><li><a href="https://www.php.cn/vuejs/463861.html">vue.js判断对象是否为空的方法是什么</a></li></ol><hr><hr><center><font color=red>=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程类 </category>
+          
+          <category> VUE </category>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网页 </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> VUE </tag>
+            
+            <tag> JSON </tag>
             
         </tags>
       
@@ -6162,9 +6162,9 @@
             
             <tag> 物联网 </tag>
             
-            <tag> 涂鸦 </tag>
-            
             <tag> C语言 </tag>
+            
+            <tag> 涂鸦 </tag>
             
             <tag> WBR3 </tag>
             
@@ -6241,7 +6241,7 @@
       <link href="/posts/2486667095.html"/>
       <url>/posts/2486667095.html</url>
       
-        <content type="html"><![CDATA[<h1 id="因需将产品联网处理"><a href="#因需将产品联网处理" class="headerlink" title="因需将产品联网处理"></a>因需将产品联网处理</h1><p>​虽然一直在研究乐鑫esp8266，但发现接入云服务还需自己付费使用，因此就考虑找能免费对接网络的模块，很久以前玩过司南物联芯片，本想购入，但却发现主页都进不去，只好作罢。后来又找汉枫模块和涂鸦模块。</p><a class="btn-beautify block" href="http://www.hi-flying.com/index.php?route=product/category&path=135"   title="汉枫模块"><i class="far fa-hand-point-right"></i><span>汉枫模块</span></a><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/MQTT-protocol?id=Kb65nphxrj8f1"   title="涂鸦模块"><i class="far fa-hand-point-right"></i><span>涂鸦模块</span></a><p>汉枫看起来挺麻烦，加之比象花费太大时间！就选择涂鸦模块，因为涂鸦网站资料相对较多，也提供相对详细SDK，通过串口UART连接即可，根据说明，只要将其SDK-C导入到工程就可以使用。</p><h1 id="模块选择"><a href="#模块选择" class="headerlink" title="模块选择"></a>模块选择</h1><p>选择的是WBR3模块</p><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/wbr3-module-datasheet?id=K9dujs2k5nriy"   title="WBR3模块说明"><i class="far fa-hand-point-right"></i><span>WBR3模块说明</span></a><p>WBR3 是由涂鸦智能开发的一款低功耗嵌入式 Wi-Fi 加蓝牙模组。它由一个高集成度的无线射频芯片W701-VA2-CG构成，内置了 Wi-Fi 网络协议栈和丰富的库函数</p><ul><li>内置低功耗 KM4 MCU，可以兼作应用处理器</li><li>主频 100MHz</li><li>工作电压：3V-3.6V</li><li>外设：9×GPIOs, 1×UART, 1×Log_Tx</li><li>Wi-Fi&#x2F;蓝牙连通性<ul><li>802.11 B&#x2F;G&#x2F;N20</li><li>通道 <a href="mailto:&#49;&#45;&#x31;&#52;&#64;&#50;&#x2e;&#52;&#x47;&#72;&#x7a;">&#49;&#45;&#x31;&#52;&#64;&#50;&#x2e;&#52;&#x47;&#72;&#x7a;</a>(CH1-11 for US&#x2F;CA, CH1-13 for EU&#x2F;CN)</li><li>支持 WEP&#x2F;WPA&#x2F;WPA2&#x2F;WPA2 PSK（AES） 安全模式</li><li>支持 Bluetooth 4.2 Low Energy</li><li>802.11b 模式下 +20dBm 的输出功率</li><li>支持 SmartConfig 功能，包括 Android 和 iOS 设备</li><li>板载 PCB Onboard 天线</li><li>通过 CE、FCC 认证</li><li>工作温度：-20℃ to 85℃</li></ul></li></ul><h3 id="尺寸封装"><a href="#尺寸封装" class="headerlink" title="尺寸封装"></a>尺寸封装</h3><ul><li>WBR3 共有 2 排引脚（2×8），引脚间距为 2mm。</li><li>WBR3 尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×2.9±0.15 mm (H)。WBR3尺寸图如下图所示<img src="/posts/2486667095/1.WBR3%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class="" title="This is an 1.涂鸦WIFI基本开发(一) image">1.WBR3脚位图</li></ul><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote><h2 id="电气参数"><a href="#电气参数" class="headerlink" title="电气参数"></a>电气参数</h2><h3 id="绝对电气参数"><a href="#绝对电气参数" class="headerlink" title="绝对电气参数"></a>绝对电气参数</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ts</td><td align="left">存储温度</td><td align="left">-40</td><td align="left">105</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">供电电压</td><td align="left">-0.3</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">静电释放电压（人体模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">2</td><td align="left">KV</td></tr><tr><td align="left">静电释放电压（机器模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">0.5</td><td align="left">KV</td></tr></tbody></table><h3 id="工作条件"><a href="#工作条件" class="headerlink" title="工作条件"></a>工作条件</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">典型值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ta</td><td align="left">工作温度</td><td align="left">-20</td><td align="left">-</td><td align="left">85</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">工作电压</td><td align="left">3.0</td><td align="left">-</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">VIL</td><td align="left">I&#x2F;O低电平输入</td><td align="left">-</td><td align="left">-</td><td align="left">0.8</td><td align="left">V</td></tr><tr><td align="left">VIH</td><td align="left">I&#x2F;O高电平输入</td><td align="left">2.0</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">VOL</td><td align="left">I&#x2F;O低电平输出</td><td align="left">-</td><td align="left">-</td><td align="left">0.4</td><td align="left">V</td></tr><tr><td align="left">VOH</td><td align="left">I&#x2F;O高电平输出</td><td align="left">2.4</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">Imax</td><td align="left">I&#x2F;O驱动电流</td><td align="left">-</td><td align="left">-</td><td align="left">16</td><td align="left">mA</td></tr><tr><td align="left">Cpad</td><td align="left">输入引脚电容</td><td align="left">-</td><td align="left">2</td><td align="left">-</td><td align="left">pF</td></tr></tbody></table><h3 id="射频功耗"><a href="#射频功耗" class="headerlink" title="射频功耗"></a>射频功耗</h3><ul><li><p>TX 连续发送时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">功率</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">17dBm</td><td align="left">217</td><td align="left">268</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">18dBm</td><td align="left">231</td><td align="left">283</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">15dBm</td><td align="left">159</td><td align="left">188</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">17.5dBm</td><td align="left">177</td><td align="left">213</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">13dBm</td><td align="left">145</td><td align="left">167</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">16.5dBm</td><td align="left">165</td><td align="left">193</td><td align="left">mA</td></tr></tbody></table></li><li><p>RX 连续接收时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11B 11M</td><td align="left">63</td><td align="left">65</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11G 54M</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11N HT20 MCS7</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr></tbody></table></li></ul><h2 id="射频参数"><a href="#射频参数" class="headerlink" title="射频参数"></a>射频参数</h2><h3 id="基本射频特性"><a href="#基本射频特性" class="headerlink" title="基本射频特性"></a>基本射频特性</h3><table><thead><tr><th align="left">参数项</th><th align="left">详细说明</th></tr></thead><tbody><tr><td align="left">频率范围</td><td align="left">2.400~2.4835GHz</td></tr><tr><td align="left">Wi-Fi标准</td><td align="left">IEEE 802.11b&#x2F;g&#x2F;n(通道 1-14)</td></tr><tr><td align="left">蓝牙标准</td><td align="left">蓝牙4.2</td></tr><tr><td align="left">数据传输速率</td><td align="left">11b:1,2,5.5, 11 (Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11g:6,9,12,18,24,36,48,54(Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11n:HT20 MCS0~7</td></tr><tr><td align="left">天线类型</td><td align="left">PCB 天线，增益2.5dBi</td></tr></tbody></table><h2 id="天线信息"><a href="#天线信息" class="headerlink" title="天线信息"></a>天线信息</h2><h3 id="天线类型"><a href="#天线类型" class="headerlink" title="天线类型"></a>天线类型</h3><p>只有 PCB 板载天线接入方式，天线增益 2.5dBi。</p><h3 id="降低天线干扰"><a href="#降低天线干扰" class="headerlink" title="降低天线干扰"></a>降低天线干扰</h3><p>在 Wi-Fi 模组上使用 PCB 板载天线时，为确保 Wi-Fi 性能的最优化，建议模组天线部分和其他金属件距离至少在 15mm 以上。</p><h2 id="封装信息及生产指导"><a href="#封装信息及生产指导" class="headerlink" title="封装信息及生产指导"></a>封装信息及生产指导</h2><h3 id="机械尺寸"><a href="#机械尺寸" class="headerlink" title="机械尺寸"></a>机械尺寸</h3><p>WBR3的PCB机械尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×0.8±0.1 mm (H)。WBR3的机械尺寸如下图所示。</p><img src="/posts/2486667095/3.%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class="" title="This is an 1.涂鸦WIFI基本开发(一) image">]]></content>
+        <content type="html"><![CDATA[<h1 id="因需将产品联网处理"><a href="#因需将产品联网处理" class="headerlink" title="因需将产品联网处理"></a>因需将产品联网处理</h1><p>​虽然一直在研究乐鑫esp8266，但发现接入云服务还需自己付费使用，因此就考虑找能免费对接网络的模块，很久以前玩过司南物联芯片，本想购入，但却发现主页都进不去，只好作罢。后来又找汉枫模块和涂鸦模块。</p><a class="btn-beautify block" href="http://www.hi-flying.com/index.php?route=product/category&path=135"   title="汉枫模块"><i class="far fa-hand-point-right"></i><span>汉枫模块</span></a><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/MQTT-protocol?id=Kb65nphxrj8f1"   title="涂鸦模块"><i class="far fa-hand-point-right"></i><span>涂鸦模块</span></a><p>汉枫看起来挺麻烦，加之比象花费太大时间！就选择涂鸦模块，因为涂鸦网站资料相对较多，也提供相对详细SDK，通过串口UART连接即可，根据说明，只要将其SDK-C导入到工程就可以使用。</p><h1 id="模块选择"><a href="#模块选择" class="headerlink" title="模块选择"></a>模块选择</h1><p>选择的是WBR3模块</p><a class="btn-beautify block" href="https://developer.tuya.com/cn/docs/iot/wbr3-module-datasheet?id=K9dujs2k5nriy"   title="WBR3模块说明"><i class="far fa-hand-point-right"></i><span>WBR3模块说明</span></a><p>WBR3 是由涂鸦智能开发的一款低功耗嵌入式 Wi-Fi 加蓝牙模组。它由一个高集成度的无线射频芯片W701-VA2-CG构成，内置了 Wi-Fi 网络协议栈和丰富的库函数</p><ul><li>内置低功耗 KM4 MCU，可以兼作应用处理器</li><li>主频 100MHz</li><li>工作电压：3V-3.6V</li><li>外设：9×GPIOs, 1×UART, 1×Log_Tx</li><li>Wi-Fi&#x2F;蓝牙连通性<ul><li>802.11 B&#x2F;G&#x2F;N20</li><li>通道 <a href="mailto:&#49;&#45;&#49;&#x34;&#x40;&#50;&#x2e;&#x34;&#x47;&#x48;&#122;">&#49;&#45;&#49;&#x34;&#x40;&#50;&#x2e;&#x34;&#x47;&#x48;&#122;</a>(CH1-11 for US&#x2F;CA, CH1-13 for EU&#x2F;CN)</li><li>支持 WEP&#x2F;WPA&#x2F;WPA2&#x2F;WPA2 PSK（AES） 安全模式</li><li>支持 Bluetooth 4.2 Low Energy</li><li>802.11b 模式下 +20dBm 的输出功率</li><li>支持 SmartConfig 功能，包括 Android 和 iOS 设备</li><li>板载 PCB Onboard 天线</li><li>通过 CE、FCC 认证</li><li>工作温度：-20℃ to 85℃</li></ul></li></ul><h3 id="尺寸封装"><a href="#尺寸封装" class="headerlink" title="尺寸封装"></a>尺寸封装</h3><ul><li>WBR3 共有 2 排引脚（2×8），引脚间距为 2mm。</li><li>WBR3 尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×2.9±0.15 mm (H)。WBR3尺寸图如下图所示<img src="/posts/2486667095/1.WBR3%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class="" title="This is an 1.涂鸦WIFI基本开发(一) image">1.WBR3脚位图</li></ul><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote><h2 id="电气参数"><a href="#电气参数" class="headerlink" title="电气参数"></a>电气参数</h2><h3 id="绝对电气参数"><a href="#绝对电气参数" class="headerlink" title="绝对电气参数"></a>绝对电气参数</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ts</td><td align="left">存储温度</td><td align="left">-40</td><td align="left">105</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">供电电压</td><td align="left">-0.3</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">静电释放电压（人体模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">2</td><td align="left">KV</td></tr><tr><td align="left">静电释放电压（机器模型）</td><td align="left">TAMB-25℃</td><td align="left">-</td><td align="left">0.5</td><td align="left">KV</td></tr></tbody></table><h3 id="工作条件"><a href="#工作条件" class="headerlink" title="工作条件"></a>工作条件</h3><table><thead><tr><th align="left">参数</th><th align="left">描述</th><th align="left">最小值</th><th align="left">典型值</th><th align="left">最大值</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">Ta</td><td align="left">工作温度</td><td align="left">-20</td><td align="left">-</td><td align="left">85</td><td align="left">℃</td></tr><tr><td align="left">VDD</td><td align="left">工作电压</td><td align="left">3.0</td><td align="left">-</td><td align="left">3.6</td><td align="left">V</td></tr><tr><td align="left">VIL</td><td align="left">I&#x2F;O低电平输入</td><td align="left">-</td><td align="left">-</td><td align="left">0.8</td><td align="left">V</td></tr><tr><td align="left">VIH</td><td align="left">I&#x2F;O高电平输入</td><td align="left">2.0</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">VOL</td><td align="left">I&#x2F;O低电平输出</td><td align="left">-</td><td align="left">-</td><td align="left">0.4</td><td align="left">V</td></tr><tr><td align="left">VOH</td><td align="left">I&#x2F;O高电平输出</td><td align="left">2.4</td><td align="left">-</td><td align="left">-</td><td align="left">V</td></tr><tr><td align="left">Imax</td><td align="left">I&#x2F;O驱动电流</td><td align="left">-</td><td align="left">-</td><td align="left">16</td><td align="left">mA</td></tr><tr><td align="left">Cpad</td><td align="left">输入引脚电容</td><td align="left">-</td><td align="left">2</td><td align="left">-</td><td align="left">pF</td></tr></tbody></table><h3 id="射频功耗"><a href="#射频功耗" class="headerlink" title="射频功耗"></a>射频功耗</h3><ul><li><p>TX 连续发送时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">功率</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">17dBm</td><td align="left">217</td><td align="left">268</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11b 11Mbps</td><td align="left">18dBm</td><td align="left">231</td><td align="left">283</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">15dBm</td><td align="left">159</td><td align="left">188</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11g 54Mbps</td><td align="left">17.5dBm</td><td align="left">177</td><td align="left">213</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">13dBm</td><td align="left">145</td><td align="left">167</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11n BW20 MCS7</td><td align="left">16.5dBm</td><td align="left">165</td><td align="left">193</td><td align="left">mA</td></tr></tbody></table></li><li><p>RX 连续接收时功耗：</p><table><thead><tr><th align="left">符号</th><th align="left">模式</th><th align="left">平均值</th><th align="left">峰值（典型值）</th><th align="left">单位</th></tr></thead><tbody><tr><td align="left">IRF</td><td align="left">11B 11M</td><td align="left">63</td><td align="left">65</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11G 54M</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr><tr><td align="left">IRF</td><td align="left">11N HT20 MCS7</td><td align="left">65</td><td align="left">67</td><td align="left">mA</td></tr></tbody></table></li></ul><h2 id="射频参数"><a href="#射频参数" class="headerlink" title="射频参数"></a>射频参数</h2><h3 id="基本射频特性"><a href="#基本射频特性" class="headerlink" title="基本射频特性"></a>基本射频特性</h3><table><thead><tr><th align="left">参数项</th><th align="left">详细说明</th></tr></thead><tbody><tr><td align="left">频率范围</td><td align="left">2.400~2.4835GHz</td></tr><tr><td align="left">Wi-Fi标准</td><td align="left">IEEE 802.11b&#x2F;g&#x2F;n(通道 1-14)</td></tr><tr><td align="left">蓝牙标准</td><td align="left">蓝牙4.2</td></tr><tr><td align="left">数据传输速率</td><td align="left">11b:1,2,5.5, 11 (Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11g:6,9,12,18,24,36,48,54(Mbps)</td></tr><tr><td align="left">数据传输速率</td><td align="left">11n:HT20 MCS0~7</td></tr><tr><td align="left">天线类型</td><td align="left">PCB 天线，增益2.5dBi</td></tr></tbody></table><h2 id="天线信息"><a href="#天线信息" class="headerlink" title="天线信息"></a>天线信息</h2><h3 id="天线类型"><a href="#天线类型" class="headerlink" title="天线类型"></a>天线类型</h3><p>只有 PCB 板载天线接入方式，天线增益 2.5dBi。</p><h3 id="降低天线干扰"><a href="#降低天线干扰" class="headerlink" title="降低天线干扰"></a>降低天线干扰</h3><p>在 Wi-Fi 模组上使用 PCB 板载天线时，为确保 Wi-Fi 性能的最优化，建议模组天线部分和其他金属件距离至少在 15mm 以上。</p><h2 id="封装信息及生产指导"><a href="#封装信息及生产指导" class="headerlink" title="封装信息及生产指导"></a>封装信息及生产指导</h2><h3 id="机械尺寸"><a href="#机械尺寸" class="headerlink" title="机械尺寸"></a>机械尺寸</h3><p>WBR3的PCB机械尺寸大小：16±0.35 mm (W)×24±0.35 mm (L) ×0.8±0.1 mm (H)。WBR3的机械尺寸如下图所示。</p><img src="/posts/2486667095/3.%E8%84%9A%E4%BD%8D%E5%9B%BE.png" class="" title="This is an 1.涂鸦WIFI基本开发(一) image">]]></content>
       
       
       <categories>
@@ -6257,9 +6257,9 @@
             
             <tag> WIFI </tag>
             
-            <tag> 涂鸦 </tag>
-            
             <tag> C语言 </tag>
+            
+            <tag> 涂鸦 </tag>
             
         </tags>
       
