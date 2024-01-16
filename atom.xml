@@ -6,7 +6,7 @@
   <link href="https://zml3589110.github.io/atom.xml" rel="self"/>
   
   <link href="https://zml3589110.github.io/"/>
-  <updated>2024-01-15T08:31:13.935Z</updated>
+  <updated>2024-01-16T06:22:48.902Z</updated>
   <id>https://zml3589110.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo设置文章封面图片</title>
+    <link href="https://zml3589110.github.io/posts/2829152218.html"/>
+    <id>https://zml3589110.github.io/posts/2829152218.html</id>
+    <published>2024-01-16T06:20:20.000Z</published>
+    <updated>2024-01-16T06:22:48.902Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="设置方法"><a href="#设置方法" class="headerlink" title="设置方法"></a>设置方法</h1><blockquote><p>选择在source文件夹下创建一个medias文件夹，然后里面放入图片，在cover选项下: &#x2F;img&#x2F;图片名字，就可以引入</p></blockquote><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">layout: <span class="emphasis">_post</span></span><br><span class="line"><span class="emphasis">title: &#x27;git问题记录&#x27;</span></span><br><span class="line"><span class="emphasis">date: 2022-11-25 18:53:51</span></span><br><span class="line"><span class="emphasis">cover: /medias/git.jpg</span></span><br><span class="line"><span class="emphasis">tags:</span></span><br><span class="line"><span class="emphasis">- git</span></span><br></pre></td></tr></table></figure><p><strong>最终效果如下图：</strong></p><img src="/posts/undefined/388d94ae0e3c47f18d2237dca7c41c03.png" class="" title="封面效果"><hr><h1 id="相关链接-侵删"><a href="#相关链接-侵删" class="headerlink" title="相关链接(侵删)"></a>相关链接(侵删)</h1><ol><li><a href="https://blog.csdn.net/qq_35536689/article/details/128046360">Hexo+Aurora 文章设置封面图片(banner)</a></li></ol><hr><center><font color=red>=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+    
+    
+    <summary type="html">Hexo设置文章自定义的封面图片</summary>
+    
+    
+    
+    <category term="HEXO" scheme="https://zml3589110.github.io/categories/HEXO/"/>
+    
+    
+    <category term="HEXO技术" scheme="https://zml3589110.github.io/tags/HEXO%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="命令" scheme="https://zml3589110.github.io/tags/%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
   
   <entry>
     <title>如何在 ESP8266 上选用合适的引脚</title>
@@ -651,7 +674,7 @@
     <published>2023-12-04T07:14:20.000Z</published>
     <updated>2023-12-04T08:15:23.335Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>hexo有许多主题，其实最火爆的是NexT、Matery等，复制关键词到GitHub或者baidu都能搜到。权衡利弊最终我还是选择了大多数人使用的next。</p></blockquote><h1 id="常用命令说明"><a href="#常用命令说明" class="headerlink" title="常用命令说明"></a>常用命令说明</h1><ul><li>（1）hexo g或hexo generate<br>该命令执行后在hexo站点根目录下生成public文件夹</li></ul><img src="/posts/2069770813/7683010350d24da995d50c154352b35d.png" class="" title="在这里插入图片描述"><ul><li>（2）hexo clean</li></ul><p>把（1）中的public文件夹删除</p><ul><li>（3）hexo s或hexo server<br>启动服务，默认地址为<a href="http://localhost:4000/%EF%BC%8C4000%E7%AB%AF%E5%8F%A3">http://localhost:4000/，4000端口</a></li></ul><img src="/posts/2069770813/185e5eec8e4e4769b821f6157468d87d.png" class="" title="在这里插入图片描述"><ul><li><p>（4）hexo d或hexo deploy<br>部署站点，在本地生成.deploy_git文件夹，并将编译后的文件上传至 GitHub。</p></li><li><p>（5）hexo new [layout] <title><br>例如： hexo new photo “my-first-blog”<br>上述指令执行时，Hexo 会尝试在 scaffolds 中寻找photo.md布局，若找到，则根据该布局新建文章；若未找到或指令中未指定该参数，则使用post.md新建文章。新建文章的名称在_config.yml中配置。</p></li></ul><img src="/posts/2069770813/35dacad9d318449696f68e6697eab9c7.png" class="" title="在这里插入图片描述"><ul><li>（6）删除文章<br>只需在本地把source&#x2F;_posts文件夹下的文章源文件删除后，执行以下命令重新部署即可。</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s // 一定要先 clean，防止灵异事件发生</span><br></pre></td></tr></table></figure><ul><li>（7）备份&#x2F;迁移你的Hexo博客</li></ul><ol><li>备份根目录</li></ol><img src="/posts/2069770813/8b7829cea05440408b386a27bc71cade.png" class="" title="在这里插入图片描述"><ol start="2"><li>参考<a href="https://hexoscript.gitbook.io/hexo-script/v/1.3-1/shi-yong-bu-zhou/zhun-bei-gong-ju">文档3：hexo-script使用文档</a>重新安装hexo</li><li>使用备份的目录覆盖新装的hexo目录</li></ol><img src="/posts/2069770813/56e7368f24dc4f258cdf2f2141543328.png" class="" title="在这里插入图片描述"><ol start="4"><li>最后使用下面的命令直接运行即可<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure></li><li>生成新的SSH公钥并上传至GitHub<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;a237440035&quot;</span><br><span class="line">git config --global user.email &quot;237440035@qq.com&quot;</span><br><span class="line">ssh-keygen -t ed25519 -C &quot;237440035@qq.com&quot;</span><br></pre></td></tr></table></figure></li></ol><img src="/posts/2069770813/878226dbaf9849fb8528198ef9ad2ac4.png" class="" title="在这里插入图片描述"><p>公钥为：SHA256:57GWXC&#x2F;PLymwxMVw9NoNKMpaoSI71Mum7Y9tPZZbgPI <a href="mailto:&#x32;&#51;&#55;&#52;&#x34;&#48;&#x30;&#51;&#x35;&#x40;&#113;&#113;&#46;&#x63;&#111;&#109;">&#x32;&#51;&#55;&#52;&#x34;&#48;&#x30;&#51;&#x35;&#x40;&#113;&#113;&#46;&#x63;&#111;&#109;</a><br>也可以在文件C:\Users\Administrator.ssh\id_ed25519.pub中查看<br>将公钥复制在GitHub中即可使用hexo d命令</p><img src="/posts/2069770813/018945bae1274b7783e02631b033d741.png" class="" title="在这里插入图片描述"><h5 id="个性化定制你的Hexo博客"><a href="#个性化定制你的Hexo博客" class="headerlink" title="个性化定制你的Hexo博客"></a>个性化定制你的Hexo博客</h5><blockquote><p><a href="https://blog.csdn.net/qq_42889280/article/details/103087433">1、Hexo博客+Next主题深度优化与定制</a><br><a href="https://www.jianshu.com/p/baab04284923">2、备份你的Hexo博客</a><br><a href="https://hexoscript.gitbook.io/hexo-script/v/1.3-1/shi-yong-bu-zhou/zhun-bei-gong-ju">3、hexo-script使用文档</a><br><a href="https://www.jianshu.com/p/78c218f9d1e7">4、Hexo-设置阅读全文</a></p></blockquote><hr><h1 id="相关链接-侵删"><a href="#相关链接-侵删" class="headerlink" title="相关链接(侵删)"></a>相关链接(侵删)</h1><ol><li><a href="https://blog.csdn.net/vpqtxzmzezeqjj9977/article/details/122982320">Hexo的常用指令合集</a></li></ol><hr><center><font color=red>=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+    <content type="html"><![CDATA[<blockquote><p>hexo有许多主题，其实最火爆的是NexT、Matery等，复制关键词到GitHub或者baidu都能搜到。权衡利弊最终我还是选择了大多数人使用的next。</p></blockquote><h1 id="常用命令说明"><a href="#常用命令说明" class="headerlink" title="常用命令说明"></a>常用命令说明</h1><ul><li>（1）hexo g或hexo generate<br>该命令执行后在hexo站点根目录下生成public文件夹</li></ul><img src="/posts/2069770813/7683010350d24da995d50c154352b35d.png" class="" title="在这里插入图片描述"><ul><li>（2）hexo clean</li></ul><p>把（1）中的public文件夹删除</p><ul><li>（3）hexo s或hexo server<br>启动服务，默认地址为<a href="http://localhost:4000/%EF%BC%8C4000%E7%AB%AF%E5%8F%A3">http://localhost:4000/，4000端口</a></li></ul><img src="/posts/2069770813/185e5eec8e4e4769b821f6157468d87d.png" class="" title="在这里插入图片描述"><ul><li><p>（4）hexo d或hexo deploy<br>部署站点，在本地生成.deploy_git文件夹，并将编译后的文件上传至 GitHub。</p></li><li><p>（5）hexo new [layout] <title><br>例如： hexo new photo “my-first-blog”<br>上述指令执行时，Hexo 会尝试在 scaffolds 中寻找photo.md布局，若找到，则根据该布局新建文章；若未找到或指令中未指定该参数，则使用post.md新建文章。新建文章的名称在_config.yml中配置。</p></li></ul><img src="/posts/2069770813/35dacad9d318449696f68e6697eab9c7.png" class="" title="在这里插入图片描述"><ul><li>（6）删除文章<br>只需在本地把source&#x2F;_posts文件夹下的文章源文件删除后，执行以下命令重新部署即可。</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s // 一定要先 clean，防止灵异事件发生</span><br></pre></td></tr></table></figure><ul><li>（7）备份&#x2F;迁移你的Hexo博客</li></ul><ol><li>备份根目录</li></ol><img src="/posts/2069770813/8b7829cea05440408b386a27bc71cade.png" class="" title="在这里插入图片描述"><ol start="2"><li>参考<a href="https://hexoscript.gitbook.io/hexo-script/v/1.3-1/shi-yong-bu-zhou/zhun-bei-gong-ju">文档3：hexo-script使用文档</a>重新安装hexo</li><li>使用备份的目录覆盖新装的hexo目录</li></ol><img src="/posts/2069770813/56e7368f24dc4f258cdf2f2141543328.png" class="" title="在这里插入图片描述"><ol start="4"><li>最后使用下面的命令直接运行即可<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure></li><li>生成新的SSH公钥并上传至GitHub<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;a237440035&quot;</span><br><span class="line">git config --global user.email &quot;237440035@qq.com&quot;</span><br><span class="line">ssh-keygen -t ed25519 -C &quot;237440035@qq.com&quot;</span><br></pre></td></tr></table></figure></li></ol><img src="/posts/2069770813/878226dbaf9849fb8528198ef9ad2ac4.png" class="" title="在这里插入图片描述"><p>公钥为：SHA256:57GWXC&#x2F;PLymwxMVw9NoNKMpaoSI71Mum7Y9tPZZbgPI <a href="mailto:&#x32;&#x33;&#55;&#x34;&#52;&#x30;&#48;&#x33;&#x35;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#x6d;">&#x32;&#x33;&#55;&#x34;&#52;&#x30;&#48;&#x33;&#x35;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#x6d;</a><br>也可以在文件C:\Users\Administrator.ssh\id_ed25519.pub中查看<br>将公钥复制在GitHub中即可使用hexo d命令</p><img src="/posts/2069770813/018945bae1274b7783e02631b033d741.png" class="" title="在这里插入图片描述"><h5 id="个性化定制你的Hexo博客"><a href="#个性化定制你的Hexo博客" class="headerlink" title="个性化定制你的Hexo博客"></a>个性化定制你的Hexo博客</h5><blockquote><p><a href="https://blog.csdn.net/qq_42889280/article/details/103087433">1、Hexo博客+Next主题深度优化与定制</a><br><a href="https://www.jianshu.com/p/baab04284923">2、备份你的Hexo博客</a><br><a href="https://hexoscript.gitbook.io/hexo-script/v/1.3-1/shi-yong-bu-zhou/zhun-bei-gong-ju">3、hexo-script使用文档</a><br><a href="https://www.jianshu.com/p/78c218f9d1e7">4、Hexo-设置阅读全文</a></p></blockquote><hr><h1 id="相关链接-侵删"><a href="#相关链接-侵删" class="headerlink" title="相关链接(侵删)"></a>相关链接(侵删)</h1><ol><li><a href="https://blog.csdn.net/vpqtxzmzezeqjj9977/article/details/122982320">Hexo的常用指令合集</a></li></ol><hr><center><font color=red>=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
     
     
     <summary type="html">收集常用hexo命令</summary>
@@ -726,35 +749,6 @@
     <category term="RegExp" scheme="https://zml3589110.github.io/tags/RegExp/"/>
     
     <category term="replace" scheme="https://zml3589110.github.io/tags/replace/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>小熊派鸿蒙系统环境搭建</title>
-    <link href="https://zml3589110.github.io/posts/1932715036.html"/>
-    <id>https://zml3589110.github.io/posts/1932715036.html</id>
-    <published>2023-12-04T02:04:01.986Z</published>
-    <updated>2022-05-11T01:17:04.892Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="系统环境选择"><a href="#系统环境选择" class="headerlink" title="系统环境选择"></a>系统环境选择</h1><p>​</p><h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><table><thead><tr><th align="left">引脚</th><th align="left">符号</th><th align="left">I&#x2F;O类型</th><th align="left">功能</th></tr></thead><tbody><tr><td align="left">1</td><td align="left">NC</td><td align="left">&#x2F;</td><td align="left">悬空不接，为了兼容其他模组</td></tr><tr><td align="left">2</td><td align="left">A_7</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_7，硬件PWM，IC Pin21</td></tr><tr><td align="left">3</td><td align="left">EN</td><td align="left">I&#x2F;O</td><td align="left">模组使能引脚，高电平有效，模组已上拉高电平，用户可外部控制该引脚</td></tr><tr><td align="left">4</td><td align="left">A_11</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_11，硬件PWM，IC Pin25</td></tr><tr><td align="left">5</td><td align="left">A_2</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_2，硬件PWM，IC Pin18</td></tr><tr><td align="left">6</td><td align="left">A_3</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_3，硬件PWM，IC Pin19</td></tr><tr><td align="left">7</td><td align="left">A_4</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_4，硬件PWM，IC Pin20</td></tr><tr><td align="left">8</td><td align="left">VCC</td><td align="left">P</td><td align="left">模组电源引脚（3.3V）</td></tr><tr><td align="left">9</td><td align="left">GND</td><td align="left">P</td><td align="left">电源参考地</td></tr><tr><td align="left">10</td><td align="left">A_12</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_12，硬件PWM，IC Pin26</td></tr><tr><td align="left">11</td><td align="left">A_16</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_16，UART_Log_TXD(用于打印模组内部信息)，可配置成普通GPIO</td></tr><tr><td align="left">12</td><td align="left">A_17</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_17，硬件PWM，IC Pin38</td></tr><tr><td align="left">13</td><td align="left">A_18</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_18，硬件PWM，IC Pin39</td></tr><tr><td align="left">14</td><td align="left">A_19</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_19，硬件PWM，IC Pin40</td></tr><tr><td align="left">15</td><td align="left">RXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_13，UART0_RXD（用户串口）</td></tr><tr><td align="left">16</td><td align="left">TXD</td><td align="left">I&#x2F;O</td><td align="left">GPIOA_14，UART0_TXD（用户串口）</td></tr></tbody></table><blockquote><p><strong>说明</strong>：P表示电源引脚，I&#x2F;O表示输入输出引脚。</p></blockquote>]]></content>
-    
-    
-    <summary type="html">使用小熊派开发板(BEARPI-HM.Nano)搭建鸿蒙开发环境</summary>
-    
-    
-    
-    <category term="编程类" scheme="https://zml3589110.github.io/categories/%E7%BC%96%E7%A8%8B%E7%B1%BB/"/>
-    
-    
-    <category term="物联网" scheme="https://zml3589110.github.io/tags/%E7%89%A9%E8%81%94%E7%BD%91/"/>
-    
-    <category term="WIFI" scheme="https://zml3589110.github.io/tags/WIFI/"/>
-    
-    <category term="鸿蒙" scheme="https://zml3589110.github.io/tags/%E9%B8%BF%E8%92%99/"/>
-    
-    <category term="C语言" scheme="https://zml3589110.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
-    
-    <category term="小熊派" scheme="https://zml3589110.github.io/tags/%E5%B0%8F%E7%86%8A%E6%B4%BE/"/>
     
   </entry>
   
