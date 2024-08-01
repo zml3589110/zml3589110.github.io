@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ESP-IDF网络编程之mDNS | 赵逸尘个人博客</title><meta name="keywords" content="Ubuntu,乐鑫,SDK-IDF,网络编程,Components,mDNS"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ESP-IDF使用 组播 UDP 服务的 mDNS 功能实现局域网内域名解析，通过名字直接解析出IP地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESP-IDF网络编程之mDNS">
+<meta property="og:url" content="https://zml3589110.github.io/posts/251041743.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="ESP-IDF使用 组播 UDP 服务的 mDNS 功能实现局域网内域名解析，通过名字直接解析出IP地址">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-08-01T03:28:20.000Z">
+<meta property="article:modified_time" content="2024-08-01T03:55:38.714Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="乐鑫">
+<meta property="article:tag" content="SDK-IDF">
+<meta property="article:tag" content="网络编程">
+<meta property="article:tag" content="Components">
+<meta property="article:tag" content="mDNS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/251041743"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ESP-IDF网络编程之mDNS',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-01 11:55:38'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">233</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">394</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">151</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ESP-IDF网络编程之mDNS</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-01T03:28:20.000Z" title="发表于 2024-08-01 11:28:20">2024-08-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-01T03:55:38.714Z" title="更新于 2024-08-01 11:55:38">2024-08-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B9%90%E9%91%AB/">乐鑫</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ESP-IDF/">ESP-IDF</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Components/">Components</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/mDNS/">mDNS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ESP-IDF网络编程之mDNS"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="重要说明"><a href="#重要说明" class="headerlink" title="重要说明"></a>重要说明</h1><p>官网地址 <a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/api-reference/protocols/mdns.html">mDNS 服务</a></p>
+<p>注意：<br>之前使用esp8266完成了mDNS对主机域名解析，这次是想用这个办法使用在esp32中，本以为把之前文件直接复制就行了，谁知是不行的！查询发现是因为没有添加这个组件，官放已经迁出至独立的仓库！根据官方说明添加到组件库即可！</p>
+<p>mDNS 是一种组播 UDP 服务，用来提供本地网络服务和主机发现。</p>
+<p>自 v5.0 版本起，ESP-IDF 组件 <code>mDNS</code> 已从 ESP-IDF 中迁出至独立的仓库：</p>
+<ul>
+<li><p>GitHub 上 <a target="_blank" rel="noopener" href="https://github.com/espressif/esp-protocols/tree/master/components/mdns">mDNS 组件</a></p>
+</li>
+<li><p>GitHub 上 <a target="_blank" rel="noopener" href="https://github.com/espressif/esp-protocols/tree/master/components/mdns/examples/query_advertise">mDNS 示例</a></p>
+</li>
+</ul>
+<p>运行 <code>idf.py add-dependency espressif/mdns</code>，在项目中添加 mDNS 组件。</p>
+<p>托管的文档</p>
+<p>请点击如下链接，查看 mDNS 的相关文档：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-protocols/mdns/docs/latest/zh_CN/index.html">mDNS 文档</a></li>
+</ul>
+<h1 id="mDNS学习使用"><a href="#mDNS学习使用" class="headerlink" title="mDNS学习使用"></a>mDNS学习使用</h1><h2 id="mDNS的作用"><a href="#mDNS的作用" class="headerlink" title="mDNS的作用"></a>mDNS的作用</h2><p>mDNS 是一种组播 UDP 服务，用来提供本地网络服务和主机发现。</p>
+<ul>
+<li>你要和设备通信，需要记住IP地址不好记。用了mDNS只要几个名字就行。</li>
+<li>你需要快速知道局域网内是否有你想要的服务，用mDNS查一下就行。</li>
+<li>这个协议只在局域网内有效。</li>
+<li>先简单了解下什么是组播–一种被预先定义好的IP地址数字。用于实现一对多的通信。</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">组播是一对多。</span></span><br><span class="line"><span class="string">广播是一对所有。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="mDNS涉及到的标准文件"><a href="#mDNS涉及到的标准文件" class="headerlink" title="mDNS涉及到的标准文件"></a>mDNS涉及到的标准文件</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/html/rfc6762">rfc6762</a></li>
+<li><a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/html/rfc6763">rfc6763</a></li>
+</ul>
+<h2 id="组播地址"><a href="#组播地址" class="headerlink" title="组播地址"></a>组播地址</h2><ul>
+<li>因为有IPV4和IPV6两类地址，因此组播也分两类。</li>
+<li>多播地址在网络通信中用于发送数据到多个接收器，而不是单一接收器或广播到所有接收器。多播地址有其特定的规则和范围</li>
+</ul>
+<h3 id="IPv4-多播地址"><a href="#IPv4-多播地址" class="headerlink" title="IPv4 多播地址"></a>IPv4 多播地址</h3><p>IPv4 多播地址范围是 224.0.0.0 到 239.255.255.255。这些地址进一步细分为特定用途的子范围：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">局部网络控制块： 224.0.0.0 到 224.0.0.255</span><br><span class="line"><span class="code">    这些地址保留用于本地网络内的协议控制消息，不会被路由器转发到其他网络。</span></span><br><span class="line"><span class="code">    例如，224.0.0.1 是所有主机的多播地址，224.0.0.2 是所有路由器的多播地址。</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">预留多播地址： 224.0.1.0 到 238.255.255.255</span></span><br><span class="line"><span class="code">    这些地址用于全球范围的多播应用，且路由器会转发这些地址的数据包。</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">本地管理地址： 239.0.0.0 到 239.255.255.255</span></span><br><span class="line"><span class="code">    这些地址保留用于组织内部的多播，不会被全球路由。</span></span><br><span class="line"><span class="code"></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="IPv6-多播地址"><a href="#IPv6-多播地址" class="headerlink" title="IPv6 多播地址"></a>IPv6 多播地址</h3><p>IPv6 多播地址以 ff00::&#x2F;8 前缀开头，并具有不同的范围标识符和子范围：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">范围标识符（Scope Identifier）：</span><br><span class="line"><span class="code">    ff01:: 链路本地（Link-Local）</span></span><br><span class="line"><span class="code">    ff02:: 本地网络（Local Network）</span></span><br><span class="line"><span class="code">    ff05:: 站点本地（Site-Local）</span></span><br><span class="line"><span class="code">    ff08:: 组织本地（Organization-Local）</span></span><br><span class="line"><span class="code">    ff0e:: 全球范围（Global）</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">预定义多播地址：</span></span><br><span class="line"><span class="code">    ff02::1 所有节点地址（所有主机）</span></span><br><span class="line"><span class="code">    ff02::2 所有路由器地址</span></span><br><span class="line"><span class="code"></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="预先定义好的组播地址"><a href="#预先定义好的组播地址" class="headerlink" title="预先定义好的组播地址"></a>预先定义好的组播地址</h3><p>不同的标准，如果用到组播地址，会定义出组播地址的值。下面列出常见的。</p>
+<p><strong>常见IPv4 预定义组播地址</strong><br>这些地址用于局域网内的控制消息，通常不被路由器转发。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">224.0.0.1: 所有主机</span><br><span class="line">224.0.0.2: 所有路由器</span><br><span class="line">224.0.0.4: DVMRP 路由器</span><br><span class="line">224.0.0.5: OSPF 路由器</span><br><span class="line">224.0.0.6: OSPF 指定路由器</span><br><span class="line">224.0.0.9: RIPv2 路由器</span><br><span class="line">224.0.0.10: EIGRP 路由器</span><br><span class="line">224.0.0.13: PIM 路由器</span><br><span class="line">224.0.0.18: VRRP 路由器</span><br><span class="line">224.0.0.22: IGMPv3</span><br><span class="line">224.0.0.251: mDNS (Multicast DNS)</span><br><span class="line">224.0.0.252: Link-Local Multicast Name Resolution (LLMNR)</span><br><span class="line">224.0.1.1: NTP (Network Time Protocol)</span><br><span class="line">224.0.1.22: H.323 网关发现</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>常见IPv4 预定义预留多播地址（224.0.1.0 - 238.255.255.255）</strong></p>
+<p>这些地址用于全球范围的多播应用，路由器会转发这些地址的数据包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">224.0.1.2: SGI-Dogfight（多用户虚拟现实游戏）</span><br><span class="line">224.0.1.35: SVRLOC (Service Location Protocol)</span><br><span class="line">224.0.1.60: AAP (AOL Access Protocol)</span><br><span class="line">239.255.255.250: SSDP (Simple Service Discovery Protocol)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>常见IPv4 预定义本地管理地址（239.0.0.0 - 239.255.255.255）</strong></p>
+<p>这些地址用于组织内部的多播，不会被全球路由。</p>
+<p><strong>常见IPv6 预定义组播地址</strong><br>范围标识符（Scope Identifier）</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ff01::: 节点本地（Node-Local）</span><br><span class="line">ff02::: 链路本地（Link-Local）</span><br><span class="line">ff05::: 站点本地（Site-Local）</span><br><span class="line">ff08::: 组织本地（Organization-Local）</span><br><span class="line">ff0e::: 全球范围（Global）</span><br></pre></td></tr></table></figure>
+
+<p>预定义多播地址</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ff02::1: 所有节点（All Nodes）</span><br><span class="line">ff02::2: 所有路由器（All Routers）</span><br><span class="line">ff02::5: OSPF 路由器</span><br><span class="line">ff02::6: OSPF 指定路由器</span><br><span class="line">ff02::9: RIPv2 路由器</span><br><span class="line">ff02::a: EIGRP 路由器</span><br><span class="line">ff02::d: PIM 路由器</span><br><span class="line">ff02::16: MLDv2（Multicast Listener Discovery version 2）</span><br><span class="line">ff02::fb: mDNS (Multicast DNS)</span><br><span class="line">ff02::1:3: Link-Local Multicast Name Resolution (LLMNR)</span><br><span class="line">ff05::1:3: DHCPv6 服务器/中继代理</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>备注：</strong><br>“组播”和“多播”在网络通信中基本上是同一个概念。两者指的是同一种技术。</p>
+<h2 id="mDNS调试工具"><a href="#mDNS调试工具" class="headerlink" title="mDNS调试工具"></a>mDNS调试工具</h2><p>在电脑端，有两款，</p>
+<ul>
+<li>一款是Apple开发的Bonjour 的服务（有windows版本），这款我下载安装了，不会用尴尬，好像只能识别打印机服务。</li>
+<li>一款是在linux平台下的avahi（默认已安装），也有图形界面。后面会有这款工具的截图。</li>
+</ul>
+<h2 id="例程"><a href="#例程" class="headerlink" title="例程"></a>例程</h2><p>ESP的mDNS文档和例程都放在下面的git 库里面</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/espressif/esp-protocols/tree/master/components/mdns/examples/query_advertise">例程</a></p>
+<ol>
+<li>git下来后vscode打开例程。</li>
+<li>设置wifi账号密码</li>
+</ol>
+<img src="/posts/undefined/538244caafa8445c8084938d4666fdad.png" class="" title="在这里插入图片描述">
+
+<p><strong>编译和运行测试</strong><br>运行命令avahi-discover，打开图形界面，如下所示。</p>
+<img src="/posts/undefined/07e2bccc2fd64b7ca1e271f87eefa7ee.png" class="" title="在这里插入图片描述">
+
+<p>点击任意一项，就可以看到解析出来的数据。如下所示。</p>
+<img src="/posts/undefined/ca6e9312a0be46119b9b8d8bc9eef283.png" class="" title="在这里插入图片描述">
+
+<p>直接ping域名也是可以ping通的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping esp32-mdns.local</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/9c17ec314b18418286b9c1d9453e921c.png" class="" title="在这里插入图片描述">
+
+<p>按下按钮0，打印如下信息。查询到局域网里有这些服务。</p>
+<img src="/posts/undefined/40056e1148b44637a2c0fec6d850c129.png" class="" title="在这里插入图片描述">
+
+<h2 id="mDNS如何开发和使用"><a href="#mDNS如何开发和使用" class="headerlink" title="mDNS如何开发和使用"></a>mDNS如何开发和使用</h2><p>开发主要看需求，分两个需求：注册服务和查询服务。<br>根据自己的需求决定是否要做这两个动作。<br>下面只是把关键的代码片段拿出来，完整代码，请看例程。</p>
+<p><strong>初始化mdns</strong><br>mdns_init() 这一步是通用的，不管是注册还是查询，都要先初始化。</p>
+<h3 id="注册服务"><a href="#注册服务" class="headerlink" title="注册服务"></a>注册服务</h3><ol>
+<li><p>设置主机名<br>mdns_hostname_set(hostname)</p>
+</li>
+<li><p>设置实例名<br>mdns_instance_name_set(EXAMPLE_MDNS_INSTANCE)</p>
+</li>
+<li><p>注册服务</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mdns_service_add(<span class="string">&quot;ESP32-WebServer&quot;</span>, <span class="string">&quot;_http&quot;</span>, <span class="string">&quot;_tcp&quot;</span>, <span class="number">80</span>, serviceTxtData, <span class="number">3</span>) </span><br><span class="line">mdns_service_subtype_add_for_host(<span class="string">&quot;ESP32-WebServer&quot;</span>, <span class="string">&quot;_http&quot;</span>, <span class="string">&quot;_tcp&quot;</span>, <span class="literal">NULL</span>, <span class="string">&quot;_server&quot;</span>) </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="查询服务"><a href="#查询服务" class="headerlink" title="查询服务"></a>查询服务</h3><p>例程将查询服务做了一次封装，只需要输入服务名和使用协议，就可以查网络中是否存在有这个服务。</p>
+<p>在例程里，只要按一下按钮0，就回调用这个函数，并将查询结果在串口打印。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">query_mdns_service</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *service_name, <span class="keyword">const</span> <span class="keyword">char</span> *proto)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>上面的函数实际是调用库函数，实现查询</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mdns_query_ptr()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhu378287521/article/details/140667971">ESP32和mDNS学习</a></li>
+</ol>
+<hr>
+<center><font color=red>=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/251041743.html">https://zml3589110.github.io/posts/251041743.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ubuntu/">Ubuntu</a><a class="post-meta__tags" href="/tags/%E4%B9%90%E9%91%AB/">乐鑫</a><a class="post-meta__tags" href="/tags/SDK-IDF/">SDK-IDF</a><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a><a class="post-meta__tags" href="/tags/Components/">Components</a><a class="post-meta__tags" href="/tags/mDNS/">mDNS</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/posts/883659004.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Hexo 添加随机文章功能</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1702633171.html" title="ESP-IDF之MQTT"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="title">ESP-IDF之MQTT</div></div></a></div><div><a href="/posts/1109857756.html" title="ESP-IDF之头文件问题"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-18</div><div class="title">ESP-IDF之头文件问题</div></div></a></div><div><a href="/posts/2870405859.html" title="ESP32开发SDK-IDF环境搭建(Ubuntu)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-03</div><div class="title">ESP32开发SDK-IDF环境搭建(Ubuntu)</div></div></a></div><div><a href="/posts/2527818842.html" title="ESP32环境(Ubuntu) 问题集锦"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-27</div><div class="title">ESP32环境(Ubuntu) 问题集锦</div></div></a></div><div><a href="/posts/2149552820.html" title="ESP32环境搭建和LGVL驱动"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">ESP32环境搭建和LGVL驱动</div></div></a></div><div><a href="/posts/3931543859.html" title="ESP32­-PICO-­D4芯片开发板"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="title">ESP32­-PICO-­D4芯片开发板</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">233</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">394</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">151</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">重要说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mDNS%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">mDNS学习使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mDNS%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">mDNS的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mDNS%E6%B6%89%E5%8F%8A%E5%88%B0%E7%9A%84%E6%A0%87%E5%87%86%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">mDNS涉及到的标准文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E5%9C%B0%E5%9D%80"><span class="toc-number">2.3.</span> <span class="toc-text">组播地址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IPv4-%E5%A4%9A%E6%92%AD%E5%9C%B0%E5%9D%80"><span class="toc-number">2.3.1.</span> <span class="toc-text">IPv4 多播地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IPv6-%E5%A4%9A%E6%92%AD%E5%9C%B0%E5%9D%80"><span class="toc-number">2.3.2.</span> <span class="toc-text">IPv6 多播地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E5%85%88%E5%AE%9A%E4%B9%89%E5%A5%BD%E7%9A%84%E7%BB%84%E6%92%AD%E5%9C%B0%E5%9D%80"><span class="toc-number">2.3.3.</span> <span class="toc-text">预先定义好的组播地址</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mDNS%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7"><span class="toc-number">2.4.</span> <span class="toc-text">mDNS调试工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E7%A8%8B"><span class="toc-number">2.5.</span> <span class="toc-text">例程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mDNS%E5%A6%82%E4%BD%95%E5%BC%80%E5%8F%91%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-number">2.6.</span> <span class="toc-text">mDNS如何开发和使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.6.1.</span> <span class="toc-text">注册服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.6.2.</span> <span class="toc-text">查询服务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/251041743.html" title="ESP-IDF网络编程之mDNS"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP-IDF网络编程之mDNS"/></a><div class="content"><a class="title" href="/posts/251041743.html" title="ESP-IDF网络编程之mDNS">ESP-IDF网络编程之mDNS</a><time datetime="2024-08-01T03:28:20.000Z" title="发表于 2024-08-01 11:28:20">2024-08-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/883659004.html" title="Hexo 添加随机文章功能"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 添加随机文章功能"/></a><div class="content"><a class="title" href="/posts/883659004.html" title="Hexo 添加随机文章功能">Hexo 添加随机文章功能</a><time datetime="2024-08-01T02:21:20.000Z" title="发表于 2024-08-01 10:21:20">2024-08-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/733777082.html" title="唯一ID进行程序加密实现"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="唯一ID进行程序加密实现"/></a><div class="content"><a class="title" href="/posts/733777082.html" title="唯一ID进行程序加密实现">唯一ID进行程序加密实现</a><time datetime="2024-07-20T09:40:20.000Z" title="发表于 2024-07-20 17:40:20">2024-07-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2271611938.html" title="STM32芯片使用12864串口屏(驱动为ST7567)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="STM32芯片使用12864串口屏(驱动为ST7567)"/></a><div class="content"><a class="title" href="/posts/2271611938.html" title="STM32芯片使用12864串口屏(驱动为ST7567)">STM32芯片使用12864串口屏(驱动为ST7567)</a><time datetime="2024-07-20T09:26:20.000Z" title="发表于 2024-07-20 17:26:20">2024-07-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/435688621.html" title="LVGL页面切换"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LVGL页面切换"/></a><div class="content"><a class="title" href="/posts/435688621.html" title="LVGL页面切换">LVGL页面切换</a><time datetime="2024-07-20T08:24:20.000Z" title="发表于 2024-07-20 16:24:20">2024-07-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body></html>

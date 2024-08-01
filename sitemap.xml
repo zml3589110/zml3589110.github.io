@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zml3589110.github.io/posts/251041743.html</loc>
+    
+    <lastmod>2024-08-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zml3589110.github.io/posts/883659004.html</loc>
     
     <lastmod>2024-08-01</lastmod>
@@ -3951,13 +3960,6 @@
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/tags/%E6%AD%BB%E9%94%81/</loc>
-    <lastmod>2024-08-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zml3589110.github.io/tags/%E6%B3%A2%E5%BD%A2/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -3966,6 +3968,13 @@
   
   <url>
     <loc>https://zml3589110.github.io/tags/%E7%BB%98%E5%9B%BE/</loc>
+    <lastmod>2024-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zml3589110.github.io/tags/%E6%AD%BB%E9%94%81/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4574,6 +4583,13 @@
   </url>
   
   <url>
+    <loc>https://zml3589110.github.io/tags/mDNS/</loc>
+    <lastmod>2024-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zml3589110.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -4819,14 +4835,14 @@
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/tags/ST7567/</loc>
+    <loc>https://zml3589110.github.io/tags/U8G2/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/tags/U8G2/</loc>
+    <loc>https://zml3589110.github.io/tags/ST7567/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -5878,6 +5894,13 @@
   </url>
   
   <url>
+    <loc>https://zml3589110.github.io/categories/mDNS/</loc>
+    <lastmod>2024-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zml3589110.github.io/categories/example-connect/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -5934,14 +5957,14 @@
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/categories/LCD/</loc>
+    <loc>https://zml3589110.github.io/categories/U8G2/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/categories/U8G2/</loc>
+    <loc>https://zml3589110.github.io/categories/LCD/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -5955,14 +5978,14 @@
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/categories/ST7567/</loc>
+    <loc>https://zml3589110.github.io/categories/php/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zml3589110.github.io/categories/php/</loc>
+    <loc>https://zml3589110.github.io/categories/ST7567/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
