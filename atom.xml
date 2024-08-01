@@ -6,7 +6,7 @@
   <link href="https://zml3589110.github.io/atom.xml" rel="self"/>
   
   <link href="https://zml3589110.github.io/"/>
-  <updated>2024-07-20T09:45:01.326Z</updated>
+  <updated>2024-08-01T02:23:39.659Z</updated>
   <id>https://zml3589110.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo 添加随机文章功能</title>
+    <link href="https://zml3589110.github.io/posts/883659004.html"/>
+    <id>https://zml3589110.github.io/posts/883659004.html</id>
+    <published>2024-08-01T02:21:20.000Z</published>
+    <updated>2024-08-01T02:23:39.659Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>hexo 自带有这个插件 <code>hexo-generator-random</code></p><p>GitHub 项目地址：<a href="https://github.com/Drew233/hexo-generator-random">https://github.com/Drew233/hexo-generator-random</a></p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>npm 先需要安装依赖</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CODE</span><br><span class="line">npm install object-assign</span><br></pre></td></tr></table></figure><p>安装插件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CODE</span><br><span class="line">npm install hexo-generator-random --save</span><br></pre></td></tr></table></figure><p>然后再照常 <code>hexo d -g</code>，public 下就会有个 <code>random.html</code> 的文件了</p><p>菜单栏可以添加上该地址</p><p>menu:<br>Random | 随机文章： &#x2F;random.html || fas fa-random</p><p>注：是在主题里边的menu修改，自己使用的是 hexo-theme-butterfly</p><hr><h1 id="相关链接-侵删"><a href="#相关链接-侵删" class="headerlink" title="相关链接(侵删)"></a>相关链接(侵删)</h1><ol><li><a href="https://ednovas.xyz/2021/07/16/hexorandom/">Hexo 添加随机文章功能</a></li></ol><hr><center><font color=red>=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
+    
+    
+    <summary type="html">hexo实现随机文章推送</summary>
+    
+    
+    
+    <category term="HEXO" scheme="https://zml3589110.github.io/categories/HEXO/"/>
+    
+    <category term="插件" scheme="https://zml3589110.github.io/categories/HEXO/%E6%8F%92%E4%BB%B6/"/>
+    
+    
+    <category term="插件" scheme="https://zml3589110.github.io/tags/%E6%8F%92%E4%BB%B6/"/>
+    
+    <category term="HEXO" scheme="https://zml3589110.github.io/tags/HEXO/"/>
+    
+    <category term="JavaScript" scheme="https://zml3589110.github.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>唯一ID进行程序加密实现</title>
@@ -708,31 +735,6 @@
     <category term="OpenHardwareMonitor" scheme="https://zml3589110.github.io/tags/OpenHardwareMonitor/"/>
     
     <category term="LibreHardwareMonitor" scheme="https://zml3589110.github.io/tags/LibreHardwareMonitor/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>电磁炉主要元器件</title>
-    <link href="https://zml3589110.github.io/posts/203927772.html"/>
-    <id>https://zml3589110.github.io/posts/203927772.html</id>
-    <published>2024-04-13T08:43:20.000Z</published>
-    <updated>2024-04-13T09:08:27.605Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="主要元器件"><a href="#主要元器件" class="headerlink" title="主要元器件"></a>主要元器件</h1><p><strong>完整内部图</strong></p><img src="/posts/203927772/image-20240413164824837.png" class="" title="image-20240413164824837"><ol><li>炉盘线圈</li></ol><img src="/posts/203927772/image-20240413164659643.png" class="" title="image-20240413164659643"><ol start="2"><li>热敏电阻</li></ol><img src="/posts/203927772/image-20240413164904574.png" class="" title="image-20240413164904574"><ol start="3"><li>主电路板</li></ol><img src="/posts/203927772/image-20240413165003252.png" class="" title="image-20240413165003252"><ol start="4"><li><p>显示电路板</p><img src="/posts/203927772/image-20240413165033420.png" class="" title="image-20240413165033420"></li><li><p>风扇</p><img src="/posts/203927772/image-20240413165331961.png" class="" title="image-20240413165331961"></li><li><p>散热器</p><img src="/posts/203927772/image-20240413165345163.png" class="" title="image-20240413165345163"></li><li><p>谐振、滤波电容</p><img src="/posts/203927772/image-20240413165357093.png" class="" title="image-20240413165357093"></li><li><p>共模电感</p><img src="/posts/203927772/image-20240413165422942.png" class="" title="image-20240413165422942"></li><li><p>压敏电阻</p><img src="/posts/203927772/image-20240413165432736.png" class="" title="image-20240413165432736"></li><li><p>保险丝</p>  <img src="/posts/203927772/image-20240413165432736.png" class="" title="image-20240413165432736"></li><li><p>电源线和磁环</p></li></ol><img src="/posts/203927772/image-20240413165502914.png" class="" title="image-20240413165502914"><p>电磁炉的整流桥和功率管TGBT并不像组装电脑时主板、CPU、内存、硬盘等必须要相互匹配才能够使用，整流桥和IGBT可以分别独立考虑，没有必须相互匹配这一说，只要它们的耐压、电流、功率等参数完全能够满足电路系统设计要求即可。</p><img src="/posts/203927772/image-20240413165535331.png" class="" title="image-20240413165535331"><img src="/posts/203927772/image-20240413165550622.png" class="" title="image-20240413165550622"><p>1、电磁炉的整流桥</p><p>电磁炉的整流桥应用在220V高压交流电后端，直接将输入的220V交流电整流，得到310V左右的高压直流电，其主要功率回路为滤波电感、磁盘线圈（锅具线盘）、功率管IGBT，可见310V只要功率负载为电磁炉线盘，家用电磁炉的功率一般3000W左右，比如3000W、2200W、2000W等。</p><p>整流桥选型时，需要根据电磁炉的功率进行选取，比如3000W的电磁炉，整流桥的输入电流约15A，再加上70%~80%的降额设计，整流桥的电流应选择20A以上；关于耐压值，220V交流电整流后最高电压约311V，考虑220V交流电输入有可能偏高，再加上降额设计，其耐压值选取必须400V以上，比如常用的电磁炉整流桥D20ⅩB60其参数为20A&#x2F;600V，D20ⅩB80参数为20A&#x2F;800V，GBJ2508参数为25A&#x2F;800V，GBJ2510参数为25A&#x2F;1000V。由于整流桥属于电磁炉易坏元器件，故在元器件选型更换时，最好选择耐压值较高的，比如800V、1000V，可防止较高的雷电及电路反峰冲击；电流选择偏大一些，比如3000W以内的电磁炉整流桥电流可选择25A以上的，降额越大元器件更可靠、更耐用。</p><img src="/posts/203927772/%E7%94%B5%E7%A3%81%E7%82%89%E7%9A%84%E6%95%B4%E6%B5%81%E6%A1%A5.webp" class="" title="电磁炉的整流桥"><p>2、电磁炉的功率管IGBT</p><img src="/posts/203927772/%E7%94%B5%E7%A3%81%E7%82%89%E7%9A%84%E5%8A%9F%E7%8E%87%E7%AE%A1IGBT.webp" class="" title="电磁炉的功率管IGBT"><p>电磁炉的功率管IGBT用于控制电磁炉线盘接通&#x2F;断开，以及通过脉宽调制调节电磁炉的功率。功率管IGBT工作在310V高压直流回路当中，控制线圈加热，电磁炉内部的系统检测电路，比如功率管温度检测、锅底温度检测、过压欠压检测、电流检测最终都是反馈到控制电路当中，控制执行器件IGBT。电磁炉功率档位选择是通过改变PWM脉冲宽度实现的，输出脉冲信号高电平占空比越大，电磁炉的功率越大。</p><img src="/posts/203927772/%E7%94%B5%E7%A3%81%E7%82%89%E7%9A%84%E5%8A%9F%E7%8E%87%E7%AE%A1IGBT1.webp" class="" title="电磁炉的功率管IGBT1"><p>电磁炉功率管IGBT该如何选型呢？选择电磁炉的IGBT最关键的两个技术指标为工作电压和工作电流，这两个参数直接取决于该管子能不能够使用，其它参数比如饱和压降、最大冲击电流、工作温度等只影响电路的性能。</p><p>对于工作电压最好选择1000V以上，虽然正常回路电压只有310V左右，但是由于开关管高速开通&#x2F;断开，会产生高频干扰信号，而且加热线盘属于电感，断开瞬间会产生很高的反电动势；<br>其次是最大集电极电流，需参考电磁炉的最大功率，比如3000W的电磁炉，其工作电流为10A左右，管子最大电流最好按2倍电流以上选取，比如20A、25A等，因为电磁炉的功率经过脉宽调制，其最大电流瞬态远超计算的额定电流。<br>比如常用的电磁炉功率管IGBT：H20R1202&#x2F;H20R1203其最高工作电压1200V，最大集电极电流20A；H20R1203其最高工作电压1000V，最大集电极电流40A等。</p><img src="/posts/203927772/image-20240413165900612.png" class="" title="image-20240413165900612"><p>还有其它其参数，比如饱和压降越小越好，压降越小管子的功耗越低；工作温度范围越宽越好，比如商业级元器件工作温度0℃<del>70℃，工业级元器件-40℃</del>85℃，汽车级元器件-40℃<del>125℃，军工级元器件-55℃</del>125℃，从温度范围也可以看出，商业级元器件性能最差，军工级最高！还有开关频率等。</p><p><strong>总结：</strong><br>元器件选型也是设计能力的体现，元器件的质量直接影响产品的功能、性能。电磁炉整流桥和IGBT选型时，没有必然的匹配关系，可根据相关参数独立选取，对于整流桥而言关键参数为工作电压、工作电流、功率等，相关参数满足即可；对于功率管IGBT而言，关键参数为最高工作电压和最大工作电流，其次还有饱和压降、工作频率、工作温度等，参数满足即可。</p><hr><h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol><li><a href="https://mp.weixin.qq.com/s/OHDhzf0jJzHoHa9lP9N5PQ">电磁炉电路主要元器件，整流桥和TGBT不用必须相互匹配？</a></li></ol><hr><center><font color=red>=================我是分割线=================</font></center><p><strong>欢迎到公众号来唠嗑:</strong></p><img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">]]></content>
-    
-    
-    <summary type="html">电磁炉主要元器件</summary>
-    
-    
-    
-    <category term="电磁炉" scheme="https://zml3589110.github.io/categories/%E7%94%B5%E7%A3%81%E7%82%89/"/>
-    
-    <category term="器件" scheme="https://zml3589110.github.io/categories/%E5%99%A8%E4%BB%B6/"/>
-    
-    
-    <category term="电磁炉" scheme="https://zml3589110.github.io/tags/%E7%94%B5%E7%A3%81%E7%82%89/"/>
-    
-    <category term="主要元器件" scheme="https://zml3589110.github.io/tags/%E4%B8%BB%E8%A6%81%E5%85%83%E5%99%A8%E4%BB%B6/"/>
     
   </entry>
   
