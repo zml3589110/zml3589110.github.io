@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>串联谐振半桥电磁炉移锅电流是增大还是缩小？ | 赵逸尘个人博客</title><meta name="keywords" content="电磁炉,半桥,CE波形,波形查看,电压,电流,电容,IGBT,igbtsy"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="半桥移锅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="串联谐振半桥电磁炉移锅电流是增大还是缩小？">
+<meta property="og:url" content="https://zml3589110.github.io/posts/3191623347.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="半桥移锅">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-09-03T03:08:20.000Z">
+<meta property="article:modified_time" content="2024-09-03T03:09:54.301Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="电磁炉">
+<meta property="article:tag" content="半桥">
+<meta property="article:tag" content="CE波形">
+<meta property="article:tag" content="波形查看">
+<meta property="article:tag" content="电压">
+<meta property="article:tag" content="电流">
+<meta property="article:tag" content="电容">
+<meta property="article:tag" content="IGBT">
+<meta property="article:tag" content="igbtsy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/3191623347"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '串联谐振半桥电磁炉移锅电流是增大还是缩小？',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-03 11:09:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">333</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">450</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">174</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">串联谐振半桥电磁炉移锅电流是增大还是缩小？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-03T03:08:20.000Z" title="发表于 2024-09-03 11:08:20">2024-09-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-03T03:09:54.301Z" title="更新于 2024-09-03 11:09:54">2024-09-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%B5%E7%A3%81%E7%82%89/">电磁炉</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B3%A2%E5%BD%A2/">波形</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="串联谐振半桥电磁炉移锅电流是增大还是缩小？"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><iframe src="串联谐振半桥电磁炉移锅电流是增大还是缩小？-电源网.html" width="100%" height="1000px"></iframe>
+
+
+
+<p>discussant<br>LV.6</p>
+<ul>
+<li>关注+ 私信<br>串联谐振半桥电磁炉，特别是电压相位和电流相位相同，ZVS和ZCS很好，通过PWM调节功率的，驱动信号和谐振电流信号相位一致的。如果移锅，则由于串联谐振回路的纯电阻很小。基频全部通过线盘的内阻产生热量。由于线盘的内阻很小，则电流很大。是通过检测大电流来检测移锅吗？如果这一类电磁炉工作在半移锅状态，那线盘的电流是不是很大？是不是会产生很大的电磁辐射呢？</li>
+</ul>
+<p>igbtsy<br>LV.9<br>2<br>2014-09-04 08:33<br>自己动手做一下试验就知道了吧</p>
+<p>discussant<br>LV.6<br>3<br>2014-09-04 12:02<br>@igbtsy<br>自己动手做一下试验就知道了吧<br>以前做半桥做得少，现在有个客户急着要做，现在要快速确定方案。根据理论分析，应该是电流要增加，这样就只能通过线盘的保护电流限制来确定移锅。但是，半移锅状态的情况怎么办？是要设定一个延时，让半移锅状态延时保护？半移锅状态会不会电磁炉的辐射很大呢？</p>
+<p>igbtsy<br>LV.9<br>4<br>2014-09-04 13:50<br>@discussant<br>以前做半桥做得少，现在有个客户急着要做，现在要快速确定方案。根据理论分析，应该是电流要增加，这样就只能通过线盘的保护电流限制来确定移锅。但是，半移锅状态的情况怎么办？是要设定一个延时，让半移锅状态延时保护？半移锅状态会不会电磁炉的辐射很大呢？<br>有了订单得赶紧试制电路了，不要停留在理论上。</p>
+<p>感应加热本身书上理论不多，很多单位都招不到这类人才。</p>
+<p>只要动手，按照经典的理论，学好高三电学就足够了，当然不是死读书的那种人，要活学活用，很复杂的一些问题都能从高三电学中得以启发解决的。而且实现起来简单易懂。</p>
+<p>discussant<br>LV.6<br>5<br>2014-09-04 14:24<br>@igbtsy<br>自己动手做一下试验就知道了吧<br>我个人感觉，移锅通过如下方式考虑：1、如果高频线圈电流过大导致保护，当然会重新检锅。2、如果PWM减到很小电流仍然很大，也说明锅具移开。不知对不对？</p>
+<p>igbtsy<br>LV.9<br>6<br>2014-09-04 20:24<br>@discussant<br>我个人感觉，移锅通过如下方式考虑：1、如果高频线圈电流过大导致保护，当然会重新检锅。2、如果PWM减到很小电流仍然很大，也说明锅具移开。不知对不对？<br>你是用什么方式调功？用PWM调功？我理解为移相调功，是这样吗？</p>
+<p>discussant<br>LV.6<br>7<br>2014-09-05 08:14<br>@igbtsy<br>你是用什么方式调功？用PWM调功？我理解为移相调功，是这样吗？<br>想采用调PWM调功，但频率一直跟随谐振频率。你说的是调节频率，导致电流和电压的相位差不同调功吗？</p>
+<p>my.mai<br>LV.9<br>8<br>2014-09-05 08:44<br>@discussant<br>想采用调PWM调功，但频率一直跟随谐振频率。你说的是调节频率，导致电流和电压的相位差不同调功吗？<br>移锅的时候，谐振频率和谐振电流都有很大幅度的变化，可以通过线盘的高频互感器检测到信号。</p>
+<p>igbtsy<br>LV.9<br>9<br>2014-09-05 13:16<br>@discussant<br>想采用调PWM调功，但频率一直跟随谐振频率。你说的是调节频率，导致电流和电压的相位差不同调功吗？<br>感应加热是用软开关电路，用PWM方式如何实现软开关？</p>
+<p>移相调功率也称为脉冲宽度调功，但是与团长说的PWM的方式是不一样的。</p>
+<p>discussant<br>LV.6<br>10<br>2014-09-05 14:07<br>@igbtsy<br>感应加热是用软开关电路，用PWM方式如何实现软开关？移相调功率也称为脉冲宽度调功，但是与团长说的PWM的方式是不一样的。<br>我说的可能就是你说的脉冲宽度调功吧。</p>
+<p>discussant<br>LV.6<br>11<br>2014-09-05 15:55<br>@igbtsy<br>感应加热是用软开关电路，用PWM方式如何实现软开关？移相调功率也称为脉冲宽度调功，但是与团长说的PWM的方式是不一样的。<br>例如，3525，我可以通过控制脉冲宽度来调节功率吧？但是，和你说的移相调功率可能不同。</p>
+<p>igbtsy<br>LV.9<br>12<br>2014-09-05 20:21<br>@discussant<br>例如，3525，我可以通过控制脉冲宽度来调节功率吧？但是，和你说的移相调功率可能不同。<br>按3525方式调脉宽来调功，那只能是硬开关工作状态了，如果你能做成软开关，那开关电源都可以方便地做成软开关了，事实并非如此。</p>
+<p>电磁灶用硬开关模式，那10KW的功率至少要有1.5KW的损耗，这方案行吗？如此大的功耗，又要加多大的风机散热？风机的功率损耗又大大地降低了电磁灶的热效率，得不偿失吧。</p>
+<p>discussant<br>LV.6<br>13<br>2014-09-06 08:30<br>@igbtsy<br>按3525方式调脉宽来调功，那只能是硬开关工作状态了，如果你能做成软开关，那开关电源都可以方便地做成软开关了，事实并非如此。电磁灶用硬开关模式，那10KW的功率至少要有1.5KW的损耗，这方案行吗？如此大的功耗，又要加多大的风机散热？风机的功率损耗又大大地降低了电磁灶的热效率，得不偿失吧。<br>以全桥为例，你说的移相调脉宽，其实就是调两个IGBT对的驱动电压的相位差达到调功率吧？但是，3525，通过调节脉冲宽度，虽然两个IGBT对的驱动电压没有相位差，但是脉冲宽度也可以调节，是不是可以达到同等效果？你说的硬开关，是说的没有ZCS，开通后的时候有大电流吧？</p>
+<p>discussant<br>LV.6<br>14<br>2014-09-06 08:36<br>我觉得调频调功的，电流可能不一定增加，因为驱动频率可能离谐振频率较远。只要偏离谐振频率一些，电流就会迅速下降。但是，电流相位跟随电压相位的，由于驱动频率紧跟谐振频率，工作于弱感性，可能会电流增加。等样机出来后我会做试验。</p>
+<p>igbtsy<br>LV.9<br>15<br>2014-09-06 11:47<br>@discussant<br>以全桥为例，你说的移相调脉宽，其实就是调两个IGBT对的驱动电压的相位差达到调功率吧？但是，3525，通过调节脉冲宽度，虽然两个IGBT对的驱动电压没有相位差，但是脉冲宽度也可以调节，是不是可以达到同等效果？你说的硬开关，是说的没有ZCS，开通后的时候有大电流吧？<br>你看一下开关电源的集射极波形，或者是源极与漏极波形，电压波形都是硬开关。</p>
+<p>igbtsy<br>LV.9<br>16<br>2014-09-06 12:08<br>@discussant<br>我觉得调频调功的，电流可能不一定增加，因为驱动频率可能离谐振频率较远。只要偏离谐振频率一些，电流就会迅速下降。但是，电流相位跟随电压相位的，由于驱动频率紧跟谐振频率，工作于弱感性，可能会电流增加。等样机出来后我会做试验。<br>移锅要做好，要做很多试验，从实践中获得处理问题的方法。</p>
+<p>做好移锅处理与之相关的问题是：</p>
+<p>1.如何应对大幅度的电源电压变化。</p>
+<p>2.为了获得最佳工作状态和最大功率、最低的散热器温升及线圈温升，提锅瞬间保护与锅材料的关系、与频率跟踪的关系如何处理？</p>
+<p>3.电路阻抗匹配比较容易，磁路阻抗匹配与锅的材料关系和偏锅、不同高度提锅时对提锅瞬间保护之间的参数协调如何处理？</p>
+<p>4.偏锅及抛锅后若较长时间忘记放锅怎么办？</p>
+<p>5.灶面无锅时开机如何办？过后放锅或过后仍不放锅上去如何办？</p>
+<p>6.旁边同时有几台炒灶同时工作在抛锅时有相互影响吗？</p>
+<p>7.为了与燃气灶有类似的加热效果，抛锅时要求驱动不中断。</p>
+<p>这些都要在设计时一并解决，不然产品出去后得不断地修改，够折腾的了。</p>
+<p>discussant<br>LV.6<br>17<br>2014-09-07 08:47<br>@igbtsy<br>你看一下开关电源的集射极波形，或者是源极与漏极波形，电压波形都是硬开关。<br>如果不采用你说的移相，仅仅采用调节脉宽的方式，即同一对IGBT同时开，同时关，应该是能做到ZVS和ZCS的，但是零电压和零电流关是做不到的。不过同一对IGBT采用移相的方式，似乎也不能做到零电压和零电流关。我觉得采用同一对IGBT同时开和同时关的方式，与移相的方式，其实相似，只不过移相的方式的同一对IGBT，其中一个关了以后，谐振回路中的电流一端可以通过另一个IGBT的CE导通续流，另一端要通过另一对IGBT内的二极管续流。但是采用同一对IGBT同时开和同时关的方式，谐振回路的两端都要通过另一对的IGBT内的二极管续流。</p>
+<p>igbtsy<br>LV.9<br>18<br>2014-09-07 09:09<br>@discussant<br>如果不采用你说的移相，仅仅采用调节脉宽的方式，即同一对IGBT同时开，同时关，应该是能做到ZVS和ZCS的，但是零电压和零电流关是做不到的。不过同一对IGBT采用移相的方式，似乎也不能做到零电压和零电流关。我觉得采用同一对IGBT同时开和同时关的方式，与移相的方式，其实相似，只不过移相的方式的同一对IGBT，其中一个关了以后，谐振回路中的电流一端可以通过另一个IGBT的CE导通续流，另一端要通过另一对IGBT内的二极管续流。但是采用同一对IGBT同时开和同时关的方式，谐振回路的两端都要通过另一对的IGBT内的二极管续流。<br>&lt;仅仅采用调节脉宽的方式，即同一对IGBT同时开，同时关，应该是能做到ZVS和ZCS的，但是零电压和零电流关是做不到的。&gt;</p>
+<p>你这话不是矛盾吗？ZVS、ZCS就是指零电压开关、零电流开关。</p>
+<p>discussant<br>LV.6<br>19<br>2014-09-09 08:20<br>@igbtsy<br>你这话不是矛盾吗？ZVS、ZCS就是指零电压开关、零电流开关。<br>我原以为ZVS、ZCS是零电压启动（开）和零电流启动（开）。但是，移相的方式似乎也只能做到零电压启动和零电流启动，如果要做到关也是零电压和零电流，可能很难做到。只要脉冲的宽度不是接近基频周期的一半，似乎零电压开和关只能做到一个，零电流开和关也只能做到一个。</p>
+<p>discussant<br>LV.6<br>20<br>2014-09-13 08:45<br>@igbtsy<br>你这话不是矛盾吗？ZVS、ZCS就是指零电压开关、零电流开关。<br>我理解了你说的移相的方式。如果两个IGBT同时关，谐振回路的续流会导致谐振回路两端的电压波形在IGBT关的期间的电压不是零电压，虽然IGBT门极的驱动信号仍然是方波。如果采用移相的方式，那谐振回路两端的电压在IGBT关的期间是零电压。IGBT驱动信号的提前和延迟应该都是这个目的。但是两个IGBT也只有一个IGBT能做到零电压开关。</p>
+<p>igbtsy<br>LV.9<br>21<br>2014-09-13 08:53<br>@discussant<br>我理解了你说的移相的方式。如果两个IGBT同时关，谐振回路的续流会导致谐振回路两端的电压波形在IGBT关的期间的电压不是零电压，虽然IGBT门极的驱动信号仍然是方波。如果采用移相的方式，那谐振回路两端的电压在IGBT关的期间是零电压。IGBT驱动信号的提前和延迟应该都是这个目的。但是两个IGBT也只有一个IGBT能做到零电压开关。<br>你把移相的工作原理去看一下。只有在谐振状态下才能做到ZVS、ZCS。</p>
+<p>igbtsy<br>LV.9<br>22<br>2014-09-13 08:58<br>@igbtsy<br>你把移相的工作原理去看一下。只有在谐振状态下才能做到ZVS、ZCS。<br>所以感应加热力求工作状态在谐振状态下，一切技术措施及保护措施都是环绕着它做的，离开了谐振点，本身工作状态变坏，对各种保护的要求相反到是减轻了。</p>
+<p>王秋冬<br>LV.5<br>23<br>2014-09-17 15:50<br>@igbtsy<br>移锅要做好，要做很多试验，从实践中获得处理问题的方法。做好移锅处理与之相关的问题是：1.如何应对大幅度的电源电压变化。2.为了获得最佳工作状态和最大功率、最低的散热器温升及线圈温升，提锅瞬间保护与锅材料的关系、与频率跟踪的关系如何处理？3.电路阻抗匹配比较容易，磁路阻抗匹配与锅的材料关系和偏锅、不同高度提锅时对提锅瞬间保护之间的参数协调如何处理？4.偏锅及抛锅后若较长时间忘记放锅怎么办？5.灶面无锅时开机如何办？过后放锅或过后仍不放锅上去如何办？6.旁边同时有几台炒灶同时工作在抛锅时有相互影响吗？7.为了与燃气灶有类似的加热效果，抛锅时要求驱动不中断。这些都要在设计时一并解决，不然产品出去后得不断地修改，够折腾的了。<br>军长的意思，你明白吗？</p>
+<p>igbtsy<br>LV.9<br>24<br>2014-10-07 10:32<br>@discussant<br>我觉得调频调功的，电流可能不一定增加，因为驱动频率可能离谐振频率较远。只要偏离谐振频率一些，电流就会迅速下降。但是，电流相位跟随电压相位的，由于驱动频率紧跟谐振频率，工作于弱感性，可能会电流增加。等样机出来后我会做试验。<br>样机出来再做试验有点晚了，会造成较大的浪费及时间损失。应当在做样机前把这些试验都做掉。样机出来一般只是局部的个别地方做小的改动，或者最大的变动是在结构上的改动，而不是在电路上去作大的改动。</p>
+<p>discussant<br>LV.6<br>25<br>2014-10-25 10:38<br>@igbtsy<br>样机出来再做试验有点晚了，会造成较大的浪费及时间损失。应当在做样机前把这些试验都做掉。样机出来一般只是局部的个别地方做小的改动，或者最大的变动是在结构上的改动，而不是在电路上去作大的改动。<br>由于功率只有5KW，还用的调频调功方式。</p>
+<p>igbtsy<br>LV.9<br>26<br>2014-10-26 06:36<br>@discussant<br>由于功率只有5KW，还用的调频调功方式。<br>你已经做了半桥调频模式，那在最大功率时不关激励脉冲，抛锅及偏锅，电流有上冲的现象吗？注意要一点点慢腾腾地向上提锅才能看出电流的细微变化及趋向。</p>
+<p>discussant<br>LV.6<br>27<br>2014-10-27 16:55<br>@igbtsy<br>你已经做了半桥调频模式，那在最大功率时不关激励脉冲，抛锅及偏锅，电流有上冲的现象吗？注意要一点点慢腾腾地向上提锅才能看出电流的细微变化及趋向。<br>有上冲，但大了会保护。</p>
+<p>igbtsy<br>LV.9<br>28<br>2014-10-27 20:08<br>@discussant<br>有上冲，但大了会保护。<br>应当消除上冲，可以做到完全没有电流上冲或者上冲几乎小得可以不计较。</p>
+<p>discussant<br>LV.6<br>29<br>2014-10-28 08:19<br>@igbtsy<br>应当消除上冲，可以做到完全没有电流上冲或者上冲几乎小得可以不计较。<br>也许你的移相调功的方式可能好实现，但是调频调功的方式可能难一些。</p>
+<p>igbtsy<br>LV.9<br>30<br>2014-10-28 12:14<br>@discussant<br>也许你的移相调功的方式可能好实现，但是调频调功的方式可能难一些。<br>我指的是调频调功。我做的也是调频调功。</p>
+<p>discussant<br>LV.6<br>31<br>2014-10-29 14:21<br>@igbtsy<br>我指的是调频调功。我做的也是调频调功。<br>我再调调看。</p>
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://www.dianyuan.com/bbs/1499562.html">串联谐振半桥电磁炉移锅电流是增大还是缩小？</a></li>
+</ol>
+<hr>
+<center><font color=red>=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/3191623347.html">https://zml3589110.github.io/posts/3191623347.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%B5%E7%A3%81%E7%82%89/">电磁炉</a><a class="post-meta__tags" href="/tags/%E5%8D%8A%E6%A1%A5/">半桥</a><a class="post-meta__tags" href="/tags/CE%E6%B3%A2%E5%BD%A2/">CE波形</a><a class="post-meta__tags" href="/tags/%E6%B3%A2%E5%BD%A2%E6%9F%A5%E7%9C%8B/">波形查看</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E5%8E%8B/">电压</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E6%B5%81/">电流</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E5%AE%B9/">电容</a><a class="post-meta__tags" href="/tags/IGBT/">IGBT</a><a class="post-meta__tags" href="/tags/igbtsy/">igbtsy</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/827942859.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">很久没有来电源网了。看了一下全都是焊机的帖子。</div></div></a></div><div class="next-post pull-right"><a href="/posts/24.html"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/232061923.html" title="CD4046相位比较器1的输出脉冲信号图，请指教。"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">CD4046相位比较器1的输出脉冲信号图，请指教。</div></div></a></div><div><a href="/posts/3665814884.html" title="IGBT驱动用脉冲变压器驱动，其驱动电路奥太与瑞凌比较哪个好一些？大家出来谈谈。"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">IGBT驱动用脉冲变压器驱动，其驱动电路奥太与瑞凌比较哪个好一些？大家出来谈谈。</div></div></a></div><div><a href="/posts/2872230938.html" title="【2015电设赛前准备】电磁感应加热器（附加热过程视频+原理图）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">【2015电设赛前准备】电磁感应加热器（附加热过程视频+原理图）</div></div></a></div><div><a href="/posts/821976133.html" title="关于半桥的频率跟踪，锁相等问题的疑虑"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">关于半桥的频率跟踪，锁相等问题的疑虑</div></div></a></div><div><a href="/posts/1484860588.html" title="半桥电磁炉用0.9UF的电容为什么线盘电流才11A多"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">半桥电磁炉用0.9UF的电容为什么线盘电流才11A多</div></div></a></div><div><a href="/posts/1937374574.html" title="大功率电磁炉的ZVS、ZCS工作状态实现的方法讨论"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">大功率电磁炉的ZVS、ZCS工作状态实现的方法讨论</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">333</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">450</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">174</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1164397684.html" title="合并hex文件"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="合并hex文件"/></a><div class="content"><a class="title" href="/posts/1164397684.html" title="合并hex文件">合并hex文件</a><time datetime="2024-11-02T08:49:20.000Z" title="发表于 2024-11-02 16:49:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1432338086.html" title="IAP+YMODEM+CRC16+AES256+PC端软件+hex合并"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IAP+YMODEM+CRC16+AES256+PC端软件+hex合并"/></a><div class="content"><a class="title" href="/posts/1432338086.html" title="IAP+YMODEM+CRC16+AES256+PC端软件+hex合并">IAP+YMODEM+CRC16+AES256+PC端软件+hex合并</a><time datetime="2024-11-02T08:14:20.000Z" title="发表于 2024-11-02 16:14:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1863846554.html" title="暗锁程序加密思路"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="暗锁程序加密思路"/></a><div class="content"><a class="title" href="/posts/1863846554.html" title="暗锁程序加密思路">暗锁程序加密思路</a><time datetime="2024-11-02T07:50:20.000Z" title="发表于 2024-11-02 15:50:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1135562047.html" title="Csharp算法之AES实现"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Csharp算法之AES实现"/></a><div class="content"><a class="title" href="/posts/1135562047.html" title="Csharp算法之AES实现">Csharp算法之AES实现</a><time datetime="2024-11-02T06:49:20.000Z" title="发表于 2024-11-02 14:49:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22.html" title="无题"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/posts/22.html" title="无题">无题</a><time datetime="2024-09-16T02:34:42.779Z" title="发表于 2024-09-16 10:34:42">2024-09-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body></html>

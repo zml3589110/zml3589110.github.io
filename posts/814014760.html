@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>我的感应加热 | 赵逸尘个人博客</title><meta name="keywords" content="电磁炉,半桥,CE波形,波形查看,电压,电流,电容,IGBT,igbtsy"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="半桥开发参考">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的感应加热">
+<meta property="og:url" content="https://zml3589110.github.io/posts/814014760.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="半桥开发参考">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-09-16T01:49:20.000Z">
+<meta property="article:modified_time" content="2024-09-16T02:00:27.219Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="电磁炉">
+<meta property="article:tag" content="半桥">
+<meta property="article:tag" content="CE波形">
+<meta property="article:tag" content="波形查看">
+<meta property="article:tag" content="电压">
+<meta property="article:tag" content="电流">
+<meta property="article:tag" content="电容">
+<meta property="article:tag" content="IGBT">
+<meta property="article:tag" content="igbtsy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/814014760"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '我的感应加热',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-16 10:00:27'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">333</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">450</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">174</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">我的感应加热</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-16T01:49:20.000Z" title="发表于 2024-09-16 09:49:20">2024-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-16T02:00:27.219Z" title="更新于 2024-09-16 10:00:27">2024-09-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%B5%E7%A3%81%E7%82%89/">电磁炉</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B3%A2%E5%BD%A2/">波形</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="我的感应加热"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><iframe src="我的感应加热\我的感应加热-电源网.html" width="100%" height="1000px"></iframe>
+
+<iframe src="我的感应加热\我的感应加热-电源网2.html" width="100%" height="1000px"></iframe>
+
+
+<h1 id="第一页"><a href="#第一页" class="headerlink" title="第一页"></a>第一页</h1><p>kfzyly<br>LV.4</p>
+<ul>
+<li>关注+ 私信<br>我的感应加热电路板已经焊热好了，是移相调功，4046频率跟踪，这几天就要装机调试了，不知能成功不能！如有问题还请大家多帮忙啊！先谢谢大家.</li>
+</ul>
+<p>zhugang<br>LV.5<br>2<br>2013-11-08 23:43<br>先祝你成功</p>
+<p>kfzyly<br>LV.4<br>3<br>2013-11-09 09:45<br>@zhugang<br>先祝你成功<br>先谢谢你！</p>
+<p>kfzyly<br>LV.4<br>4<br>2013-11-12 07:12<br>@kfzyly<br>先谢谢你！<br>昨天进了调试，先断开了频率跟踪电路，用手动调节振荡频率，当频率调到22K时，这时电流最大，电流正好是正弦波，估计系统的固有频率就为22K。后来把频率跟踪电路加上，调试没有好结果。今天再试！</p>
+<p>zhugang<br>LV.5<br>5<br>2013-11-12 11:08<br>@kfzyly<br>昨天进了调试，先断开了频率跟踪电路，用手动调节振荡频率，当频率调到22K时，这时电流最大，电流正好是正弦波，估计系统的固有频率就为22K。后来把频率跟踪电路加上，调试没有好结果。今天再试！<br>努力就会成功啊 加油啊</p>
+<p>kfzyly<br>LV.4<br>6<br>2013-11-12 12:04<br>@zhugang<br>努力就会成功啊加油啊<br>谢谢鼓励，帮我看看这个这波形</p>
+<img src="/posts/undefined/1384228894-29087-600.jpg" class="" title="img">
+
+
+
+<img src="/posts/undefined/1384228968-72107-600.jpg" class="" title="img">
+
+
+
+<img src="/posts/undefined/1384229060-68510-600.jpg" class="" title="img">
+
+<p>kfzyly<br>LV.4<br>7<br>2013-11-12 12:07<br>@kfzyly<br>谢谢鼓励，帮我看看这个这波形[图片][图片][图片]<br>第一个图是放大后的IGBT的UCE的开通波形，第三个是UCE波，绿色的是PWM脉冲波</p>
+<p>，UCE有震荡，不是什么原因。</p>
+<p>igbtsy<br>LV.9<br>8<br>2013-11-12 17:51<br>@kfzyly<br>第一个图是放大后的IGBT的UCE的开通波形，第三个是UCE波，绿色的是PWM脉冲波，UCE有震荡，不是什么原因。<br>第三幅图的工作频率偏离谐振点太多了，电流相位迟后有60度左右，你把工作在谐振点的UCEI波形发上来，把工作波形做好了再来解决跟踪问题。不然的话会进入误区的。</p>
+<p>kfzyly<br>LV.4<br>9<br>2013-11-12 19:20<br>@igbtsy<br>第三幅图的工作频率偏离谐振点太多了，电流相位迟后有60度左右，你把工作在谐振点的UCEI波形发上来，把工作波形做好了再来解决跟踪问题。不然的话会进入误区的。<br>那我怎样让它工作在谐振点呢，是不是手动调电路振荡频率呢？谐振时，外在表现是什么？</p>
+<p>kfzyly<br>LV.4<br>10<br>2013-11-12 19:25<br>@kfzyly<br>那我怎样让它工作在谐振点呢，是不是手动调电路振荡频率呢？谐振时，外在表现是什么？<br>还有，第三个图，应该进入谐振了，这时的整流桥后的直流电流最大，增加振荡频率与减小频率，电流都会减小，我想应该是谐振了吧。</p>
+<p>igbtsy<br>LV.9<br>11<br>2013-11-12 20:29<br>@kfzyly<br>还有，第三个图，应该进入谐振了，这时的整流桥后的直流电流最大，增加振荡频率与减小频率，电流都会减小，我想应该是谐振了吧。<br>如果你的额定电压是380V。那至少要工作到300V电压才能看出你要更改或努力的方向，你加个几十伏的电压工作，会误导你的。</p>
+<p>kfzyly<br>LV.4<br>12<br>2013-11-12 21:30<br>@igbtsy<br>如果你的额定电压是380V。那至少要工作到300V电压才能看出你要更改或努力的方向，你加个几十伏的电压工作，会误导你的。<br>我不敢再加了，起码电路调整个差不多，再加高压啊</p>
+<p>kfzyly<br>LV.4<br>13<br>2013-11-12 21:33<br>@kfzyly<br>我不敢再加了，起码电路调整个差不多，再加高压啊<br>就这样加高压，会烧IGBT吗？</p>
+<p>kfzyly<br>LV.4<br>14<br>2013-11-12 21:36<br>@kfzyly<br>就这样加高压，会烧IGBT吗？<br>沈老师，我下一步怎样作做呢？</p>
+<p>还有：我怎样让它工作在谐振点呢，是不是手动调电路振荡频率呢？谐振时，外在表现是什么？</p>
+<p>igbtsy<br>LV.9<br>15<br>2013-11-16 17:10<br>@kfzyly<br>沈老师，我下一步怎样作做呢？还有：我怎样让它工作在谐振点呢，是不是手动调电路振荡频率呢？谐振时，外在表现是什么？<br>只要做好过流保护，上高压是不要怕的。不到一定电压，所谓的谐振也不一定是真正的谐振点。</p>
+<p>再有，你的移相先不要去动，就是说没有移相。上300V以上的的高压，才能找到近似的谐振点。高压上升时谐振点会向频率高的方向偏移的。</p>
+<p>kfzyly<br>LV.4<br>16<br>2013-11-16 20:54<br>@igbtsy<br>只要做好过流保护，上高压是不要怕的。不到一定电压，所谓的谐振也不一定是真正的谐振点。再有，你的移相先不要去动，就是说没有移相。上300V以上的的高压，才能找到近似的谐振点。高压上升时谐振点会向频率高的方向偏移的。<br>你好沈老师！我现在调试没有移相，变压器是模仿一个厂里80KW的机子做的，依我现在的情况看，加高压，功率很大，没有电流反馈只加过流保护，可能一上电就会保护。我现在想加功率自动调节，可是调节什么呢？</p>
+<p>igbtsy<br>LV.9<br>17<br>2013-11-17 10:09<br>@kfzyly<br>你好沈老师！我现在调试没有移相，变压器是模仿一个厂里80KW的机子做的，依我现在的情况看，加高压，功率很大，没有电流反馈只加过流保护，可能一上电就会保护。我现在想加功率自动调节，可是调节什么呢？<br>厂里的80KW机子是自制的还是别人生产的？没有成熟的技术就做80KW？拿自己开玩笑吧！先做个小功率的，把所有技术问题都搞清楚了，做熟了再一步一步地扩大功率到你想要的功率吧。</p>
+<p>kfzyly<br>LV.4<br>18<br>2013-11-17 11:53<br>@igbtsy<br>厂里的80KW机子是自制的还是别人生产的？没有成熟的技术就做80KW？拿自己开玩笑吧！先做个小功率的，把所有技术问题都搞清楚了，做熟了再一步一步地扩大功率到你想要的功率吧。<br>变压器是模仿人家的，主电路也是模仿的，现在就是没有控制电路，如果做小功率的就换一个变压压器，我不知功率反馈加到什么地方？</p>
+<p>igbtsy<br>LV.9<br>19<br>2013-11-17 14:22<br>@kfzyly<br>变压器是模仿人家的，主电路也是模仿的，现在就是没有控制电路，如果做小功率的就换一个变压压器，我不知功率反馈加到什么地方？<br>你要问我，我也不知道。我不会也不想去仿别人的，只要根据功能要求，独立设计电路，那是最自由的， 也是可以做到最满意的。绝大多数民用产品的电路为了省成本，用的器件及电路设计，从可靠性角度来讲都是不能令我满意的，所以更本没有要去仿的价值。</p>
+<p>kfzyly<br>LV.4<br>20<br>2013-11-17 18:33<br>@igbtsy<br>你要问我，我也不知道。我不会也不想去仿别人的，只要根据功能要求，独立设计电路，那是最自由的，也是可以做到最满意的。绝大多数民用产品的电路为了省成本，用的器件及电路设计，从可靠性角度来讲都是不能令我满意的，所以更本没有要去仿的价值。<br>是，就应这样，可是我的能力有限，我还是一步一步来吧，以后还请沈老师多指导。</p>
+<p>kfzyly<br>LV.4<br>21<br>2013-11-19 06:48<br>@kfzyly<br>是，就应这样，可是我的能力有限，我还是一步一步来吧，以后还请沈老师多指导。<br>沈老师指导的很好，现在我把以前的电路完全抛开，改为调频调功，但振荡电路我还用3879，不再移相，只把它当作一个压控振荡器来用。控制直流电流，从而来限制功率，4046还用，用它来监视逆变的电流与电压的相位，如果两者相位，就拉高功率。</p>
+<p>有了好老师，工作思路明朗许多！</p>
+<p>wangchongpapa001<br>LV.4<br>22<br>2013-11-20 23:41<br>你还是贴一下你的图纸吧，就这样说很难给你有意义的帮助信息。</p>
+<p>个人建议外围元件尽量少点。 上电的时候一定确定驱动波形干净没毛刺。</p>
+<p>本帖中的波形惨不忍睹，建议你别上电了、</p>
+<p>kfzyly<br>LV.4<br>23<br>2013-11-21 07:01<br>@wangchongpapa001<br>你还是贴一下你的图纸吧，就这样说很难给你有意义的帮助信息。 个人建议外围元件尽量少点。上电的时候一定确定驱动波形干净没毛刺。 本帖中的波形惨不忍睹，建议你别上电了、<br>好！我整理一下，发上来，谢谢！</p>
+<p>igbtsy<br>LV.9<br>24<br>2013-11-21 20:45<br>@wangchongpapa001<br>你还是贴一下你的图纸吧，就这样说很难给你有意义的帮助信息。 个人建议外围元件尽量少点。上电的时候一定确定驱动波形干净没毛刺。 本帖中的波形惨不忍睹，建议你别上电了、<br>他的波形之所以意如此，徐了阻抗没有匹配好之外，最主要的是试验用的电源电压低到失去实际意义，相当于负载阻抗大了很多倍，出现各种怪问题让你无法分析，或者可能会给你造成误判断。</p>
+<p>kfzyly<br>LV.4<br>25<br>2013-11-21 22:46<br>@igbtsy<br>他的波形之所以意如此，徐了阻抗没有匹配好之外，最主要的是试验用的电源电压低到失去实际意义，相当于负载阻抗大了很多倍，出现各种怪问题让你无法分析，或者可能会给你造成误判断。<br>我现在正增加功率限制环节，比如，整流后的直流，我就限制到到80A，这个电流，我再加到频率控制的负反馈上，当电流增大时，就减小振荡频率，4046，就用来监测电流与电压的相位，正常时，电流滞后电压的，如果两相快同相时，就强制频率拉高。不知这个方案行不行！</p>
+<p>wangchongpapa001<br>LV.4<br>26<br>2013-11-22 09:46<br>@kfzyly<br>我现在正增加功率限制环节，比如，整流后的直流，我就限制到到80A，这个电流，我再加到频率控制的负反馈上，当电流增大时，就减小振荡频率，4046，就用来监测电流与电压的相位，正常时，电流滞后电压的，如果两相快同相时，就强制频率拉高。不知这个方案行不行！<br>你思路错了。换个想法再做。</p>
+<p>kfzyly<br>LV.4<br>27<br>2013-11-22 16:17<br>@wangchongpapa001<br>你思路错了。换个想法再做。<br>能提示一下吗？多谢啊，现在走入死胡同里了！</p>
+<p>kfzyly<br>LV.4<br>28<br>2013-11-23 05:21<br>@kfzyly<br>能提示一下吗？多谢啊，现在走入死胡同里了！<br>沈老师总给我大方向的指导！再次感谢！</p>
+<p>igbtsy<br>LV.9<br>29<br>2013-11-23 08:00<br>@kfzyly<br>沈老师总给我大方向的指导！再次感谢！<br>你先做个小功率的，比如做个10KW的调频调功。做好了，搞清楚了再改成移相调功。在此成熟的基础上再改成20KW、40KW，然后再翻到80KW，这样几步下来，小心一点，只要过流保护、硬开通保护、驱动欠激励保护做好，不管你怎么搞或者发生失误，绝对不会发生损坏功率模块的故障。</p>
+<p>kfzyly<br>LV.4<br>30<br>2013-11-23 22:27<br>@igbtsy<br>你先做个小功率的，比如做个10KW的调频调功。做好了，搞清楚了再改成移相调功。在此成熟的基础上再改成20KW、40KW，然后再翻到80KW，这样几步下来，小心一点，只要过流保护、硬开通保护、驱动欠激励保护做好，不管你怎么搞或者发生失误，绝对不会发生损坏功率模块的故障。<br>嗯，就这样，按你的指点一步一步走，现在我正在绘调频的电路图，但只加了过流保护，硬开通与驱动欠激励都没有考虑进去，我先研究他们的作用与不加会发生的后果。谢沈老师的指点！我会努力的！</p>
+<p>kfzyly<br>LV.4<br>31<br>2013-11-24 21:27<br>@kfzyly<br>嗯，就这样，按你的指点一步一步走，现在我正在绘调频的电路图，但只加了过流保护，硬开通与驱动欠激励都没有考虑进去，我先研究他们的作用与不加会发生的后果。谢沈老师的指点！我会努力的！<br>沈老师，硬开通保护表在什么方面？驱动欠激励，是不是IGBT的驱动板某一相没有脉冲？</p>
+<h1 id="第二页"><a href="#第二页" class="headerlink" title="第二页"></a>第二页</h1><p>衰鬼<br>LV.2<br>32<br>2013-11-24 22:59<br>@kfzyly<br>第一个图是放大后的IGBT的UCE的开通波形，第三个是UCE波，绿色的是PWM脉冲波，UCE有震荡，不是什么原因。<br>小弟有1事不明特此请教，您的安泰信示波器双通道是隔离的吗？IGBT上的波形和驱动的波形是如何同时得到的？</p>
+<p>igbtsy<br>LV.9<br>33<br>2013-11-26 08:21<br>@kfzyly<br>沈老师，硬开通保护表在什么方面？驱动欠激励，是不是IGBT的驱动板某一相没有脉冲？<br>欠激励是指驱动电压不足以使IGBT进入足够的饱和状态，还包含从截止到导通的速率达不到一定的要求。</p>
+<p>kfzyly<br>LV.4<br>34<br>2013-11-27 13:21<br>@igbtsy<br>欠激励是指驱动电压不足以使IGBT进入足够的饱和状态，还包含从截止到导通的速率达不到一定的要求。<br>明白了，沈老师，这是我绘电路框架图，你指点一下。电<a href="%E6%88%91%E7%9A%84%E6%84%9F%E5%BA%94%E5%8A%A0%E7%83%AD%5C1385529602-71749.zip">路.zip</a></p>
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://www.dianyuan.com/bbs/1459512.html">我的感应加热</a></li>
+</ol>
+<hr>
+<center><font color=red>=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/814014760.html">https://zml3589110.github.io/posts/814014760.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%B5%E7%A3%81%E7%82%89/">电磁炉</a><a class="post-meta__tags" href="/tags/%E5%8D%8A%E6%A1%A5/">半桥</a><a class="post-meta__tags" href="/tags/CE%E6%B3%A2%E5%BD%A2/">CE波形</a><a class="post-meta__tags" href="/tags/%E6%B3%A2%E5%BD%A2%E6%9F%A5%E7%9C%8B/">波形查看</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E5%8E%8B/">电压</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E6%B5%81/">电流</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E5%AE%B9/">电容</a><a class="post-meta__tags" href="/tags/IGBT/">IGBT</a><a class="post-meta__tags" href="/tags/igbtsy/">igbtsy</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/3764425120.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">不同波特率传输时间计算</div></div></a></div><div class="next-post pull-right"><a href="/posts/32.html"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/232061923.html" title="CD4046相位比较器1的输出脉冲信号图，请指教。"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">CD4046相位比较器1的输出脉冲信号图，请指教。</div></div></a></div><div><a href="/posts/3665814884.html" title="IGBT驱动用脉冲变压器驱动，其驱动电路奥太与瑞凌比较哪个好一些？大家出来谈谈。"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">IGBT驱动用脉冲变压器驱动，其驱动电路奥太与瑞凌比较哪个好一些？大家出来谈谈。</div></div></a></div><div><a href="/posts/2872230938.html" title="【2015电设赛前准备】电磁感应加热器（附加热过程视频+原理图）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">【2015电设赛前准备】电磁感应加热器（附加热过程视频+原理图）</div></div></a></div><div><a href="/posts/3191623347.html" title="串联谐振半桥电磁炉移锅电流是增大还是缩小？"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">串联谐振半桥电磁炉移锅电流是增大还是缩小？</div></div></a></div><div><a href="/posts/821976133.html" title="关于半桥的频率跟踪，锁相等问题的疑虑"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">关于半桥的频率跟踪，锁相等问题的疑虑</div></div></a></div><div><a href="/posts/1484860588.html" title="半桥电磁炉用0.9UF的电容为什么线盘电流才11A多"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">半桥电磁炉用0.9UF的电容为什么线盘电流才11A多</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">333</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">450</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">174</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%A1%B5"><span class="toc-number">1.</span> <span class="toc-text">第一页</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%A1%B5"><span class="toc-number">2.</span> <span class="toc-text">第二页</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1164397684.html" title="合并hex文件"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="合并hex文件"/></a><div class="content"><a class="title" href="/posts/1164397684.html" title="合并hex文件">合并hex文件</a><time datetime="2024-11-02T08:49:20.000Z" title="发表于 2024-11-02 16:49:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1432338086.html" title="IAP+YMODEM+CRC16+AES256+PC端软件+hex合并"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IAP+YMODEM+CRC16+AES256+PC端软件+hex合并"/></a><div class="content"><a class="title" href="/posts/1432338086.html" title="IAP+YMODEM+CRC16+AES256+PC端软件+hex合并">IAP+YMODEM+CRC16+AES256+PC端软件+hex合并</a><time datetime="2024-11-02T08:14:20.000Z" title="发表于 2024-11-02 16:14:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1863846554.html" title="暗锁程序加密思路"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="暗锁程序加密思路"/></a><div class="content"><a class="title" href="/posts/1863846554.html" title="暗锁程序加密思路">暗锁程序加密思路</a><time datetime="2024-11-02T07:50:20.000Z" title="发表于 2024-11-02 15:50:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1135562047.html" title="Csharp算法之AES实现"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Csharp算法之AES实现"/></a><div class="content"><a class="title" href="/posts/1135562047.html" title="Csharp算法之AES实现">Csharp算法之AES实现</a><time datetime="2024-11-02T06:49:20.000Z" title="发表于 2024-11-02 14:49:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22.html" title="无题"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/posts/22.html" title="无题">无题</a><time datetime="2024-09-16T02:34:42.779Z" title="发表于 2024-09-16 10:34:42">2024-09-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body></html>

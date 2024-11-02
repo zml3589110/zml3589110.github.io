@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>（很精彩评论）大家一起聊下IGBT的缓冲电路 | 赵逸尘个人博客</title><meta name="keywords" content="电磁炉,半桥,CE波形,波形查看,电压,电流,电容,IGBT"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="IGBT缓冲电路">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（很精彩评论）大家一起聊下IGBT的缓冲电路">
+<meta property="og:url" content="https://zml3589110.github.io/posts/1613482597.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="IGBT缓冲电路">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-09-03T01:49:20.000Z">
+<meta property="article:modified_time" content="2024-09-03T02:28:22.151Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="电磁炉">
+<meta property="article:tag" content="半桥">
+<meta property="article:tag" content="CE波形">
+<meta property="article:tag" content="波形查看">
+<meta property="article:tag" content="电压">
+<meta property="article:tag" content="电流">
+<meta property="article:tag" content="电容">
+<meta property="article:tag" content="IGBT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/1613482597"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '（很精彩评论）大家一起聊下IGBT的缓冲电路',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-03 10:28:22'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">333</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">450</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">174</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">（很精彩评论）大家一起聊下IGBT的缓冲电路</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-03T01:49:20.000Z" title="发表于 2024-09-03 09:49:20">2024-09-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-03T02:28:22.151Z" title="更新于 2024-09-03 10:28:22">2024-09-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%B5%E7%A3%81%E7%82%89/">电磁炉</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B3%A2%E5%BD%A2/">波形</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">13.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>42分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="（很精彩评论）大家一起聊下IGBT的缓冲电路"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><iframe src="（很精彩评论）大家一起聊下IGBT的缓冲电路\大家一起聊下IGBT的缓冲电路-电源网.html" width="100%" height="1000px"></iframe>
+
+<iframe src="（很精彩评论）大家一起聊下IGBT的缓冲电路\大家一起聊下IGBT的缓冲电路-电源网2.html" width="100%" height="1000px"></iframe>
+
+<iframe src="（很精彩评论）大家一起聊下IGBT的缓冲电路\大家一起聊下IGBT的缓冲电路-电源网3.html" width="100%" height="1000px"></iframe>
+
+
+
+
+<h1 id="第一页"><a href="#第一页" class="headerlink" title="第一页"></a>第一页</h1><p>jjat<br>LV.3</p>
+<ul>
+<li>关注+ 私信<br>大家一起聊下IGBT的缓冲电路咧！我目前用的一个IGBT缓冲电路，就是直接一个R+C串联电路，电阻烫得吓死人，工作时缓冲电路里的电阻温度达到200°以上，到底是什么原因造成的呢？我试着加大缓冲电容，结果电阻温升得更快！缓冲电路的阻容应该怎么调？大家是怎么调的？</li>
+</ul>
+<p>另外，我听说缓冲电路单独一个电容吸收尖峰，电容的容量加大，容易造成电容击穿，是吗？</p>
+<p>my.mai<br>LV.9<br>2<br>2010-07-06 09:27</p>
+ <img src="/posts/undefined/1278379673-291037.jpg" class="" title="img">
+
+<p>my.mai<br>LV.9<br>3<br>2010-07-06 09:31<br>先说说你的开关频率,再说说你的R和C分别什么参数.阻值,功率,电容量,耐压,有效电流等.</p>
+<p>IGBT单臂断开时,C吸收关断尖峰.IGBT单臂闭合时,C通过IGBT的CE放电,依次循环.</p>
+<p>串接了R, C的放电电流会得到一定限制,C和IGBT都得到一定好处,但是吸收效果稍微降低.</p>
+<p>C容量越大,吸收效果越好,但是C和R都会发热越厉害.</p>
+<p>my.mai<br>LV.9<br>4<br>2010-07-06 11:31<br>IGBT的CE端并接C作吸收,C容量增加,会造成C发热厉害,是过流损坏.</p>
+<p>业内选择的IGBT单臂吸收电容器,容量一般为0.015,0.022,0.033</p>
+<p>ayong168<br>LV.5<br>5<br>2010-07-06 20:51<br>RC在这里不应该叫缓冲，这是吸收和阻尼之用，缓冲是指软启动，但是大家注意，并不是开机时电流的缓慢上升就叫做软启动</p>
+<p>my.mai<br>LV.9<br>6<br>2010-07-07 08:47<br>@ayong168<br>RC在这里不应该叫缓冲，这是吸收和阻尼之用，缓冲是指软启动，但是大家注意，并不是开机时电流的缓慢上升就叫做软启动<br>我习惯把它叫做IGBT单臂吸收电路.并接在IGBT的正极和负极的则叫做母线吸收.</p>
+<p>目的在于IGBT关断时,线圈盘产生的尖峰高压转移到C两端,保护IGBT,防止电压击穿.</p>
+ <img src="/posts/undefined/1278463849-291631.jpg" class="" title="img">
+
+ <img src="/posts/undefined/1278463853-291632.jpg" class="" title="img">
+
+
+
+<p>firefox886<br>LV.9<br>7<br>2010-07-07 19:03<br>@my.mai<br>我习惯把它叫做IGBT单臂吸收电路.并接在IGBT的正极和负极的则叫做母线吸收.目的在于IGBT关断时,线圈盘产生的尖峰高压转移到C两端,保护IGBT,防止电压击穿.[图片] [图片]<br>你那电压波形不太好！振铃有点大了！</p>
+<p>gaojunaq<br>LV.3<br>8<br>2010-07-07 22:18<br>@firefox886<br>你那电压波形不太好！振铃有点大了！<br>这样的震荡加了吸收有啥作用？</p>
+<p>ssg3525<br>LV.2<br>9<br>2010-07-08 05:03<br>@my.mai<br>[图片]<br>C吸收关断尖峰.闭合时,C通过IGBT的CE放电,容量大小要根据igbt通过的电流大小来决定，小了不佳，大了会增加igbt负担</p>
+<p>igbtsy<br>LV.9<br>10<br>2010-07-08 08:05<br>@gaojunaq<br>这样的震荡加了吸收有啥作用？<br>不是加吸收可以完全解决的，只要匹配做好，波形就漂亮了，几乎没有什么振铃产生。</p>
+<p>igbtsy<br>LV.9<br>11<br>2010-07-08 08:14<br>@igbtsy<br>不是加吸收可以完全解决的，只要匹配做好，波形就漂亮了，几乎没有什么振铃产生。<br>把以前贴过的波形再贴一遍，IGBT CE间除了有零电压电容外，没有任何吸收电路，这是8KW功率时的波形，12KW功率时波形一样，只是设定的工作频率不同而已。</p>
+ <img src="/posts/undefined/606791247013976.jpg" class="" title="img">
+
+<p>回复8帖  编辑</p>
+<p>my.mai<br>LV.9<br>12<br>2010-07-08 08:24<br>@ssg3525<br>C吸收关断尖峰.闭合时,C通过IGBT的CE放电,容量大小要根据igbt通过的电流大小来决定，小了不佳，大了会增加igbt负担<br>是的,哈哈.容量小,吸收效果不佳.容量大,C会发热厉害,IGBT温升也会增加,因为C的放电电流叠加在Ic上了.</p>
+<p>my.mai<br>LV.9<br>13<br>2010-07-08 08:25<br>@gaojunaq<br>这样的震荡加了吸收有啥作用？<br>已经加了C型吸收电容器.</p>
+<p>my.mai<br>LV.9<br>14<br>2010-07-08 08:30<br>@gaojunaq<br>这样的震荡加了吸收有啥作用？<br>呵呵,我测量的是用安捷伦4通道,价值6万RMB的示波器,加100X的探头,直接挂在CE端测量的.很多低档次的示波器,根本测量出来的就是非常平滑的方波,没任何瑕疵的,呵呵.我在 同一个机子上,用泰克的1002示波器就测量过.波形漂亮的很.</p>
+<p>重复一次,是测量CE端,而不是驱动GE端.业内很多人的机子我都测量过呵呵.欢迎大家都把自己机子的CE波形发上来看看吧.</p>
+ <img src="/posts/undefined/1278549482-292353.jpg" class="" title="img">
+
+<p>my.mai<br>LV.9<br>15<br>2010-07-08 08:54<br>@my.mai<br>呵呵,我测量的是用安捷伦4通道,价值6万RMB的示波器,加100X的探头,直接挂在CE端测量的.很多低档次的示波器,根本测量出来的就是非常平滑的方波,没任何瑕疵的,呵呵.我在同一个机子上,用泰克的1002示波器就测量过.波形漂亮的很.重复一次,是测量CE端,而不是驱动GE端.业内很多人的机子我都测量过呵呵.欢迎大家都把自己机子的CE波形发上来看看吧. [图片]<br>再看看这个,CE端的Vp-p为700V左右,尖峰Vp-p已经达到230V. 示波器每格100V.</p>
+<p>((((((相对6楼的波形Vp-p只有50V. 沈工那个波形的尖峰毛刺,在示波器里有0.8格))))))</p>
+ <img src="/posts/undefined/1278550481-292368.jpg" class="" title="img">
+
+<p>tmthb<br>LV.4<br>16<br>2010-07-08 10:07<br>@my.mai<br>再看看这个,CE端的Vp-p为700V左右,尖峰Vp-p已经达到230V.示波器每格100V.((((((相对6楼的波形Vp-p只有50V.沈工那个波形的尖峰毛刺,在示波器里有0.8格))))))[图片]<br>mai工的波型很槽糕，电容过大没加电阻的效果</p>
+<p>my.mai<br>LV.9<br>17<br>2010-07-08 10:21<br>@tmthb<br>mai工的波型很槽糕，电容过大没加电阻的效果<br>你好,这波形不是我的.我不是做感应加热设备的,我是做薄膜电容器,应用工程师.</p>
+<p>这波形是我们某客户的,他用的容量是0.015UF两只并联,没串接水泥电阻,温升高嘛.</p>
+<p>电容器也是特别设计,才把温升降下去了.这个波形很糟糕,呵呵.</p>
+<p>tmthb<br>LV.4<br>18<br>2010-07-08 10:59<br>@my.mai<br>你好,这波形不是我的.我不是做感应加热设备的,我是做薄膜电容器,应用工程师.这波形是我们某客户的,他用的容量是0.015UF两只并联,没串接水泥电阻,温升高嘛.电容器也是特别设计,才把温升降下去了.这个波形很糟糕,呵呵.<br>CE极吸收做好IGBT发热量才少</p>
+<p>igbtsy<br>LV.9<br>19<br>2010-07-08 11:38<br>@tmthb<br>CE极吸收做好IGBT发热量才少<br>麦工：你好！</p>
+<p>你贴出的用户的波形是电流相位严重的滞后，或者说是严重的失谐或阻抗不匹配状态。</p>
+<p>示波器有差别，但是不会多大的误差，你贴出的是单次扫描的波形，我的是多次扫描的波形，看最上面的一条边线，就是单次的线，也比你贴出的图要好许多。再看UCE波形的底线，差别就大了。做得多了心里自然就知道问题在何处？</p>
+<p>没有好的光滑的波形，IGBT发热大，热效率也上不去。</p>
+<p>my.mai<br>LV.9<br>20<br>2010-07-08 13:35<br>@igbtsy<br>麦工：你好！你贴出的用户的波形是电流相位严重的滞后，或者说是严重的失谐或阻抗不匹配状态。示波器有差别，但是不会多大的误差，你贴出的是单次扫描的波形，我的是多次扫描的波形，看最上面的一条边线，就是单次的线，也比你贴出的图要好许多。再看UCE波形的底线，差别就大了。做得多了心里自然就知道问题在何处？没有好的光滑的波形，IGBT发热大，热效率也上不去。<br>沈工,你好.</p>
+<p>目前我们接触到的客户所用的方案,用输出变压器的屈指可数.</p>
+<p>当然了,15楼的波形是我所见过最差的一个了,呵呵.</p>
+<p>上次我的关于召开聚会的帖子,可惜无法成功召集并举办.</p>
+<p>my.mai<br>LV.9<br>21<br>2010-07-08 13:41<br>@tmthb<br>CE极吸收做好IGBT发热量才少<br>应该这样理解:</p>
+<p>机芯结构及电气连接工艺规范,相位检测及跟踪准确,软件处理及时,</p>
+<p>才从根本上做好ZCS及ZVS,这样整个系统的效率才高,</p>
+<p>热损耗才会降低,功率器件寿命才会长.</p>
+<p>从源头上减少,而不是想办法用元件吸收,这才是唯一的出路.</p>
+<p>功率都用在元件发热上,再大的散热片及风机,都是无补于事.</p>
+<p>igbtsy<br>LV.9<br>22<br>2010-07-08 13:56<br>@my.mai<br>应该这样理解:机芯结构及电气连接工艺规范,相位检测及跟踪准确,软件处理及时,才从根本上做好ZCS及ZVS,这样整个系统的效率才高,热损耗才会降低,功率器件寿命才会长.从源头上减少,而不是想办法用元件吸收,这才是唯一的出路.功率都用在元件发热上,再大的散热片及风机,都是无补于事.<br>麦工不做感应加热，却是一个专家了，你的总结是完全理性和正确的。</p>
+<p>波形光滑，损耗小了，热效率提高了，其它问题都顺其自然的解决了。电气箱不热，可以全密封了，散热器不热，只要用小风机就行了。波形好了，线圈温升不高就没有必要在线圈下加风机。如商用电磁灶整个灶体只要在散热器下加一个风机，整个灶没有第二个风机存在。并且电磁幅射、传导干扰的指标都很优秀。</p>
+<p>ayong168<br>LV.5<br>23<br>2010-07-08 14:17<br>@igbtsy<br>麦工不做感应加热，却是一个专家了，你的总结是完全理性和正确的。波形光滑，损耗小了，热效率提高了，其它问题都顺其自然的解决了。电气箱不热，可以全密封了，散热器不热，只要用小风机就行了。波形好了，线圈温升不高就没有必要在线圈下加风机。如商用电磁灶整个灶体只要在散热器下加一个风机，整个灶没有第二个风机存在。并且电磁幅射、传导干扰的指标都很优秀。<br>沈工的是感性区工作的波形，麦工发的是在谐振点或容性区的，靠吸收是无济于事的</p>
+<p>igbtsy<br>LV.9<br>24<br>2010-07-08 14:18<br>@igbtsy<br>麦工不做感应加热，却是一个专家了，你的总结是完全理性和正确的。波形光滑，损耗小了，热效率提高了，其它问题都顺其自然的解决了。电气箱不热，可以全密封了，散热器不热，只要用小风机就行了。波形好了，线圈温升不高就没有必要在线圈下加风机。如商用电磁灶整个灶体只要在散热器下加一个风机，整个灶没有第二个风机存在。并且电磁幅射、传导干扰的指标都很优秀。<br>顺便把4年前在省电子产品监督检验所做的电磁兼容性试验的传导干扰和幅射干扰的报告贴出来，照片上可以看出试验的实际曲线与标准限定值有很大的富裕量。</p>
+ <img src="/posts/undefined/1278569813-292742.jpg" class="" title="img">
+
+ <img src="/posts/undefined/1278569903-292744.jpg" class="" title="img">
+
+<p>tmthb<br>LV.4<br>25<br>2010-07-08 14:22<br>@igbtsy<br>麦工不做感应加热，却是一个专家了，你的总结是完全理性和正确的。波形光滑，损耗小了，热效率提高了，其它问题都顺其自然的解决了。电气箱不热，可以全密封了，散热器不热，只要用小风机就行了。波形好了，线圈温升不高就没有必要在线圈下加风机。如商用电磁灶整个灶体只要在散热器下加一个风机，整个灶没有第二个风机存在。并且电磁幅射、传导干扰的指标都很优秀。<br>理想的ZCS及ZVS谁都想,不过那是实验室里玩的,前几天我看过贴子加热铁到700度再高有些大师判就死形,有些人能够加热更高温和些人不能,这就是应用范围的认识</p>
+<p>ayong168<br>LV.5<br>26<br>2010-07-08 14:24<br>@my.mai<br>呵呵,我测量的是用安捷伦4通道,价值6万RMB的示波器,加100X的探头,直接挂在CE端测量的.很多低档次的示波器,根本测量出来的就是非常平滑的方波,没任何瑕疵的,呵呵.我在同一个机子上,用泰克的1002示波器就测量过.波形漂亮的很.重复一次,是测量CE端,而不是驱动GE端.业内很多人的机子我都测量过呵呵.欢迎大家都把自己机子的CE波形发上来看看吧. [图片]<br>你没测我的电压波形啊，我可以做到准谐振下还能有沈工的那种漂亮的矩形波 ， 呵呵   我的机子在业内温升算是很低的啦，同样的散热条件下可以比试</p>
+<p>ayong168<br>LV.5<br>27<br>2010-07-08 14:28<br>@igbtsy<br>顺便把4年前在省电子产品监督检验所做的电磁兼容性试验的传导干扰和幅射干扰的报告贴出来，照片上可以看出试验的实际曲线与标准限定值有很大的富裕量。[图片] [图片]<br>对于软开关的电源来说，更容易过PV值</p>
+<p>igbtsy<br>LV.9<br>28<br>2010-07-08 14:30<br>@igbtsy<br>顺便把4年前在省电子产品监督检验所做的电磁兼容性试验的传导干扰和幅射干扰的报告贴出来，照片上可以看出试验的实际曲线与标准限定值有很大的富裕量。[图片] [图片]<br>照片容量太大，传上来就不对劲了。又试着贴一次，还是不行呀。</p>
+<p>igbtsy<br>LV.9<br>29<br>2010-07-08 14:37<br>@ayong168<br>你没测我的电压波形啊，我可以做到准谐振下还能有沈工的那种漂亮的矩形波 ，呵呵  我的机子在业内温升算是很低的啦，同样的散热条件下可以比试<br>我的波形是已经在谐振点附近了，相位差不大于5度。</p>
+<p>以下的是电磁式电开水器波形，工作在谐振点上。与上面的皮形相近，要细看才能看到有一点细微的相位差区别。 </p>
+ <img src="/posts/undefined/1278571014-292800.jpg" class="" title="img">
+
+<p>igbtsy<br>LV.9<br>30<br>2010-07-08 14:39<br>@igbtsy<br>顺便把4年前在省电子产品监督检验所做的电磁兼容性试验的传导干扰和幅射干扰的报告贴出来，照片上可以看出试验的实际曲线与标准限定值有很大的富裕量。[图片] [图片]<br>点击图形放大看就对了，很清楚。</p>
+<p>my.mai<br>LV.9<br>31<br>2010-07-08 14:58<br>@igbtsy<br>麦工不做感应加热，却是一个专家了，你的总结是完全理性和正确的。波形光滑，损耗小了，热效率提高了，其它问题都顺其自然的解决了。电气箱不热，可以全密封了，散热器不热，只要用小风机就行了。波形好了，线圈温升不高就没有必要在线圈下加风机。如商用电磁灶整个灶体只要在散热器下加一个风机，整个灶没有第二个风机存在。并且电磁幅射、传导干扰的指标都很优秀。<br>我在这行业走了一年多的市场,总结归纳了各客户的技术所长,呵呵,学到很多东西.</p>
+<h1 id="第二页"><a href="#第二页" class="headerlink" title="第二页"></a>第二页</h1><p>my.mai<br>LV.9<br>32<br>2010-07-08 15:00<br>@ayong168<br>你没测我的电压波形啊，我可以做到准谐振下还能有沈工的那种漂亮的矩形波 ，呵呵  我的机子在业内温升算是很低的啦，同样的散热条件下可以比试<br>据闻你今晚请小冯吃饭阿.</p>
+<p>你可以通知小冯,带100X和1000X的探头给你测试一下.</p>
+<p>最近我在学用那个福禄克的示波表,可以测量谐波的.</p>
+<p>my.mai<br>LV.9<br>33<br>2010-07-08 15:02<br>@tmthb<br>理想的ZCS及ZVS谁都想,不过那是实验室里玩的,前几天我看过贴子加热铁到700度再高有些大师判就死形,有些人能够加热更高温和些人不能,这就是应用范围的认识<br>做感应加热,不光是对电路熟悉,关键还要对被加热金属的材料特性了解深入,才能做出优质的产品.</p>
+<p>ayong168<br>LV.5<br>34<br>2010-07-08 15:07<br>@my.mai<br>据闻你今晚请小冯吃饭阿.你可以通知小冯,带100X和1000X的探头给你测试一下.最近我在学用那个福禄克的示波表,可以测量谐波的.<br>我买了高压探头，谐波我们以前是用专用EMC测试仪</p>
+<p>my.mai<br>LV.9<br>35<br>2010-07-08 15:11<br>@ayong168<br>我买了高压探头，谐波我们以前是用专用EMC测试仪<br>我们公司也有传导测试仪,不过是单相16A的.</p>
+<p>igbtsy<br>LV.9<br>36<br>2010-07-08 15:30<br>@ayong168<br>你没测我的电压波形啊，我可以做到准谐振下还能有沈工的那种漂亮的矩形波 ，呵呵  我的机子在业内温升算是很低的啦，同样的散热条件下可以比试<br>把电开水炉的UCE波形单独贴出，与电磁灶的跟踪方式不同，是工作在理想的ZVS、ZCS工作状态下。</p>
+<p><a href="%EF%BC%88%E5%BE%88%E7%B2%BE%E5%BD%A9%E8%AF%84%E8%AE%BA%EF%BC%89%E5%A4%A7%E5%AE%B6%E4%B8%80%E8%B5%B7%E8%81%8A%E4%B8%8BIGBT%E7%9A%84%E7%BC%93%E5%86%B2%E7%94%B5%E8%B7%AF%5C1278574225-292863.doc">ZV,ZCS ZV,ZCS </a></p>
+ <img src="/posts/undefined/image-20240903100850208.png" class="" title="image-20240903100850208">
+
+<p>firefox886<br>LV.9<br>37<br>2010-07-08 18:41<br>@my.mai<br>沈工,你好.目前我们接触到的客户所用的方案,用输出变压器的屈指可数.当然了,15楼的波形是我所见过最差的一个了,呵呵.上次我的关于召开聚会的帖子,可惜无法成功召集并举办.<br>你接触的少，不代表别人没用！用输出变压器的厂家相当多！</p>
+<p>my.mai<br>LV.9<br>38<br>2010-07-10 11:22<br>@firefox886<br>你接触的少，不代表别人没用！用输出变压器的厂家相当多！<br>商用电磁炉,注塑机炮筒加热,铝模头加热,采用输出变压器的没几家.</p>
+<p>论坛上经常出现的,我基本上都去现场看过了.</p>
+<p>irex<br>LV.5<br>39<br>2010-07-10 12:29<br>首先我門須先了解IGBT CE 尖脈衝怎樣產生<br>他的產生是因為 諧振沒與IGBT控制同步,造成諧振網能量返回產生<br>這根圖上 振鈴 現象又是二件事情<br>振鈴是因為 IGBT CE 吸收電容 一次無法被吸收 而造成<br>形成原因是 吸收電容 材料能量電子流動與 IGBT 矽膜塊共振造成<br>這最容易發生在CMOS數位電路可以看到<br>解決 IGBT CE 上脈衝, 如果頻率無法完全與諧震相同,那就必須用電容<br>這電容頻率響應必須高,  我門使用是 創格0.01 &#x2F; 1200V 黃色電容<br>解決振鈴那要使用電阻, 如果覺得電阻負擔那可以使用 V set 高的 IGBT 比如60N100<br>IGBT CE 電壓還有一問題要注意<br>IGBT 控制頻率比諧振高, IGBT CE脈衝電壓 最多就是 1&#x2F;2 VCC<br>但是如果 頻率比諧振低, IGBT CE脈衝電壓 最高會達   3倍 VCC<br>這必須注意<br>至於用哪電路得看實際應用<br>我門經驗是簡化大於一切, 所以我門直接用  “創格電容”<br>底下是我們實際照片 15KW KPM 模板</p>
+<img src="/posts/undefined/1278736090-293963.jpg" class="" title="img"> 
+
+<p>my.mai<br>LV.9<br>40<br>2010-07-10 13:38<br>@irex<br>首先我門須先了解IGBTCE尖脈衝怎樣產生他的產生是因為諧振沒與IGBT控制同步,造成諧振網能量返回產生這根圖上振鈴現象又是二件事情振鈴是因為IGBTCE吸收電容一次無法被吸收而造成形成原因是吸收電容材料能量電子流動與IGBT矽膜塊共振造成這最容易發生在CMOS數位電路可以看到解決IGBTCE上脈衝,如果頻率無法完全與諧震相同,那就必須用電容這電容頻率響應必須高, 我門使用是創格0.01&#x2F;1200V黃色電容解決振鈴那要使用電阻,如果覺得電阻負擔那可以使用Vset高的IGBT比如60N100IGBTCE電壓還有一問題要注意IGBT控制頻率比諧振高,IGBTCE脈衝電壓最多就是1&#x2F;2VCC但是如果頻率比諧振低,IGBTCE脈衝電壓最高會達  3倍VCC這必須注意至於用哪電路得看實際應用我門經驗是簡化大於一切,所以我門直接用 “創格電容”底下是我們實際照片15KWKPM模板[图片]<br>感谢刘工支持.</p>
+<p>很多时候,同样规格的吸收电容器,放在某些客户的机芯板上,吸收电容器温升很低.</p>
+<p>但很多时候,放在某些客户的机芯板上,吸收电容器温升很高,甚至出现膨胀鼓起现象.</p>
+<p>这不能说明本司的电容器质量差.遇到这样的情况,最好的做法是测量波形,特别设计电容器.</p>
+<p>当然,电路如果能调整一下,那么是最好的事情.</p>
+<p>wangyouping<br>LV.4<br>41<br>2010-07-10 13:39<br>@irex<br>首先我門須先了解IGBTCE尖脈衝怎樣產生他的產生是因為諧振沒與IGBT控制同步,造成諧振網能量返回產生這根圖上振鈴現象又是二件事情振鈴是因為IGBTCE吸收電容一次無法被吸收而造成形成原因是吸收電容材料能量電子流動與IGBT矽膜塊共振造成這最容易發生在CMOS數位電路可以看到解決IGBTCE上脈衝,如果頻率無法完全與諧震相同,那就必須用電容這電容頻率響應必須高, 我門使用是創格0.01&#x2F;1200V黃色電容解決振鈴那要使用電阻,如果覺得電阻負擔那可以使用Vset高的IGBT比如60N100IGBTCE電壓還有一問題要注意IGBT控制頻率比諧振高,IGBTCE脈衝電壓最多就是1&#x2F;2VCC但是如果頻率比諧振低,IGBTCE脈衝電壓最高會達  3倍VCC這必須注意至於用哪電路得看實際應用我門經驗是簡化大於一切,所以我門直接用 “創格電容”底下是我們實際照片15KWKPM模板[图片]<br>请吃饭我报道。</p>
+<p>mzgmzg<br>LV.4<br>42<br>2010-07-10 14:22<br>@wangyouping<br>请吃饭我报道。[图片]<br>阿勇请吃饭啊！我也报个到！</p>
+<p>zhouboak<br>LV.8<br>43<br>2010-07-16 16:10<br>@mzgmzg<br>阿勇请吃饭啊！我也报个到！</p>
+<p>WSR101 10-50KW电磁加热专用IGBT驱动器</p>
+ <img src="/posts/undefined/1279267578-297909.jpg" class="" title="img">
+
+<p>liyachenvv<br>LV.3<br>44<br>2010-07-30 11:45<br>@irex<br>首先我門須先了解IGBTCE尖脈衝怎樣產生他的產生是因為諧振沒與IGBT控制同步,造成諧振網能量返回產生這根圖上振鈴現象又是二件事情振鈴是因為IGBTCE吸收電容一次無法被吸收而造成形成原因是吸收電容材料能量電子流動與IGBT矽膜塊共振造成這最容易發生在CMOS數位電路可以看到解決IGBTCE上脈衝,如果頻率無法完全與諧震相同,那就必須用電容這電容頻率響應必須高, 我門使用是創格0.01&#x2F;1200V黃色電容解決振鈴那要使用電阻,如果覺得電阻負擔那可以使用Vset高的IGBT比如60N100IGBTCE電壓還有一問題要注意IGBT控制頻率比諧振高,IGBTCE脈衝電壓最多就是1&#x2F;2VCC但是如果頻率比諧振低,IGBTCE脈衝電壓最高會達  3倍VCC這必須注意至於用哪電路得看實際應用我門經驗是簡化大於一切,所以我門直接用 “創格電容”底下是我們實際照片15KWKPM模板[图片]<br>果然解释很详细.</p>
+<p>changshenhu<br>LV.4<br>45<br>2010-07-30 14:40<br>@irex<br>首先我門須先了解IGBTCE尖脈衝怎樣產生他的產生是因為諧振沒與IGBT控制同步,造成諧振網能量返回產生這根圖上振鈴現象又是二件事情振鈴是因為IGBTCE吸收電容一次無法被吸收而造成形成原因是吸收電容材料能量電子流動與IGBT矽膜塊共振造成這最容易發生在CMOS數位電路可以看到解決IGBTCE上脈衝,如果頻率無法完全與諧震相同,那就必須用電容這電容頻率響應必須高, 我門使用是創格0.01&#x2F;1200V黃色電容解決振鈴那要使用電阻,如果覺得電阻負擔那可以使用Vset高的IGBT比如60N100IGBTCE電壓還有一問題要注意IGBT控制頻率比諧振高,IGBTCE脈衝電壓最多就是1&#x2F;2VCC但是如果頻率比諧振低,IGBTCE脈衝電壓最高會達  3倍VCC這必須注意至於用哪電路得看實際應用我門經驗是簡化大於一切,所以我門直接用 “創格電容”底下是我們實際照片15KWKPM模板[图片]<br>看板子是三相半桥，并联IGBT，能到30KW吗</p>
+<p>firefox886<br>LV.9<br>46<br>2010-07-30 17:32<br>@my.mai<br>呵呵,我测量的是用安捷伦4通道,价值6万RMB的示波器,加100X的探头,直接挂在CE端测量的.很多低档次的示波器,根本测量出来的就是非常平滑的方波,没任何瑕疵的,呵呵.我在同一个机子上,用泰克的1002示波器就测量过.波形漂亮的很.重复一次,是测量CE端,而不是驱动GE端.业内很多人的机子我都测量过呵呵.欢迎大家都把自己机子的CE波形发上来看看吧. [图片]<br>你指的那个地方厚是因为滤波不好！</p>
+<p>aw021<br>LV.4<br>47<br>2010-08-05 10:53<br>@my.mai<br>我习惯把它叫做IGBT单臂吸收电路.并接在IGBT的正极和负极的则叫做母线吸收.目的在于IGBT关断时,线圈盘产生的尖峰高压转移到C两端,保护IGBT,防止电压击穿.[图片] [图片]<br>你的这个波形太不好了，振铃效应太严重，IGBT的发热量要大。</p>
+<p>原因有：1.滤波电容太小或安装的位置不合适。</p>
+<p>2.吸收回路设计或元件选型不对。</p>
+<p>3.干扰产生过大，主要是线路和前级的干扰。</p>
+<p>看看我的机器波形：     </p>
+ <img src="/posts/undefined/1280976652-311896.jpg" class="" title="img">
+
+ <img src="/posts/undefined/1280976657-311897-1725329463714.jpg" class="" title="1280976657-311897">
+
+ <img src="/posts/undefined/1280976673-311899.jpg" class="" title="img">
+
+ <img src="/posts/undefined/1280976686-311901.jpg" class="" title="1280976686-311901">
+
+  <img src="/posts/undefined/1280976697-311902.jpg" class="" title="img">
+
+ <img src="/posts/undefined/1280976686-311901-1725329603863.jpg" class="" title="1280976686-311901">
+
+ <img src="/posts/undefined/1280976697-311902.jpg" class="" title="img">
+
+ <img src="/posts/undefined/1280976739-311906.jpg" class="" title="1280976739-311906">
+
+<img src="/posts/undefined/1280976741-311907.jpg" class="" title="img">
+
+
+
+<p>igbt8_com<br>LV.2<br>48<br>2014-04-03 15:04<br>首先要知道缓冲电路吸收电容的目的，是为了吸收IGBT的尖峰电压，由于IGBT主回路母排有杂散电感存在，当关断IGBT的时候，集电极-发射极电流会快速下降，电感的特性是电流不能瞬变，会产生感应电动势，形成尖峰电压:</p>
+<img src="/posts/undefined/1-14011G00Z3415.PNG" class="" title="img">
+
+<p>IGBT的开关特性虽然可以调整驱动参数微调，但改变不大，最根本的还是要想办法改善换流回路的杂散电感。</p>
+<p>详情可参阅文章：IGBT尖峰电压吸收电容<a target="_blank" rel="noopener" href="http://www.igbt8.com/il/89.html%E4%BB%A5%E5%8F%8A[IGBT%E6%A8%A1%E5%9D%97%E4%BD%8E%E6%9D%82%E6%95%A3%E7%94%B5%E6%84%9F%E5%8F%A0%E5%B1%82%E6%AF%8D%E6%8E%92%E8%AE%BE%E8%AE%A1](http://www.igbt8.com/il/13.html)">http://www.igbt8.com/il/89.html以及[IGBT模块低杂散电感叠层母排设计](http://www.igbt8.com/il/13.html)</a></p>
+<p>igbtsy<br>LV.9<br>49<br>2014-04-05 09:41<br>@ayong168<br>你没测我的电压波形啊，我可以做到准谐振下还能有沈工的那种漂亮的矩形波 ，呵呵  我的机子在业内温升算是很低的啦，同样的散热条件下可以比试<br>我的波形就是在谐振状态下的波形，越是接近谐振点波形越好，偏离谐振点，电流有了硬关断，如果设计不佳，各种问题就暴露出来了。</p>
+<p>hero0765<br>LV.4<br>50<br>2014-11-18 14:25<br>@zhouboak<br>[图片] WSR10110-50KW电磁加热专用IGBT驱动器<br>请问哪里有得销售？</p>
+<p>hero0765<br>LV.4<br>51<br>2014-11-18 16:44<br>@ayong168<br>RC在这里不应该叫缓冲，这是吸收和阻尼之用，缓冲是指软启动，但是大家注意，并不是开机时电流的缓慢上升就叫做软启动<br>请问，怎样才是真正的软启动呢？</p>
+<p>igbtsy<br>LV.9<br>52<br>2014-11-18 20:18<br>@hero0765<br>请问，怎样才是真正的软启动呢？<br>软起动与软开关的定义是不一样的。</p>
+<p>以调频调功为例子：例如一个12KW的机子，三相额定电流在18A以上，若开机时电流较小，例如在3到5A，慢慢地上升到额定最大电流，这样称为软起动。当然在此过程中电压始终是ZVS 状态，电流是非ZCS状态，电流直到额定最大功率时才可能到达ZCS工作状态。</p>
+<p>由此，软起动在负载突变，电源电压突变，电源瞬间断电后再来电，功率快速切换跳变等，都要有软起动来配合，才能让主电路不受电流冲击而更安全可靠地工作。</p>
+<p>hero0765<br>LV.4<br>53<br>2014-11-20 17:27<br>@igbtsy<br>软起动与软开关的定义是不一样的。以调频调功为例子：例如一个12KW的机子，三相额定电流在18A以上，若开机时电流较小，例如在3到5A，慢慢地上升到额定最大电流，这样称为软起动。当然在此过程中电压始终是ZVS状态，电流是非ZCS状态，电流直到额定最大功率时才可能到达ZCS工作状态。由此，软起动在负载突变，电源电压突变，电源瞬间断电后再来电，功率快速切换跳变等，都要有软起动来配合，才能让主电路不受电流冲击而更安全可靠地工作。</p>
+<img src="/posts/undefined/1416475225-58831-600.jpg" class="" title="img">
+
+
+
+<p>图上为三相供电，功率在4KW, 调频调功控制，黄色信号，为上桥臂的谐振电感与电容间的电压信号，也就是下桥臂的IGBT的CE两端的电压信号；蓝色信号为为放置在上桥臂的IGBT的电流信号, 现在这种状态为功率稳定在4KW的时候，可以看到IGBT的开通满足ZCS，但是IGBT的关闭却不满足ZCS。</p>
+<p>你说：“电压始终是ZVS状态，电流是ZCS状态“，那我目前这个状态都满足吗？</p>
+<p>igbtsy<br>LV.9<br>54<br>2014-11-20 19:09<br>@hero0765<br>[图片]图上为三相供电，功率在4KW,调频调功控制，黄色信号，为上桥臂的谐振电感与电容间的电压信号，也就是下桥臂的IGBT的CE两端的电压信号；蓝色信号为为放置在上桥臂的IGBT的电流信号,现在这种状态为功率稳定在4KW的时候，可以看到IGBT的开通满足ZCS，但是IGBT的关闭却不满足ZCS。你说：“电压始终是ZVS状态，电流是ZCS状态“，那我目前这个状态都满足吗？<br>你没有工作在谐振点，电流相位迟后较多，电流相位迟后大约在45度到60度之间接，所以电流是硬关断的。</p>
+<p>如果你现在是工作在最大功率下，那你机子的热效率肯定是较低的。</p>
+<p>如果工作在谐振点，你现在机子可以出大约9KW的功率，可见给你压掉了5KW的功率，相当于你开车用四档在爬坡，靠轰油门硬爬坡，内耗大、效率低。</p>
+<p>hero0765<br>LV.4<br>55<br>2014-11-21 08:54<br>@igbtsy<br>你没有工作在谐振点，电流相位迟后较多，电流相位迟后大约在45度到60度之间接，所以电流是硬关断的。如果你现在是工作在最大功率下，那你机子的热效率肯定是较低的。如果工作在谐振点，你现在机子可以出大约9KW的功率，可见给你压掉了5KW的功率，相当于你开车用四档在爬坡，靠轰油门硬爬坡，内耗大、效率低。<br>我的参数为，上下谐振电容分别为3个0.1uF电容，线盘为175uH，那么谐振频率就为， 1&#x2F;2pi LC 的根號 &#x3D; 1&#x2F;2<em>3.14</em>根號175uH*0..6uF &#x3D; 15.5K。</p>
+<p>我也想把IGBT的开关频率工作在谐振频率。但是这个机子的电路，好像做不到。因为不同频率是对应不同的功率值，例如：1500W，开关频率为32K,2000W，开关频率为28K，3000W，开关频率为24.8K，4000W，开关频率为23.4K，5000W，开关频率为22.7K。无论工作功率为多大，机子都是处在电流硬关断。</p>
+<p>所以我要输出不同的功率值，那怎么可以让IGBT的开关频率维持在一个谐振频率呢？</p>
+<p>igbtsy<br>LV.9<br>56<br>2014-11-21 13:52<br>@hero0765<br>我的参数为，上下谐振电容分别为3个0.1uF电容，线盘为175uH，那么谐振频率就为， 1&#x2F;2piLC的根號&#x3D;1&#x2F;2<em>3.14</em>根號175uH*0..6uF&#x3D;15.5K。我也想把IGBT的开关频率工作在谐振频率。但是这个机子的电路，好像做不到。因为不同频率是对应不同的功率值，例如：1500W，开关频率为32K,2000W，开关频率为28K，3000W，开关频率为24.8K，4000W，开关频率为23.4K，5000W，开关频率为22.7K。无论工作功率为多大，机子都是处在电流硬关断。所以我要输出不同的功率值，那怎么可以让IGBT的开关频率维持在一个谐振频率呢？<br>要在不同的功率下都在谐振点上工作，最好的办法是用变压器匹配，切换变压器抽头，商用电磁灶也有用这种方式调功的，至今还有厂家在这样生产。在每一个调功档位上都是工作在谐振点上。</p>
+<p>hero0765<br>LV.4<br>57<br>2014-11-21 16:12<br>@igbtsy<br>要在不同的功率下都在谐振点上工作，最好的办法是用变压器匹配，切换变压器抽头，商用电磁灶也有用这种方式调功的，至今还有厂家在这样生产。在每一个调功档位上都是工作在谐振点上。<br>按你这么说，你们的机器只能输出一个档位的功率吗？我看到，如果在整流桥后加入一个DC&#x2F;DC的斩波器，用于调整整流后的电压，然后让IGBT的开关频率一直工作在谐振频率，通过调整前级的斩波器而获得不同的功率。那这样就不是调频调功，而是调幅调功了。而且，即使这样做，还是不能ZCS关断。</p>
+<p>igbtsy<br>LV.9<br>58<br>2014-11-21 20:36<br>@hero0765<br>按你这么说，你们的机器只能输出一个档位的功率吗？我看到，如果在整流桥后加入一个DC&#x2F;DC的斩波器，用于调整整流后的电压，然后让IGBT的开关频率一直工作在谐振频率，通过调整前级的斩波器而获得不同的功率。那这样就不是调频调功，而是调幅调功了。而且，即使这样做，还是不能ZCS关断。<br>你还没有看懂，切换变压器抽头的方法，有几个抽头就有几个档位调功，当然在每二个抽头间仍可用调频调功，这样做的好处我不再多说了，你自己去体会。这是某公司的一款电磁灶上用的。</p>
+<p>《在整流桥后加入一个DC&#x2F;DC的斩波器》。那是一个硬开关，你把热量损耗转换到那地方去了。是没有改变效率而多用器件的方法，是不可取的。</p>
+<p>这是电磁感应式电开水炉功率管上的UCE波形，采用UCE波形跟踪的方法进行频率跟踪，是工作在理想的ZVS、ZCS状态下，电压、电流波形与教科书中理想的波形完全一样。红皮列车上的电磁感应式电开水 炉就是这种方式工作的，高铁动车上也是这个。请放大看29贴的波形。</p>
+<p>hero0765<br>LV.4<br>59<br>2014-11-22 13:39<br>@igbtsy<br>你还没有看懂，切换变压器抽头的方法，有几个抽头就有几个档位调功，当然在每二个抽头间仍可用调频调功，这样做的好处我不再多说了，你自己去体会。这是某公司的一款电磁灶上用的。《在整流桥后加入一个DC&#x2F;DC的斩波器》。那是一个硬开关，你把热量损耗转换到那地方去了。是没有改变效率而多用器件的方法，是不可取的。这是电磁感应式电开水炉功率管上的UCE波形，采用UCE波形跟踪的方法进行频率跟踪，是工作在理想的ZVS、ZCS状态下，电压、电流波形与教科书中理想的波形完全一样。红皮列车上的电磁感应式电开水炉就是这种方式工作的，高铁动车上也是这个。请放大看29贴的波形。<br>谢谢你的解答。我还有一个问题，在半桥中如何确定谐振频率。在单管方案中，我们通过同步电路，使IGBT的开关频率自动工作在谐振频率，即使更换线盘，锅具，谐振电容。这个谐振频率的输出不需要软件去输出。而在半桥中，我的调频调功，是通过我的单片机控制的，半桥中的谐振频率是通过我事先计算谐振电容，谐振电感的参数，然后写程序输出的，但如果换了线盘参量，或者谐振电容参数，或者由于温度变化，加热的材料的电感量发生变化，那么我事先设定的频率就有差错了。请问半桥中，应该怎么追踪这个随时变化的谐振点呢？谐振频率会有什么的现象，例如，阻抗最小？电流最大？那么当发现这个阀值发生变化，就重新设定开关频率？而通过CD4046进行相位锁定，只是把电流信号的相位与IGBT的驱动信号的相位，它们之间的相位差进行一个锁定而已。</p>
+<p>igbtsy<br>LV.9<br>60<br>2014-11-22 20:22<br>@hero0765<br>谢谢你的解答。我还有一个问题，在半桥中如何确定谐振频率。在单管方案中，我们通过同步电路，使IGBT的开关频率自动工作在谐振频率，即使更换线盘，锅具，谐振电容。这个谐振频率的输出不需要软件去输出。而在半桥中，我的调频调功，是通过我的单片机控制的，半桥中的谐振频率是通过我事先计算谐振电容，谐振电感的参数，然后写程序输出的，但如果换了线盘参量，或者谐振电容参数，或者由于温度变化，加热的材料的电感量发生变化，那么我事先设定的频率就有差错了。请问半桥中，应该怎么追踪这个随时变化的谐振点呢？谐振频率会有什么的现象，例如，阻抗最小？电流最大？那么当发现这个阀值发生变化，就重新设定开关频率？而通过CD4046进行相位锁定，只是把电流信号的相位与IGBT的驱动信号的相位，它们之间的相位差进行一个锁定而已。<br>单管的跟踪你解决了，半桥应当更容易了吧。</p>
+<p>&lt;半桥中的谐振频率是通过我事先计算谐振电容，谐振电感的参数，然后写程序输出的，&gt;</p>
+<p>计算的与实际的是完全不一样的。全桥的计算值与实际值差别还不是很大，半桥的计算值与实际值相差就更远了。</p>
+<p>唯一爱好<br>LV.6<br>61<br>2014-11-23 20:37<br>@igbt8_com<br>首先要知道缓冲电路吸收电容的目的，是为了吸收IGBT的尖峰电压，由于IGBT主回路母排有杂散电感存在，当关断IGBT的时候，集电极-发射极电流会快速下降，电感的特性是电流不能瞬变，会产生感应电动势，形成尖峰电压:[图片]IGBT的开关特性虽然可以调整驱动参数微调，但改变不大，最根本的还是要想办法改善换流回路的杂散电感。详情可参阅文章：IGBT尖峰电压吸收电容<a target="_blank" rel="noopener" href="http://www.igbt8.com/il/89.html%E4%BB%A5%E5%8F%8AIGBT%E6%A8%A1%E5%9D%97%E4%BD%8E%E6%9D%82%E6%95%A3%E7%94%B5%E6%84%9F%E5%8F%A0%E5%B1%82%E6%AF%8D%E6%8E%92%E8%AE%BE%E8%AE%A1">http://www.igbt8.com/il/89.html以及IGBT模块低杂散电感叠层母排设计</a></p>
+<p>看了帖子，感觉对路，跟帖请求大家帮助！谢谢！一台瑞龙400手工焊，半桥，单管，</p>
+<img src="/posts/undefined/1416745322-67130-600.jpg" class="" title="img">
+
+
+<p>换上管子先看驱动，空载</p>
+<img src="/posts/undefined/1416745467-87589-600.jpg" class="" title="img">
+
+<p>空载主电路，直流电压50V</p>
+<img src="/posts/undefined/1416745591-83157-600.jpg" class="" title="img">
+
+<p>带载，最小时驱动</p>
+<img src="/posts/undefined/1416745846-94209-600.jpg" class="" title="img">
+
+<p>主电路的波形，</p>
+<img src="/posts/undefined/1416746009-98108-600.jpg" class="" title="img">
+
+<p>图片颠倒了，大家见谅，这样的主电路，我不敢加压试机了，请问；机器该有的阻容都没有少，怎么会与这样的震荡？该怎么解决？还有可能是哪里的问题引起这样的震荡？谢谢了！</p>
+<h1 id="第三页"><a href="#第三页" class="headerlink" title="第三页"></a>第三页</h1><p>hero0765<br>LV.4<br>62<br>2014-11-24 10:17<br>@唯一爱好<br>看了帖子，感觉对路，跟帖请求大家帮助！谢谢！一台瑞龙400手工焊，半桥，单管，[图片]换上管子先看驱动，空载[图片]空载主电路，直流电压50V[图片]带载，最小时驱动[图片]主电路的波形，[图片]图片颠倒了，大家见谅，这样的主电路，我不敢加压试机了，请问；机器该有的阻容都没有少，怎么会与这样的震荡？该怎么解决？还有可能是哪里的问题引起这样的震荡？谢谢了！</p>
+<img src="/posts/undefined/1416795330-74927.jpg" class="" title="img">
+
+
+<p>请问，这个是IGBT的Uce之间波形，还是谐振电感与谐振电容两端之间的波形呢？ 上面各图的波形，能否具体描述一下是什么点的什么波形呢？</p>
+<p>唯一爱好<br>LV.6<br>63<br>2014-11-24 12:48<br>@hero0765<br>请[图片]请问，这个是IGBT的Uce之间波形，还是谐振电感与谐振电容两端之间的波形呢？上面各图的波形，能否具体描述一下是什么点的什么波形呢？<br>这是主电路，直流50伏，带载波形。小示波器的是lgbt管脚驱动波形。看小示波器的驱动很干净，但是主电路的波形震荡太厉害了。所以不敢加压试机！请大家指点一二。机器原有的阻容都在，16×2电容也检测了，管子用了40n120,40t1202都不行！这个波形是主电路变压器一次两根线的波形！</p>
+<p>igbtsy<br>LV.9<br>64<br>2014-11-24 17:42<br>@唯一爱好<br>这是主电路，直流50伏，带载波形。小示波器的是lgbt管脚驱动波形。看小示波器的驱动很干净，但是主电路的波形震荡太厉害了。所以不敢加压试机！请大家指点一二。机器原有的阻容都在，16×2电容也检测了，管子用了40n120,40t1202都不行！这个波形是主电路变压器一次两根线的波形！<br>焊机没搞过，不敢瞎说，但是这个波形在开关电源推挽式主电路中见过，是变压器磁芯或者是输出滤波电感没有紧固，磁芯在高频下振动，紧固后就没有那个强烈的振荡了。不知是否对你有参考？</p>
+<p>唯一爱好<br>LV.6<br>65<br>2014-11-24 20:11<br>@igbtsy<br>焊机没搞过，不敢瞎说，但是这个波形在开关电源推挽式主电路中见过，是变压器磁芯或者是输出滤波电感没有紧固，磁芯在高频下振动，紧固后就没有那个强烈的振荡了。不知是否对你有参考？<br>谢谢你的回复，我再努力查查。</p>
+<p>唯一爱好<br>LV.6<br>66<br>2014-12-06 10:28<br>@唯一爱好<br>谢谢你的回复，我再努力查查。<br>联系了厂家，视频，照片都给厂家技师看了，答复是；驱动正常，主电路波形正常，建议换板！也遇到过不停炸管的情况，换板后正常，（板子用摇表检测了绝缘，正常。）看来只有换版试试了</p>
+<p>貮寶<br>LV.7<br>67<br>2014-12-06 11:08<br>@唯一爱好<br>联系了厂家，视频，照片都给厂家技师看了，答复是；驱动正常，主电路波形正常，建议换板！也遇到过不停炸管的情况，换板后正常，（板子用摇表检测了绝缘，正常。）看来只有换版试试了<br>1;所有的炸管和缓冲电路好坏没有一毛钱的关系!</p>
+<p>2;缓冲电路板烧烤烂了一定会引起炸管!</p>
+<p>3;直流支撑电容非常重要,有了优质的直流支撑电容,比有缓冲电路更可靠!</p>
+<p>秋雨_225<br>LV.7<br>68<br>2014-12-08 19:45<br>@my.mai<br>先说说你的开关频率,再说说你的R和C分别什么参数.阻值,功率,电容量,耐压,有效电流等.IGBT单臂断开时,C吸收关断尖峰.IGBT单臂闭合时,C通过IGBT的CE放电,依次循环.串接了R,C的放电电流会得到一定限制,C和IGBT都得到一定好处,但是吸收效果稍微降低.C容量越大,吸收效果越好,但是C和R都会发热越厉害.<br>的确是这样，C的容量越大，R的温度越高。但是C的值小了效果又不是很好。最好的办法是，C的值取大一点，然后通过在主变的副边并联一电感来解决，并联这电感后尖峰电压会大幅度下降，原边IGBT的RC吸收电阻和副边快恢复二极管的RC吸收电阻上的温度都会大幅度下降。另外在空载的时候还起到了软开通的作用。</p>
+<p>秋雨_225<br>LV.7<br>69<br>2014-12-08 19:54<br>@my.mai<br>IGBT的CE端并接C作吸收,C容量增加,会造成C发热厉害,是过流损坏.业内选择的IGBT单臂吸收电容器,容量一般为0.015,0.022,0.033<br>据我所知还有更大的，时代的ZX7-400每个桥臂上的吸收电容用的是3只2200PF的电容并联，总容量达到6600PF。因此，在空载时，每个桥臂上并联的11只240欧姆8W的吸收电阻温度高得烫手。我通过在主变副边并联电感的方法使初次级的RC吸收电阻温度得到了大幅度的下降，通过示波器观察，尖峰电压也得到了明显的抑制。这是几天前得出的结果</p>
+<p>貮寶<br>LV.7<br>70<br>2014-12-08 20:19<br>@秋雨_225<br>据我所知还有更大的，时代的ZX7-400每个桥臂上的吸收电容用的是3只2200PF的电容并联，总容量达到6600PF。因此，在空载时，每个桥臂上并联的11只240欧姆8W的吸收电阻温度高得烫手。我通过在主变副边并联电感的方法使初次级的RC吸收电阻温度得到了大幅度的下降，通过示波器观察，尖峰电压也得到了明显的抑制。这是几天前得出的结果<br>采取超强能耗吸收可能是杀敌一百自损一千,</p>
+<p>凯尔达的办法我没认真测试过,但初步试验过.的确尖锐的毛刺波变小很多,</p>
+<p>秋雨_225<br>LV.7<br>71<br>2014-12-08 20:46<br>@貮寶<br>采取超强能耗吸收可能是杀敌一百自损一千,凯尔达的办法我没认真测试过,但初步试验过.的确尖锐的毛刺波变小很多,<br>这不是超强能耗吸收，这是电感本是起个在空载时有一定软开关的作用的，前几天我加上去后无意中发现尖峰小了很多。这电感的作用我老师专门写了篇论文发表在电焊机杂志上</p>
+<p>秋雨_225<br>LV.7<br>72<br>2014-12-08 20:47<br>@貮寶<br>采取超强能耗吸收可能是杀敌一百自损一千,凯尔达的办法我没认真测试过,但初步试验过.的确尖锐的毛刺波变小很多,<br>奥泰的NBC-500也是在副边并联了这电感的，所不同的是奥泰专门在主变上绕了个独立的副边绕组来接这电感</p>
+<p>貮寶<br>LV.7<br>73<br>2014-12-08 21:53<br>@秋雨_225<br>奥泰的NBC-500也是在副边并联了这电感的，所不同的是奥泰专门在主变上绕了个独立的副边绕组来接这电感<br>奥太软开关也是有限双极性电路的一种在大功率焊机上,实践证明的确优秀,</p>
+<p>凯尔达搞个续流电感,也有点有限双极性电路意思,总比全硬好</p>
+<p>唯一爱好<br>LV.6<br>74<br>2014-12-14 11:50<br>@貮寶<br>1;所有的炸管和缓冲电路好坏没有一毛钱的关系!2;缓冲电路板烧烤烂了一定会引起炸管!3;直流支撑电容非常重要,有了优质的直流支撑电容,比有缓冲电路更可靠!<br>感谢所有回复的朋友！机器换版后正常了！在这里我就不感谢CCTV，铁岭TV了，首先感谢瑞凌的售后工程师雷洪亮，细致的解答！我卖瑞凌，看中的就是售后服务，机器质量，研发！当然，瑞凌的成功在于所有工作人员的共同努力。其次感谢临沂大成焊接的闫克成工程师，刘雄志工程师提供的电路板。提交答案也是给所有关注的朋友一个交代！谢谢大家！！！</p>
+<p>石石<br>LV.7<br>75<br>2014-12-20 16:53<br>@貮寶<br>1;所有的炸管和缓冲电路好坏没有一毛钱的关系!2;缓冲电路板烧烤烂了一定会引起炸管!3;直流支撑电容非常重要,有了优质的直流支撑电容,比有缓冲电路更可靠!<br>很对。到底是高手</p>
+<p>秋雨_225<br>LV.7<br>76<br>2014-12-20 21:11<br>@唯一爱好<br>这是主电路，直流50伏，带载波形。小示波器的是lgbt管脚驱动波形。看小示波器的驱动很干净，但是主电路的波形震荡太厉害了。所以不敢加压试机！请大家指点一二。机器原有的阻容都在，16×2电容也检测了，管子用了40n120,40t1202都不行！这个波形是主电路变压器一次两根线的波形！<br>叫我怎么说你呢？看CE极波形不能这样测量。你把示波器的探头和接地夹分别夹主变原边的两条线是错误的，因为这两点都是IGBT上下管 串联的中点。这里的地等效于悬空的，加上主变是感性负载，叠加的尖峰电压加在这里。因此示波器的探头接地夹的地电位是在跳跃变化的，没法测量准确的。正确测试方法是四只管子分别看CE极的电压波形。测量下面两只管子时，接地夹夹在直流母线的负极，探头挂中点。测量上面两只管子时，接地夹夹直流母线的正极，探头挂中点。只是这时的电压波形倒了个相而已，这样就能看出尖峰电压的峰值。</p>
+<p>700258<br>LV.5<br>77<br>2014-12-21 09:46<br>@唯一爱好<br>感谢所有回复的朋友！[图片]机器换版后正常了！在这里我就不感谢CCTV，铁岭TV了，首先感谢瑞凌的售后工程师雷洪亮，细致的解答！我卖瑞凌，看中的就是售后服务，机器质量，研发！当然，瑞凌的成功在于所有工作人员的共同努力。其次感谢临沂大成焊接的闫克成工程师，刘雄志工程师提供的电路板。提交答案也是给所有关注的朋友一个交代！谢谢大家！！！<br>请教一下，为什么非要换板？</p>
+<p>唯一爱好<br>LV.6<br>78<br>2014-12-27 10:33<br>@秋雨_225<br>叫我怎么说你呢？看CE极波形不能这样测量。你把示波器的探头和接地夹分别夹主变原边的两条线是错误的，因为这两点都是IGBT上下管串联的中点。这里的地等效于悬空的，加上主变是感性负载，叠加的尖峰电压加在这里。因此示波器的探头接地夹的地电位是在跳跃变化的，没法测量准确的。正确测试方法是四只管子分别看CE极的电压波形。测量下面两只管子时，接地夹夹在直流母线的负极，探头挂中点。测量上面两只管子时，接地夹夹直流母线的正极，探头挂中点。只是这时的电压波形倒了个相而已，这样就能看出尖峰电压的峰值。<br>哦！谢谢徐老师的指点！听君一席话，胜读十年书。有道理，都是自己瞎琢磨的，没有正规培训过。换板好了，很可能是板子高压绝缘不行。遇到过类似情况，所以果断换板！</p>
+<p>1179300092<br>LV.8<br>79<br>2015-07-14 12:01<br>@唯一爱好<br>哦！谢谢徐老师的指点！听君一席话，胜读十年书。有道理，都是自己瞎琢磨的，没有正规培训过。换板好了，很可能是板子高压绝缘不行。遇到过类似情况，所以果断换板！</p>
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://www.dianyuan.com/bbs/579541.html?page=1">大家一起聊下IGBT的缓冲电路</a></li>
+</ol>
+<hr>
+<center><font color=red>=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/1613482597.html">https://zml3589110.github.io/posts/1613482597.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%B5%E7%A3%81%E7%82%89/">电磁炉</a><a class="post-meta__tags" href="/tags/%E5%8D%8A%E6%A1%A5/">半桥</a><a class="post-meta__tags" href="/tags/CE%E6%B3%A2%E5%BD%A2/">CE波形</a><a class="post-meta__tags" href="/tags/%E6%B3%A2%E5%BD%A2%E6%9F%A5%E7%9C%8B/">波形查看</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E5%8E%8B/">电压</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E6%B5%81/">电流</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E5%AE%B9/">电容</a><a class="post-meta__tags" href="/tags/IGBT/">IGBT</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/9.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/posts/39.html"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1619143483.html" title="详细IGBT的开通过程(IGBT结构及工作原理)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-02</div><div class="title">详细IGBT的开通过程(IGBT结构及工作原理)</div></div></a></div><div><a href="/posts/1978597706.html" title="半桥电磁加热，电流和电压的关系"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-02</div><div class="title">半桥电磁加热，电流和电压的关系</div></div></a></div><div><a href="/posts/232061923.html" title="CD4046相位比较器1的输出脉冲信号图，请指教。"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">CD4046相位比较器1的输出脉冲信号图，请指教。</div></div></a></div><div><a href="/posts/3665814884.html" title="IGBT驱动用脉冲变压器驱动，其驱动电路奥太与瑞凌比较哪个好一些？大家出来谈谈。"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">IGBT驱动用脉冲变压器驱动，其驱动电路奥太与瑞凌比较哪个好一些？大家出来谈谈。</div></div></a></div><div><a href="/posts/2872230938.html" title="【2015电设赛前准备】电磁感应加热器（附加热过程视频+原理图）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">【2015电设赛前准备】电磁感应加热器（附加热过程视频+原理图）</div></div></a></div><div><a href="/posts/3191623347.html" title="串联谐振半桥电磁炉移锅电流是增大还是缩小？"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-03</div><div class="title">串联谐振半桥电磁炉移锅电流是增大还是缩小？</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">333</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">450</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">174</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%A1%B5"><span class="toc-number">1.</span> <span class="toc-text">第一页</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%A1%B5"><span class="toc-number">2.</span> <span class="toc-text">第二页</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%A1%B5"><span class="toc-number">3.</span> <span class="toc-text">第三页</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1164397684.html" title="合并hex文件"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="合并hex文件"/></a><div class="content"><a class="title" href="/posts/1164397684.html" title="合并hex文件">合并hex文件</a><time datetime="2024-11-02T08:49:20.000Z" title="发表于 2024-11-02 16:49:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1432338086.html" title="IAP+YMODEM+CRC16+AES256+PC端软件+hex合并"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IAP+YMODEM+CRC16+AES256+PC端软件+hex合并"/></a><div class="content"><a class="title" href="/posts/1432338086.html" title="IAP+YMODEM+CRC16+AES256+PC端软件+hex合并">IAP+YMODEM+CRC16+AES256+PC端软件+hex合并</a><time datetime="2024-11-02T08:14:20.000Z" title="发表于 2024-11-02 16:14:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1863846554.html" title="暗锁程序加密思路"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="暗锁程序加密思路"/></a><div class="content"><a class="title" href="/posts/1863846554.html" title="暗锁程序加密思路">暗锁程序加密思路</a><time datetime="2024-11-02T07:50:20.000Z" title="发表于 2024-11-02 15:50:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1135562047.html" title="Csharp算法之AES实现"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Csharp算法之AES实现"/></a><div class="content"><a class="title" href="/posts/1135562047.html" title="Csharp算法之AES实现">Csharp算法之AES实现</a><time datetime="2024-11-02T06:49:20.000Z" title="发表于 2024-11-02 14:49:20">2024-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22.html" title="无题"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/posts/22.html" title="无题">无题</a><time datetime="2024-09-16T02:34:42.779Z" title="发表于 2024-09-16 10:34:42">2024-09-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body></html>
