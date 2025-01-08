@@ -82,8 +82,6 @@
     
     <category term="C" scheme="https://zml3589110.github.io/tags/C/"/>
     
-    <category term="STM32" scheme="https://zml3589110.github.io/tags/STM32/"/>
-    
     <category term="嵌入式" scheme="https://zml3589110.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
     <category term="IAP" scheme="https://zml3589110.github.io/tags/IAP/"/>
@@ -95,6 +93,8 @@
     <category term="bin" scheme="https://zml3589110.github.io/tags/bin/"/>
     
     <category term="BootLoader" scheme="https://zml3589110.github.io/tags/BootLoader/"/>
+    
+    <category term="STM32" scheme="https://zml3589110.github.io/tags/STM32/"/>
     
   </entry>
   
@@ -127,8 +127,6 @@
     
     <category term="C" scheme="https://zml3589110.github.io/tags/C/"/>
     
-    <category term="STM32" scheme="https://zml3589110.github.io/tags/STM32/"/>
-    
     <category term="嵌入式" scheme="https://zml3589110.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
     <category term="IAP" scheme="https://zml3589110.github.io/tags/IAP/"/>
@@ -140,6 +138,8 @@
     <category term="bin" scheme="https://zml3589110.github.io/tags/bin/"/>
     
     <category term="BootLoader" scheme="https://zml3589110.github.io/tags/BootLoader/"/>
+    
+    <category term="STM32" scheme="https://zml3589110.github.io/tags/STM32/"/>
     
     <category term="CRC16" scheme="https://zml3589110.github.io/tags/CRC16/"/>
     
@@ -174,9 +174,9 @@
     
     <category term="C" scheme="https://zml3589110.github.io/tags/C/"/>
     
-    <category term="STM32" scheme="https://zml3589110.github.io/tags/STM32/"/>
-    
     <category term="嵌入式" scheme="https://zml3589110.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="STM32" scheme="https://zml3589110.github.io/tags/STM32/"/>
     
     <category term="暗锁" scheme="https://zml3589110.github.io/tags/%E6%9A%97%E9%94%81/"/>
     
@@ -209,8 +209,6 @@
     
     <category term="C#" scheme="https://zml3589110.github.io/tags/C/"/>
     
-    <category term="STM32" scheme="https://zml3589110.github.io/tags/STM32/"/>
-    
     <category term="IAP" scheme="https://zml3589110.github.io/tags/IAP/"/>
     
     <category term="hex" scheme="https://zml3589110.github.io/tags/hex/"/>
@@ -218,6 +216,8 @@
     <category term="bin" scheme="https://zml3589110.github.io/tags/bin/"/>
     
     <category term="BootLoader" scheme="https://zml3589110.github.io/tags/BootLoader/"/>
+    
+    <category term="STM32" scheme="https://zml3589110.github.io/tags/STM32/"/>
     
     <category term="算法" scheme="https://zml3589110.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
