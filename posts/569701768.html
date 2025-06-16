@@ -1,0 +1,418 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ESP8266内存分配 | 赵逸尘个人博客</title><meta name="keywords" content="Ubuntu,乐鑫,ESP01S,内存,ESP8266-12E/F,Flash,W25Q32"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ESP8266内存分配信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESP8266内存分配">
+<meta property="og:url" content="https://zml3589110.github.io/posts/569701768.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="ESP8266内存分配信息">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2025-06-16T12:09:20.000Z">
+<meta property="article:modified_time" content="2025-06-16T12:57:21.100Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="乐鑫">
+<meta property="article:tag" content="ESP01S">
+<meta property="article:tag" content="内存">
+<meta property="article:tag" content="ESP8266-12E&#x2F;F">
+<meta property="article:tag" content="Flash">
+<meta property="article:tag" content="W25Q32">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/569701768"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ESP8266内存分配',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-06-16 20:57:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">346</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">483</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">188</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ESP8266内存分配</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-16T12:09:20.000Z" title="发表于 2025-06-16 20:09:20">2025-06-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-16T12:57:21.100Z" title="更新于 2025-06-16 20:57:21">2025-06-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ESP8266/">ESP8266</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B9%90%E9%91%AB/">乐鑫</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/W25Q32/">W25Q32</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ESP8266内存分配"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="ESP8266-12E-x2F-F相关内存"><a href="#ESP8266-12E-x2F-F相关内存" class="headerlink" title="ESP8266-12E&#x2F;F相关内存"></a>ESP8266-12E&#x2F;F相关内存</h1><p>两款模组在使用功能和内存功能都一样</p>
+<img src="/posts/undefined/ae171c9e5fe044a08c27c78ceb60f561.png" class="" title="型号列表">
+
+<p><strong>模组中主要部分的芯片是乐鑫的esp8266，flash使用w25q32（4MB）</strong></p>
+<img src="/posts/undefined/b8fed432d4904956b1c632b80b8a4916.png" class="" title="芯片类型">
+
+<img src="/posts/undefined/b409c67f6d6444308f551a0a3e49bffe.png" class="" title="主要芯片">
+
+
+<p>w25q 系列生产的加工的商家很多，但是里面的分布和命名规则都是一样的。比如华邦的w25q64，spi通讯接口，64就是指 64Mbit 也就是 8M 的容量。而我们平时的8266-12f的 32Mbit 就是 4M 容量。</p>
+<p>以 w25q32 为例，里面的存储分布。w25q32把4M容量分为了 64 块，每一块又分为 16 个扇区，而每个扇区占 4K 大小。由此可计算到，w25q32有 32Mbit &#x2F; 8 * 1024 &#x2F; 16 &#x2F; 4 &#x3D; 64 块 ，有 64 * 16 &#x3D; 1024 个扇区。</p>
+<p>注：1B&#x3D;8 Bit ，1KB＝1024B ，1MB＝1024KB</p>
+<img src="/posts/undefined/3725987fb1d30ffffcad936592367555.png" class="" title="img">
+
+
+<h2 id="内存介绍"><a href="#内存介绍" class="headerlink" title="内存介绍"></a>内存介绍</h2><p>esp8266主要有内部芯片内存和外部Flash内存</p>
+<ul>
+<li><strong>程序区</strong>：代码编译生成的 bin 文件，烧录到 Flash 占用的区域，<strong>请勿改写</strong>；</li>
+<li><strong>系统参数区</strong>： esp_iot_sdk 中底层用于存放系统参数的区域，<strong>请勿改写</strong>；</li>
+<li><strong>用户参数区</strong>：上层应用程序存储用户参数的区域。开发者请根据实际使用的 Flash size 设置，可 以参考文档“2A-ESP8266__IOT_SDK_User_Manual” 中的 “Flash Map” 一章。</li>
+</ul>
+<p><strong>芯片内存</strong></p>
+<p>esp8266 sdk 默认将 iRAM 中 0x40108000 开始的 32KB 空间用作 cache，sdk 启动后会将对应的 spi flash 空间映射到 cache 空间。<br>esp8266 sdk 中，支持若干种 flash map 方式，有 256KB + 256KB、512KB + 512KB、1024KB + 1024KB。<br>在 256KB + 256KB 和 512KB + 512KB 两种 map 方式中，user1.bin 和 user2.bin 均在第一个 1MB 空间，因此映射到同一个 1MB 空间。</p>
+<img src="/posts/undefined/96b31caca11f43a6a4e47be552cfe3f2.png" class="" title="内存映射">
+
+
+<p><strong>w25q32内存分布</strong><br>注意擦除或写入都是以扇区为最小单位。</p>
+<img src="/posts/undefined/7eb3790d6c7245359b23f57ebae5d2fb.png" class="" title="在这里插入图片描述">
+
+<img src="/posts/undefined/d552ec9e8b9a41fe920e5966f3ac10f0.png" class="" title="在这里插入图片描述">
+
+<img src="/posts/undefined/6605e5efddcd40af88c386bf4b554859.png" class="" title="在这里插入图片描述">
+
+<h3 id="Non-FOTA"><a href="#Non-FOTA" class="headerlink" title="Non-FOTA"></a>Non-FOTA</h3><img src="/posts/undefined/953f319c2e1d04ea22afb49e0e73b4d9.png" class="" title="img">
+
+<h3 id="FOTA"><a href="#FOTA" class="headerlink" title="FOTA"></a>FOTA</h3><img src="/posts/undefined/bbfbbc86bce355e0ed28b10b8e732c39.png" class="" title="img">
+
+<img src="/posts/undefined/108a5b2ca0ea726a65dcdf88285647d6.png" class="" title="img">
+
+<p>更多图查看：</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/k7arm/article/details/51812021">https://blog.csdn.net/k7arm/article/details/51812021</a></p>
+<h1 id="ESP8266和w25q32内存分布说明"><a href="#ESP8266和w25q32内存分布说明" class="headerlink" title="ESP8266和w25q32内存分布说明"></a>ESP8266和w25q32内存分布说明</h1><p>ESP826612F&#x2F;E里面使用w25q32作为了flash存储.</p>
+<p><strong>提前说下哈,bit代表位 也就是 0 1 0 1 , Bit代表字节 ,一字节就是8位</strong></p>
+<p>w25q32的容量是32Mbit 也就是  32&#x2F;8 &#x3D; 4MB字节  &#x3D; 4*1024 &#x3D; 4096KB字节</p>
+<p>然后 w25q32 这个芯片规定每 64KB字节作为一个块</p>
+<p>所以呢w25q32总共分成了  4096&#x2F;64 &#x3D; 64个块,不要问我,块是神么…..就是一块一块的区域,所以就是块…</p>
+<p>然后 w25q32 这个芯片还规定每 4KB字节作为一个扇区.每256字节作为一页.</p>
+<p>所以所有的扇区个数是 64*16 &#x3D; 1024个</p>
+<img src="/posts/undefined/dgji398ck6.png" class="" title="img">
+
+
+<h2 id="ESP8266内存规定"><a href="#ESP8266内存规定" class="headerlink" title="ESP8266内存规定"></a>ESP8266内存规定</h2><img src="/posts/undefined/mmfwu04uen.png" class="" title="img">
+
+<p>芯片是4096KB字节 &#x3D; 4096*1024 &#x3D; 4194304字节 &#x3D; 0x400000</p>
+<p>eagle.flash.bin  从flash的最开始的地址开始存储</p>
+<p>eagle.irom0text.bin (0x10000 &#x3D; 65536) 偏移了65536字节即64KB</p>
+<p>esp_init_data_default.bin  (0x3FC000)  从倒数第4个扇区开始存储 (注:0x400000 - 4096-4096-4096-4096 &#x3D; 0x3FC000)</p>
+<p>blank.bin (0x3FE000)从倒数第2个扇区开始存储 (注:0x400000 - 4096-4096 &#x3D; 0x3FE000)</p>
+<img src="/posts/undefined/d552ec9e8b9a41fe920e5966f3ac10f0.png" class="" title="在这里插入图片描述">
+
+<p>注意,未使用区域是变化的…咱编译完程序会显示eagle.irom0text.bin 大小</p>
+<img src="/posts/undefined/7jsoj3jvjm.png" class="" title="img">
+
+<p>随着程序量的增加eagle.irom0text.bin 大小也在增加</p>
+<p>其实呢咱使用上面的未使用区域的时候一般可以从0x3FC000地址往前推,</p>
+<p>(提醒:以一个扇区4KB作为最小使用哈,因为擦除的时候最小擦除是4KB)</p>
+<p>假设咱感觉存储咱自己的数据只使用4KB就可以了,那么就是在 0x3EB000地址开始存储咱自己的数据.</p>
+<p>0x3FC000 - 4KB &#x3D; 0x3EB000 即从倒数第5个扇区开始存储数据</p>
+<img src="/posts/undefined/qmzl6qz1zs.png" class="" title="img">
+
+<p>其实从0x3FC000 到 0x3FE000 总共有8KB,所有中间有两个扇区</p>
+<p>因为esp_init_data_default.bin 的大小是固定的哈不会超过4KB,</p>
+<p>所以0x3FE000 左面的那个4KB的扇区也是可以使用的</p>
+<p>开始的地址是 0x3FD000 即从倒数第三个扇区存储数据</p>
+<img src="/posts/undefined/s7i6uhf95f.png" class="" title="img">
+
+<h2 id="提供的API函数"><a href="#提供的API函数" class="headerlink" title="提供的API函数"></a>提供的API函数</h2><ol>
+<li>擦除某个扇区</li>
+</ol>
+<p>总共1024个扇区,扇区号从0开始,所以是  0 - 1023</p>
+<p>列如擦除上面的倒数第5个扇区 就是 spi_flash_erase_sector (1019)</p>
+<img src="/posts/undefined/mjff9a3x65.png" class="" title="img">
+
+<ol start="2">
+<li>往扇区里面写数据</li>
+</ol>
+<img src="/posts/undefined/2epp1bo09n.png" class="" title="img">
+
+<ol start="3">
+<li>从flash里面读取数据</li>
+</ol>
+<img src="/posts/undefined/v6vw8xn07h.png" class="" title="img">
+
+<ol start="4">
+<li>SDK还封装了一套交替存储API</li>
+</ol>
+<p>就是使用3个扇区保存数据,第一个扇区和第三个扇区来回的保存数据</p>
+<p>第二个扇区只保存一个标志位,标志当前数据是存储在第一个扇区还是第二个扇区(程序内部实现)</p>
+<p>API函数的第二个参数假设是  1017</p>
+<p>那么就是使用第1017和1018扇区来回的保存数据,1018扇区保存标志位</p>
+<img src="/posts/undefined/vy1001ngub.png" class="" title="img">
+
+<img src="/posts/undefined/e8l6y493m7.png" class="" title="img">
+
+<img src="/posts/undefined/wbg86vz55g.png" class="" title="img">
+
+<h2 id="注意-关于4字节对齐"><a href="#注意-关于4字节对齐" class="headerlink" title="注意:关于4字节对齐"></a>注意:关于4字节对齐</h2><p>如果你存储数据,存储的数据个数是4的倍数就可以.</p>
+<p>一般咱都会把数据放到一个数组里面,所以咱把数组长度定义为4的倍数就可以</p>
+<p>我上面说的是char型的数组</p>
+<p>如果是u16型的数组,数组长度定义为2的倍数就可以</p>
+<p>如果是u32的就随意啦….</p>
+<h2 id="开始实践-普通"><a href="#开始实践-普通" class="headerlink" title="开始实践(普通)"></a>开始实践(普通)</h2><img src="/posts/undefined/3ol80bv3jw.png" class="" title="img">
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置扇区地址</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> flash_save_sector 1019</span></span><br><span class="line"><span class="comment">//设置写入flash的起始地址</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> flash_save_addr  flash_save_sector*4*1024 <span class="comment">//(该扇区的起始地址)</span></span></span><br><span class="line"><span class="comment">//存储的数据</span></span><br><span class="line"><span class="keyword">char</span> flash_data[<span class="number">16</span>] = <span class="string">&quot;test flash data&quot;</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @brief   system_done</span></span><br><span class="line"><span class="comment">* @param   None</span></span><br><span class="line"><span class="comment">* @param   None</span></span><br><span class="line"><span class="comment">* @retval  None</span></span><br><span class="line"><span class="comment">* @warning None</span></span><br><span class="line"><span class="comment">* @example</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">system_done</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp[<span class="number">16</span>];</span><br><span class="line">    <span class="comment">//擦除扇区</span></span><br><span class="line">    spi_flash_erase_sector (flash_save_sector);</span><br><span class="line">    <span class="comment">//写入数据</span></span><br><span class="line">    spi_flash_write(flash_save_addr,(uint32 *)flash_data,<span class="keyword">sizeof</span>(flash_data));</span><br><span class="line">    <span class="comment">//读取数据</span></span><br><span class="line">    spi_flash_read(flash_save_addr,(uint32 *)temp,<span class="keyword">sizeof</span>(temp));</span><br><span class="line"></span><br><span class="line">    os_printf(<span class="string">&quot;\r\n save data =%s \r\n&quot;</span>,temp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> ICACHE_FLASH_ATTR <span class="title">user_init</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    uart_init_2(BIT_RATE_115200,BIT_RATE_115200);</span><br><span class="line">    <span class="comment">//注册系统初始化完成回调函数</span></span><br><span class="line">    system_init_done_cb(system_done);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/posts/undefined/ck6b5973jc.png" class="" title="img">
+
+<ul>
+<li><strong>Flash读写接口</strong></li>
+</ul>
+<p><strong>SPI Flash</strong> 接口位于 &#x2F;ESP8266_NONOS_SDK&#x2F;include&#x2F;<strong>spi_flash.h</strong>。</p>
+<p><strong>system_param_xxx</strong> 接口位于 &#x2F;ESP8266_NONOS_SDK&#x2F;include&#x2F;<strong>user_interface.h</strong>。</p>
+<ol>
+<li><h3 id="spi-flash-erase-sector"><a href="#spi-flash-erase-sector" class="headerlink" title="spi_flash_erase_sector"></a>spi_flash_erase_sector</h3><img src="/posts/undefined/cbb30e911bdab0c7d5277166bec0315d.png" class="" title="img">
+</li>
+<li><h3 id="spi-flash-write"><a href="#spi-flash-write" class="headerlink" title="spi_flash_write"></a>spi_flash_write</h3><img src="/posts/undefined/2ba98831923e024fc0e992799b03e066.png" class="" title="img">
+
+<p><strong>注意：</strong></p>
+<ul>
+<li><p><strong>Flash 请先擦再写。</strong></p>
+</li>
+<li><p><strong>Flash 读写必须 4 字节对齐。</strong></p>
+<p><strong>示例代码：</strong>  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 0x7C</span></span><br><span class="line"> </span><br><span class="line">uint32 data[M];</span><br><span class="line"> </span><br><span class="line">spi_flash_erase_sector (N);</span><br><span class="line"> </span><br><span class="line">spi_flash_write (N*<span class="number">4</span>*<span class="number">1024</span>, data, M*<span class="number">4</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><h3 id="spi-flash-read"><a href="#spi-flash-read" class="headerlink" title="spi_flash_read"></a>spi_flash_read</h3><img src="/posts/undefined/339df204141a192eceb844ff6f06740d.png" class="" title="img">
+</li>
+<li><h3 id="system-param-save-with-protect"><a href="#system-param-save-with-protect" class="headerlink" title="system_param_save_with_protect"></a>system_param_save_with_protect</h3><img src="/posts/undefined/1c154eb272e92de93a192807084a0435.png" class="" title="img">
+</li>
+<li><h3 id="system-param-load"><a href="#system-param-load" class="headerlink" title="system_param_load"></a>system_param_load</h3><img src="/posts/undefined/f3cff023814610f574827521fbc359e5.png" class="" title="img">
+
+<img src="/posts/undefined/fa6bf74cac3bdd22c1f9a5da3fb6b69f.png" class="" title="img">
+
+<p>示例代码：</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***************Flash 读写结构体声明***************/</span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">esp_platform_saved_param</span> &#123;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 服务器参数</span></span><br><span class="line">uint8 devkey[<span class="number">40</span>];</span><br><span class="line">uint8 token[<span class="number">40</span>];</span><br><span class="line">uint8 activeflag;</span><br><span class="line"><span class="keyword">char</span> server_domain[<span class="number">64</span>];</span><br><span class="line"><span class="keyword">ip_addr_t</span> server_ip;</span><br><span class="line"><span class="keyword">int</span> server_port;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// AP参数</span></span><br><span class="line">uint8 ssid[<span class="number">32</span>];</span><br><span class="line">uint8 password[<span class="number">64</span>];</span><br><span class="line"><span class="keyword">int</span> authmode;</span><br><span class="line">uint8 ssid_hidden;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 填充</span></span><br><span class="line">uint8 pad[<span class="number">2</span>];</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/***************Flash 读写结构体定义***************/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">esp_platform_saved_param</span> <span class="title">esp_param</span>;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">/***************Flash 写入数据***************/</span></span><br><span class="line">system_param_save_with_protect(<span class="number">0x7D</span>, &amp;esp_param, <span class="keyword">sizeof</span>(esp_param));</span><br><span class="line"> </span><br><span class="line"><span class="comment">/***************Flash 读出数据***************/</span></span><br><span class="line">system_param_load(<span class="number">0x7D</span>, <span class="number">0</span>, &amp;esp_param, <span class="keyword">sizeof</span>(esp_param)); </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="开始实践-Flash读写保护"><a href="#开始实践-Flash读写保护" class="headerlink" title="开始实践(Flash读写保护)"></a>开始实践(Flash读写保护)</h2><h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h4><p>Espressif Flash 读写保护示例，使用 <strong>三个 sector（扇区）</strong>实现（每 sector 4KB），提供 4KB 的可靠存储空间。 <strong>将 sector 1 和 sector 2 作为数据 sector</strong>，轮流读写，始终分别存放“本次”数据和“前一次”数据， 确保了至少有一份数据存储安全；<strong>sector 3 作为 flag sector</strong>，标志最新的数据存储 sector。</p>
+<p>保护机制如下：</p>
+<ol>
+<li>初始上电时，数据存储在 sector 2 中，从 sector 2 中将数据读到 RAM。</li>
+<li>第一次写数据时，将数据写入 sector 1。此时若突然掉电，sector 1写入失败，sector 2 &amp; 3数据未改变；重新上电时，仍是从 sector 2 中 读取数据，不影响使用。</li>
+<li>改写 sector 3，将标志置为 0，表示数据存于 sector 1。此时若突然掉电，sector 3 写入失败，sector 1 &amp; 2 均存有一份完整数据；重新上电时，因 sector 3 无有效 flag，默认从 sector 2 中读取数据，则仍能正常使用，只是未能包含掉电前对 sector 1 写入的数据。</li>
+<li>再一次写数据时，先从 sector 3 读取 flag，若 flag 为0，则上次数据存于 sector 1，此次应将数据写入 sector 2；若 flag 为非 0，则认为上次数据存于 sector 2，此次应将数据写入 sector 1。此时若写数据出错，请参考步骤 2、 3的说明，同理。</li>
+<li>写入 sector 1（或 sector 2）完成后，才会写 sector 3，重置 flag。注意：只有数据扇区（sector 1或 sector 2）写完之后，才会写 flag sector（sector 3），这样即使 flag sector 写入出错，两个数据扇区都已存有完整数据内容，目前默认会读取 sector 2。</li>
+</ol>
+<h4 id="软件示例"><a href="#软件示例" class="headerlink" title="软件示例"></a>软件示例</h4><p>在 <strong>IOT_Demo</strong> 中，使用 0x3C000 开始的 4 个 sector（每 sector 4KB），作为用户参数存储区。 其中 0x3D000、 0x3E000、 0x3F000 这 3 个 sector 实现了读写保护的功能，并存储了应用级参数 <strong>esp_platform_saved_param</strong>。</p>
+<img src="/posts/undefined/361109100e209facdc7208fe744ba5d7.png" class="" title="img">
+
+<p>图中“有读写保护的存储区”， IOT_Demo 中建议调用 <strong>system_param_load</strong> 和 <strong>system_param_save_with_protect</strong> 进行读写。</p>
+<p><strong>system_param_load</strong> - 读 Flash 用户参数区数据</p>
+<p><strong>system_param_save_with_protect</strong> - 写 Flash 用户参数区数据</p>
+<p>参数 <strong>struct esp_platform_saved_param</strong> 定义了目前乐鑫存储于 Flash 的用户应用级数据，用户只需将自己要存储的数据添加到结构体 <strong>struct esp_platform_saved_param</strong> 后面，调用上述两个函数进行 Flash 读写即可。</p>
+<img src="/posts/undefined/07278886fbe5d0c8ad621fa7ac3efeba.png" class="" title="img">
+
+<h3 id="Flash读写保护参考一"><a href="#Flash读写保护参考一" class="headerlink" title="Flash读写保护参考一"></a>Flash读写保护参考一</h3><p><strong>方法： “轮流写入”+“首部记数”+“尾部校验”</strong></p>
+<p>占用空间： 2 个 sector，共计 8KB；提供 4KB 的带数据保护存储空间。</p>
+<img src="/posts/undefined/70d08c778ebd6d5a81c762637aa0173d.png" class="" title="img">
+
+<p>原理：</p>
+<p>仍然 <strong>采用两个数据 sector 轮流写入来做备份数据保护</strong>，只是不再专门设立 flag sector。 记一个 counter，写入数据 sector 的首部，每次写入时计数加一，用记数比较来判别下一次应写入哪个 sector；在数据尾部加入校验码（CRC、checksum 等任一种校验方式），用以验证数据的完整性。</p>
+<p>(1) 假设初次上电，数据存储在 sector A， sector A 的记数为初始值 0xFF，从 sector A 将数据读入 RAM。</p>
+<p>(2) 第一次数据写入 sector B，则在 sector B 首部信息中记录 counter 为 1，尾部加入校验码。</p>
+<p>(3) 再次写入数据时，先分别读取 sector A&#x2F;B 的 counter 值进行比较，此次应当将数据写入 sector A， sector A 首部记录 counter 为 2，尾部加入校验码。</p>
+<p>(4) 若发生突然掉电，当前正在写入的 sector 数据丢失，重新上电时，先比较 sector A&#x2F;B 的 counter 值，读取 counter 值较大的完整 sector，根据 sector 尾部的校验码进行校验，当前 sector 数据是否可靠，若校验通过，则继续执行；若校验失败，则读取另一个 sector 的数据，校验，并执行。</p>
+<h3 id="Flash读写保护参考二"><a href="#Flash读写保护参考二" class="headerlink" title="Flash读写保护参考二"></a>Flash读写保护参考二</h3><p><strong>方法： “备份扇区”+“尾部校验”</strong></p>
+<p>占用空间： 2 个 sector，共计 8KB；提供 4KB 的带数据保护存储空间。</p>
+<img src="/posts/undefined/c85c1521f477f546db774eb377b93857.png" class="" title="img">
+
+<p>原理：</p>
+<p><strong>始终往 sector A 读写数据</strong>，每次写入时，同样写一遍 sector B 作为 sector A 的备份扇区，每个 sector 尾部均加入校验码（CRC、checksum等任一种校验方式）。</p>
+<p>(1) 从 sector A 读取数据，并进行校验。</p>
+<p>(2) 数据写入 sector A，尾部为校验码。</p>
+<p>(3) sector A 写入完成后，同样的数据也写入 sector B 进行备份。</p>
+<p>(4) 若发生突然掉电，当前正在写入的 sector 数据丢失，重新上电时，先从 sector A 读取数据，根据尾部的校验码进行校验，sector A 数据是否可靠，若校验通过，则继续执行；若校验失败，则读取 sector B 的数据，校验，并执行。</p>
+<p>• 由 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36347513">Leung</a> 写于 2018 年 9 月 14 日</p>
+<p>• 参考：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1rcj1Drf_vzea7_WOFeqe7Q">《ESP8266 Flash 读写说明》</a>[25l1]</p>
+<p>​			<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1mPrImw1xh-ZVN_BPUsW7Gw">《ESP8266 Non-OS SDK IoT_Demo 指南》</a>[q878]</p>
+<p>​			<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1a_yH2MvcZcqI0PulHsdM3A">《ESP8266 Non-OS SDK API 参考》</a>[7qq6]</p>
+<p>​			<a target="_blank" rel="noopener" href="https://blog.csdn.net/xh870189248/article/details/81017735">《Esp8266 进阶之路24》</a></p>
+<p>​			<a target="_blank" rel="noopener" href="https://blog.csdn.net/k7arm/article/details/51812021">《ESP8266 Flash》</a></p>
+<h3 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h3><ol>
+<li>官方给了例子</li>
+</ol>
+<img src="/posts/undefined/kcpzq4pjj1.png" class="" title="img">
+
+<p>注意  priv_param_start_sec  参数是这个参数</p>
+<img src="/posts/undefined/x15gwk5pez.png" class="" title="img">
+
+<p>咱使用的时候也这样就可以</p>
+<img src="/posts/undefined/le5n5c4nc6.png" class="" title="img">
+
+<img src="/posts/undefined/gwte7c1lz2.png" class="" title="img">
+
+
+<h1 id="esp8266-flash地址规划"><a href="#esp8266-flash地址规划" class="headerlink" title="esp8266 flash地址规划"></a>esp8266 flash地址规划</h1><p>选取的是esp8266-12f 4096KB 4M flash内存</p>
+<h4 id="1-如何让确定为4M内存的？"><a href="#1-如何让确定为4M内存的？" class="headerlink" title="1.如何让确定为4M内存的？"></a>1.如何让确定为4M内存的？</h4><p>原因：由于是从同事手上接项目，所以并无芯片规格书等物件。</p>
+<p>查看工具编译选项，esp_init_data_default.bin: 0X3FC000 blank.bin :0X3FE000</p>
+<p>备份系统程序地址是0x101000，绿色位置就是对应选择。</p>
+<img src="/posts/undefined/f1ae84660000aac630c6a46d412c6e47.png" class="" title="img">
+
+<h4 id="2-扇区应该如何划分？"><a href="#2-扇区应该如何划分？" class="headerlink" title="2.扇区应该如何划分？"></a>2.扇区应该如何划分？</h4><p>esp8266 以4k为一个扇区，16k为一个块。4M内存的8266有1024个扇区。</p>
+<img src="/posts/undefined/4fbbc06821034929749d71c17cf0b4df.png" class="" title="img">
+
+<p>OTA flash内存分布图</p>
+<img src="/posts/undefined/b0655b9b560785f75b12892979307905.png" class="" title="img">
+
+<p>ESP8266-12F的扇区地址计算方法： blank.bin 位于扇区1022　　　　 　　　 　地址0x3FE000 esp_init_data_default.bin位于扇区1020　　地址0x3FC000</p>
+<p>4M容量的十六进制3FC000地址转换为十进制为：4177920 所在扇区为：4177920&#x2F;4&#x2F;1024&#x3D; 1020</p>
+<p>4M容量的十六进制3FE000地址转换为十进制为：4186112 所在扇区为：4186112&#x2F;4&#x2F;1024&#x3D; 1022</p>
+<p>即system_param位置</p>
+<p>Flash操作 ESP8266-12F的Flash操作： 下列扇区不能占用: blank.bin 位于扇区1022　　　　 　　　 　地址0x3FE000 esp_init_data_default.bin位于扇区1020　　地址0x3FC000</p>
+<p>用户数据可存储的位置扇区号： （1024 - 16） &#x2F;4 &#x3D; 252 之后的四个扇区 在之前选位置也可以。只要不在用户程序处使用flash地址就可以。</p>
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43794311/article/details/141107180">ESP8266-12E&#x2F;F 内存分配</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1823442">ESP8266 SDK开发: 外设篇-内存分布说明及Flash读写</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2133615">esp8266 flash地址规划</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36347513/article/details/82707150">ESP8266学习笔记（2）——内存分布及Flash读写接口</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/k7arm/article/details/51812021">ESP8266 Flash</a></li>
+</ol>
+<hr>
+<center><font color=red>=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/569701768.html">https://zml3589110.github.io/posts/569701768.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ubuntu/">Ubuntu</a><a class="post-meta__tags" href="/tags/%E4%B9%90%E9%91%AB/">乐鑫</a><a class="post-meta__tags" href="/tags/ESP01S/">ESP01S</a><a class="post-meta__tags" href="/tags/%E5%86%85%E5%AD%98/">内存</a><a class="post-meta__tags" href="/tags/ESP8266-12E-F/">ESP8266-12E/F</a><a class="post-meta__tags" href="/tags/Flash/">Flash</a><a class="post-meta__tags" href="/tags/W25Q32/">W25Q32</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/posts/4236902251.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ESP8266使用Mongoose-os初体验</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2449930636.html" title="ESP8266及ESP32固件生成及烧录方法"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-23</div><div class="title">ESP8266及ESP32固件生成及烧录方法</div></div></a></div><div><a href="/posts/149085255.html" title="ESP01S接入苹果homekit"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-27</div><div class="title">ESP01S接入苹果homekit</div></div></a></div><div><a href="/posts/3246252773.html" title="ESP01S使用Tasmota接入MQTT"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-27</div><div class="title">ESP01S使用Tasmota接入MQTT</div></div></a></div><div><a href="/posts/656768886.html" title="ESP01S使用ESPHome接入HomeAssistant"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-27</div><div class="title">ESP01S使用ESPHome接入HomeAssistant</div></div></a></div><div><a href="/posts/1627973085.html" title="ESP01S使用homekit上电IO抖动无法直驱三极管以及待机功耗过高解决方法"><img class="cover" src="/medias/ESP01S%E4%BD%BF%E7%94%A8homekit%E4%B8%8A%E7%94%B5IO%E6%8A%96%E5%8A%A8%E6%97%A0%E6%B3%95%E7%9B%B4%E9%A9%B1%E4%B8%89%E6%9E%81%E7%AE%A1%E4%BB%A5%E5%8F%8A%E5%BE%85%E6%9C%BA%E5%8A%9F%E8%80%97%E8%BF%87%E9%AB%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-15</div><div class="title">ESP01S使用homekit上电IO抖动无法直驱三极管以及待机功耗过高解决方法</div></div></a></div><div><a href="/posts/4103456400.html" title="ESP8266通过OTA更新固件(OPEN-RTOS)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-12</div><div class="title">ESP8266通过OTA更新固件(OPEN-RTOS)</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">346</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">483</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">188</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ESP8266-12E-x2F-F%E7%9B%B8%E5%85%B3%E5%86%85%E5%AD%98"><span class="toc-number">1.</span> <span class="toc-text">ESP8266-12E&#x2F;F相关内存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">内存介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Non-FOTA"><span class="toc-number">1.1.1.</span> <span class="toc-text">Non-FOTA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FOTA"><span class="toc-number">1.1.2.</span> <span class="toc-text">FOTA</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ESP8266%E5%92%8Cw25q32%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83%E8%AF%B4%E6%98%8E"><span class="toc-number">2.</span> <span class="toc-text">ESP8266和w25q32内存分布说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ESP8266%E5%86%85%E5%AD%98%E8%A7%84%E5%AE%9A"><span class="toc-number">2.1.</span> <span class="toc-text">ESP8266内存规定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E4%BE%9B%E7%9A%84API%E5%87%BD%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">提供的API函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F-%E5%85%B3%E4%BA%8E4%E5%AD%97%E8%8A%82%E5%AF%B9%E9%BD%90"><span class="toc-number">2.3.</span> <span class="toc-text">注意:关于4字节对齐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%9E%E8%B7%B5-%E6%99%AE%E9%80%9A"><span class="toc-number">2.4.</span> <span class="toc-text">开始实践(普通)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spi-flash-erase-sector"><span class="toc-number">2.4.1.</span> <span class="toc-text">spi_flash_erase_sector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spi-flash-write"><span class="toc-number">2.4.2.</span> <span class="toc-text">spi_flash_write</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spi-flash-read"><span class="toc-number">2.4.3.</span> <span class="toc-text">spi_flash_read</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#system-param-save-with-protect"><span class="toc-number">2.4.4.</span> <span class="toc-text">system_param_save_with_protect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#system-param-load"><span class="toc-number">2.4.5.</span> <span class="toc-text">system_param_load</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%9E%E8%B7%B5-Flash%E8%AF%BB%E5%86%99%E4%BF%9D%E6%8A%A4"><span class="toc-number">2.5.</span> <span class="toc-text">开始实践(Flash读写保护)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">2.5.0.1.</span> <span class="toc-text">实现原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.5.0.2.</span> <span class="toc-text">软件示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flash%E8%AF%BB%E5%86%99%E4%BF%9D%E6%8A%A4%E5%8F%82%E8%80%83%E4%B8%80"><span class="toc-number">2.5.1.</span> <span class="toc-text">Flash读写保护参考一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flash%E8%AF%BB%E5%86%99%E4%BF%9D%E6%8A%A4%E5%8F%82%E8%80%83%E4%BA%8C"><span class="toc-number">2.5.2.</span> <span class="toc-text">Flash读写保护参考二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="toc-number">2.5.3.</span> <span class="toc-text">其他方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#esp8266-flash%E5%9C%B0%E5%9D%80%E8%A7%84%E5%88%92"><span class="toc-number">3.</span> <span class="toc-text">esp8266 flash地址规划</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E8%AE%A9%E7%A1%AE%E5%AE%9A%E4%B8%BA4M%E5%86%85%E5%AD%98%E7%9A%84%EF%BC%9F"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">1.如何让确定为4M内存的？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%89%87%E5%8C%BA%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%88%92%E5%88%86%EF%BC%9F"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">2.扇区应该如何划分？</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/569701768.html" title="ESP8266内存分配"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP8266内存分配"/></a><div class="content"><a class="title" href="/posts/569701768.html" title="ESP8266内存分配">ESP8266内存分配</a><time datetime="2025-06-16T12:09:20.000Z" title="发表于 2025-06-16 20:09:20">2025-06-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4236902251.html" title="ESP8266使用Mongoose-os初体验"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP8266使用Mongoose-os初体验"/></a><div class="content"><a class="title" href="/posts/4236902251.html" title="ESP8266使用Mongoose-os初体验">ESP8266使用Mongoose-os初体验</a><time datetime="2025-06-12T12:52:20.000Z" title="发表于 2025-06-12 20:52:20">2025-06-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4103456400.html" title="ESP8266通过OTA更新固件(OPEN-RTOS)"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP8266通过OTA更新固件(OPEN-RTOS)"/></a><div class="content"><a class="title" href="/posts/4103456400.html" title="ESP8266通过OTA更新固件(OPEN-RTOS)">ESP8266通过OTA更新固件(OPEN-RTOS)</a><time datetime="2025-06-12T09:21:20.000Z" title="发表于 2025-06-12 17:21:20">2025-06-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/325084904.html" title="ESP-OPEN-SDK环境搭建及homekit测试"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP-OPEN-SDK环境搭建及homekit测试"/></a><div class="content"><a class="title" href="/posts/325084904.html" title="ESP-OPEN-SDK环境搭建及homekit测试">ESP-OPEN-SDK环境搭建及homekit测试</a><time datetime="2025-06-12T02:53:20.000Z" title="发表于 2025-06-12 10:53:20">2025-06-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2491004820.html" title="ESP-IDF在虚拟机ubuntu下搭建开发环境（详细）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP-IDF在虚拟机ubuntu下搭建开发环境（详细）"/></a><div class="content"><a class="title" href="/posts/2491004820.html" title="ESP-IDF在虚拟机ubuntu下搭建开发环境（详细）">ESP-IDF在虚拟机ubuntu下搭建开发环境（详细）</a><time datetime="2025-06-09T09:00:20.000Z" title="发表于 2025-06-09 17:00:20">2025-06-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body></html>
