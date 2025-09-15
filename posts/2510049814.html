@@ -1,0 +1,424 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>读写SD卡 | 赵逸尘个人博客</title><meta name="keywords" content="GD32,SD卡,DMA,SDIO"><meta name="author" content="ZhaoYichen"><meta name="copyright" content="ZhaoYichen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="GD32F303 SDIO-DMA读写SD卡">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读写SD卡">
+<meta property="og:url" content="https://zml3589110.github.io/posts/2510049814.html">
+<meta property="og:site_name" content="赵逸尘个人博客">
+<meta property="og:description" content="GD32F303 SDIO-DMA读写SD卡">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2025-09-15T13:08:20.000Z">
+<meta property="article:modified_time" content="2025-09-15T13:13:46.445Z">
+<meta property="article:author" content="ZhaoYichen">
+<meta property="article:tag" content="GD32">
+<meta property="article:tag" content="SD卡">
+<meta property="article:tag" content="DMA">
+<meta property="article:tag" content="SDIO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon_1.png"><link rel="canonical" href="https://zml3589110.github.io/posts/2510049814"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: ZhaoYichen","link":"链接: ","source":"来源: 赵逸尘个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '读写SD卡',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-15 21:13:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="赵逸尘个人博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">376</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">539</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">219</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">赵逸尘个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/random.html"><i class="fa-fw fas fa-random"></i><span> Random | 随机文章</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">读写SD卡</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-15T13:08:20.000Z" title="发表于 2025-09-15 21:08:20">2025-09-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-15T13:13:46.445Z" title="更新于 2025-09-15 21:13:46">2025-09-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/SD%E5%8D%A1/">SD卡</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/SDIO/">SDIO</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="读写SD卡"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="GD32F303"><a href="#GD32F303" class="headerlink" title="GD32F303"></a>GD32F303</h1><h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>原版示例代码位于<code>\GD32F30x_Firmware_Library_V2.2.0\Examples\SDIO</code>，对SD卡读写，卡信息获取，切换高速模式等基本功能已经实现了，但是默认实现的传输方式为CPU轮询读写FIFO，速度偏慢；卡上电初始化部分指令未考虑到一些大容量卡首次上电忙时间过长的问题，这里将在原版代码基础上进一步完善。<br>新增内容如下：</p>
+<ul>
+<li>写单块CMD24，写多块CMD25，读单块CMD17，读多块CMD18支持DMA传输</li>
+<li>使用CMSIS-RTOS2的信号量做DMA同步控制</li>
+<li>60MHz的时钟速度(超出控制器支持的48MHz，连续调用写单块(CMD24)时不太稳定)</li>
+<li>在一些操作指令之间增加延时，适配一些山寨TF卡</li>
+</ul>
+<p>代码下载：<br><a target="_blank" rel="noopener" href="https://files.cnblogs.com/files/blogs/575121/gd32f30x_sdio.zip">https://files.cnblogs.com/files/blogs/575121/gd32f30x_sdio.zip</a></p>
+<h3 id="SDIO硬件电路"><a href="#SDIO硬件电路" class="headerlink" title="SDIO硬件电路"></a>SDIO硬件电路</h3><p>GD32F303的SDIO功能只有1组管脚可以使用，具体分配如下：</p>
+<table>
+<thead>
+<tr>
+<th>SDIO定义</th>
+<th>GPIO编号</th>
+<th>PIN位置</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SDIO_DAT0</td>
+<td>PC8</td>
+<td>39</td>
+<td>数据0, 上拉10K</td>
+</tr>
+<tr>
+<td>SDIO_DAT1</td>
+<td>PC9</td>
+<td>40</td>
+<td>数据1, 上拉10K</td>
+</tr>
+<tr>
+<td>SDIO_DAT2</td>
+<td>PC10</td>
+<td>51</td>
+<td>数据2, 上拉10K</td>
+</tr>
+<tr>
+<td>SDIO_DAT3</td>
+<td>PC11</td>
+<td>52</td>
+<td>数据3, 上拉10K</td>
+</tr>
+<tr>
+<td>SDIO_CLK</td>
+<td>PC12</td>
+<td>53</td>
+<td>时钟, 上拉10K</td>
+</tr>
+<tr>
+<td>SDIO_CMD</td>
+<td>PD2</td>
+<td>54</td>
+<td>命令&#x2F;响应, 上拉10K</td>
+</tr>
+</tbody></table>
+<p>SDIO的DMA通道为DMA1 Channel3。</p>
+<h3 id="函数说明"><a href="#函数说明" class="headerlink" title="函数说明"></a>函数说明</h3><ul>
+<li>如果要测试60MHz时钟，在<code>sd_init()</code>中建议开启IO补偿单元。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="keyword">uint32_t</span> reg = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">uint32_t</span> timeout = <span class="number">0xffff</span>u;</span><br><span class="line"><span class="comment">// enable the I/O compensation cell for 60Mbps IO speed</span></span><br><span class="line">gpio_compensation_config(GPIO_COMPENSATION_ENABLE);</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">	reg = AFIO_CPSCTL;</span><br><span class="line">	timeout--;</span><br><span class="line">&#125;<span class="keyword">while</span>(!(reg &amp; AFIO_CPSCTL_CPS_RDY) &amp;&amp; timeout);</span><br><span class="line"><span class="keyword">if</span>(timeout == <span class="number">0</span>) &#123;</span><br><span class="line">	init_status = SD_ERROR;</span><br><span class="line">	<span class="keyword">return</span> SD_ERROR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启用DMA传输时，需要在NVIC控制器中打开DMA的中断。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IRQ_SDIO_PRIORITY             10</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IRQ_SDIO_DMA_PRIORITY         9</span></span><br><span class="line"></span><br><span class="line">nvic_irq_enable(SDIO_IRQn, IRQ_SDIO_PRIORITY, <span class="number">0</span>);</span><br><span class="line">nvic_irq_enable(DMA1_Channel3_Channel4_IRQn, IRQ_SDIO_DMA_PRIORITY, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ACMD指令添加重试<br>在<code>sd_power_on()</code>阶段，发送完CMD0(GO_IDLE_STATE)，CMD8(SEND_IF_COND)后切换到CMD55(APP_CMD)时，部分大容量SD卡还处于忙碌状态，导致CMD55的请求未及时回复，SDIO控制器认为返回响应超时(SD_CMD_RESP_TIMEOUT)。这里需要添加重试机制，经过测试大部分卡在1ms的重试间隔下，只需要重试一次即可继续发送ACMD41(SD_SEND_OP_COND)。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">retry = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// 2025-04-01: add ACMD retry for SANDISK 32G Card</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">	<span class="comment">/* send CMD55(APP_CMD) to indicate next command is application specific command */</span></span><br><span class="line">	sdio_command_response_config(SD_CMD_APP_CMD, (<span class="keyword">uint32_t</span>)<span class="number">0x0</span>, SDIO_RESPONSETYPE_SHORT);</span><br><span class="line">	sdio_wait_type_set(SDIO_WAITTYPE_NO);</span><br><span class="line">	sdio_csm_enable();</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* check if some error occurs */</span></span><br><span class="line">	status = r1_error_check(SD_CMD_APP_CMD);</span><br><span class="line">	<span class="keyword">if</span>(SD_OK == status) &#123;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	osDelay(<span class="number">1</span>); retry++;</span><br><span class="line">&#125;<span class="keyword">while</span>(retry &lt; <span class="number">10</span>); <span class="comment">// 10ms is enough, maybe...</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>新增<code>sd_switch_mode()</code>切换高速模式<br>按以下序列发送命令参数，先查询是否支持高速模式，不支持则返回<code>SD_FUNCTION_UNSUPPORTED</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">uint32_t</span> cmd_array[] = &#123;<span class="number">0x00FFFFF0</span>u, <span class="number">0x80FFFFF0</span>u&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改<code>sd_bus_mode_config()</code>添加参数配置时钟速度</li>
+<li>修改<code>sd_block_read()</code>函数中，readaddr由调用者控制类型，标准容量 SD 存储卡数据地址以字节为单位，高容量 SD 存储卡数据地址以块（512 字节）为单位。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">sd_error_enum <span class="title">sd_block_read</span><span class="params">(<span class="keyword">uint32_t</span> *preadbuffer, <span class="keyword">uint32_t</span> readaddr, <span class="keyword">uint16_t</span> blocksize)</span> </span>&#123;</span><br><span class="line">....</span><br><span class="line">    <span class="comment">/* blocksize is fixed in 512B for SDHC card */</span></span><br><span class="line">    <span class="keyword">if</span>(SDIO_HIGH_CAPACITY_SD_CARD == cardtype)&#123;</span><br><span class="line">        blocksize = <span class="number">512</span>;</span><br><span class="line">		<span class="comment">// readaddr /= 512;</span></span><br><span class="line">    &#125;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>写多数据块(CMD25)前添加<code>SD_R1_READY_FOR_DATA</code>的状态位查询</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">sd_error_enum <span class="title">sd_multiblocks_write</span><span class="params">(<span class="keyword">uint32_t</span> *pwritebuffer, <span class="keyword">uint32_t</span> writeaddr, <span class="keyword">uint16_t</span> blocksize, <span class="keyword">uint32_t</span> blocksnumber)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">...</span><br><span class="line">	response = sdio_response_get(SDIO_RESPONSE0);</span><br><span class="line">	timeout = SDIO_PULL_TIMEOUT;</span><br><span class="line">	<span class="keyword">while</span>((<span class="number">0</span> == (response &amp; SD_R1_READY_FOR_DATA)) &amp;&amp; (timeout &gt; <span class="number">0</span>))&#123;</span><br><span class="line">		<span class="comment">/* continue to send CMD13 to polling the state of card until buffer empty or timeout */</span></span><br><span class="line">		--timeout;</span><br><span class="line">		<span class="comment">/* send CMD13(SEND_STATUS), addressed card sends its status registers */</span></span><br><span class="line">		sdio_command_response_config(SD_CMD_SEND_STATUS, (<span class="keyword">uint32_t</span>)sd_rca &lt;&lt; SD_RCA_SHIFT, SDIO_RESPONSETYPE_SHORT);</span><br><span class="line">		sdio_wait_type_set(SDIO_WAITTYPE_NO);</span><br><span class="line">		sdio_csm_enable();</span><br><span class="line">		<span class="comment">/* check if some error occurs */</span></span><br><span class="line">		status = r1_error_check(SD_CMD_SEND_STATUS);</span><br><span class="line">		<span class="keyword">if</span>(SD_OK != status)&#123;</span><br><span class="line">			<span class="keyword">return</span> status;</span><br><span class="line">		&#125;</span><br><span class="line">		response = sdio_response_get(SDIO_RESPONSE0);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(<span class="number">0</span> == timeout)&#123;</span><br><span class="line">		<span class="keyword">return</span> SD_ERROR;</span><br><span class="line">	&#125;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>新增DMA中断处理<br>在调用sd_block_read，sd_multiblocks_read，sd_block_write，sd_multiblocks_write时，调用者线程会因为等待信号量而进入阻塞状态，在DMA完成中断中释放信号量，使调用者线程获得继续向下执行的机会。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DMA1_Channel3_4_IRQHandler</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">uint32_t</span> flag = DMA_INTF(DMA1);</span><br><span class="line">    <span class="keyword">if</span>(flag &amp; DMA_FLAG_ADD(DMA_INT_FLAG_FTF, DMA_CH3)) &#123;</span><br><span class="line">        dma_interrupt_flag_clear(DMA1, DMA_CH3, DMA_INT_FLAG_FTF);</span><br><span class="line">        <span class="keyword">if</span>(transerror == SD_OK) &#123;</span><br><span class="line">            osSemaphoreRelease(sem_sdio);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">在SDIO中断中，当传输出错时也需要释放信号量。</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SDIO_IRQHandler</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// update the &#x27;transerror&#x27; variable</span></span><br><span class="line">    sd_interrupts_process();</span><br><span class="line">    <span class="keyword">if</span>(transerror != SD_OK) &#123;</span><br><span class="line">        osSemaphoreRelease(sem_sdio);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><p>挂载SD卡：实例中使用了FileX文件系统。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> FX_MEDIA sdio_media;</span><br><span class="line">static rt_align(4) uint8_t filex_cache[FX_MAX_SECTOR_CACHE * 512];</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> sd_card_info_struct sd_cardinfo;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">uint32_t</span> cardstate = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">uint16_t</span> buswidth = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">uint16_t</span> busspeed = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @return -1: card not exist</span></span><br><span class="line"><span class="comment"> *         -2: select card or get status fail</span></span><br><span class="line"><span class="comment"> *         -3: card locked</span></span><br><span class="line"><span class="comment"> *         -4: formated fail</span></span><br><span class="line"><span class="comment"> *         -5: open fail</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">mount_filesystem</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    sd_error_enum status = SD_OK;</span><br><span class="line">    <span class="keyword">uint32_t</span> fxstatus;</span><br><span class="line">    <span class="keyword">uint32_t</span> block_count;</span><br><span class="line"></span><br><span class="line">    status = sd_init();</span><br><span class="line">    <span class="keyword">if</span>(SD_OK == status)&#123;</span><br><span class="line">        sd_card_information_get(&amp;sd_cardinfo);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        sd_deinit();</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    status = sd_card_select_deselect(sd_cardinfo.card_rca);</span><br><span class="line">    <span class="keyword">if</span>(SD_OK == status)&#123;</span><br><span class="line">        status = sd_cardstatus_get(&amp;cardstate);</span><br><span class="line">        <span class="keyword">if</span>(cardstate &amp; SD_CARDSTATE_LOCKED)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-3</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(SD_OK == status) &#123;</span><br><span class="line">        buswidth = <span class="number">1</span>;</span><br><span class="line">        busspeed = <span class="number">24</span>;</span><br><span class="line">        status = sd_switch_mode(SD_SPEED_MODE_HS);</span><br><span class="line">        <span class="keyword">if</span>(status == SD_OK) &#123;</span><br><span class="line">            status = sd_bus_mode_config(SD_BUSWIDTH_4BIT, SD_CLK_DIV_40MHZ);</span><br><span class="line">            <span class="keyword">if</span>(status == SD_OK) &#123;</span><br><span class="line">                buswidth = <span class="number">4</span>;</span><br><span class="line">                busspeed = <span class="number">40</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            status = sd_bus_mode_config(SD_BUSWIDTH_4BIT, SD_CLK_DIV_24MHZ);</span><br><span class="line">            <span class="keyword">if</span>(status == SD_OK) &#123;</span><br><span class="line">                buswidth = <span class="number">4</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fx_system_initialize();</span><br><span class="line">        block_count = (sd_cardinfo.card_csd.c_size + <span class="number">1</span>) * <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">        fxstatus = fx_media_open(&amp;sdio_media, <span class="literal">NULL</span>, fx_sdcard_driver, <span class="literal">NULL</span>, filex_cache, <span class="keyword">sizeof</span>(filex_cache));</span><br><span class="line">        <span class="keyword">if</span>(fxstatus != FX_SUCCESS) &#123;</span><br><span class="line">            rt_kprintf(<span class="string">&quot;error1:0x%02x\n&quot;</span>, fxstatus);</span><br><span class="line">            fxstatus = fx_media_format(&amp;sdio_media, fx_sdcard_driver, <span class="literal">NULL</span>, filex_cache, <span class="keyword">sizeof</span>(filex_cache),</span><br><span class="line">                    <span class="string">&quot;FILEX&quot;</span>, <span class="number">1</span>, <span class="number">64</span>, <span class="number">0</span>, block_count, <span class="number">512</span>, <span class="number">32</span>, <span class="number">1</span>, <span class="number">1</span>); <span class="comment">// 16KB/cluster</span></span><br><span class="line">            <span class="keyword">if</span>(fxstatus != FX_SUCCESS) &#123;</span><br><span class="line">                rt_kprintf(<span class="string">&quot;error2:0x%02x\n&quot;</span>, fxstatus);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-4</span>; <span class="comment">// formated fail</span></span><br><span class="line">            &#125;</span><br><span class="line">            fxstatus = fx_media_open(&amp;sdio_media, <span class="literal">NULL</span>, fx_sdcard_driver, <span class="literal">NULL</span>, filex_cache, <span class="keyword">sizeof</span>(filex_cache));</span><br><span class="line">            <span class="keyword">if</span>(fxstatus != FX_SUCCESS) &#123;</span><br><span class="line">                rt_kprintf(<span class="string">&quot;error3:0x%02x\n&quot;</span>, fxstatus);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-5</span>; <span class="comment">// open fail</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// success</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>格式化卡：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cardformat</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(sd_isinit() != SD_OK) &#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Card NOT INIT\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    rt_kprintf(<span class="string">&quot;waiting...\n&quot;</span>);</span><br><span class="line">    <span class="keyword">uint32_t</span> block_count = (sd_cardinfo.card_csd.c_size + <span class="number">1</span>) * <span class="number">1024</span>;</span><br><span class="line">    <span class="keyword">uint32_t</span> fxstatus = fx_media_format(&amp;sdio_media, fx_sdcard_driver, <span class="literal">NULL</span>, filex_cache, <span class="keyword">sizeof</span>(filex_cache),</span><br><span class="line">                    <span class="string">&quot;FILEX&quot;</span>, <span class="number">1</span>, <span class="number">64</span>, <span class="number">0</span>, block_count, <span class="number">512</span>, <span class="number">32</span>, <span class="number">1</span>, <span class="number">1</span>); <span class="comment">// 16KB/cluster</span></span><br><span class="line">    rt_kprintf(<span class="string">&quot;format result:0x%02x\n&quot;</span>, fxstatus);</span><br><span class="line">&#125;</span><br><span class="line">MSH_CMD_EXPORT(cardformat, format tfcard);</span><br></pre></td></tr></table></figure>
+
+<p>输出SD卡信息：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cardinfo</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">uint8_t</span> sd_spec, sd_spec3, sd_spec4, sd_security;</span><br><span class="line">    <span class="keyword">uint32_t</span> block_count, block_size;</span><br><span class="line">    <span class="keyword">uint16_t</span> temp_ccc;</span><br><span class="line">    <span class="keyword">uint8_t</span> name[<span class="number">8</span>];</span><br><span class="line">    sd_cid_struct *cid;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(sd_isinit() != SD_OK) &#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Card NOT INIT\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Card Information\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    cid = &amp;(sd_cardinfo.card_cid);</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Manufacturer ID: 0x%02x\n&quot;</span>, cid-&gt;mid);</span><br><span class="line">    rt_kprintf(<span class="string">&quot;OEM/Application ID: 0x%02x\n&quot;</span>, cid-&gt;oid);</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Name: &quot;</span>);</span><br><span class="line">    rt_memcpy(name, (<span class="keyword">void</span> *)&amp;(cid-&gt;pnm0), <span class="number">4</span>);</span><br><span class="line">    rt_memcpy(name + <span class="number">4</span>, (<span class="keyword">void</span> *)&amp;(cid-&gt;pnm1), <span class="number">4</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>((name[i]&gt;=<span class="number">0x20</span>) &amp;&amp; (name[i]&lt;<span class="number">0x7F</span>)) &#123;</span><br><span class="line">            rt_kprintf(<span class="string">&quot;%c&quot;</span>, name[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    rt_kprintf(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Revision: 0x%02x\n&quot;</span>, cid-&gt;prv);</span><br><span class="line">    rt_memcpy(name, (<span class="keyword">void</span> *)&amp;(cid-&gt;psn), <span class="number">4</span>);</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Serial number: %02x%02x%02x%02x\n&quot;</span>, name[<span class="number">3</span>], name[<span class="number">2</span>],name[<span class="number">1</span>],name[<span class="number">0</span>]);</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Manufacturing date: 0x%x\n&quot;</span>, cid-&gt;mdt);</span><br><span class="line"></span><br><span class="line">    rt_kprintf(<span class="string">&quot;Version: &quot;</span>);</span><br><span class="line">    sd_spec = (sd_scr[<span class="number">1</span>] &amp; <span class="number">0x0F000000</span>) &gt;&gt; <span class="number">24</span>;</span><br><span class="line">    sd_spec3 = (sd_scr[<span class="number">1</span>] &amp; <span class="number">0x00008000</span>) &gt;&gt; <span class="number">15</span>;</span><br><span class="line">    sd_spec4 = (sd_scr[<span class="number">1</span>] &amp; <span class="number">0x00000400</span>) &gt;&gt; <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">2</span> == sd_spec) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="number">1</span> == sd_spec3) &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="number">1</span> == sd_spec4) &#123;</span><br><span class="line">                rt_kprintf(<span class="string">&quot;4.xx\n&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                rt_kprintf(<span class="string">&quot;3.0x\n&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            rt_kprintf(<span class="string">&quot;2.00\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">1</span> == sd_spec) &#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;1.10\n&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">0</span> == sd_spec) &#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;1.0x\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    rt_kprintf(<span class="string">&quot;Type: &quot;</span>);</span><br><span class="line">    sd_security = (sd_scr[<span class="number">1</span>] &amp; <span class="number">0x00700000</span>) &gt;&gt; <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">2</span> == sd_security) &#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;SDSC card\n&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">3</span> == sd_security) &#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;SDHC card\n&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">4</span> == sd_security) &#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;SDXC card\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    block_count = (sd_cardinfo.card_csd.c_size + <span class="number">1</span>)*<span class="number">1024</span>;</span><br><span class="line">    block_size = <span class="number">512</span>;</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Device Size: %dKB\n&quot;</span>, sd_card_capacity_get());</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Block Size: %dB\n&quot;</span>, block_size);</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Block Count: %d\n&quot;</span>, block_count);</span><br><span class="line"></span><br><span class="line">    rt_kprintf(<span class="string">&quot;Bus Width: %dBit\n&quot;</span>, buswidth);</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Bus Clock: %dMHz\n&quot;</span>, busspeed);</span><br><span class="line"></span><br><span class="line">    temp_ccc = sd_cardinfo.card_csd.ccc;</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Card Command Classes: %x\n&quot;</span>, temp_ccc);</span><br><span class="line"></span><br><span class="line">    rt_kprintf(<span class="string">&quot;Features:\n&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(sd_cardinfo.card_csd.read_bl_partial)&#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Partial blocks for read allowed\n&quot;</span> );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sd_cardinfo.card_csd.write_bl_partial)&#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Partial blocks for write allowed\n&quot;</span> );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>((SD_CCC_BLOCK_READ &amp; temp_ccc) &amp;&amp; (SD_CCC_BLOCK_WRITE &amp; temp_ccc))&#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Block operation supported\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(SD_CCC_ERASE &amp; temp_ccc)&#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Erase supported\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(SD_CCC_WRITE_PROTECTION &amp; temp_ccc)&#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Write protection supported\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(SD_CCC_LOCK_CARD &amp; temp_ccc)&#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Lock unlock supported\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(SD_CCC_APPLICATION_SPECIFIC &amp; temp_ccc)&#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Application specific supported\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(SD_CCC_IO_MODE &amp; temp_ccc)&#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;I/O mode supported\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(SD_CCC_SWITCH &amp; temp_ccc)&#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Switch function supported\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">MSH_CMD_EXPORT(cardinfo, show tfcard info);</span><br></pre></td></tr></table></figure>
+
+<h3 id="卡片信息"><a href="#卡片信息" class="headerlink" title="卡片信息"></a>卡片信息</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Card Information</span><br><span class="line">Manufacturer ID: <span class="number">0x03</span></span><br><span class="line">OEM/Application ID: <span class="number">0x5344</span></span><br><span class="line">Name: <span class="number">23</span>DSG</span><br><span class="line">Revision: <span class="number">0x85</span></span><br><span class="line">Serial number: <span class="number">54b</span>b003e</span><br><span class="line">Manufacturing date: <span class="number">0x161</span></span><br><span class="line">Version: <span class="number">3.0</span>x</span><br><span class="line">Type: SDHC card</span><br><span class="line">Device Size: <span class="number">31166976</span>KB</span><br><span class="line">Block Size: <span class="number">512B</span></span><br><span class="line">Block Count: <span class="number">62333952</span></span><br><span class="line">Bus Width: <span class="number">4B</span>it</span><br><span class="line">Bus Clock: <span class="number">40</span>MHz</span><br><span class="line">Card Command Classes: <span class="number">5b</span>5</span><br><span class="line">Features:</span><br><span class="line">Block operation supported</span><br><span class="line">Erase supported</span><br><span class="line">Lock unlock supported</span><br><span class="line">Application specific supported</span><br><span class="line">Switch function supported</span><br></pre></td></tr></table></figure>
+
+<h3 id="速度测试"><a href="#速度测试" class="headerlink" title="速度测试"></a>速度测试</h3><p>CMD25连续写20KB</p>
+<table>
+<thead>
+<tr>
+<th>时钟</th>
+<th>Ticks</th>
+<th>速度</th>
+<th>卡类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>40M</td>
+<td>525543</td>
+<td>4.4596MB&#x2F;s</td>
+<td>SANDISK-32G</td>
+<td></td>
+</tr>
+<tr>
+<td>60M</td>
+<td>416303</td>
+<td>5.6299MB&#x2F;s</td>
+<td>SANDISK-32G</td>
+<td></td>
+</tr>
+<tr>
+<td>60M</td>
+<td>411787</td>
+<td>5.7145MB&#x2F;s</td>
+<td>SANDISK-32G</td>
+<td></td>
+</tr>
+<tr>
+<td>60M</td>
+<td>408590</td>
+<td>5.7592MB&#x2F;s</td>
+<td>SANDISK-32G</td>
+<td>no print log</td>
+</tr>
+<tr>
+<td>60M</td>
+<td>409943</td>
+<td>5.7172MB&#x2F;s</td>
+<td>SANDISK-32G</td>
+<td>no print log</td>
+</tr>
+</tbody></table>
+<p>CMD18连续读20KB</p>
+<table>
+<thead>
+<tr>
+<th>时钟</th>
+<th>Ticks</th>
+<th>速度</th>
+<th>卡类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>40M</td>
+<td>188076</td>
+<td>12.4617MB&#x2F;s</td>
+<td>SDTRUVAL-16G</td>
+</tr>
+<tr>
+<td>60M</td>
+<td>127804</td>
+<td>18.3387MB&#x2F;s</td>
+<td>SANDISK-32G</td>
+</tr>
+<tr>
+<td>60M</td>
+<td>147390</td>
+<td>15.9017MB&#x2F;s</td>
+<td>SDTRUVAL-16G</td>
+</tr>
+<tr>
+<td>60M</td>
+<td>146691</td>
+<td>15.9775MB&#x2F;s</td>
+<td>SDTRUVAL-16G</td>
+</tr>
+<tr>
+<td>60M</td>
+<td>133362</td>
+<td>17.5744MB&#x2F;s</td>
+<td>SDTRUVAL-16G</td>
+</tr>
+</tbody></table>
+<p>不同时钟的CMD18连续读取</p>
+<table>
+<thead>
+<tr>
+<th>时钟</th>
+<th>大小</th>
+<th>Ticks</th>
+<th>速度</th>
+<th>卡类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>24MHZ</td>
+<td>4K</td>
+<td>95183</td>
+<td>4.9247MB&#x2F;s</td>
+<td>SANDISK-32G</td>
+</tr>
+<tr>
+<td>40MHZ</td>
+<td>4K</td>
+<td>76923</td>
+<td>6.0939MB&#x2F;s</td>
+<td>SANDISK-32G</td>
+</tr>
+<tr>
+<td>60MHZ</td>
+<td>4K</td>
+<td>69888</td>
+<td>6.7071MB&#x2F;s</td>
+<td>SANDISK-32G</td>
+</tr>
+<tr>
+<td>60MHZ</td>
+<td>8K</td>
+<td>86264</td>
+<td>10.8678MB&#x2F;s</td>
+<td>SANDISK-32G</td>
+</tr>
+</tbody></table>
+<p>卡时钟40MHz</p>
+<img src="/posts/undefined/1928719-20250411132800986-554948786.png" class="" title="img">
+
+
+
+
+
+
+
+<hr>
+<h1 id="相关链接（侵删）"><a href="#相关链接（侵删）" class="headerlink" title="相关链接（侵删）"></a>相关链接（侵删）</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yanye0xcc/p/18809197">GD32F303 SDIO-DMA读写SD卡</a></li>
+</ol>
+<hr>
+<center><font color=red>=================我是分割线=================</font></center>
+
+
+<p><strong>欢迎到公众号来唠嗑:</strong></p>
+<img src="https://pic4.zhimg.com/80/v2-eedc5dc7d30beedf4c2f1812df8e61a7_720w.jpg">
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io">ZhaoYichen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zml3589110.github.io/posts/2510049814.html">https://zml3589110.github.io/posts/2510049814.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zml3589110.github.io" target="_blank">赵逸尘个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/GD32/">GD32</a><a class="post-meta__tags" href="/tags/SD%E5%8D%A1/">SD卡</a><a class="post-meta__tags" href="/tags/DMA/">DMA</a><a class="post-meta__tags" href="/tags/SDIO/">SDIO</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/1214364109.html"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SWD接口和通信实现</div></div></a></div><div class="next-post pull-right"><a href="/posts/3480903282.html"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ESP8266无线下载器</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/944314574.html" title="STM32通过SPI驱动ST7789(使用DMA)"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-30</div><div class="title">STM32通过SPI驱动ST7789(使用DMA)</div></div></a></div><div><a href="/posts/423287766.html" title="STM32实现SPI跟DMA功能"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-30</div><div class="title">STM32实现SPI跟DMA功能</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhaoYichen</div><div class="author-info__description">直到这一刻微笑着说话为止，我至少留下了一公升眼泪</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">376</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">539</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">219</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zml3589110"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zml3589110" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhaominglong_life@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GD32F303"><span class="toc-number">1.</span> <span class="toc-text">GD32F303</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.0.1.</span> <span class="toc-text">简单介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SDIO%E7%A1%AC%E4%BB%B6%E7%94%B5%E8%B7%AF"><span class="toc-number">1.0.2.</span> <span class="toc-text">SDIO硬件电路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">1.0.3.</span> <span class="toc-text">函数说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.0.4.</span> <span class="toc-text">使用示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%A1%E7%89%87%E4%BF%A1%E6%81%AF"><span class="toc-number">1.0.5.</span> <span class="toc-text">卡片信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9F%E5%BA%A6%E6%B5%8B%E8%AF%95"><span class="toc-number">1.0.6.</span> <span class="toc-text">速度测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5%EF%BC%88%E4%BE%B5%E5%88%A0%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">相关链接（侵删）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/3907184433.html" title="裸机开发环境搭建"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="裸机开发环境搭建"/></a><div class="content"><a class="title" href="/posts/3907184433.html" title="裸机开发环境搭建">裸机开发环境搭建</a><time datetime="2025-09-15T13:18:20.000Z" title="发表于 2025-09-15 21:18:20">2025-09-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3480903282.html" title="ESP8266无线下载器"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ESP8266无线下载器"/></a><div class="content"><a class="title" href="/posts/3480903282.html" title="ESP8266无线下载器">ESP8266无线下载器</a><time datetime="2025-09-15T13:10:20.000Z" title="发表于 2025-09-15 21:10:20">2025-09-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2510049814.html" title="读写SD卡"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="读写SD卡"/></a><div class="content"><a class="title" href="/posts/2510049814.html" title="读写SD卡">读写SD卡</a><time datetime="2025-09-15T13:08:20.000Z" title="发表于 2025-09-15 21:08:20">2025-09-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1214364109.html" title="SWD接口和通信实现"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SWD接口和通信实现"/></a><div class="content"><a class="title" href="/posts/1214364109.html" title="SWD接口和通信实现">SWD接口和通信实现</a><time datetime="2025-09-15T13:08:20.000Z" title="发表于 2025-09-15 21:08:20">2025-09-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1056682153.html" title="F1C100S-BOOTROM与SPL阶段"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="F1C100S-BOOTROM与SPL阶段"/></a><div class="content"><a class="title" href="/posts/1056682153.html" title="F1C100S-BOOTROM与SPL阶段">F1C100S-BOOTROM与SPL阶段</a><time datetime="2025-09-15T13:02:20.000Z" title="发表于 2025-09-15 21:02:20">2025-09-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By ZhaoYichen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="icp连接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body></html>
