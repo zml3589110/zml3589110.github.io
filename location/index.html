@@ -6,11 +6,11 @@
 </head>
 <body>
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const backUrl = decodeURIComponent(params.get('backUrl') || '');
+const params = new URLSearchParams(window.location.search);
+const backUrl = decodeURIComponent(params.get('backUrl') || '');
 
-<p>  &#x2F;&#x2F; ✅【关键】强制启用 GPS 高精度定位<br>  navigator.geolocation.getCurrentPosition(<br>    (pos) &#x3D;&gt; {<br>      const data &#x3D; {<br>        lng: pos.coords.longitude,<br>        lat: pos.coords.latitude,<br>        accuracy: pos.coords.accuracy,<br>        source: “GPS” &#x2F;&#x2F; 标识来自GPS<br>      };<br>      window.location.href &#x3D; <code>$&#123;backUrl&#125;&amp;lng=$&#123;data.lng&#125;&amp;lat=$&#123;data.lat&#125;&amp;accuracy=$&#123;data.accuracy&#125;</code>;<br>    },<br>    (err) &#x3D;&gt; {<br>      window.location.href &#x3D; backUrl;<br>    },<br>    &#x2F;&#x2F; ✅ 这里开启高精度 &#x3D; 强制手机使用 GPS！<br>    {<br>      enableHighAccuracy: true,<br>      timeout: 10000,<br>      maximumAge: 0<br>    }<br>  );<br></script></p>
+<p>&#x2F;&#x2F; 兼容 iOS 13+ 精确位置授权<br>async function getPreciseLocation() {<br>  &#x2F;&#x2F; iOS 13+ 需要先申请设备方向权限（触发精确位置）<br>  if (typeof DeviceOrientationEvent !&#x3D;&#x3D; ‘undefined’ &amp;&amp;<br>      typeof DeviceOrientationEvent.requestPermission &#x3D;&#x3D;&#x3D; ‘function’) {<br>    try {<br>      const perm &#x3D; await DeviceOrientationEvent.requestPermission();<br>      if (perm !&#x3D;&#x3D; ‘granted’) throw new Error(‘iOS权限拒绝’);<br>    } catch (e) {<br>      &#x2F;&#x2F; 授权失败继续尝试标准定位<br>      console.warn(‘iOS设备权限:’, e);<br>    }<br>  }</p>
+<p>  return new Promise((resolve, reject) &#x3D;&gt; {<br>    navigator.geolocation.getCurrentPosition(<br>      (pos) &#x3D;&gt; resolve(pos),<br>      (err) &#x3D;&gt; reject(err),<br>      {<br>        enableHighAccuracy: true,   &#x2F;&#x2F; 强制GPS<br>        timeout: 15000,             &#x2F;&#x2F; iOS搜星更长，设15秒<br>        maximumAge: 0               &#x2F;&#x2F; 禁用缓存，每次重定位<br>      }<br>    );<br>  });<br>}</p>
+<p>&#x2F;&#x2F; 执行定位<br>getPreciseLocation()<br>  .then(pos &#x3D;&gt; {<br>    const { longitude: lng, latitude: lat, accuracy } &#x3D; pos.coords;<br>    &#x2F;&#x2F; 带精度返回，可在A页判断是否可靠<br>    const url &#x3D; <code>$&#123;backUrl&#125;&amp;lng=$&#123;lng&#125;&amp;lat=$&#123;lat&#125;&amp;accuracy=$&#123;accuracy&#125;&amp;source=GPS</code>;<br>    window.location.href &#x3D; url;<br>  })<br>  .catch(err &#x3D;&gt; {<br>    &#x2F;&#x2F; 失败兜底回跳<br>    window.location.href &#x3D; backUrl;<br>  });<br></script></p>
 </body>
 </html>
-
-
