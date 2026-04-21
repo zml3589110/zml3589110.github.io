@@ -222,9 +222,9 @@
 <p>　　格式一：mailto:</p>
 <p>　　如：ShellExecute(Handle,”open”, “mailto:”, NULL, NULL, SW_SHOWNORMAL);打开新邮件窗口。</p>
 <p>　　格式二：mailto:用户账号@邮件服务器地址</p>
-<p>　　如：ShellExecute(Handle, “open”,” mailto:<a href="mailto:&#x77;&#104;&#111;&#64;&#x6d;&#97;&#x69;&#108;&#x2e;&#x6e;&#x65;&#x75;&#46;&#101;&#100;&#117;&#46;&#x63;&#110;">&#x77;&#104;&#111;&#64;&#x6d;&#97;&#x69;&#108;&#x2e;&#x6e;&#x65;&#x75;&#46;&#101;&#100;&#117;&#46;&#x63;&#110;</a>“, NULL, NULL, SW_SHOWNORMAL);打开新邮件窗口，并自动填入收件人地址。若指定多个收件人地址，则收件人地址之间必须用分号或逗号分隔开（下同）。</p>
+<p>　　如：ShellExecute(Handle, “open”,” mailto:<a href="mailto:&#x77;&#x68;&#111;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#x6e;&#x65;&#x75;&#46;&#x65;&#x64;&#117;&#x2e;&#99;&#x6e;">&#x77;&#x68;&#111;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#x6e;&#x65;&#x75;&#46;&#x65;&#x64;&#117;&#x2e;&#99;&#x6e;</a>“, NULL, NULL, SW_SHOWNORMAL);打开新邮件窗口，并自动填入收件人地址。若指定多个收件人地址，则收件人地址之间必须用分号或逗号分隔开（下同）。</p>
 <p>　　格式三：mailto:用户账号@邮件服务器地址?subject&#x3D;邮件主题＆body&#x3D;邮件正文</p>
-<p>　　如：ShellExecute(handle, ‘open’, ‘ mailto:<a href="mailto:&#119;&#104;&#111;&#x40;&#109;&#x61;&#105;&#x6c;&#46;&#x6e;&#101;&#117;&#46;&#101;&#x64;&#x75;&#x2e;&#99;&#110;">&#119;&#104;&#111;&#x40;&#109;&#x61;&#105;&#x6c;&#46;&#x6e;&#101;&#117;&#46;&#101;&#x64;&#x75;&#x2e;&#99;&#110;</a>？subject&#x3D;Hello＆Body&#x3D;This is a test’, nil, nil, SW_SHOWNORMAL);打开新邮件窗口，并自动填入收件人地址、邮件主题和邮件正文。若邮件正文包括多行文本，则必须在每行文本之间加入换行转义字符％0a。</p>
+<p>　　如：ShellExecute(handle, ‘open’, ‘ mailto:<a href="mailto:&#x77;&#104;&#111;&#x40;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x6e;&#101;&#117;&#x2e;&#x65;&#100;&#117;&#x2e;&#x63;&#110;">&#x77;&#104;&#111;&#x40;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x6e;&#101;&#117;&#x2e;&#x65;&#100;&#117;&#x2e;&#x63;&#110;</a>？subject&#x3D;Hello＆Body&#x3D;This is a test’, nil, nil, SW_SHOWNORMAL);打开新邮件窗口，并自动填入收件人地址、邮件主题和邮件正文。若邮件正文包括多行文本，则必须在每行文本之间加入换行转义字符％0a。</p>
 <p>　　例子(delphi):</p>
 <p>　　在一个应用程序调用c:\Project1.exe;</p>
 <p>　　ShellExecute(handle, ‘open’,’c:\Project1.exe’,’字串内容’,nil, SW_SHOWNORMAL);</p>
